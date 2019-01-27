@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Установка node.js в Debian</title>
+  <meta name="description" content="Рассмотрим установку node.js в среде debian без использования sudo.">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2011/06/26/node-js-in-debian/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2011/06/23/web-for-mobile/">
+  <link rel="next" href="https://www.juev.org/2011/07/11/ruby-debian/">
+  <!-- og:meta -->
+  <meta content="Установка node.js в Debian" property="og:title">
+  <meta content="Javascript это один из самых популярных языков программирования на сервере GitHub.  Каждый, кто хотя бы немного работал с конструированием веб-сайтов, непременно связывался с JavaScript. И если ран..." property="og:description">
+  <meta content="https://www.juev.org/2011/06/26/node-js-in-debian/" property="og:url">
+  <meta content="2011-06-26T21:55:00+04:00" property="article:published_time">
+  <meta content="debian" property="article:tag">
+  <meta content="node.js" property="article:tag">
+  <meta content="javascript" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Установка node.js в Debian" name="twitter:title">
+  <meta content="Javascript это один из самых популярных языков программирования на сервере GitHub.  Каждый, кто хотя бы немного работал с конструированием веб-сайтов, непременно связывался с JavaScript. И если ран..." property="twitter:description">
+  <meta content="https://www.juev.org/2011/06/26/node-js-in-debian/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Установка node.js в Debian</h1>
+<div id="metainfo">
+<span class="date">26 June 2011</span>
+<span class="tags"><a href="https://www.juev.org/tags/#debian" title="View posts tagged with &quot;debian&quot;" rel="nofollow">#debian</a><a href="https://www.juev.org/tags/#node.js" title="View posts tagged with &quot;node.js&quot;" rel="nofollow">#node.js</a><a href="https://www.juev.org/tags/#javascript" title="View posts tagged with &quot;javascript&quot;" rel="nofollow">#javascript</a></span>
+</div>
+<div class="post"><p><strong>Javascript</strong> это один из самых популярных языков программирования на сервере <strong>GitHub</strong>. Каждый, кто хотя бы немного работал с конструированием веб-сайтов, непременно связывался с <em>JavaScript</em>.</p>
+
+<p>И если раньше данный язык программирования связывали только с динамическими веб-страницами, то в последнее время стали появляться довольно серьезные проекты. Чего стоит <a href="http://bellard.org/jslinux/" title="Javascript PC Emulator">Javascript PC Emulator</a>, который загружает полноценно работающую систему Linux в окне браузера.</p>
+
+<p>Одна из таких <em>значительных</em> разработок – это <strong>Node.JS</strong>.</p>
+
+<blockquote>
+  <p>Node.JS — событийно-ориентированный (асинхронный) I/O фреймворк на движке V8 JavaScript от Google, дополненный системными библиотеками и прочими вкусностями. И очень, очень быстрый.</p>
+</blockquote>
+
+<p>Фактически это фреймворк, который позволяет создавать динамические веб-сайты на языке <em>JavaScript</em>. Попробовать работать с ним можно установив <strong>Node.JS</strong> в домашнюю папку пользователя.</p>
+
+<h2 id="установка-nodejs">Установка Node.JS</h2>
+
+<p>Предварительно установим в системе необходимые пакеты:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo aptitude install build-essential
+$ sudo aptitude install python-software-properties libssl-dev libreadline-dev
+</code></pre></div></div>
+
+<p>Теперь выбираем один из скриптов для установки, что представлены на странице <a href="https://gist.github.com/579814" title="Scripts for install node.js">gist.github.com/579814</a>. Я взял один из них и изменил директорию установки на <code class="highlighter-rouge">~/.node</code>, получилось следующее:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+<span class="nb">echo</span> <span class="s1">'export PATH=$HOME/.node/bin:$PATH'</span> <span class="o">&gt;&gt;</span> ~/.bashrc
+<span class="nb">.</span> ~/.bashrc
+mkdir ~/.node
+mkdir ~/node-latest-install
+<span class="nb">cd</span> ~/node-latest-install
+curl http://nodejs.org/dist/node-latest.tar.gz | <span class="nb">tar </span>xz <span class="nt">--strip-components</span><span class="o">=</span>1
+./configure <span class="nt">--prefix</span><span class="o">=</span>~/.node
+make install <span class="c"># ok, fine, this step probably takes more than 30 seconds...</span>
+curl http://npmjs.org/install.sh | sh
+</code></pre></div></div>
+
+<p>Пишут, что устанавливаться будет порядка 30 секунд, но на моей довольно мощной машине (Core2DUO E8400, 2GB) компиляция шла несколько минут.</p>
+
+<p>По завершению работы скрипта на машине будут установлены <strong>node.js</strong> и его пакетный менеджер <strong>npm</strong>. Так как установка проводилась от имени пользователя и в его домашнюю папку, для запуска этих программ не требуется прав администратора. И для удаления потребуется только удалить директорию <code class="highlighter-rouge">~/.node</code> с диска. Единственно, если потребуется запускать node под другим пользователем, необходимо будет провести либо провести установку еще раз от его имени, либо провести установку node.js от имени суперпользователя.</p>
+
+<h2 id="проверка-работы">Проверка работы</h2>
+
+<p>Для того, чтобы проверить работу <strong>node.js</strong> достаточно создать типовой файл <code class="highlighter-rouge">example.js</code>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var http = require('http');
+http.createServer(function (req, res) {
+    res.writeHead(200, {'Content-Type': 'text/plain'});
+    res.end('Hello World\n');
+}).listen(1337, "127.0.0.1");
+console.log('Server running at http://127.0.0.1:1337/');
+</code></pre></div></div>
+
+<p>И теперь запускаем сам сервер командой:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ node example.js
+Server running at http://127.0.0.1:1337/
+</code></pre></div></div>
+
+<p>Запуск совершается мгновенно, после чего можно открывать в браузере адрес <code class="highlighter-rouge">http://127.0.0.1:1337/</code>, и наблюдать строчку <code class="highlighter-rouge">Hello World!</code>.</p>
+
+<h2 id="установка-модулей">Установка модулей</h2>
+
+<p>Установить дополнительные модули с помощью пакетного менеджера <strong>npm</strong> очень просто. Например:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ npm install -g coffee-script
+</code></pre></div></div>
+
+<p>Данная команда установит <em>coffee-script</em> в директорию <code class="highlighter-rouge">~/.node</code> и позволит использовать coffee в своих проектах. Использование ключа <code class="highlighter-rouge">-g</code> строго обязательно, иначе установка будет осуществляться в текущую директорию.</p>
+
+<p>Вот так просто можно установить на свою систему <strong>node.js</strong> и начинать создавать свои приложения на языке <em>JavaScript</em>!</p>
+
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2011/06/23/web-for-mobile/" title="View Сайты для мобильных телефонов">Сайты для мобильных телефонов</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2011/07/11/ruby-debian/" title="View Ruby в Debian">Ruby в Debian</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

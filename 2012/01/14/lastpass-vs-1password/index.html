@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>LastPass vs 1Password</title>
+  <meta name="description" content="Несколько лет назад я задумался о вопросе безопасности при работе в сети Интернет (в то время я был зарегистрирован всего в нескольких сервисах и при этом везде использовал один пароль).  Задумался...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2012/01/14/lastpass-vs-1password/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2012/01/07/jekyll/">
+  <link rel="next" href="https://www.juev.org/2012/01/28/breaktime/">
+  <!-- og:meta -->
+  <meta content="LastPass vs 1Password" property="og:title">
+  <meta content="Несколько лет назад я задумался о вопросе безопасности при работе в сети Интернет (в то время я был зарегистрирован всего в нескольких сервисах и при этом везде использовал один пароль).  Задумался..." property="og:description">
+  <meta content="https://www.juev.org/2012/01/14/lastpass-vs-1password/" property="og:url">
+  <meta content="2012-01-14T21:20:00+04:00" property="article:published_time">
+  <meta content="security" property="article:tag">
+  <meta content="services" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="LastPass vs 1Password" name="twitter:title">
+  <meta content="Несколько лет назад я задумался о вопросе безопасности при работе в сети Интернет (в то время я был зарегистрирован всего в нескольких сервисах и при этом везде использовал один пароль).  Задумался..." property="twitter:description">
+  <meta content="https://www.juev.org/2012/01/14/lastpass-vs-1password/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">LastPass vs 1Password</h1>
+<div id="metainfo">
+<span class="date">14 January 2012</span>
+<span class="tags"><a href="https://www.juev.org/tags/#security" title="View posts tagged with &quot;security&quot;" rel="nofollow">#security</a><a href="https://www.juev.org/tags/#services" title="View posts tagged with &quot;services&quot;" rel="nofollow">#services</a></span>
+</div>
+<div class="post"><p>Несколько лет назад я задумался о вопросе безопасности при работе в сети Интернет (в то время я был зарегистрирован всего в нескольких сервисах и при этом везде использовал один пароль). Задумался о том, как же можно запомнить все те пароли, что можно сгенерировать? Да, встречались специальные мнемонические приемы, но где гарантия того, что в один прекрасный день я не забуду, какую именно связку я использовал для формирования данного пароля?</p>
+
+<h2 id="keepass">KeePass</h2>
+
+<p>И тут мне попалась на глаза великолепная программа <a href="http://keepass.info/" title="Keepass Password Safe">KeePass</a>. В тот момент она была еще в версии 1.x, но ее функционал меня устраивал. Она позволяла генерировать сложные пароли, при этом можно было производить сбор энтропии для генерации случайного пароля. А вот функцией автозаполнения я так ни разу и не воспользовался. Ни тогда, ни в тот момент, когда уже стал использовать в работе более новую версию 2.x.</p>
+
+<p>Таким образом, в одночасье, мне удалось решить проблему с сохранением разнообразия паролей для различных веб-серсисов. И то неудобство, что мне приходилось терпеть, а именно активация программы, поиск пароля, копирование данных в веб-форму, меня не сильно расстраивало.</p>
+
+<p>Когда же я перешел на использование Linux, никаких проблем с моей базой паролей не возникло. Существует проект <a href="http://www.keepassx.org/" title="KeePassX">KeePassX</a>, это вариация Keepass для операционных систем Linux и MacOS. Немного изменилась программа, функционал стал чуть хуже, но база осталась той же.</p>
+
+<p>Да, и еще, я перестал держать KeePass запущенным в фоне. Вместо того, чтобы держать ее запущенной и заблокированной в трее, я просто завершал ее работу, и при необходимости запускал. На времени работы это никак не сказалось, а вот работать стало чуть удобнее.</p>
+
+<h2 id="lastpass">LastPass</h2>
+
+<p>Позже я познакомился с веб-сервисом <a href="http://lastpass.com/" title="LastPass - Password Manager, Form Filler, Password Management">LastPass</a>. Сервис меня заинтересовал тем, что использовал в своей работе расширение для браузера, которое значительно упрощало работу с сайтами.</p>
+
+<p><img src="https://static.juev.org/2012/01/lastpass.png" alt="lastpass" /></p>
+
+<p>Технология LastPass заключается в том, что на сервере хранится только криптоконтейнер с базой паролей, который передается на компьютер пользователя, где уже и производиться его дешифрация.</p>
+
+<p>Так как пароль, с помощью которого производиться кодирование базы, на сервере нигде не хранится, то в случае его потери вся база оказывается потерянной. И ни один из специалистов LastPass нам уже не сможет помочь. Для кодирования базы используется технология 256-bit AES, которая до сих пор считается крайне надежной, и взломать ее не представляется возможным.</p>
+
+<p>Кроме того, расширение LastPass позволяет контролировать адреса сайтов, на которых производиться ввод данных, тем самым защищая нас от фишинговых атак.</p>
+
+<p>Но самое большое преимущество, которое я ощутил, используя lastPass,  заключается в том, что база паролей оказывается всегда под рукой, достаточно только иметь доступ в Интернет. А для того, чтобы не скомпроментировать свой пароль в общественном месте, достаточно использовать одноразовые пароли, которые генерируются в соответствующем разделе сервиса.</p>
+
+<h2 id="1password">1Password</h2>
+
+<p>Когда же я перешел на использование Mac, то задумался о том, остаться ли на LastPass или попробовать что-то другое? Тем более, что я уже не раз слышал о программе <a href="https://agilebits.com/onepassword" title="1Password">1Password</a>.</p>
+
+<p><img src="https://static.juev.org/2012/01/1password.png" alt="1password" /></p>
+
+<p>Особенностью программы является то, что фактически это симбиоз KeePass и LastPass. То есть база паролей хранится локально на компьютере пользователя, но при этом есть возможность использования расширений для различных браузеров, что существенно упрощает работу с данной программой.</p>
+
+<p>Мне повезло, и я попал под акцию, в которой мне удалось приобрести 1Password за половину стоимости. Процесс переноса базы паролей из LastPass оказался прост, достаточно было только провести экспорт паролей в текстовый файл и затем скормит его 1Password с указанием порядка полей, которые используются в этом файле.</p>
+
+<p>После того, как завершил импорт записей и уже начал работать с программой, обнаружил дополнительное ее преимущество. Помимо паролей и защищенных блокнотов, которые можно было создавать и в LastPass, в запись можно добавлять файлы, к примеру добавить лицензионные ключи программы или же добавить свои ssh-ключи.</p>
+
+<p>Как и с LastPass, в 1Password есть возможность работать на различных устройствах. Правда в данном случае придется использовать либо бесплатные клиенты, которые предназначены только для чтения, либо покупать дополнительные клиенты под те системы, что интересуют. Таким образом кроссплатформенность достигается за счет довольно больших денежных расходов.</p>
+
+<p>В последней версии 1Password есть возможность выбора – хранить базу на компьютере или в папке Dropbox. В случае хранения на компьютере, база располагается в специальной папке, доступ к которой находится под жестким контролем программы. Если же в качестве хранения выбирается Dropbox, то база располагается непосредственно в корневой папке Dropbox, доступная для других устройств пользователя.</p>
+
+<h2 id="выбор">Выбор</h2>
+
+<p>KeePass до сих пор остается непревзойденным продуктом среди бесплатных предложений. Но в то же время он не настолько удобен, как LastPass или 1Password, так как у него нет глубокой интеграции с браузерами.</p>
+
+<p>LastPass, в отличие от KeePass помимо бесплатной версии имеет и годовую подписку, которая позволяет использовать сервис на мобильных телефонах и добавляет некоторые уникальные возможности, типа работы в офлайн-режиме на некоторых системах. В то же время, основное преимущество LastPass в виде доступности системы везде, где есть сеть Интернет, часто становится и ее недостатком. В случае наличия проблем с провайдером и временного отсутствия доступа к глобальной сети, нет возможности работать со своими данными.</p>
+
+<p>1Password, очень удобный и безопасный продукт. Продукт, который вобрал в себя все лучшее от KeePass и LastPass. Но в то же время стоит довольно дорого, $50 за одну копию программы – это, на мой взгляд, существенно. А если покупать версии для разных систем, то стоимость вырастает в соответствующее число раз. Правда версия под Android распространяется бесплатно, но дает возможность только чтения базы.</p>
+
+<p>Что же выбрать? На сегодняшний момент, на мой взгляд, стоит рассматривать только два варианта – это LastPass и 1Password. При сопоставлении получаем более приемлемым LastPass, в виду его кроссплатформенности и бесплатности. А недостатками в виде невозможности хранить на сервисе файлы и недоступности сервиса при отсутствии сети Интернет – можно пренебречь.</p>
+
+<p>Если же интересует именно параноидальная безопасность и редко когда будет требоваться доступ к базе паролей с других компьютеров, то стоит рассмотреть вариант покупки 1Password. Все, что необходимо обычному человеку, все это присутствует в данной программе.</p>
+
+<p><small><strong>Дополнение от 15 января 2012 г.</strong></small></p>
+
+<p><a href="https://twitter.com/#!/jpgoldberg" title="Jeffrey Goldberg on Twitter">@jpgoldberg</a> мне указал на то, что 1Password имеет функцию <a href="http://help.agile.ws/1Password3/1passwordanywhere.html" title="1PasswordAnywhere">1PasswordAnywhere</a>, которая позволяет использовать свою базу паролей на любом компьютере. Достаточно только из директории базы открыть файл 1Password.html в любом современном браузере и ввести свой мастер-пароль.</p>
+
+<p>Таким образом, разместив базу в DropBox, или используя ее копию на флешке, можно получить доступ к своим паролям без каких-то проблем, даже не имея при себе самой программы. При этом безопасность использования базы остается на высоте!</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2012/01/07/jekyll/" title="View Программы, которые я использую для работы с Jekyll">Программы, которые я использую для работы с Jekyll</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2012/01/28/breaktime/" title="View BreakTime - организованный отдых">BreakTime - организованный отдых</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

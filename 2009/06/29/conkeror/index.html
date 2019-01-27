@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>conkeror - веб на кончиках пальцев</title>
+  <meta name="description" content="Согласно Википедии:Conkeror — лёгкий веб-браузер на основе движка Gecko (ранее был реализован как расширение для Mozilla Firefox, теперь является самостоятельным приложением на базе XULRunner), дел...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2009/06/29/conkeror/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2009/06/27/bezopasnost-wordpress/">
+  <link rel="next" href="https://www.juev.org/2009/06/30/uptime-daemon/">
+  <!-- og:meta -->
+  <meta content="conkeror - веб на кончиках пальцев" property="og:title">
+  <meta content="Согласно Википедии:Conkeror — лёгкий веб-браузер на основе движка Gecko (ранее был реализован как расширение для Mozilla Firefox, теперь является самостоятельным приложением на базе XULRunner), дел..." property="og:description">
+  <meta content="https://www.juev.org/2009/06/29/conkeror/" property="og:url">
+  <meta content="2009-06-29T00:00:00+04:00" property="article:published_time">
+  <meta content="firefox" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="conkeror - веб на кончиках пальцев" name="twitter:title">
+  <meta content="Согласно Википедии:Conkeror — лёгкий веб-браузер на основе движка Gecko (ранее был реализован как расширение для Mozilla Firefox, теперь является самостоятельным приложением на базе XULRunner), дел..." property="twitter:description">
+  <meta content="https://www.juev.org/2009/06/29/conkeror/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">conkeror - веб на кончиках пальцев</h1>
+<div id="metainfo">
+<span class="date">29 June 2009</span>
+<span class="tags"><a href="https://www.juev.org/tags/#firefox" title="View posts tagged with &quot;firefox&quot;" rel="nofollow">#firefox</a></span>
+</div>
+<div class="post"><p>Согласно <a href="http://ru.wikipedia.org/wiki/Conkeror" rel="nofollow">Википедии</a>:</p>
+<blockquote><strong>Conkeror</strong> — лёгкий веб-браузер на основе движка Gecko (ранее был реализован как расширение для Mozilla Firefox, теперь является самостоятельным приложением на базе XULRunner), делающий ставку на клавиатурную навигацию. Использует способы навигации по веб-страницам, выработанные текстовыми браузерами (например, Lynx), и использует клавиатурные сокращения редактора Emacs.</blockquote>
+
+<p>Я с прошлого года использую данный браузер в своей работе, еще с тез пор, как он выступал в качестве расширения огнелиса. Но с некоторых пор conkeror выступает в качестве отдельного приложения, использующего Gecko. Профили огнелиса и conkeror не пересекаются, поэтому можно безбоязненно ставить и использовать обе программы.</p>
+
+<p>Для установки conkeror в archlinux удобнее всего использовать yaourt, хотя и с помощью pacman установка пройдет успешно. Пакет conkeror-git располагается в community:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ yaourt -S conkeror-git
+</code></pre></div></div>
+
+<p>После чего, установленную программу можно запускать командой <strong>conkeror</strong>.</p>
+
+<p>При запуске conkeror выдает полную справку по своему использованию с перечислением клавиатурных комбинаций необходмых для управления.</p>
+
+<p>К примеру, основное действие (переход по ссылке) – это просто нажатие на <strong>f</strong> (follow), после чего все ссылки нумеруются. Но вместо того, чтоб на    перегруженных ссылками сайтах набирать числа 13 или 85, можно нажать несколько букв из текста ссылки, и будут пронумерованы только отфильтрованные ссылки. Точно так же происходит копирование адреса и сохранение ссылки, надо только нажать <strong>c</strong> или <strong>s</strong>. Чтобы вместо перехода/копирования/сохранения ссылки сделать то же с другим объектом, перед соответствующей клавишей нужно нажать модификатор – <strong>i</strong> для картинки, <strong>f</strong> для фрейма. Открытие нового адреса в текущем буфере – нажатие на <strong>g</strong>.</p>
+
+<p>Переход по открытым буферам реализован в стиле emacs: <strong>C-x b</strong> – и выпадает список открытых урлов, который фильтруется, дополняется табом, поддерживает выбор курсорами.</p>
+
+<p>Вся настройка браузера осуществляется путем правки файла <em>~/.conkerorrc</em>, который представляет собой фактически текст java-scripta. Подробно по формату файла можно найти информацию на официальном сайте <a href="http://conkeror.org" rel="nofollow">conkeror.org</a>. Наиболее интересная информация располагается на странице Tips.</p>
+
+<p>Я для себя выбрал следующие варианты (описание находиться под каждым кусочком кода):</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>require("new-tabs.js");
+</code></pre></div></div>
+
+<p>Данная строка позволяет изменить интерфейс программы, показывая список буферов в верхней части программы, позволяя переключаться между буферами с помощью мыши.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function define_key_buffer_switch(key, buf_num) &amp;#123;
+define_key(content_buffer_normal_keymap, key, function (I) &amp;#123;
+switch_to_buffer(I.window, I.window.buffers.get_buffer(buf_num));
+});
+}
+
+for (let i = 0; i &amp;lt; 10; ++i)
+define_key_buffer_switch(i == 9 ? "0" : (i+1).toString(), i);
+</code></pre></div></div>
+
+<p>Данный код позволяет переключаться между буферами по их номерам. То есть для перехода с текущего на 8-ой буфер, достаточно нажать клавишу 8.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>interactive("open-gmail", "Go to gmail", "follow",
+$browser_object = "http://gmail.com/");
+define_key(content_buffer_normal_keymap, "f1", "open-gmail");
+</code></pre></div></div>
+
+<p>С помощью данных строк назначаем на F1 переход на страницу гугльмейла. Точно таким же методом можно на другие клавиши назначить другие сайты.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>user_pref("extensions.checkCompatibility", false);
+</code></pre></div></div>
+
+<p>А данная строка нужна для того, чтобы отключить проверку совместимости расширений огнелиса. Использовать только в том случае, если собираетесь использовать некоторые расширения в conkeror. На официальной странице браузера перечислены те расширения, что успешно работают, но их можно сосчитать по пальцам.</p>
+
+<p>Из преимуществ данного браузера можно отметить ояень высокую скорость работы. Открывает страницы гораздо быстрее огнелиса. Очень удобное управление с клавиатуры. Но это нужно пробовать, чтобы понять.</p>
+
+<p>Рекомендую к использованию!</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2009/06/27/bezopasnost-wordpress/" title="View безопасность wordpress">безопасность wordpress</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2009/06/30/uptime-daemon/" title="View uptime daemon">uptime daemon</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

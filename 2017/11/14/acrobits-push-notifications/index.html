@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Push уведомления в SIP-приложениях от Acrobits</title>
+  <meta name="description" content="Про проблемы использования SIP я уже писал: SIP для звонков.  После чего решил разобраться, почему у меня в ряде клиентов возникают проблемы со звонками.  Обратился к разработчикам Bria Mobile и Ac...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2017/11/14/acrobits-push-notifications/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2017/11/09/ios-close-or-not/">
+  <link rel="next" href="https://www.juev.org/2018/01/14/go-create/">
+  <!-- og:meta -->
+  <meta content="Push уведомления в SIP-приложениях от Acrobits" property="og:title">
+  <meta content="Про проблемы использования SIP я уже писал: SIP для звонков.  После чего решил разобраться, почему у меня в ряде клиентов возникают проблемы со звонками.  Обратился к разработчикам Bria Mobile и Ac..." property="og:description">
+  <meta content="https://www.juev.org/2017/11/14/acrobits-push-notifications/" property="og:url">
+  <meta content="2017-11-14T12:07:00+03:00" property="article:published_time">
+  <meta content="sip" property="article:tag">
+  <meta content="web" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Push уведомления в SIP-приложениях от Acrobits" name="twitter:title">
+  <meta content="Про проблемы использования SIP я уже писал: SIP для звонков.  После чего решил разобраться, почему у меня в ряде клиентов возникают проблемы со звонками.  Обратился к разработчикам Bria Mobile и Ac..." property="twitter:description">
+  <meta content="https://www.juev.org/2017/11/14/acrobits-push-notifications/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Push уведомления в SIP-приложениях от Acrobits</h1>
+<div id="metainfo">
+<span class="date">14 November 2017</span>
+<span class="tags"><a href="https://www.juev.org/tags/#sip" title="View posts tagged with &quot;sip&quot;" rel="nofollow">#sip</a><a href="https://www.juev.org/tags/#web" title="View posts tagged with &quot;web&quot;" rel="nofollow">#web</a></span>
+</div>
+<div class="post"><p>Про проблемы использования SIP я уже писал: <a href="https://www.juev.org/2017/11/06/sip-programs/" title="SIP для звонков">SIP для звонков</a>. После чего решил разобраться, почему у меня в ряде клиентов возникают проблемы со звонками. Обратился к разработчикам Bria Mobile и Acrobits Groundwire. Обе компании оперативно ответила на мои вопросы, но первые до сих пор разбираются, что у них не так. А вот вторые предложили рабочее решение.</p>
+
+<p>Проблема с GroundWire заключалась в том, что при использовании push-уведомлений и при поступлении входящего звонка полностью отсутствовал звук. То есть ни меня не было слышно, ни я ничего не слышал. Мне предложили изменить настройки учетной записи:</p>
+
+<blockquote>
+  <p>First, set NAT traversal to STUN and discover global IP to external.  Then go to incoming calls (at the account level, not global).  Make sure it is set to Push, then select Push options.  Turn simulate NAT off.</p>
+</blockquote>
+
+<p>Для чего установил для учетной записи сипнета STUN-сервер:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>stun.sipnet.ru:3478
+</code></pre></div></div>
+
+<p>Переключил определение глобального IP на использование внешнего поставщика. И явно указал для учетной записи использование push-уведомлений, отключив дополнительно имитацию NAT.</p>
+
+<p>После проведенных операций проблема с прохождением звука во входящих звонках была решена. И так как теперь для входящих звонков используется push-уведомления с сервера Acrobits, расход заряда батареи минимальна.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2017/11/09/ios-close-or-not/" title="View Закрывать или не нужно?">Закрывать или не нужно?</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2018/01/14/go-create/" title="View Создание проекта для Go">Создание проекта для Go</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

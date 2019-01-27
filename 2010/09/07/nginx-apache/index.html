@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Использование связки Nginx+Apache</title>
+  <meta name="description" content="Недолго я баловался со связкой Nginx + PHP-Fpm, надоело мне возиться с rewrite.  Довольно долго мучился с настройками rewrite для корректной работы расширения WP Super Cache, а пробовать в работе W...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2010/09/07/nginx-apache/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2010/09/02/last-mod-by-r0mis/">
+  <link rel="next" href="https://www.juev.org/2010/09/10/wordpress-varnish/">
+  <!-- og:meta -->
+  <meta content="Использование связки Nginx+Apache" property="og:title">
+  <meta content="Недолго я баловался со связкой Nginx + PHP-Fpm, надоело мне возиться с rewrite.  Довольно долго мучился с настройками rewrite для корректной работы расширения WP Super Cache, а пробовать в работе W..." property="og:description">
+  <meta content="https://www.juev.org/2010/09/07/nginx-apache/" property="og:url">
+  <meta content="2010-09-07T00:00:00+04:00" property="article:published_time">
+  <meta content="nginx" property="article:tag">
+  <meta content="apache" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Использование связки Nginx+Apache" name="twitter:title">
+  <meta content="Недолго я баловался со связкой Nginx + PHP-Fpm, надоело мне возиться с rewrite.  Довольно долго мучился с настройками rewrite для корректной работы расширения WP Super Cache, а пробовать в работе W..." property="twitter:description">
+  <meta content="https://www.juev.org/2010/09/07/nginx-apache/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Использование связки Nginx+Apache</h1>
+<div id="metainfo">
+<span class="date">07 September 2010</span>
+<span class="tags"><a href="https://www.juev.org/tags/#nginx" title="View posts tagged with &quot;nginx&quot;" rel="nofollow">#nginx</a><a href="https://www.juev.org/tags/#apache" title="View posts tagged with &quot;apache&quot;" rel="nofollow">#apache</a></span>
+</div>
+<div class="post"><p>Недолго я баловался со связкой Nginx + PHP-Fpm, надоело мне возиться с rewrite. Довольно долго мучился с настройками rewrite для корректной работы расширения WP Super Cache, а пробовать в работе W3 Total Cache не представлялось возможным, так как сложность правил возрастает на порядок.</p>
+
+<p>В конце концов решил вернуть на место Apache + mod_php в качестве обработчика php-скриптов. И заодно интересно было бы сравнить производительность данной связки с чистым php-fpm.</p>
+
+<p>Да, я уже пробовал данную связку, но, как оказалось, она была не совсем корректно настроена. Было не верно выбрано число дочерних процессов apache и не корректно настроена связка Nginx и apache. Что было проделано и какие результаты были получены?</p>
+
+<p>На число процессов apache, а значит и на потребляемую память влияет параметр <em>MaxClients</em>. По умолчанию используется значение порядка 150. В случае чистого апача это имеет смысл, создавать отдельный процесс для отдачи на каждый запрос, но памяти при этом используется очень много.</p>
+
+<p>В случае же использования Nginx в качестве фронтэнда, когда вся статика отдается Nginx, и он же контролирует входящие соединения, можно данное значение уменьшить. И очень значительно! Я оставил 4 возможных клиента. И как показала практика, этого пока вполне достаточно.</p>
+
+<p>Редактируем файл <code>/etc/apache2/apache2</code>, меняем параметры префорк-модуля и отключаем <em>KeepAlive</em>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;IfModule mpm_prefork_module&gt;
+    StartServers          1
+    MinSpareServers       1
+    MaxSpareServers       4
+    MaxClients            4
+    MaxRequestsPerChild   1000
+&lt;/IfModule&gt;
+KeepAlive Off
+</code></pre></div></div>
+
+<p>Отключать <em>KeepAlive</em> строго обязательно, так как между <em>Nginx</em> и <em>Apache</em> соединения держать просто не имеет смысла. И куда эффективнее их сбрасывать для того, чтобы данный процесс мог тут же получать новое задание на обработку php-скрипта.</p>
+
+<p>Параметр <code>MaxRequestsPerChild</code> установлен в 1000, для того, чтобы после обработки тысячи запросов происходил перезапуск процесса, с целью высвобождения занятой памяти.</p>
+
+<p>Для виртуального хоста создаем примерно следующую конфигурацию, создав файл <code>/etc/apache2/sites-available/juev.ru</code> и затем создав на него символическую ссылку в каталог <code>/etc/apache2/sites-enabled</code>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;VirtualHost *&gt;
+       ServerName juev.ru
+       ServerAdmin webmaster@gmail.com
+       ServerAlias www.juev.ru juev.ru
+       DocumentRoot /var/www/juev.ru/web
+       SuexecUserGroup www-data www-data
+       &lt;Directory /var/www/juev.ru/web&gt;
+                Options FollowSymLinks
+                Options -MultiViews
+                Options -Indexes
+                AllowOverride All
+                Order allow,deny
+                allow from all
+       &lt;/Directory&gt;
+       CustomLog /var/www/juev.ru/log/access.log combined
+       ErrorLog /var/www/juev.ru/log/error.log
+       AddDefaultCharset utf-8
+&lt;/VirtualHost&gt;
+</code></pre></div></div>
+
+<p>Пару дней сервер проработал со включенной опцией <code>MultiViews</code>. Я еще удивлялся, почему не работает страница SiteMap, просто не показывалась Карта Сайта. Оказалось, что именно эта опция позволят использовать в качестве адресов очень похожие значения. И вместо использования sitemap, сервер пытался обратиться к файлу sitemap.xml.gz. Проблема была решена только после отключения данного параметра.</p>
+
+<p>Теперь указываем на использование Apache только в качестве локального сервера, для этого изменяем файл <code>/etc/apache2/ports.conf</code>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NameVirtualHost *
+Listen 127.0.0.1:8080
+</code></pre></div></div>
+
+<p>Apache настроен, перезапускаем его:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># service apache2 restart
+</code></pre></div></div>
+
+<p>Остается настроить Nginx. Приводим файл <code>/etc/nginx/nginx.conf</code> к следующему виду:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>user www-data;
+worker_processes  1;
+
+error_log  /var/log/nginx/error.log;
+pid        /var/run/nginx.pid;
+
+events {
+    worker_connections  1024;
+    use epoll;
+}
+
+http {
+    include       /etc/nginx/mime.types;
+    access_log  /var/log/nginx/access.log;
+    sendfile        on;
+    keepalive_timeout   4;
+    tcp_nodelay        on;
+
+    client_max_body_size 100m;
+
+    gzip on;
+    gzip_min_length 1024;
+    gzip_comp_level 5;
+    gzip_static on;
+    gzip_disable "MSIE [1-6]\.(?!.*SV1)";
+
+    include /etc/nginx/conf.d/*.conf;
+    include /etc/nginx/sites-enabled/*;
+}
+</code></pre></div></div>
+
+<p>И теперь настраиваем виртуальный хост, для чего создаем файл <code>/etc/nginx/sites-available/juev.ru</code> и затем создаем на него символическую ссылку в каталог <code>/etc/nginx/sites-enabled</code>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>server {
+        listen   80;
+        server_name  juev.ru www.juev.ru;
+        root   /var/www/juev.ru/web;
+
+        server_name_in_redirect off;
+
+        index  index.php index.html index.htm;
+        access_log  /var/www/juev.ru/log/access.log;
+
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+                root   /var/www/nginx-default;
+        }
+
+        location / {
+                proxy_set_header X-Real-IP  $remote_addr;
+                proxy_set_header Host $host;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_pass http://127.0.0.1:8080; # Apache listening
+        }
+
+        location ~* ^.+\.(jpg|jpeg|gif|png|ico|css|zip|tgz|gz|rar|bz2|doc|xls|exe|pdf|ppt|txt|tar|wav|bmp|rtf|js)$ {
+                root   /var/www/juev.ru/web;
+                access_log off;
+                expires 30d;
+        }
+
+        location ~ /\.ht {
+                deny  all;
+        }
+}
+
+server {
+        server_name static.juev.ru;
+
+        if ($request_uri !~* "\.(jpe?g|gif|css|png|js|ico|pdf|zip|gz)$") {
+                rewrite ^(.*) http://www.juev.ru$1 permanent;
+                break;
+        }
+
+        location / {
+                root   /var/www/juev.ru/web/wordpress/wp-content/uploads/;
+                access_log off;
+                expires max;
+                add_header Cache-Control private;
+        }
+}
+</code></pre></div></div>
+
+<p>Как видно из приведенного кода, прописано два хоста. Первый соответствует главному домену, а второй создан для отдачи медиа-файлов из поддомена, как было описано в статье <a href="/2010/08/29/wordpress-store-images-in-a-subdomain/">WordPress: store images in a subdomain</a>.</p>
+
+<p>Перезапускаем Nginx:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># /etc/init.d/nginx restart
+</code></pre></div></div>
+
+<p>И проверяем сервер в работе. Что самое интересное, apache потребляет меньше оперативной памяти, чем использовалось процессами php5-fpm. При этом, как показал стресс-тест сервера, число одновременно обрабатываемых запросов осталось на прежнем уровне (~20 запросов в секунду).</p>
+
+<p>При этом теперь нет проблем с использованием rewrite, расширения самостоятельно создают нужную им конфигурацию.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2010/09/02/last-mod-by-r0mis/" title="View Модифицированная прошивка Nokia 5800">Модифицированная прошивка Nokia 5800</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2010/09/10/wordpress-varnish/" title="View Wordpress Speed Up">Wordpress Speed Up</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

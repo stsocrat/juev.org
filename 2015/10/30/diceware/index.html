@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Простые сложные пароли</title>
+  <meta name="description" content="Простые сложные пароли, имеется ввиду простые для запоминания, но сложные для подбора.  Как оказывается и такие существуют. Многие совершают ошибку, используя один и тот же пароль для множества сит...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2015/10/30/diceware/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2015/10/28/fb2mobi/">
+  <link rel="next" href="https://www.juev.org/2015/11/12/wifi/">
+  <!-- og:meta -->
+  <meta content="Простые сложные пароли" property="og:title">
+  <meta content="Простые сложные пароли, имеется ввиду простые для запоминания, но сложные для подбора.  Как оказывается и такие существуют. Многие совершают ошибку, используя один и тот же пароль для множества сит..." property="og:description">
+  <meta content="https://www.juev.org/2015/10/30/diceware/" property="og:url">
+  <meta content="2015-10-30T13:25:00+03:00" property="article:published_time">
+  <meta content="security" property="article:tag">
+  <meta content="soft" property="article:tag">
+  <meta content="internet" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Простые сложные пароли" name="twitter:title">
+  <meta content="Простые сложные пароли, имеется ввиду простые для запоминания, но сложные для подбора.  Как оказывается и такие существуют. Многие совершают ошибку, используя один и тот же пароль для множества сит..." property="twitter:description">
+  <meta content="https://www.juev.org/2015/10/30/diceware/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Простые сложные пароли</h1>
+<div id="metainfo">
+<span class="date">30 October 2015</span>
+<span class="tags"><a href="https://www.juev.org/tags/#security" title="View posts tagged with &quot;security&quot;" rel="nofollow">#security</a><a href="https://www.juev.org/tags/#soft" title="View posts tagged with &quot;soft&quot;" rel="nofollow">#soft</a><a href="https://www.juev.org/tags/#internet" title="View posts tagged with &quot;internet&quot;" rel="nofollow">#internet</a></span>
+</div>
+<div class="post"><p>Простые сложные пароли, имеется ввиду простые для запоминания, но сложные для подбора. Как оказывается и такие существуют.</p>
+
+<p>Многие совершают ошибку, используя один и тот же пароль для множества ситуаций. Используя уязвимость одной системы, таким образом легко получить доступ ко всем остальным. Не совершайте подобной ошибки. Но здесь возникает другая проблема, держать в голове пароли от всех сервисов и систем невозможно чисто физически. К примеру, у меня на текущий момент зафиксировано порядка 500 различных паролей в самых разных сервисах. Что делать? Разумеется использовать специализированое программное обеспечение.</p>
+
+<p>Но подобные программы так же используют пароли для ограничения доступа к данным. И сложность выбранного пароля обеспечивает сохранность информации. Сложность обычно подразумевает и сложность запоминания. Так ли это?</p>
+
+<p><a href="https://static.juev.org/2015/10/password_strength.png"><img src="https://static.juev.org/2015/10/password_strength.png" alt="password-strength" /></a>
+(c) <a href="https://xkcd.com/936/" title="Password Strength">xkcd</a></p>
+
+<p>Возьмем для примера 9-ти значный пароль, состоящий из рандомных символов. Получаем 94^9 = 572994802228616704 возможных комбинаций пароля. 94 печатных символа используется в таблице ASCII без учета пробела. Но запомнить такой пароль обычному человеку крайне трудно. Попробуйте к примеру, запомнить следующее:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>A+D4R&amp;7q^
+</code></pre></div></div>
+
+<p>Всего 9 различных символов, не имеющих между собой связи. Запомнить сложно, да и набирать на телефоне сложно, но насколько сложно подобрать такой пароль? Если брать для оценки скорость в 1 триллион ключей в секунду (согласно <a href="http://www.techspot.com/news/51044-25-gpu-cluster-can-brute-force-windows-password-in-record-time.html">статье</a> 25 объединенных GPU способны перебирать 350 млрд паролей в секунду), то получаем, что потребуется 572994,8 секунд, или порядка 6,6 суток. Выходит не так сложен пароль? А мы еще не успели его запомнить. Что же делать?</p>
+
+<p>На помощь приходит технология генерации парольных фраз под именем <a href="http://world.std.com/~reinhold/diceware.html" title="The Diceware Passphrase Home Page">Diceware</a>. Технология простая и для использования требует наличия специально подготовленного словаря и кубиков, обычных игральных кубиков, что можно купить в детском магазине. Словари можно взять на официальной странице, есть вариации для <a href="http://world.std.com/~reinhold/diceware.html#languages" title="Diceware in Other Languages">различных языков</a>. В общей сложности словарь на английском языке содержит в себе 7776 слов. Каждому слову соответствует своя числовая последовательность. Берем кубик, кидаем его пять раз, или же берем пять кубиков и кидаем их один раз, полученную комбинацию цифр записываем и ищем в словаре. Полученное слово записываем. Таким образом операцию повторяем несколько раз. Как указывает в официальном блоге создатель метода, на текущий момент <a href="http://diceware.blogspot.com/2014/03/time-to-add-word.html" title="Time to add a word">достаточно использовать шесть слов</a> в парольной фразе для обеспечения достаточного уровня безопасности.</p>
+
+<p>Для того, чтобы понять уровень сложности парольной фразы приведу пример из пяти слов данного словаря:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sequin path zest glass delhi
+sequin-path-zest-glass-delhi
+</code></pre></div></div>
+
+<p>Обратите внимание на то, что между словами могут использоваться не только пробелы, но и произвольные символы. Намного проще запомнить, если сравнивать с 9-символьным паролем, приведенным выше, не находите? Но насколько приведенный пароль надежнее? В данном методе используется формула: количество слов в словаре в степени количества слов. То есть в нашем случае: 7776^5 = 28430288029929701376 различных комбинаций. Что в 49,617 раз больше, чем в случае с 9-символьным паролем. Запомнить и использовать его намного легче, но эффективность выше.</p>
+
+<p>Возникает законный вопрос, откуда взялась приведенная формула?? У нас есть 7776 различных слов в словаре, которые мы можем использовать в самых различных комбинациях, связуя между собой с использованием дополнительных служебных символов (пробелы, знаки препинания и др.). Средняя длина слова в словаре 4,2 символа. Пять слов это примерно 21 символ без учета пробелов. Получаем, по формуле 94^21 = 2,7E41 комбинаций. Что намного больше предполагаемой сложности при использовании словаря. Таким образом можно считать приведенную выше формулу верной, при условии того, что взломщику известен использумый нами словарь.</p>
+
+<p>Исходя из всего вышесказанного можно говорить о том, что для человека эффективнее использовать целые фразы, сгенерированные из словарей. При использовании шести и более слов, можно гарантировать простоту запоминания, но при этом обеспечивать значительную эффективность созданного пароля. Но и в данном случае можно усложнить работу взломщика, если к созданной парольной фразе добавлять так называемую соль. Солью может служить номер телефона, номер дома, дата рождения, все что угодно, информация, не входящая в существующие словари. Что ломает алгоритм использования подбора пароля по словарю. То же самое происходит, если в качестве разделителей слов использовать не пробел, а другой знак.</p>
+
+<p>Используете парольные менеджеры? PGP-ключи? Возможно вам нужно сгенерировать надежный пароль для своей Wi-Fi сети? Используйте Diceware, таким образом вы сгенерируете надежный пароль, который легко запомнить.</p>
+
+<p>Обратите внимание на тот факт, что сложность пароля не сильно зависит от типа используемых символов, большие символы используются или маленькие. Энтропия, то есть сложность пароля возростает незначительно, а вот сложность запоминания возростает очень сильно. Автор метода рекомендует использовать только маленькие буквы латинского алфавита.</p>
+
+<p>Так же стоит обратить внимание на тот факт, что автор метода не рекомендует использовать электронные методы генерации случайных чисел. Так как все существующие алгоритмы используют псевдо-генераторы случайных чисел. И для получения гарантированного результата рекомендуется использовать старые добрые игральные кости.</p>
+
+<p>Но если проблема случайности не сильно вас беспокоит, можно воспользоваться программными решениями, к примеру страница на Github: <a href="https://grempe.github.io/diceware/" title="Diceware Secure Passphrase Generator">Diceware Secure Passphrase Generator</a>, использующая для генерации JavaScript, и включащая в себя целый ряд словарей для различных языков. Либо использовать знаменитый <a href="https://agilebits.com/onepassword" title="1Password">1Password</a>, которые в одной из последних версий добавили Diceware генератор паролей.</p>
+
+<p><a href="https://static.juev.org/2015/10/1Password.png"><img src="https://static.juev.org/2015/10/1Password.png" alt="1Password" /></a></p>
+
+<p>Если у вас еще остались вопросы по описанному методу, рекомендую обратиться на страницу <a href="http://world.std.com/~reinhold/dicewarefaq.html" title="FAQ">Diceware Passphrase FAQ</a>.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2015/10/28/fb2mobi/" title="View Конвертация книг с использованием fb2mobi">Конвертация книг с использованием fb2mobi</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2015/11/12/wifi/" title="View Поиск свободного канала WiFi">Поиск свободного канала WiFi</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Nginx &amp; WordPress в Ubuntu 10.04</title>
+  <meta name="description" content="Продолжаю эксперименты на своем VPS, переносить текущий блог пока не готов, но думаю, в скором времени все будет. Сегодня решил провести эксперимент по работе Nginx в качестве основного веб-сервера...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2010/08/21/nginx-wordpress-in-ubuntu-10-04/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2010/08/20/novye-vozmozhnosti-wp-to-twitter/">
+  <link rel="next" href="https://www.juev.org/2010/08/21/zapusk-phpmyadmin-pod-nginx/">
+  <!-- og:meta -->
+  <meta content="Nginx &amp; WordPress в Ubuntu 10.04" property="og:title">
+  <meta content="Продолжаю эксперименты на своем VPS, переносить текущий блог пока не готов, но думаю, в скором времени все будет. Сегодня решил провести эксперимент по работе Nginx в качестве основного веб-сервера..." property="og:description">
+  <meta content="https://www.juev.org/2010/08/21/nginx-wordpress-in-ubuntu-10-04/" property="og:url">
+  <meta content="2010-08-21T00:00:00+04:00" property="article:published_time">
+  <meta content="nginx" property="article:tag">
+  <meta content="wordpress" property="article:tag">
+  <meta content="ubuntu" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Nginx &amp; WordPress в Ubuntu 10.04" name="twitter:title">
+  <meta content="Продолжаю эксперименты на своем VPS, переносить текущий блог пока не готов, но думаю, в скором времени все будет. Сегодня решил провести эксперимент по работе Nginx в качестве основного веб-сервера..." property="twitter:description">
+  <meta content="https://www.juev.org/2010/08/21/nginx-wordpress-in-ubuntu-10-04/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Nginx &amp; WordPress в Ubuntu 10.04</h1>
+<div id="metainfo">
+<span class="date">21 August 2010</span>
+<span class="tags"><a href="https://www.juev.org/tags/#nginx" title="View posts tagged with &quot;nginx&quot;" rel="nofollow">#nginx</a><a href="https://www.juev.org/tags/#wordpress" title="View posts tagged with &quot;wordpress&quot;" rel="nofollow">#wordpress</a><a href="https://www.juev.org/tags/#ubuntu" title="View posts tagged with &quot;ubuntu&quot;" rel="nofollow">#ubuntu</a></span>
+</div>
+<div class="post"><p>Продолжаю эксперименты на своем VPS, переносить текущий блог пока не готов, но думаю, в скором времени все будет.</p>
+
+<p>Сегодня решил провести эксперимент по работе Nginx в качестве основного веб-сервера, без использования Apache. Сначала запутался с настройками, долго разбирался, почему же у меня ничего не работает. В конце концов разобрался.</p>
+
+<p>Основная проблема, с которой приходиться сталкиваться любому человеку, желающему завести WordPress на Nginx – это проблема связки самого веб-сервера с PHP.</p>
+
+<p>Есть два варианта решения – использование модуля <em>Spawn-fcgi</em> из комплекта
+веб-сервера Lighttpd, либо использование <em>php-fpm</em>. Не знаю, почему, но я решил
+остановиться на втором варианте. Кстати, для Ubuntu 10.04 установить его очень просто.
+Достаточно лишь подключить репозиторий<a href="https://launchpad.net/~brianmercer/+archive/php/" rel="nofollow"> Brian’s php5-fpm</a>. Для этого прописываем следующие адреса в файл <em>/etc/apt/sources.list</em>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>deb http://ppa.launchpad.net/brianmercer/php/ubuntu lucid main
+deb-src http://ppa.launchpad.net/brianmercer/php/ubuntu lucid main
+</code></pre></div></div>
+
+<p>И затем импортируем ключ данного репозитория:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 8D0DC64F
+</code></pre></div></div>
+
+<p>Пришлось прописывать репозиторий руками, так как команды add-apt-repository в серверной убунте обнаружено не было.</p>
+
+<p>Теперь устанавливаем нужный нам пакет и обновляем php, сразу же установим кэширующий модуль для php. Использовать будем <em>php5-xcache</em>, так как по производительности он не на много уступает eaccelerator, а вот устанавливается намного проще:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#apt-get update
+#apt-get upgrade
+#apt-get install php5-fpm php5-xcache
+</code></pre></div></div>
+
+<p>Настройки <em>php</em> для данной реализации располагаются в файле <em>/etc/php5/fpm/php.ini</em>. Можно оставить все без изменения. По умолчанию выделяется 128 мегабайт оперативной памяти на каждый php-процесс. И запускается по умолчанию 10 процессов <em>php</em>.</p>
+
+<p>Теперь нужно запустить <em>php-fpm</em> и приступать к организации связки nginx и php-fpm:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#/etc/init.d/php5-fpm start
+</code></pre></div></div>
+
+<p>В основных настройках <em>Nginx</em> ничего не изменяем, можно только указать другое число процессов. Обычно рекомендуют число nginx-процессов устанавливать по числу ядер в процессоре. У меня на VPS используется 4-ядерный Xeon, потому поставил 4 процесса в настройках <em>Nginx</em>.</p>
+
+<p>Теперь переходим к настройке отдельного сайта, который будет использовать в своей работе PHP. Создаем файл</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/etc/nginx/sites-available/domain.ru
+</code></pre></div></div>
+
+<p>Под domain.ru подразумевается домен, который будет использоваться сайтом. Данное имя файла используется только для того, чтобы в дальнейшем можно было быстрее найти настройки конкретного сайта, поэтому можете называть его как угодно, лишь бы вам было удобно. В приведенном примере сразу приводятся настройки для использования WordPress со включенным ЧПУ и плагина WP Super Cache. Переходим к  редактированию файла:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>server {
+listen   80;
+server_name  domain.ru;
+root   /var/www/domain.ru/web/wordpress;
+index  index.php;
+access_log  /var/log/nginx/localhost.access.log;
+error_page   500 502 503 504  /50x.html;
+location = /50x.html {
+    root   /var/www/nginx-default;
+}
+location @wordpress {
+    fastcgi_pass 127.0.0.1:9000;
+    fastcgi_param SCRIPT_FILENAME /var/www/domain.ru/web/wordpress/index.php;
+    include fastcgi_params;
+    fastcgi_param SCRIPT_NAME /index.php;
+}
+location ~ \.php$ {
+    try_files $uri @wordpress;
+    fastcgi_pass 127.0.0.1:9000;
+    fastcgi_index index.php;
+    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    include fastcgi_params;
+}
+# deny access to .htaccess files, if Apache's document root
+# concurs with nginx's one
+#
+location ~ /\.ht {
+    deny  all;
+}
+location / {
+    # enable search for precompressed files ending in .gz
+    # nginx needs to be complied using &lt;80&gt;&lt;93&gt;-with-http_gzip_static_module
+    # for this to work, comment out if using nginx from aptitude
+    gzip_static on;
+    try_files $uri $uri/ @wordpress;
+    # if the requested file exists, return it immediately
+    if (-f $request_filename) {
+        break;
+    }
+    set $supercache_file '';
+    set $supercache_uri $request_uri;
+    if ($request_method = POST) {
+        set $supercache_uri '';
+    }
+    # Using pretty permalinks, so bypass the cache for any query string
+    if ($query_string) {
+        set $supercache_uri '';
+    }
+    if ($http_cookie ~* "comment_author_|wordpress|wp-postpass_" ) {
+        set $supercache_uri '';
+    }
+    # if we haven't bypassed the cache, specify our supercache file
+    if ($supercache_uri ~ ^(.+)$) {
+        set $supercache_file /wp-content/cache/supercache/$http_host/$1index.html;
+    }
+    # only rewrite to the supercache file if it actually exists
+    if (-f $document_root$supercache_file) {
+        rewrite ^(.*)$ $supercache_file break;
+    }
+    # all other requests go to Wordpress
+    if (!-e $request_filename) {
+        rewrite . /index.php last;
+    }
+}
+}
+</code></pre></div></div>
+
+<p>Подразумевается, что папка wordpress лежит в корне сайта. Если это не так, то нужно немного подкорректировать пути в настройках сайта. Переводим сайт в режим работы:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># ln -s /etc/nginx/sites-available/domain.ru /etc/nginx/sites-enabled/domain.ru
+</code></pre></div></div>
+
+<p>Теперь можно запускать <em>Nginx</em>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># /etc/init.d/nginx start
+</code></pre></div></div>
+
+<p>И переходить к установке и настройке WordPress. Единственное но: я не проводил тестирование установки вордпреса с данными настройками Nginx. Фактически я сначала только включил поддержку Fastcgi, установил WordPress и только после этого уже прописал в конфиге часть, отвечающую за rewrite. Обратите на это внимание!</p>
+
+<p>Для корректного использования ЧПУ в WordPress под Nginx, нужно дополнительно установить
+расширение WP под названием <a href="http://wordpress.org/extend/plugins/nginx-compatibility/" rel="nofollow">nginx Compatibility</a>.</p>
+
+<p>Что могу сказать? Памяти стало использоваться больше, под кэш и буферы остается меньше места, чем было при использовании связки nginx+apache+php, так как используется большое количество php и nginx процессов. Однако скорость работы возросла очень значительно! Работать одно удовольствие!</p>
+
+<p>Теперь попытаюсь найти способы тестирования сайта на нагрузку, провести эти тесты и сравнить с обычным апачем.</p>
+
+<p>Ждите результатов!</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2010/08/20/novye-vozmozhnosti-wp-to-twitter/" title="View Новые возможности WP-to-Twitter">Новые возможности WP-to-Twitter</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2010/08/21/zapusk-phpmyadmin-pod-nginx/" title="View Запуск phpmyadmin под Nginx">Запуск phpmyadmin под Nginx</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

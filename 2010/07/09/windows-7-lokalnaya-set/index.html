@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Windows 7: не работает локальная сеть?</title>
+  <meta name="description" content="Операционная система Windows создается уже не одно десятилетие, постоянно развивается, постоянно меняется.  И с каждым разом становиться все удобнее и проще. Локальные сети изначально были небезопа...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2010/07/09/windows-7-lokalnaya-set/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2010/06/29/windows-rezhim-gibernacii/">
+  <link rel="next" href="https://www.juev.org/2010/07/16/lastfm/">
+  <!-- og:meta -->
+  <meta content="Windows 7: не работает локальная сеть?" property="og:title">
+  <meta content="Операционная система Windows создается уже не одно десятилетие, постоянно развивается, постоянно меняется.  И с каждым разом становиться все удобнее и проще. Локальные сети изначально были небезопа..." property="og:description">
+  <meta content="https://www.juev.org/2010/07/09/windows-7-lokalnaya-set/" property="og:url">
+  <meta content="2010-07-09T00:00:00+04:00" property="article:published_time">
+  <meta content="windows" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Windows 7: не работает локальная сеть?" name="twitter:title">
+  <meta content="Операционная система Windows создается уже не одно десятилетие, постоянно развивается, постоянно меняется.  И с каждым разом становиться все удобнее и проще. Локальные сети изначально были небезопа..." property="twitter:description">
+  <meta content="https://www.juev.org/2010/07/09/windows-7-lokalnaya-set/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Windows 7: не работает локальная сеть?</h1>
+<div id="metainfo">
+<span class="date">09 July 2010</span>
+<span class="tags"><a href="https://www.juev.org/tags/#windows" title="View posts tagged with &quot;windows&quot;" rel="nofollow">#windows</a></span>
+</div>
+<div class="post"><p>Операционная система Windows создается уже не одно десятилетие, постоянно развивается, постоянно меняется. И с каждым разом становиться все удобнее и проще.</p>
+
+<p>Локальные сети изначально были небезопасными в плане их использования в купе с доступом в сеть Интернет. И только начиная с Vista начали проводиться определенные изменения в этом направлении. В Windows 7 настроить локальную сеть стало еще проще.</p>
+
+<p>Однако есть несколько моментов, на которые нужно обратить внимание, для того, чтобы локальная сеть заработала.</p>
+
+<p>В Windows 7 по умолчанию используется парольный доступ к ресурсам локальной сети. Информация предназначенная для локальной сети теперь открывается только определенной зоне. И за ее пределами оказывается недоступной. Это достигается установкой типа сети в панели управления.</p>
+
+<p>Для работы в рамках локальной сети (подключенной или нет к интернету не имеет значения), необходимо указывать тип “Домашняя сеть”. Без этого открыть доступ к своему компьютеру будет просто не возможно.</p>
+
+<p>Параметры и настройки рабочей группы задается в панели управления в пункте “Центр управления сетями и общим доступом”. Для создания рабочей группы необходимо перейти глубже, в “Выбор домашней группы и параметров общего доступа”. Если в локальной сети будет обнаружен компьютер с Windows 7, на котором уже была создана рабочая группа, то будет предложено присоединится к ней. Иначе будет преложено создать новую рабочую группу.</p>
+
+<p>При создании рабочей группы нужно указать ресурсы (библиотеки), к которым будет предоставлен доступ из локальной сети. После чего будет показан генерированный случайный пароль, который необходимо использовать при подключении к данной рабочей группе. Без использования данного пароля произвести подключения будет не возможно.</p>
+
+<p>И остался еще один интересный момент, который встречается в практике, но почти нигде не был освещен.</p>
+
+<p>Рабочая группа будет нормально функционировать, если настройки локальной сети совпадают на всех компьютерах. Стоит только на одном из компьютером сменить используемые dns-сервера и он будет показываться в списке компьютеров, но получить доступ к нему уже будет не возможно.</p>
+
+<p>Я с этим промучился довольно долго, сначала локальная сеть работала нормально. Затем вдруг перестала. Разбирался долго, копаясь в службах, в анализе поведения операционной системы, пока не удалось свести все симптомы вместе и не провести аналогию со сменой используемого dns-сервера (а я как раз недавно стал использовать сервера opendns вместо локального). И только после того, как все компьютеры были приведены к единой настройке локальной сети, рабочая группа вновь заработала как положено.</p>
+
+<p>Странно, что нигде я не нашел упоминания о такой мелочи, которая так влияет на работу локальной сети. При соблюдении этих моментов рабочая группа будет работать.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2010/06/29/windows-rezhim-gibernacii/" title="View Windows: режим гибернации">Windows: режим гибернации</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2010/07/16/lastfm/" title="View Организация сетевой музыкальной библиотеки на примере lastfm">Организация сетевой музыкальной библиотеки на примере lastfm</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

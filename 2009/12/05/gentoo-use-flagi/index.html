@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Gentoo: USE-флаги</title>
+  <meta name="description" content="Одна из сложностей, с которой приходится столкнуться начинающему пользователю Gentoo – это USE-флаги.  Откуда их брать? Как прописывать? Где взять готовые списки, чтобы все было хорошо?Дело в том, ...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2009/12/05/gentoo-use-flagi/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2009/11/24/gentoo-2/">
+  <link rel="next" href="https://www.juev.org/2009/12/09/gentoo-dhcp-dns/">
+  <!-- og:meta -->
+  <meta content="Gentoo: USE-флаги" property="og:title">
+  <meta content="Одна из сложностей, с которой приходится столкнуться начинающему пользователю Gentoo – это USE-флаги.  Откуда их брать? Как прописывать? Где взять готовые списки, чтобы все было хорошо?Дело в том, ..." property="og:description">
+  <meta content="https://www.juev.org/2009/12/05/gentoo-use-flagi/" property="og:url">
+  <meta content="2009-12-05T00:00:00+03:00" property="article:published_time">
+  <meta content="gentoo" property="article:tag">
+  <meta content="tips" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Gentoo: USE-флаги" name="twitter:title">
+  <meta content="Одна из сложностей, с которой приходится столкнуться начинающему пользователю Gentoo – это USE-флаги.  Откуда их брать? Как прописывать? Где взять готовые списки, чтобы все было хорошо?Дело в том, ..." property="twitter:description">
+  <meta content="https://www.juev.org/2009/12/05/gentoo-use-flagi/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Gentoo: USE-флаги</h1>
+<div id="metainfo">
+<span class="date">05 December 2009</span>
+<span class="tags"><a href="https://www.juev.org/tags/#gentoo" title="View posts tagged with &quot;gentoo&quot;" rel="nofollow">#gentoo</a><a href="https://www.juev.org/tags/#tips" title="View posts tagged with &quot;tips&quot;" rel="nofollow">#tips</a></span>
+</div>
+<div class="post"><p>Одна из сложностей, с которой приходится столкнуться начинающему пользователю Gentoo – это USE-флаги. Откуда их брать? Как прописывать? Где взять готовые списки, чтобы все было хорошо?</p>
+
+<p>Дело в том, что USE-флаги задаются каждым пользователем отдельно, именно под себя. Потому найти каких-то ни было универсальных списков данных флагов просто не возможно. Но не надо отчаиваться! Есть несколько простых правил, выполняя которые мы сводим использование USE-флагов к нечто простому.</p>
+
+<p>Итак, что это за правила?</p>
+<ol>
+	<li>Нужно помнить, что существует минимум два конфигурационных файла, отвечающих за USE-флаги. Во-первых, это <em>/etc/make.conf</em>, в котором задаются флаги, действующие на все устанавливаемые пакеты. И во-вторых, это вручную создаваемый файл <em>/etc/portage/packages.use</em>, в котором указываются отдельные пакеты с соответствующими флагами.
+Пример файла <em>/etc/portage/packages.use</em>:
+<pre><code>www-client/w3m -gtk lynxkeymap
+net-im/pidgin -networkmanager -gstreamer -dbus
+x11-libs/vte -python
+x11-misc/xbindkeys guile
+app-editors/emacs -svg
+xfce-base/thunar -trash-plugin -startup-notification
+x11-libs/cairo glitz -xcb
+media-sound/sonata -trayicon
+app-office/openoffice java -pam
+media-fonts/terminus-font quote ru-dv ru-i bolddiag width
+net-misc/slimrat -X
+x11-wm/dwm savedconfig
+media-video/vlc qt4 schroedinger skins stream
+sys-apps/man-pages -linguas_ru
+net-libs/libsoup gnome
+net-libs/libproxy gnome
+net-nds/openldap sasl</code></pre>
+</li>
+	<li>Не нужно сразу, во время установки, пытаться создавать колоссальный по объему список глобальных флагов, так сказать про запас. Достаточно с самого начала задать к примеру следующие флаги:
+<pre><code>USE="X gtk mmx sse sse2 smp ssse3 mmxext dvd alsa cdr bash-completion -gnome -kde -qt3 -qt4 -bindist -consolekit -policykit -eds"</code></pre>
+
+Это примерный список, который в дальнейшем будем наращивать. Как видно, указываем использование gtk-интерфейса, задаем основные инструкции процессора, использование двд, звука и записи компакт-дисков, при этом отключаем гном, кде, qt-интерфейс, консолекит и полисикит.</li>
+	<li>Перед установкой любого пакета проверяем флаги которые используются программой. Для этого запускаем, например для <em>bash</em>:
+<pre><code>$ emerge -pv bash
+These are the packages that would be merged, in order:
+Calculating dependencies... done!
+[ebuild   R   ] app-shells/bash-4.0_p28  USE="net nls -afs -bashlogger -examples -plugins -vanilla" 0 kB</code></pre>
+
+Сразу видно, какие флаги используются, какие в данный момент времени включены, а какие выключены. Для того, чтобы сказать, нужен какой-то конкретный флаг или нет, необходимо знать, для чего он вообще используется. Очень удобно для этих целей использовать утилиту euse, которая входит в состав пакета gentoolkit. Рекомендую ставить этот пакет с самого начала, еще во время установки системы.
+<pre><code>emerge -av gentoolkit</code></pre>
+
+Обратите внимание, что при установке используются флаги "-av". Это позволяет перед установкой проверить флаги еще раз, посмотреть список пакетов, которые будут устанавливаться и если все нормально, после подтверждения пользователя будет осуществлена установка нужного пакета.
+После установки для того, чтобы посмотреть назначение конкретного флага используется следующий вызов <em>euse</em>:
+<pre><code>$ euse -i vanilla
+global use flags (searching: vanilla)
+************************************************************
+[-    ] vanilla - Do not add extra patches which change default behaviour;
+DO NOT USE THIS ON A GLOBAL SCALE as the severity of the meaning changes drastically
+
+local use flags (searching: vanilla)
+************************************************************
+[-    ] vanilla (www-apache/mod_security):
+Provide the original ModSecurity Core Rule Set without Gentoo-specific relaxation.
+When this flag is enabled, we install the unadulterated Core Rule Set. Warning!
+The original Core Rule Set is draconic and most likely will break your web applications,
+including Rails-based web applications and Bugzilla.</code></pre>
+
+Как видно описание показывает как глобальное действие флага, так и действие на конкретные пакеты. После того, как мы узнаем, что конкретно делает данный флаг, принимаем решение, использовать его в своей работе или нет.</li>
+	<li>Все флаги без исключения добавляем в файл <em>/etc/portage/packages.use</em>, то есть указываем флаги только локально. Пример моего файла смотрите выше. Когда набирается большое число пакетов, анализируем их на наличие повторяющихся флагов и переносим их в <em>/etc/make.conf</em></li>
+	<li>Если системы была собрана с одним набором флагов, и в дальнейшем мы принимаем решение использовать другой набор -- в этом нет ничего страшного. Производим изменение списка флагов и запускаем обновление системы:
+<pre><code>emerge -auND world</code></pre>
+
+Будет произведен анализ установленных пакетов на измененные зависимости и необходимые пакеты доставляются и пересобираются.
+После чего не лишним будет выполнить очистку системы:
+<pre><code>emerge -a --depclean</code></pre>
+
+Проверяем список пакетов, который будет удален, при необходимости добавляем нужные имена файлов в файл <em>/var/lib/portage/world</em> для того, чтобы оставить их в системе и затем удаляем все то, что уже является лишним в системе.</li>
+</ol>
+<p>Соблюдая эти правила довольно просто управлять списком USE-флагов не захламляя систему ненужными зависимостями. Надеюсь эта статья поможет вам ближе познакомиться с Gentoo. На деле данная операционная система довольно проста!</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2009/11/24/gentoo-2/" title="View Gentoo - шаг в будущее?">Gentoo - шаг в будущее?</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2009/12/09/gentoo-dhcp-dns/" title="View Gentoo: dhcp &amp; dns">Gentoo: dhcp &amp; dns</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

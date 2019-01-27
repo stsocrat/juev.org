@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Juicer - комбинируем CSS и JavaScript файлы</title>
+  <meta name="description" content="Для лучшей производительности, CSS и javaScript файлы должны отдаваться с сервера как можно меньшим размером и с как можно меньшимчислом запросов. Чтобы добиться этого рекомендуют проводить минимиз...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2011/03/09/minify-and-combine-js-css-file/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2011/03/07/twitter-trackback/">
+  <link rel="next" href="https://www.juev.org/2011/03/19/async-script-load/">
+  <!-- og:meta -->
+  <meta content="Juicer - комбинируем CSS и JavaScript файлы" property="og:title">
+  <meta content="Для лучшей производительности, CSS и javaScript файлы должны отдаваться с сервера как можно меньшим размером и с как можно меньшимчислом запросов. Чтобы добиться этого рекомендуют проводить минимиз..." property="og:description">
+  <meta content="https://www.juev.org/2011/03/09/minify-and-combine-js-css-file/" property="og:url">
+  <meta content="2011-03-09T00:00:00+03:00" property="article:published_time">
+  <meta content="javascript" property="article:tag">
+  <meta content="css" property="article:tag">
+  <meta content="webdesign" property="article:tag">
+  <meta content="ruby" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Juicer - комбинируем CSS и JavaScript файлы" name="twitter:title">
+  <meta content="Для лучшей производительности, CSS и javaScript файлы должны отдаваться с сервера как можно меньшим размером и с как можно меньшимчислом запросов. Чтобы добиться этого рекомендуют проводить минимиз..." property="twitter:description">
+  <meta content="https://www.juev.org/2011/03/09/minify-and-combine-js-css-file/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Juicer - комбинируем CSS и JavaScript файлы</h1>
+<div id="metainfo">
+<span class="date">09 March 2011</span>
+<span class="tags"><a href="https://www.juev.org/tags/#javascript" title="View posts tagged with &quot;javascript&quot;" rel="nofollow">#javascript</a><a href="https://www.juev.org/tags/#css" title="View posts tagged with &quot;css&quot;" rel="nofollow">#css</a><a href="https://www.juev.org/tags/#webdesign" title="View posts tagged with &quot;webdesign&quot;" rel="nofollow">#webdesign</a><a href="https://www.juev.org/tags/#ruby" title="View posts tagged with &quot;ruby&quot;" rel="nofollow">#ruby</a></span>
+</div>
+<div class="post"><p>Для лучшей производительности, CSS и javaScript файлы должны отдаваться с сервера как можно меньшим размером и с как можно меньшим
+числом запросов.</p>
+
+<p>Чтобы добиться этого рекомендуют проводить минимизацию и комбинацию файлов с помощью утилиты <code class="highlighter-rouge">Juicer</code>.</p>
+
+<h2 id="инсталяция">Инсталяция</h2>
+
+<p>Для установки программы потребуется наличие установленных <a href="http://www.ruby-lang.org/en/" title="Ruby">Ruby</a> и
+<a href="http://www.rubygems.org/" title="Rubygems">Rubygems</a>. После чего используем следующие команды:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ gem install juicer
+$ juicer install yui_compressor
+$ juicer install jslint
+</code></pre></div></div>
+
+<p>Первая команда может выполняться от имени пользователя или от имени root. Все зависит от тех настроек Ruby, что вы используете в
+своей системе.</p>
+
+<h2 id="css-files">CSS-files</h2>
+
+<p>Для уменьшения CSS-файлов достаточно использовать команду:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ juicer merge myfile.css myotherfile.css css/third.css
+</code></pre></div></div>
+
+<p>При этом <code class="highlighter-rouge">juicer</code> поддерживает директиву зависимостей <code class="highlighter-rouge">@import file</code>, замещая директиву содержимым указанного файла.</p>
+
+<h2 id="javascript-files">JavaScript files</h2>
+
+<p>В отличие от CSS-файлов, Javascript не поддерживает зависимости. Для исправления данного недостатка была добавлена директива <code class="highlighter-rouge">@depends</code>, использовать ее очень просто:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/**
+ * @depends prototype.js
+ * @depends widgets/lightbox.js
+ */
+(function(global) {
+     // Your code here
+})(this);
+</code></pre></div></div>
+
+<h3 id="syntax-verification">Syntax verification</h3>
+
+<p><code class="highlighter-rouge">juicer merge</code> использует <a href="http://www.jslint.com/" title="JsLint">JsLint</a> для проверки JavaScript-файлов на наличие ошибок. Если
+ошибки или предупреждения будут обнаружены, то проц прерывается. Однако его можно будет провести принудительно, если
+использовать опцию <code class="highlighter-rouge">-i</code>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ juicer merge -i app.js
+Verifying app.js with JsLint
+  Problems detected
+  Lint at line 15 character 2: Missing semicolon.
+  }
+
+Problems were detected during verification
+Ignoring detected problems
+Produced app.min.js from
+  app.js
+</code></pre></div></div>
+
+<p>Если же вы хотите только проверить javascript-файл, можно использовать вызов:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ juicer verify app.js
+</code></pre></div></div>
+
+<h2 id="мой-опыт">Мой опыт</h2>
+
+<p>Я использую следующие команды для обработки файлов стилей и скриптов:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ juicer merge -f -o _site/css/master.css _css/style.css _css/highlight.css
+$ juicer merge -f -s -o _site/js/master.js _js/jquery.min.js _js/jquery.twittertrackbacks-1.0.js _js/noteit.js
+</code></pre></div></div>
+
+<p>Опция <code class="highlighter-rouge">-f</code> используется для того, чтобы иметь возможность переписывать существующие файлы.</p>
+
+<p>Опция <code class="highlighter-rouge">-o</code> указывает на имя результирующего файла, с указанием его местоположения.</p>
+
+<p>В случае работы с javascript используется опция <code class="highlighter-rouge">-s</code>, позволяющая отключить проверку скриптов на наличие ошибок. Пока я не нашел
+в ней особой необходимости, хотя разработчики и не рекомендуют ее использовать.</p>
+
+<p>В итоге я получил один файл стиля, вмето двух, размер довольно существенно уменьшился. И еще больший прогресс я достиг при
+использовании <code class="highlighter-rouge">juicer</code> со скриптами. Вместо трех скриптов получился один, меньшего размера.</p>
+
+<p>Тест скорости загрузки страниц от Google под названием Page Speed раньше выдавал 88 балов из 100 для моего сайта. Теперь же
+выдает 95 балов из 100!</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2011/03/07/twitter-trackback/" title="View Twitter trackback">Twitter trackback</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2011/03/19/async-script-load/" title="View Асинхронная загрузка скриптов">Асинхронная загрузка скриптов</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

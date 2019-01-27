@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Jekyll excerpt plugin</title>
+  <meta name="description" content="Сегодня в очередной раз занимался изменением оформления главной страницы сайта.  Я уже предпринимал попытки по внедрению отображения только кусочков текста из статей на этой странице.  Но несколько...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2012/07/05/jekyll-excerpt-plugin/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2012/07/05/www/">
+  <link rel="next" href="https://www.juev.org/2012/07/06/jekyll-liquid-code-in-article/">
+  <!-- og:meta -->
+  <meta content="Jekyll excerpt plugin" property="og:title">
+  <meta content="Сегодня в очередной раз занимался изменением оформления главной страницы сайта.  Я уже предпринимал попытки по внедрению отображения только кусочков текста из статей на этой странице.  Но несколько..." property="og:description">
+  <meta content="https://www.juev.org/2012/07/05/jekyll-excerpt-plugin/" property="og:url">
+  <meta content="2012-07-05T21:22:00+04:00" property="article:published_time">
+  <meta content="jekyll" property="article:tag">
+  <meta content="tips" property="article:tag">
+  <meta content="develop" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Jekyll excerpt plugin" name="twitter:title">
+  <meta content="Сегодня в очередной раз занимался изменением оформления главной страницы сайта.  Я уже предпринимал попытки по внедрению отображения только кусочков текста из статей на этой странице.  Но несколько..." property="twitter:description">
+  <meta content="https://www.juev.org/2012/07/05/jekyll-excerpt-plugin/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Jekyll excerpt plugin</h1>
+<div id="metainfo">
+<span class="date">05 July 2012</span>
+<span class="tags"><a href="https://www.juev.org/tags/#jekyll" title="View posts tagged with &quot;jekyll&quot;" rel="nofollow">#jekyll</a><a href="https://www.juev.org/tags/#tips" title="View posts tagged with &quot;tips&quot;" rel="nofollow">#tips</a><a href="https://www.juev.org/tags/#develop" title="View posts tagged with &quot;develop&quot;" rel="nofollow">#develop</a></span>
+</div>
+<div class="post"><p>Сегодня в очередной раз занимался изменением оформления главной страницы сайта. Я уже предпринимал попытки по внедрению отображения только кусочков текста из статей на этой странице. Но несколько раз неудачно.</p>
+
+<p>Проблема заключается в том, что Jekyll не предоставляет по умолчанию инструментов для работы со структурой текста. И можно использовать только простейшие операторы выделения куска текста определенной длины.</p>
+
+<!--more-->
+
+<p>Делается это довольно просто, достаточно только использовать фильтры, что-то вроде:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{{ post.content | strip_html | truncatewords: 25 }}
+</code></pre></div></div>
+
+<p>Первый фильтр <code class="highlighter-rouge">strip_html</code> удаляет все html-теги, а второй фильтр <code class="highlighter-rouge">truncatewords</code> обрезает текст на 25 символе. Проблема заключается в том, что убрав все html-теги, мы фактически сливаем текст в одну массу. И на выходе получаем один параграф, в котором может содержаться кусок кода, если тот содержался в начале статьи.</p>
+
+<p>Если же html-теги не убирать, то в исходной странице можно получить массу ошибок с незакрытыми тегами. Все случайно и зависит от самого содержимого страницы.</p>
+
+<p>В Octopress уже присутствует дополнительный фильтр <code class="highlighter-rouge">excerpt</code>, который позволяет использовать в коде статьи тег:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;!--more--&gt;
+</code></pre></div></div>
+
+<p>Именно этот тег используется в Wordpress для разделения той части текста, что нужно показывать на главной от основной части текста. Для того, чтобы использовать данный фильтр в Jekyll, необходимо добавить один файл в папку <code class="highlighter-rouge">_plugins</code>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># This goes in _plugins/excerpt.rb
+module Jekyll
+  class Post
+    alias_method :original_to_liquid, :to_liquid
+    def to_liquid
+      original_to_liquid.deep_merge({
+        'excerpt' =&gt; content.match('&lt;!--more--&gt;') ? content.split('&lt;!--more--&gt;').first : nil
+      })
+    end
+  end
+
+  module Filters
+    def mark_excerpt(content)
+      content.gsub('&lt;!--more--&gt;', '&lt;p&gt;&lt;span id="more"&gt;&lt;/span&gt;&lt;/p&gt;')
+    end
+  end
+end
+</code></pre></div></div>
+
+<p>После чего в коде статьи можно использовать тег <code class="highlighter-rouge">&lt;!--more--&gt;</code> для обозначения места, где необходимо сделать разделение текста.</p>
+
+<p>Причем в коде шаблона для отображения статьи сайта уже можно использовать следующую конструкцию:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;!-- This snippet checks for an excerpt variable that I assign to true on my index pages, but not on the post pages, then checks to see if the post has an excerpt to see if it should render the excerpt of the post or the whole thing --&gt;
+
+&lt;div class="entry"&gt;
+  {% if excerpt and post.excerpt %}
+    {{ post.excerpt }}
+    &lt;p&gt; &lt;a href="{{ post.url }}/#more" class="more-link"&gt;&lt;span class="readmore"&gt;Read the rest of this entry »&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+  {% else %}
+    {{ post.content | mark_excerpt }}
+  {% endif %}
+&lt;/div&gt;
+</code></pre></div></div>
+
+<p>Таким образом добавив один плагин, мы получаем возможность самостоятельно управлять, где именно необходимо разрывать текст для отображения его на главной странице сайта и избавляемся от возможных ошибок в коде страниц.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2012/07/05/www/" title="View Почему www?">Почему www?</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2012/07/06/jekyll-liquid-code-in-article/" title="View Jekyll – Liquid code in article">Jekyll – Liquid code in article</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

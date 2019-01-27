@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Генераторы статических сайтов</title>
+  <meta name="description" content="В последнее время заинтересовался текущим состоянием генераторов статических сайтов, попробовал в работе Pelican, Hugo и Hakyll.  К чему в итоге пришел?JekyllДля сравнения производительность сборки...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2016/12/27/static/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2016/12/06/firefox-extensions/">
+  <link rel="next" href="https://www.juev.org/2016/12/28/paid-services/">
+  <!-- og:meta -->
+  <meta content="Генераторы статических сайтов" property="og:title">
+  <meta content="В последнее время заинтересовался текущим состоянием генераторов статических сайтов, попробовал в работе Pelican, Hugo и Hakyll.  К чему в итоге пришел?JekyllДля сравнения производительность сборки..." property="og:description">
+  <meta content="https://www.juev.org/2016/12/27/static/" property="og:url">
+  <meta content="2016-12-27T16:10:00+03:00" property="article:published_time">
+  <meta content="jekyll" property="article:tag">
+  <meta content="pelican" property="article:tag">
+  <meta content="hakyll" property="article:tag">
+  <meta content="static" property="article:tag">
+  <meta content="blog" property="article:tag">
+  <meta content="https://static.juev.org/2016/12/Haskell.sh-600x600.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Генераторы статических сайтов" name="twitter:title">
+  <meta content="В последнее время заинтересовался текущим состоянием генераторов статических сайтов, попробовал в работе Pelican, Hugo и Hakyll.  К чему в итоге пришел?JekyllДля сравнения производительность сборки..." property="twitter:description">
+  <meta content="https://www.juev.org/2016/12/27/static/" name="twitter:url">
+  <meta content="https://static.juev.org/2016/12/Haskell.sh-600x600.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Генераторы статических сайтов</h1>
+<div id="metainfo">
+<span class="date">27 December 2016</span>
+<span class="tags"><a href="https://www.juev.org/tags/#jekyll" title="View posts tagged with &quot;jekyll&quot;" rel="nofollow">#jekyll</a><a href="https://www.juev.org/tags/#pelican" title="View posts tagged with &quot;pelican&quot;" rel="nofollow">#pelican</a><a href="https://www.juev.org/tags/#hakyll" title="View posts tagged with &quot;hakyll&quot;" rel="nofollow">#hakyll</a><a href="https://www.juev.org/tags/#static" title="View posts tagged with &quot;static&quot;" rel="nofollow">#static</a><a href="https://www.juev.org/tags/#blog" title="View posts tagged with &quot;blog&quot;" rel="nofollow">#blog</a></span>
+</div>
+<div class="post"><p>В последнее время заинтересовался текущим состоянием генераторов статических сайтов, попробовал в работе <a href="http://blog.getpelican.com" title="Pelican Static Site Generator">Pelican</a>, <a href="http://gohugo.io" title="Static Website Engine">Hugo</a> и <a href="https://jaspervdj.be/hakyll/" title="Static Sites on Haskell">Hakyll</a>. К чему в итоге пришел?</p>
+
+<h2 id="jekyll">Jekyll</h2>
+
+<p>Для сравнения производительность сборки мого сайта с использованием Jekyll:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ time jekyll b
+Configuration file: /Users/juev/Projects/juev.org-test/_config.yml
+            Source: source
+    Destination: public
+Incremental build: enabled
+    Generating...
+                    done in 29.819 seconds.
+Auto-regeneration: disabled. Use --watch to enable.
+
+real	0m32.001s
+user	0m30.792s
+sys	0m0.940s
+</code></pre></div></div>
+
+<p>Это при условии того факта, что отключена генерация списка похожих статей. Если включить данную функцию, время генерации сайта возрастает до нескольких минут.</p>
+
+<h2 id="pelican">Pelican</h2>
+
+<p>Генератор статических сайтов, написанный на питоне. Имеет очень развесистую систему плагинов и тем оформления. Предельно гибкий и функциональный. На генерацию сайта уходит немного времени, гораздо быстрее, чем jekyll:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ time pelican content
+Done: Processed 312 articles, 0 drafts, 3 pages and 1 hidden page in 6.01 seconds.
+
+real	0m7.511s
+user	0m5.896s
+sys	0m1.052s
+</code></pre></div></div>
+
+<p>В качестве темплейтов файлов использует <a href="http://jinja.pocoo.org" title="Jinja2 is a full featured template engine for Python">Jinja</a>. Очень функциональный, по синтаксису очень похож на используемый мной Liquid. Глубоко в его изучение не погружался, но в достаточно короткое время переписал используемые темплейты для Jinja.</p>
+
+<p>Из проблем с данным генератором, у меня так и не заработал плагин по использованию yaml-заголовков в статьях, а заниматься обработкой своих статьей мне уже не хотелось.</p>
+
+<h2 id="hugo">Hugo</h2>
+
+<p>Генератор статических сайтов, написанный на Go. Работает предельно быстро:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ time hugo
+Started building sites ...
+Built site for language en:
+0 draft content
+0 future content
+0 expired content
+313 regular pages created
+127 other pages created
+1 non-page files copied
+0 paginator pages created
+0 articles created
+124 tags created
+total in 447 ms
+
+real	0m0.489s
+user	0m1.127s
+sys	0m0.296s
+</code></pre></div></div>
+
+<p>Как видно, разница составляет порядки. Несколько секунд или минут потратить на генерацию сайта или же всего секунду. Генератор очень хорошо документирован. В качестве темплейтов использует стандартную систему go-template.</p>
+
+<p>Из недостатков, в генератор жестко записана генерируемая структура сайта. Я потратил несколько дней для того, чтобы разобраться, как реализовать отдельную страницу со списком статей, которая не связана с главной страницей сайта, но безрезультатно. Может быть я чего-то не понял в предоставленной документации, но увы. Это единственный момент, который остался нереализованным при миграции сайта на Hugo.</p>
+
+<h2 id="hakyll">Hakyll</h2>
+
+<p>Одним из последних генераторов, что попробовал в работе, оказался Hakyll, написанный на Haskell. Его оказалось очень сложно устанавливать. Предоставленной на официальном сайте документации не достаточно. Если быть более точным, при ее использовании возникают ошибки с неразрешенными зависимостями.</p>
+
+<p>Через cabal установка у меня так и не прошла, сколько не бился. Удалось поставить с помощью stack. Для этого ставим сам stack:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ curl -sSL https://get.haskellstack.org/ | sh
+</code></pre></div></div>
+
+<p>Установить с помощью stack просто так тоже не получиться, необходимо выкачать репозиторий с hakyll и только затем провести установку:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git clone https://github.com/jaspervdj/hakyll.git
+$ cd hakyll
+$ stack build
+$ stack install
+</code></pre></div></div>
+
+<p>Сборка занимает довольно много времени, у меня на моем макбуке потребовалось более 10 минут на то, чтобы провести установку. Но, если вы думаете, что на этом все, вы ошибаетесь. Необходимо провести подготовку окружения для работы и сборки сайта. Для этого создаем новую директорию для нашего сайта и используем команды:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ hakyll-init mysite
+$ cd mysite
+$ stack init
+$ stack build
+$ stack exec site build
+</code></pre></div></div>
+
+<p>На всю операцию подготовки локальной директории для сборки сайта у меня ушло более получаса времени. В результате получил бинарный файл, размером в 123 мегабайта:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ la .stack-work/dist/x86_64-osx/Cabal-1.24.0.0/build/site/site
+-rwxr-xr-x  1 juev  staff   123M Dec 27 14:07 .stack-work/dist/x86_64-osx/Cabal-1.24.0.0/build/site/site
+</code></pre></div></div>
+
+<p>Но, что приятно, Hakyll без проблем воспринял мои статьи, используется очень простой язык темплейтов, позволяющий бысто задавать оформление своего сайта.
+Но на полную генерацию сайта у меня ушло более одинадцати секунд:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rm -rf _cache/ _site/
+$ time stack exec site build
+Initialising...
+Creating store...
+Creating provider...
+Running rules...
+Checking for out-of-date items
+Compiling
+updated templates/default.html
+updated index.html
+Success
+
+real	0m11.738s
+user	0m9.646s
+sys	0m1.373s
+</code></pre></div></div>
+
+<p>Почти час времени на подготовку, и 11 секунд на сборку?? На мой взгляд это излишне.</p>
+
+<h2 id="выводы">Выводы</h2>
+
+<p>Что имеем в итоге? Есть целый ряд генераторов:</p>
+
+<ul>
+  <li>Jekyll, использующий ruby в качестве основного языка программирования. Четкую систему версионирования зависимостей и очень большую пользовательскую базу людей, которые не просто создают сайты, но и пишут новые расширения для jekyll. Есть устоявшаяся система сборки, используемая в системах continues integration (CI).</li>
+  <li>Pelican, который рекомендую использовать для сборки, если есть опыт программирования в Python. И это позволит вам создавать невероятные системы.</li>
+  <li>Hugo, который предельно просто устанавливать (достаточно скачать бинарник) и использовать. Время генерации достаточно больших сайтов занимает секунды. Но в данном генераторе имеем нетривиальную систему построения правил генерации.</li>
+  <li>Hakyll, написанный на странном языке, и требующий массу времени и энергии только на то, чтобы заставить его нормально работать.</li>
+</ul>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2016/12/06/firefox-extensions/" title="View Расширения Firefox 2016">Расширения Firefox 2016</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2016/12/28/paid-services/" title="View Платные сервисы 2016">Платные сервисы 2016</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

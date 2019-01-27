@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Rbenv and Bundle</title>
+  <meta name="description" content="Довольно долго я использовал в своей практике RVM, но в конце концов мне надоело то, что возникают проблемы с обновлением пакетов, да и много чего еще.  Решил в итоге взглянуть на альтернативу в ли...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2012/11/05/rbenv/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2012/11/05/facebook-clean/">
+  <link rel="next" href="https://www.juev.org/2012/12/09/backup-music-collection/">
+  <!-- og:meta -->
+  <meta content="Rbenv and Bundle" property="og:title">
+  <meta content="Довольно долго я использовал в своей практике RVM, но в конце концов мне надоело то, что возникают проблемы с обновлением пакетов, да и много чего еще.  Решил в итоге взглянуть на альтернативу в ли..." property="og:description">
+  <meta content="https://www.juev.org/2012/11/05/rbenv/" property="og:url">
+  <meta content="2012-11-05T18:39:00+04:00" property="article:published_time">
+  <meta content="ruby" property="article:tag">
+  <meta content="rvm" property="article:tag">
+  <meta content="rbenv" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Rbenv and Bundle" name="twitter:title">
+  <meta content="Довольно долго я использовал в своей практике RVM, но в конце концов мне надоело то, что возникают проблемы с обновлением пакетов, да и много чего еще.  Решил в итоге взглянуть на альтернативу в ли..." property="twitter:description">
+  <meta content="https://www.juev.org/2012/11/05/rbenv/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Rbenv and Bundle</h1>
+<div id="metainfo">
+<span class="date">05 November 2012</span>
+<span class="tags"><a href="https://www.juev.org/tags/#ruby" title="View posts tagged with &quot;ruby&quot;" rel="nofollow">#ruby</a><a href="https://www.juev.org/tags/#rvm" title="View posts tagged with &quot;rvm&quot;" rel="nofollow">#rvm</a><a href="https://www.juev.org/tags/#rbenv" title="View posts tagged with &quot;rbenv&quot;" rel="nofollow">#rbenv</a></span>
+</div>
+<div class="post"><p>Довольно долго я использовал в своей практике <a href="/tags/rvm/" title="Tags RVM">RVM</a>, но в конце концов мне надоело то, что возникают проблемы с обновлением пакетов, да и много чего еще. Решил в итоге взглянуть на альтернативу в лице <a href="https://github.com/sstephenson/rbenv" title="Simple Ruby Version Management: rbenv">Rbenv</a>.</p>
+
+<p>Предварительно удалил из системы rvm. Для этого достаточно удалить из конфигурационных файлов bash/zsh строку инициализации rvm, после чего перезагрузить командный интерпретатор и затем удалить директорию <code class="highlighter-rouge">~/.rvm</code>. Теперь можно приступать к установке rbenv.</p>
+
+<h2 id="установка-rbenv">Установка rbenv</h2>
+
+<p>По идее rbenv можно довольно просто установить, используя пакетный менеджер homebrew, который очень часто используется в osx. Но используя его я столкнулся с тем, что в последствии совершенно запутался, где и какие пути прописывать в конфигурации rbenv. Поэтому рекомендую устанавливать с использованием git.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd
+$ git clone git://github.com/sstephenson/rbenv.git ~/.rbenv
+$ echo 'export PATH="$HOME/.rbenv/bin:$PATH"' &gt;&gt; ~/.bash_profile
+$ echo 'eval "$(rbenv init -)"' &gt;&gt; ~/.bash_profile
+</code></pre></div></div>
+
+<p>При использовании zsh, в последних двух строках необходимо использовать файл <code class="highlighter-rouge">~/.zshenv</code> вместо <code class="highlighter-rouge">~/.bash_profile</code>.</p>
+
+<p>Теперь перезапускаем командную оболочку и устанавливаем необходимые версии ruby.</p>
+
+<h2 id="установка-ruby">Установка ruby</h2>
+
+<p>Для упрощения данной операции рекомендуется установить расширение <a href="https://github.com/sstephenson/ruby-build" title="ruby-build">ruby-build</a>, которое позволяет устанавливать ruby с использованием всего одной команды. Для установки достаточно дать всего одну команду:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
+</code></pre></div></div>
+
+<p>Теперь можно установить необходимую версию ruby:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rbenv install 1.9.3-p194
+$ rbenv rehash
+</code></pre></div></div>
+
+<p>Команда <code class="highlighter-rouge">rbenv rehash</code> используется для того, чтобы rbenv обновила пути, и используется каждый раз при установке ruby.</p>
+
+<p>Для того, чтобы данная версия использовалась в системе по умолчанию, достаточно использовать команду:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rbenv global 1.9.3-p194
+</code></pre></div></div>
+
+<p>Для того, чтобы в проекте использовалась ruby с версией, отличной от глобальной, достаточно в директории проекта создать файл <code class="highlighter-rouge">.rbenv-version</code>, в которую помещаем номер версии:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ echo 'ree-1.8.7-2012.02' &gt; .rbenv-version
+</code></pre></div></div>
+
+<p>Да, после того, как я стал использовать rbenv, я совершенно перестал использовать системный ruby. А для использования ruby версии 1.8.7 я установил Ruby Enterprise Edition, которая отличается более высокими требованиями к безопасности. Данную версию я использую при работе с jekyll.</p>
+
+<p>Обращаю внимание так же на то, что в последних версиях OSX просто невозможно собрать ruby с версиями ниже 1.9.3 из-за особенностей используемой версии gcc. И для того, чтобы использовать ruby 1.8.7 приходиться или использовать системную версию или же устанавливать  Ruby Enterprise Edition.</p>
+
+<p>Так же стоит обратить внимание на то, что каждая версия ruby будет иметь свой набор пакетов. Поэтому если какой-то пакет должен использоваться в глобальном наборе, то его стоит устанавливать каждый раз после установки новой версии ruby.</p>
+
+<h2 id="использование-bundle">Использование bundle</h2>
+
+<p>В случае использования rvm все пакеты устанавливались глобально, но в каждом проекте использовались только их определенные версии. И ве управлялось с использованием gemset. Из-за чего возникало масса путаницы, проблемы с обновлением…</p>
+
+<p>Когда я спрашивал, что лучше всего использовать для управления пакетами, мне постоянно говорили – “используй bundle!”, но я никак не мог понять, почему.</p>
+
+<p>В моем понимании в то время bundle служил для того, чтобы установить пакеты, которые описаны в файле Gemfile. То есть фактически только упрощает установку определенных пакетов в проекте. Но когда я погрузился в документацию bundle, понял что ошибался и очень сильно!</p>
+
+<p>Устанавливать bundle лучше всего глобально, чтобы команда была доступна везде и всегда:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ gem install bundler
+</code></pre></div></div>
+
+<p>Обращаю внимание на то, что при установке пакетов с использованием версий ruby, которые мы ставили через rbenv, не нужно использовать sudo.</p>
+
+<p>Для упрощения работы с командой bundle, рекомендуется создать алиасы в командной оболочке:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># bundle alias
+alias b="bundle"
+alias bi="bundle install --path .bundle/gems --binstubs .bundle/bin"
+alias bu="b update"
+alias be="b exec"
+</code></pre></div></div>
+
+<p>Теперь для использования пакетов в проекте достаточно создать файл Gemfile, в котором описываем, какие именно пакеты необходимо использовать и откуда их требуется брать, например:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>source :rubygems
+
+group :development do
+  gem 'rake'
+  gem 'jekyll'
+  gem 'kramdown'
+  gem 'jammit'
+  gem 'liquid'
+end
+</code></pre></div></div>
+
+<p>Теперь просто используем команду <code class="highlighter-rouge">bi</code>, которая установит все пакеты в локальную директорию <code class="highlighter-rouge">.bundle/gems</code> и при этом еще создаст ссылки на программы в директорию <code class="highlighter-rouge">.bundle/bin</code>.</p>
+
+<p>Если изменить переменную PATH следующим образом:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ export PATH="./.bundle/bin:$PATH"
+</code></pre></div></div>
+
+<p>То при нахождении в директории проекта можно запускать установленные пакеты, как обычные системные, что очень удобно.</p>
+
+<p>Для обновления пакетов в проекте достаточно дать повторно команду <code class="highlighter-rouge">bi</code>, или же просто удалить директорию <code class="highlighter-rouge">.bundle</code> и установить пакеты снова. Сколько будет проектов, какие версии пакетов в них будут использоваться, не имеет ровно никакого значения. Система остается чистой и все проекты совершенно не пересекаются между собой.</p>
+
+<p>Для удаления определенного пакета достаточно удалить строку с его описанием из файла Gemfile и выполнить команду <code class="highlighter-rouge">bi</code>. Проще некуда!</p>
+
+<p>Больше информации по используемому формату файла Gemfile можно получить на страницах официального сайта <a href="http://gembundler.com" title="Bundler: The best way to manage Ruby applications">gembundler.com</a>.</p>
+
+<h2 id="тонкости-bundle">Тонкости bundle</h2>
+
+<p>Для избавления от некоторых сложностей при использовании bundle, рекомендуется создать файл конфигурации <code class="highlighter-rouge">~/.bundle/config</code>, в который поместить следующее:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>---
+BUNDLE_PATH: .bundle
+BUNDLE_SHEBANG: ruby-local-exec
+BUNDLE_BIN: ./.bundle/bin
+</code></pre></div></div>
+
+<p>Теперь и просто используя команду <code class="highlighter-rouge">bundle</code> или ее синоним <code class="highlighter-rouge">b</code>, который мы создали чуть ранее, мы получим тот же самый результат, что и при использовании нашего синонима <code class="highlighter-rouge">bi</code>. То есть все пакеты будут устанавливаться в локальную директорию проекта и при этом у нас будет возможность запускать установленные пакеты, как обычные системные.</p>
+
+<p>Если мне еще кто скажет, что для работы с ruby лучше всего использовать rvm, я посмотрю на этого человека с “большим удивлением”.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2012/11/05/facebook-clean/" title="View Укрощение Facebook">Укрощение Facebook</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2012/12/09/backup-music-collection/" title="View Резервная копия музыкальной коллекции">Резервная копия музыкальной коллекции</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

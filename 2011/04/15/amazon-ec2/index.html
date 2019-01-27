@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Amazon EC2</title>
+  <meta name="description" content="Настройка Amazon EC2, особенности работы и тонкости оплаты">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2011/04/15/amazon-ec2/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2011/04/13/cyanogenmod-wildfire/">
+  <link rel="next" href="https://www.juev.org/2011/04/24/markdown/">
+  <!-- og:meta -->
+  <meta content="Amazon EC2" property="og:title">
+  <meta content="Linode – отличный хостинг! Но когда держишь только статические сайты, начинаешь понимать, что стоимость в 20$ довольно существенная сумма.  В очередной раз начал искать более дешевую альтернативу. ..." property="og:description">
+  <meta content="https://www.juev.org/2011/04/15/amazon-ec2/" property="og:url">
+  <meta content="2011-04-15T00:00:00+04:00" property="article:published_time">
+  <meta content="amazon" property="article:tag">
+  <meta content="server" property="article:tag">
+  <meta content="vps" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Amazon EC2" name="twitter:title">
+  <meta content="Linode – отличный хостинг! Но когда держишь только статические сайты, начинаешь понимать, что стоимость в 20$ довольно существенная сумма.  В очередной раз начал искать более дешевую альтернативу. ..." property="twitter:description">
+  <meta content="https://www.juev.org/2011/04/15/amazon-ec2/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Amazon EC2</h1>
+<div id="metainfo">
+<span class="date">15 April 2011</span>
+<span class="tags"><a href="https://www.juev.org/tags/#amazon" title="View posts tagged with &quot;amazon&quot;" rel="nofollow">#amazon</a><a href="https://www.juev.org/tags/#server" title="View posts tagged with &quot;server&quot;" rel="nofollow">#server</a><a href="https://www.juev.org/tags/#vps" title="View posts tagged with &quot;vps&quot;" rel="nofollow">#vps</a></span>
+</div>
+<div class="post"><p>Linode – отличный хостинг! Но когда держишь только статические сайты, начинаешь понимать, что стоимость в 20$ довольно существенная сумма. В очередной раз начал искать более дешевую альтернативу. при этом основным требованием было наличие SSH-доступа к серверу, так как публикация у меня проходит через использование rsync, а копировать по ftp уже не могу, отвык, слишком долго.</p>
+
+<p>Начал искать <strong>VPS</strong> по меньшим ценам. Обратил внимание на облачный хостинг, <em>Selectel</em> и <em>Clodo</em>. Про тестирование производительности данных хостеров я писал в статье <a href="/2011/03/27/cloud-hosting/" title="Облачный хостинг">Облачный хостинг</a>. Больше всего привлек мое внимание Selectel, но остановило от его использование то, что когда я пробовал его использовать, возникли проблемы с сетью, некоторые регионы для моей машины были недоступны.</p>
+
+<p>В очередной раз обратил внимание на <em>Amazon</em> с его сервисом <strong>EC2</strong>. Так как <em>Amazon</em> использую уже давно и как сетевой диск и как хранилище данных для своих сайтов, знаю о том, что сервис очень надежный и качество его работы просто на высоте.</p>
+
+<p>Останавливали только цены на аренду машин в EC2 (<a href="http://aws.amazon.com/ec2/#pricing" title="Amazon EC2 Price">Price</a>). Тариф <em>Micro</em> от 2.5 центов за час работы, тариф <em>Small</em> от 9.5 центов за час работы. Я рассматривал только вариант размещения в Европе, для обеспечения лучшей доступности сайта на территории России. То есть фактически за микро-машину нужно было заплатить порядка 20$ за месяц непрерывной работы, а за стандартную машину порядка 70$. О какой экономии может идти речь, если получается гораздо дороже? На этом остановимся чуть позже.</p>
+
+<h2 id="производительность">Производительность</h2>
+
+<p>Для начала я решил провести тесты производительности машин на <em>Amazon</em>. Для чего создавал типовые конфигурации машин, устанавливал на них Nginx, проводил тест отдачи статического контента и затем проводил тест машины с использованием утилиты <a href="http://code.google.com/p/byte-unixbench/" title="UnixBench">UnixBench</a>.</p>
+
+<p>Если честно, тесты оказались “пустыми” и неутешительными. Пустыми, просто потому, что я вдруг осознал, что тест UnixBench, проведенный на веб-сервере не может показать ничего, что влияет на его работу. Цифры совершенно ничего не говорили. А неутешительными, просто потому, что <em>Amazon</em> показал очень скромные результаты.</p>
+
+<ol>
+  <li><em>Micro</em> 32-bit показала результат в <strong>63.1</strong> балла <a href="https://static.juev.org/2011/04/ec2-micro.bench.txt" title="ec2-micro.bench">ec2-micro.bench</a></li>
+  <li><em>Micro</em> 64-bit показала результат в <strong>85.1</strong> балла <a href="https://static.juev.org/2011/04/ec2-micro.ubuntu-64.bench.txt" title="ec2-micro.ubuntu-64.bench">ec2-micro.ubuntu-64.bench</a></li>
+  <li><em>Small</em> 32-bit показала результат в <strong>102.7</strong> балла <a href="https://static.juev.org/2011/04/ec2-small.fedora.bench.txt" title="ec2-small.fedora.bench">ec2-small.fedora.bench</a>, на debian результат чуть выше – <strong>118.3</strong> балла <a href="https://static.juev.org/2011/04/ec2-small.debian.bench.txt" title="ec2-small.debian.bench">ec2-small.debian.bench</a></li>
+  <li>Естественно, провел тест и Linode, результат оказался <strong>1068.3</strong> баллов <a href="https://static.juev.org/2011/04/linode.bench.txt" title="linode.bench">linode.bench</a>.</li>
+</ol>
+
+<p>Результаты не сопоставимы, разница в десятки раз! Но на деле заметно ли это? Совершенно нет. Что работать удаленно по SSH на сервере, что тест отдачи статики, показали очень быструю работу серверов <em>Amazon</em>, что же показывает тогда unixbench?? Вопрос пока остается открытым.</p>
+
+<p>Кстати, при проведенном тесте производительности отдачи статики, сервера <em>Micro</em> и <em>Small</em> показали примерно одинаковый результат в <strong>3000</strong> запросов в секунду. Довольно не плохо, особенно, если учитывать, что сервер <em>Linode</em> показывал результат в <strong>6000</strong> запросов в секунду.</p>
+
+<h2 id="стоимость">Стоимость</h2>
+
+<p>20$ отдавать за менее мощный сервер? И это еще без учета стоимости трафика и оплаты использования EBS-тома? Складывается такое ощущение, что автор запутался и зашел немного не туда… Искал дешевле, а в итоге получается более дорогой вариант за менее мощную машину, в чем смысл??</p>
+
+<p>Давайте еще раз посмотрим на <a href="http://aws.amazon.com/ec2/#pricing" title="Amazon EC2 Price">стоимость</a>? На странице приводиться специальный раздел, который называется <em>Reserved Instances</em>, это абонентская плата за год или три года сразу, резервирующая машинные ресурсы по значительно более низким ценам, чем обычно. К примеру, оплатив один год использования <em>Micro</em>-машины за 54$, стоимость одного часа опускается до 1 цента, то есть снижается в 2.5 раза!</p>
+
+<p>Сделаем небольшой расчет. За основу возьмем <em>Reserved Instances</em> на три года за 84$ и будем использовать машину 100% времени.  Единовременно придется отдать порядка 84x30=2520 руб. Делим на 36 месяцев и получаем 70 рублей в месяц. В месяце обычно берут 750 часов, по одному центу за час работы, получаем 7.5$ или 225.0 руб. То есть без учета стоимости трафика и использования EBS-тома выходит 295 руб. в месяц. Что уже более чем в два раза ниже стоимости сервера на Linode!</p>
+
+<h2 id="тонкости">Тонкости</h2>
+
+<p>При оформлении <em>Reserved Instances</em> я столкнулся с неприятным моментом. Еще во время экспериментов я создал машину, которую планировал использовать как основную. Естественно, что когда создавал ее, не обратил внимания на то, в какой зоне создается машина. Указывал только, что создавать машину в Ирландии. Когда оплачивал <em>Reserved Instances</em>, указал, что машина будет размещаться в Ирландии, вроде все нормально, все параметры совпадали. Однако по прошествии суток обратил внимание на то, что в <em>Account Activity</em> слишком быстро растет стоимость использования машины.</p>
+
+<p>Обратился в <em>AWS Customer Service and Billing</em>, на удивление они отвечают довольно быстро, примерно в течение часа-двух после обращения. Отвечают очень подробно и обстоятельно. В результате небольшой переписки с ними выяснилось, что имеет значение не только то, в какой стране размещается машина, но и зона размещения. Оплаченная зона и зона размещения у меня не совпадали.</p>
+
+<p>Пришлось переносить все данные на новую машину, что создал в нужной зоне и уничтожать ту, что работала. И в этом моменте я несколько поторопился, тем самым усложнив свою работу.</p>
+
+<p>Еще одна тонкость заключается в том, что стоит только перезагрузить машину, как она получает новый ip-адрес. Для того, чтобы домен указывал на определенную машину, или целую сеть, на <em>Amazon</em> есть специальная услуга, называется <em>Elastic IPs</em>. Это резервирование определенного ip-адреса и возможность его назначения любой работающей машине. Организовано это для быстрого разворачивания новых сетей, подключения более мощных машин. Пользователи при этом не замечают перебоев в работе.</p>
+
+<p>Сам процесс правильного переноса заключается в том, что пока продолжает работать текущая машина, создаем новую машину, полностью ее настраиваем, организуем копирование данных с работающей машины, проверяем ее работу и только после этого перебрасываем значение <em>Elastic IPs</em> на новую машину, то есть фактически переключаем домен на новую машину. После чего уже можно будет удалять ту машину, что работала до этого момента.</p>
+
+<p>Я же поступил, как раньше, остановил текущую машину, создал новую, настраивал ее, заливал данные, назначал ip-адрес. Естественно, что все время, пока создавал и настраивал новую машину, мои сайты не работали. Но как говорится, “хорошая мысля приходит опосля”. По крайней мере теперь буду знать эту особенность и в будущем уже поступлю иначе.</p>
+
+<h2 id="выводы">Выводы</h2>
+
+<p><em>Amazon</em> используют не только в качестве web-серверов, но и в качестве ферм обработки данных, требующих больших затрат процессорного времени или большого объема оперативной памяти. В данных задачах альтернативы <em>Amazon</em> до сих пор нет. Ни по ресурсам, ни по стоимости.</p>
+
+<p>Если же использовать машину 100% времени, то и в данной ситуации можно добиться значительного снижения стоимости использования машины. Делая <em>Amazon</em> конкурентоспособным и в случае размещения веб-серверов.</p>
+
+<p>Производительности <em>Micro</em> машины с 618 мегабайтами памяти и одним ядром процессора в 2.27GHz, которое выделяется не равномерно, а согласно нагрузке (подробно на странице <a href="http://docs.amazonwebservices.com/AWSEC2/latest/UserGuide/index.html?concepts_micro_instances.html" title="Micro Instances">Micro Instances</a>), вполне достаточно для размещения многих статических сайтов, или размещения Wordpress-сайта. Встречал статьи о том, что на подобных машинах размещали Drupal и все работало довольно быстро.</p>
+
+<p>Если же требуется больше памяти и гарантированное выделение процессора, то стоит обратить внимание на тариф <em>Small</em>. Да, он дороже, но процессор выделяется полностью и объем оперативной памяти уже составляет 1.7 гигабайта.</p>
+
+<p>Стоимость использования довольно конкурентна, при этом есть возможность использования дополнительных возможностей, таких как слепки жесткого диска, подключение дополнительных машин и т.д.</p>
+
+<p>А некоторые ведь используют машины <em>Amazon</em> в качестве своих рабочих машин. Включая их по утрам, работая удаленно и отключая вечером.</p>
+
+<p>Вне зависимости от того, как вы собираетесь использовать сервера, предложение <em>Amazon</em> очень интересное и заслуживающее внимания!</p>
+
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2011/04/13/cyanogenmod-wildfire/" title="View HTC Wildfire прошивка CyanogenMod">HTC Wildfire прошивка CyanogenMod</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2011/04/24/markdown/" title="View Markdown">Markdown</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

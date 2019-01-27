@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>mcabber - консольный jabber клиент</title>
+  <meta name="description" content="Согласно wiki. mcabber. com:mcabber -- это текстовый Jabber-клиенкт включающий в себя такие функции как: поддержка SSL, история переписки (конференции), автодополнение команд и возможность создания...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2009/06/04/mcabber-konsolnyj-jabber-klient/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2009/06/02/awesome-snimki-ekrana-dopolnenie/">
+  <link rel="next" href="https://www.juev.org/2009/06/07/backup-manager/">
+  <!-- og:meta -->
+  <meta content="mcabber - консольный jabber клиент" property="og:title">
+  <meta content="Согласно wiki. mcabber. com:mcabber -- это текстовый Jabber-клиенкт включающий в себя такие функции как: поддержка SSL, история переписки (конференции), автодополнение команд и возможность создания..." property="og:description">
+  <meta content="https://www.juev.org/2009/06/04/mcabber-konsolnyj-jabber-klient/" property="og:url">
+  <meta content="2009-06-04T00:00:00+04:00" property="article:published_time">
+  <meta content="jabber" property="article:tag">
+  <meta content="mcabber" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="mcabber - консольный jabber клиент" name="twitter:title">
+  <meta content="Согласно wiki. mcabber. com:mcabber -- это текстовый Jabber-клиенкт включающий в себя такие функции как: поддержка SSL, история переписки (конференции), автодополнение команд и возможность создания..." property="twitter:description">
+  <meta content="https://www.juev.org/2009/06/04/mcabber-konsolnyj-jabber-klient/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">mcabber - консольный jabber клиент</h1>
+<div id="metainfo">
+<span class="date">04 June 2009</span>
+<span class="tags"><a href="https://www.juev.org/tags/#jabber" title="View posts tagged with &quot;jabber&quot;" rel="nofollow">#jabber</a><a href="https://www.juev.org/tags/#mcabber" title="View posts tagged with &quot;mcabber&quot;" rel="nofollow">#mcabber</a></span>
+</div>
+<div class="post"><p>Согласно <a href="http://wiki.mcabber.com/index.php/RU_Main_Page" rel="nofollow">wiki.mcabber.com</a>:</p>
+<blockquote>mcabber -- это текстовый Jabber-клиенкт включающий в себя такие функции как: поддержка <strong>SSL</strong>, <strong>история переписки</strong> (конференции), <strong>автодополнение</strong> команд и возможность создания <strong>собственных команд</strong> (триггеров).</blockquote>
+<p>Он меня заинтересовал после того, как в конференции arch@conference.jabber.ru у многих из присутствующих в качестве клиента оказался именно mcabber.</p>
+
+<p>Установил:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ yaourt -S mcabber
+</code></pre></div></div>
+
+<p>В репозитории archlinux находиться актуальная версия 0.9.9-1, пакет весит всего 244,35Kb. Дополнительно при установке у меня был загружен пакет libotr, а в зависимостях mcabber прописаны ncurses, glib2, openssl, gpgme, libotr, aspell…</p>
+
+<p>После установки необходимо в домашней директории создать папку ~/.mcabber и скопировать в нее файл <code>/usr/share/mcabber/example/mcabberrc</code>. Для папки <code>~/.mcabber</code> задаем права доступа 0700.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ mkdir ~/.mcabber
+$ chmod 0700 ~/.mcabber
+$ cp /usr/share/mcabber/example/mcabberrc&lt;tt&gt; ~/.mcabber/mcabberrc&lt;/tt&gt;
+</code></pre></div></div>
+
+<p>И затем начинаем его редактировать любимым редактором (файл по умолчанию очень хорошо документирован, проблем в настройке возникнуть не должно).
+ <strong>!!</strong> mcabber не умеет регистрировать пользователя на сервере, поэтому данную операцию нужно провести заранее с помощью другого клиента.</p>
+
+<p>Необходимый минимум, который нужно прописать (а точнее изменить в файле <tt>mcabberrc</tt>), это:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>set username = ваш jid
+set password = ваш пароль (если не указать, будет запрошен при connect)
+set server = ваш сервер
+set lang = ru
+</code></pre></div></div>
+
+<p>Последняя строка необходима для того, чтобы mcabber был локализован для русского языка (не обязательный параметр).</p>
+
+<p>Для использования SSL прописываем следующее (только в том случае, если сервер поддерживает SSL):</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>set ssl = 1
+set ssl_verify = 0
+</code></pre></div></div>
+
+<p>Сертификаты с сервера будут подгружены автоматически.</p>
+
+<p>После запуска mcabber выглядит примерно вот так, если не менялась цветовая схема:</p>
+
+<p><img src="https://static.juev.org/2009/06/mcabber_sample.png" alt="" /></p>
+
+<p>Слева – ростер (он же лист контактов)
+Правее – окно чата.
+Прямо под ним – output статуса (системные сообщения).
+И в самом низу – input. Сюда мы вводим команды и сообщения.</p>
+
+<p>Перемещение по ростеру происходит с помощью кнопок Page up/down соответственно.
+Enter – переход в состояние чата для текущего jid или конференции.
+Стрелки up/down работают как в терминале (Bash history)
+Ctrl+q – следующее непрочитанное сообщение.</p>
+
+<p><em>Необходимый минимум команд</em>:</p>
+
+<pre><span style="font-weight: bold;">/room join "arch@conference.jabber.ru"</span>
+подключение к конференции
+
+<span style="font-weight: bold;">/help</span>
+расскажет какие команды есть в mcabber, причем эта информация всегда более свежая, чем в manpage.
+
+<span style="font-weight: bold;">/add "name@jabber.ru"</span>
+добавляет "jid" в список контактов</pre>
+
+<p>Небольшой FAQ по программе (взято со страницы <a href="http://wiki.mcabber.com/index.php/RU_Main_Page">wiki.mcabber.com</a>):</p>
+<ol>
+	<li> MCabber не хочет соединяться с сервером. Выдает ошибку: <em>jab_start: SSL negotiation failed: self signed certificate.</em>
+Используйте опцию <tt>'ssl_verify = 0'</tt> в файле конфигурации и выставьте правильные опции сертификата.</li>
+	<li> Как я могу подключиться к моему аккаунту на Google Talk?
+Должно работать со следующими опциями:
+<pre>set username = your.email@gmail.com
+set server = talk.google.com
+set ssl = 1
+set ssl_verify = 0</pre></li>
+	<li> Я хочу назначить определенную клавишу на выполнение команды, как мне узнать ее код?
+Если код клавиши доступен, то он будет показан в окне истории, когда Вы нажмете нужную клавишу.</li>
+	<li> Как мне создать группу пользователей?
+Используйте команды <tt>/move</tt>, если указанной группы нет -- она будет создана автоматически.</li>
+	<li> Как мне сделать прозрачный фон?
+Установите <tt>color_background = default.</tt></li>
+	<li> Могу ли я использовать PGP-шифрование?
+Смотрите страницу <a title="OpenPGP" href="http://wiki.mcabber.com/index.php/OpenPGP">OpenPGP</a>.</li>
+	<li>Как отключить идентифицирующую меня информацию в mcabber (показ названия и версии клиента, версии ОС и имени ресурса)?
+Чтобы убрать показ поля "Name" при запросе версии клиента нужно перекомпилировать исходник, предварительно закомментировав в файле jab_iq.c строки под нимером 1510 и 1511 (для версии 0.9.6):
+<pre>//xmlnode_insert_cdata(xmlnode_insert_tag(myquery, "name"), PACKAGE_NAME, -1);
+//xmlnode_insert_cdata(xmlnode_insert_tag(myquery, "version"), ver, -1);</pre>
+Затем, требуется прописать в конфигурационном файле:
+<pre>set iq_version_hide_os = 1
+set resource = myresource</pre>
+Следует заметить, что значение опции resource нельзя оставить пустым: в противном случае она будет равна "mcabber".</li>
+</ol>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2009/06/02/awesome-snimki-ekrana-dopolnenie/" title="View awesome: снимки экрана (дополнение)">awesome: снимки экрана (дополнение)</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2009/06/07/backup-manager/" title="View Backup-Manager">Backup-Manager</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

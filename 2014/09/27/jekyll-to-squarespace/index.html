@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Миграция с Jekyll на Squarespace</title>
+  <meta name="description" content="Про недостатки Jekyll я уже писал.  И неоднократно указывал на то, что собираюсь уйти с данного генератора статических сайтов. Вставал только вопрос про то, куда мигрировать, чтобы не возникало про...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2014/09/27/jekyll-to-squarespace/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2014/09/22/email/">
+  <link rel="next" href="https://www.juev.org/2014/11/02/jekyll-to-ghost/">
+  <!-- og:meta -->
+  <meta content="Миграция с Jekyll на Squarespace" property="og:title">
+  <meta content="Про недостатки Jekyll я уже писал.  И неоднократно указывал на то, что собираюсь уйти с данного генератора статических сайтов. Вставал только вопрос про то, куда мигрировать, чтобы не возникало про..." property="og:description">
+  <meta content="https://www.juev.org/2014/09/27/jekyll-to-squarespace/" property="og:url">
+  <meta content="2014-09-27T21:28:05+04:00" property="article:published_time">
+  <meta content="web" property="article:tag">
+  <meta content="jekyll" property="article:tag">
+  <meta content="squarespace" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Миграция с Jekyll на Squarespace" name="twitter:title">
+  <meta content="Про недостатки Jekyll я уже писал.  И неоднократно указывал на то, что собираюсь уйти с данного генератора статических сайтов. Вставал только вопрос про то, куда мигрировать, чтобы не возникало про..." property="twitter:description">
+  <meta content="https://www.juev.org/2014/09/27/jekyll-to-squarespace/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Миграция с Jekyll на Squarespace</h1>
+<div id="metainfo">
+<span class="date">27 September 2014</span>
+<span class="tags"><a href="https://www.juev.org/tags/#web" title="View posts tagged with &quot;web&quot;" rel="nofollow">#web</a><a href="https://www.juev.org/tags/#jekyll" title="View posts tagged with &quot;jekyll&quot;" rel="nofollow">#jekyll</a><a href="https://www.juev.org/tags/#squarespace" title="View posts tagged with &quot;squarespace&quot;" rel="nofollow">#squarespace</a></span>
+</div>
+<div class="post"><p>Про <a href="/2013/11/10/lack-of-jekyll/">недостатки Jekyll</a> я уже писал. И неоднократно указывал на то, что собираюсь уйти с данного генератора статических сайтов.</p>
+
+<p>Вставал только вопрос про то, куда мигрировать, чтобы не возникало проблем с публикацией и производительностью. Как основной вариант рассматривал сервис <a href="http://squarespace.com/" title="Squarespace">Squarespace</a>. При этом передо мной стояла задача: перенести все свои записи, и при этом постараться сохранить все ссылки неизменными.</p>
+
+<p>Возможностей импорта в Squrespace не так много: Squarespace 5 (предыдущая версия сервиса), Etsy, Shopify, Blogger, Tumblr и Wordpress. Напрямую мигрировать с Jekyll невозможно, а потому следовало рассматривать вариант экспорта своих записей в один из перечисленных сервисов, с последующим переносом в Squarespace.</p>
+
+<p>Для этих целей использовал <a href="https://www.digitalocean.com/?refcode=c5cb9e6574a7" title="DigitalOcean">DigitalOcean</a>. Создал новый сервер с предустановленным Wordpress. Затем в Jekyll провел генерацию файла RSS-ленты, включающего в себя все статьи сайта и провел его импорт в Wordpress. Экспорт довольно стандартная операция в WP, и проблем с ней не возникло, ровно как и последующий импорт в Squarespace.</p>
+
+<p>Во время проведения миграции появилось несколько проблем, что перечеркнули всю идею:</p>
+
+<ol>
+  <li>
+    <p>Миграция в WordPress осуществляется через RSS, и, соответственно, теряется вся метаинформация по статье: используемые теги, категории, описание.</p>
+  </li>
+  <li>
+    <p>Как оказалось, после импорта в Wordpress все записи получают новые ссылки, и управлять этим процессом не возможно.</p>
+  </li>
+</ol>
+
+<p>Обрабатывать руками более 250 статей, задавая им определенные адреса, теги и категории, довольно тяжелая задача. Поэтому решил остановить процесс миграции на данном этапе.</p>
+
+<p>А про миграцию на <a href="https://ghost.org" title="Ghost - Just a blogging platform">Ghost</a>, который теперь использую, опишу как-нибудь в другой раз.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2014/09/22/email/" title="View Электропочта на веб-страницах">Электропочта на веб-страницах</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2014/11/02/jekyll-to-ghost/" title="View Ghost">Ghost</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

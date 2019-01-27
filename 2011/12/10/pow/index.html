@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Pow - простой локальный вебсервер</title>
+  <meta name="description" content="При создании сайта важно иметь рабочий локальный веб-сервер под рукой, чтобы на локальной машине сразу же видеть те изменения, что вносятся и тут же при наличии ошибки их исправлять.  И только по з...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2011/12/10/pow/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2011/12/10/alfred/">
+  <link rel="next" href="https://www.juev.org/2011/12/17/twitter-vs-echofon/">
+  <!-- og:meta -->
+  <meta content="Pow - простой локальный вебсервер" property="og:title">
+  <meta content="При создании сайта важно иметь рабочий локальный веб-сервер под рукой, чтобы на локальной машине сразу же видеть те изменения, что вносятся и тут же при наличии ошибки их исправлять.  И только по з..." property="og:description">
+  <meta content="https://www.juev.org/2011/12/10/pow/" property="og:url">
+  <meta content="2011-12-10T20:08:00+04:00" property="article:published_time">
+  <meta content="mac" property="article:tag">
+  <meta content="daemon" property="article:tag">
+  <meta content="develop" property="article:tag">
+  <meta content="webdesign" property="article:tag">
+  <meta content="server" property="article:tag">
+  <meta content="node.js" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Pow - простой локальный вебсервер" name="twitter:title">
+  <meta content="При создании сайта важно иметь рабочий локальный веб-сервер под рукой, чтобы на локальной машине сразу же видеть те изменения, что вносятся и тут же при наличии ошибки их исправлять.  И только по з..." property="twitter:description">
+  <meta content="https://www.juev.org/2011/12/10/pow/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Pow - простой локальный вебсервер</h1>
+<div id="metainfo">
+<span class="date">10 December 2011</span>
+<span class="tags"><a href="https://www.juev.org/tags/#mac" title="View posts tagged with &quot;mac&quot;" rel="nofollow">#mac</a><a href="https://www.juev.org/tags/#daemon" title="View posts tagged with &quot;daemon&quot;" rel="nofollow">#daemon</a><a href="https://www.juev.org/tags/#develop" title="View posts tagged with &quot;develop&quot;" rel="nofollow">#develop</a><a href="https://www.juev.org/tags/#webdesign" title="View posts tagged with &quot;webdesign&quot;" rel="nofollow">#webdesign</a><a href="https://www.juev.org/tags/#server" title="View posts tagged with &quot;server&quot;" rel="nofollow">#server</a><a href="https://www.juev.org/tags/#node.js" title="View posts tagged with &quot;node.js&quot;" rel="nofollow">#node.js</a></span>
+</div>
+<div class="post"><p>При создании сайта важно иметь рабочий локальный веб-сервер под рукой, чтобы на локальной машине сразу же видеть те изменения, что вносятся и тут же при наличии ошибки их исправлять. И только по завершении работы, результат загружать на рабочий сервер.</p>
+
+<p><a href="http://jekyllrb.com/" title="Jekyll">Jekyll</a> уже имеет свой локальный сервер, но webrick оказывается довольно медленным, и каждый раз его запускать – это тратить необоснованно много времени.</p>
+
+<p>Как оказалось, есть прекрасная альтернатива в лице <a href="http://pow.cx/" title="Pow: Zero-configuration Rack server for Mac OS X">Pow</a>.</p>
+
+<p>Устанавливать и использовать его крайне просто.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ curl get.pow.cx | sh
+</code></pre></div></div>
+
+<p>И теперь остается только перейти в рабочую директорию программы и создать символическую ссылку на директорию с сайтом.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd ~/.pow
+$ ln -s /path/to/myapp
+</code></pre></div></div>
+
+<p>На этом все! Сразу после создания символической ссылки локальный сайт доступен по адресу <code class="highlighter-rouge">http://myapp.dev/</code>.</p>
+
+<p>Существует gem, который позволяет значительно упростить работу с Pow. Называется он <strong>Powder</strong>.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo gem install powder
+</code></pre></div></div>
+
+<p>При запуске программы без параметров выдается справка по доступным командам. Среди который и установка/удаление Pow. Все, что может понадобиться в работе с локальным веб-сервером, все команды присутствуют в <strong>Powder</strong>.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ powder
+Tasks:
+  powder always_restart  # Always restart current pow
+  powder applog          # Tails in current app
+  powder cleanup         # Clean up invalid symbolic link
+  powder config          # Shows current pow configuration
+  powder default         # Set this app as default
+  powder down            # Disable pow
+  powder help [TASK]     # Describe available tasks or one specific task
+  powder host            # Updates hosts file to map pow domains to 127.0.0.1
+  powder install         # Installs pow
+  powder link            # Link a pow
+  powder list            # List current pows
+  powder log             # Tails the Pow log
+  powder no_restarts     # Reset this app's restart settings
+  powder open            # Open a pow in the browser
+  powder remove          # An alias to Unlink (depreciated)
+  powder restart         # Restart current pow
+  powder status          # Shows current pow status
+  powder un_default      # remove current default app
+  powder unhost          # Removes pow domains from hostfile
+  powder uninstall       # Uninstalls pow
+  powder unlink          # Unlink a pow app
+  powder up              # Enable pow
+  powder version         # Shows the version
+</code></pre></div></div>
+
+<p>Таким образом очень просто поднять локальный веб-сервер на своей машине и при этом не потребуется устанавливать apache или nginx, а добавлять новые сайты к нему еще проще. Достаточно только создать символическую ссылку.</p>
+
+<p>В случае, если после обновления ряда программ, Pow перестает откликаться на запросы браузера, достаточно его просто переустановить:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ powder uninstall 
+$ powder install
+</code></pre></div></div>
+
+<p>При этом заново создать символически ссылки уже не потребуется.</p>
+
+<p>Более подробную информацию по использованию и настройке Pow можно найти на странице <a href="http://pow.cx/manual.html" title="Pow User's Manual">Pow User’s Manual</a>.</p>
+
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2011/12/10/alfred/" title="View Alfred - запуск программ и не только">Alfred - запуск программ и не только</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2011/12/17/twitter-vs-echofon/" title="View Twitter vs Echofon">Twitter vs Echofon</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

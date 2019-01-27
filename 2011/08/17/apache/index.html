@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Apache</title>
+  <meta name="description" content="После перехода на сервера Amazon, я сразу же установил в качестве веб-сервера nginx, который использовал в различных целях перед этим.  Более трех месяцев он у меня проработал на отдаче статических...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2011/08/17/apache/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2011/08/15/jekyll-hidden/">
+  <link rel="next" href="https://www.juev.org/2011/08/29/instapaper/">
+  <!-- og:meta -->
+  <meta content="Apache" property="og:title">
+  <meta content="После перехода на сервера Amazon, я сразу же установил в качестве веб-сервера nginx, который использовал в различных целях перед этим.  Более трех месяцев он у меня проработал на отдаче статических..." property="og:description">
+  <meta content="https://www.juev.org/2011/08/17/apache/" property="og:url">
+  <meta content="2011-08-17T12:54:00+04:00" property="article:published_time">
+  <meta content="apache" property="article:tag">
+  <meta content="debian" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Apache" name="twitter:title">
+  <meta content="После перехода на сервера Amazon, я сразу же установил в качестве веб-сервера nginx, который использовал в различных целях перед этим.  Более трех месяцев он у меня проработал на отдаче статических..." property="twitter:description">
+  <meta content="https://www.juev.org/2011/08/17/apache/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Apache</h1>
+<div id="metainfo">
+<span class="date">17 August 2011</span>
+<span class="tags"><a href="https://www.juev.org/tags/#apache" title="View posts tagged with &quot;apache&quot;" rel="nofollow">#apache</a><a href="https://www.juev.org/tags/#debian" title="View posts tagged with &quot;debian&quot;" rel="nofollow">#debian</a></span>
+</div>
+<div class="post"><p>После перехода на сервера Amazon, я сразу же установил в качестве веб-сервера <strong>nginx</strong>, который использовал в различных целях перед этим. Более трех месяцев он у меня проработал на отдаче статических сайтов, и тут мне вдруг захотелось попробовать в работе со статикой веб-сервер <strong>Apache</strong>. Ведь что-то должно быть в нем такого, из-за чего многие хостеры используют именно его?</p>
+
+<p>Вариантов попробовать <strong>Apache</strong> в работе было несколько, а именно:</p>
+
+<ol>
+  <li>Создать новый сервер, установить на нем Apache и проводить тесты.</li>
+  <li>На текущем сервере установить Apache, настроить на использование порта, отличного от 80.</li>
+  <li>Удалить nginx, и затем устанавливать в качестве основного веб-сервер Apache.</li>
+</ol>
+
+<p>Создать новый сервер не составляет проблем, но если надумаю осуществить переход с nginx на Apache на основном сервере, придется дополнительно осуществлять третий вариант. Слишком много движений. Поэтому я выбрал второй вариант, как самый оптимальный.</p>
+
+<p>Устанавливаем Apache:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo aptitude install apache2
+</code></pre></div></div>
+
+<p>Веб-сервер был установлен, но не запущен, в виду того, что на 80 порту уже работал nginx. Вполне нормальная ситуация. Теперь необходимо изменить файлы:</p>
+
+<ul>
+  <li>/etc/apache2/ports.conf</li>
+  <li>/etc/apache2/sites-available/default</li>
+</ul>
+
+<p>В которых меняем используемый порт с 80 на 8080 (к примеру). После чего создаем новый домен/поддомен, который будет работать на данном веб-сервере и запускаем Apache:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo service apache2 start
+</code></pre></div></div>
+
+<blockquote>
+  <p>На серверах Amazon, для того, чтобы увидеть работающий сервер, придется еще изменить
+политику безопасности, в которой требуется разрешить соединение по порту, который мы
+прописали для Apache.</p>
+</blockquote>
+
+<h2 id="worker-and-prefork">Worker and Prefork</h2>
+
+<p>Apache может использовать различные мультипроцессорные модули (MPM), в Debian их насчитывается 4, но обычно используются только два: <strong>Prefork</strong> и <strong>Worker</strong>.</p>
+
+<p><strong>Prefork</strong> - это модуль, в котором на каждое соединение создается отдельный процесс веб-сервера. Это несколько сказывается на производительности и на потребляемую оперативную память, но оказывается более стабильным, так как при падении одного процесса мы теряем только одно соединение. Остальные соединения остаются рабочими.</p>
+
+<p>Данный модуль очень часто используется при работе с PHP или другими внешними скриптами.</p>
+
+<p><strong>Worker</strong> - это модуль, в котором создается несколько рабочих процессов, и при создании соединения, создается отдельный поток, который управляется этим процессом. Таким образом получается, что несколько работающих процессов могут контролировать очень большое число соединений.</p>
+
+<p>Создание отдельного потока намного менее трудоемкая задача, чем создание процесса, поэтому протекает очень быстро, без задержек. И памяти при этом расходуется намного меньше.</p>
+
+<p>Однако возникает небольшая проблема со стабильностью. Если процесс завершается аварийно, то множество соединений оказываются потерянными.</p>
+
+<p>При установке метапакета <em>apache2</em> устанавливается потоковая модель <em>worker</em>, которую я собирался использовать, поэтому никаких дополнительных действий мне не нужно было делать.</p>
+
+<p>И так как я использую сейчас только статические сайты, проблем с отдельными процессами возникнуть не должно.</p>
+
+<h2 id="кеширование">Кеширование</h2>
+
+<p>Попытался я было настроить кеширование на веб-сервере <em>Apache</em> и столкнулся с тем, что при прописывании новых правил в файл <code class="highlighter-rouge">.htaccess</code> получал 505 ошибку при попытке просмотреть страницы сайта. Долго не мог понять в чем дело, пока не вспомнил, что Apache представляет собой модульную систему, и для использование определенных возможностей необходимо включить определенный модуль:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo a2enmod expires
+$ sudo service apache2 restart
+</code></pre></div></div>
+
+<p>И после включения модуля <code class="highlighter-rouge">expires</code> уже можно прописывать правила кеширования в файле <code class="highlighter-rouge">.htaccess</code>.</p>
+
+<p>Для себя я выбрал следующие правила:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ExpiresByType text/html "now"
+ExpiresByType image/gif "modification plus 1 year"
+ExpiresByType image/png "modification plus 1 year"
+ExpiresByType image/jpg "modification plus 1 year"
+ExpiresByType image/ico "modification plus 1 year"
+ExpiresByType text/js "modification plus 1 month"
+ExpiresByType text/css "modification plus 1 month"
+</code></pre></div></div>
+
+<p>То есть html-файлы не кешируются, а отдаются непосредственно с сервера, все остальное кешируется на срок от 1 месяца до года.</p>
+
+<h2 id="итоги">Итоги</h2>
+
+<p>После проведения тестов я решил сменить nginx на Apache. Конечно памяти стало использоваться несколько больше, однако работать с apache, на мой взгляд, удобнее.</p>
+
+<p>И что самое интересное, создается такое впечатление, что Apache на статике работает быстрее. Это конечно же не так, но впечатление довольно яркое!</p>
+
+<p>И больше всего мне понравилась возможность вносить изменения в работу сайта без перезагрузки самого сервера, достаточно только внести изменения в файл <code class="highlighter-rouge">.htaccess</code>, как они тут же применяются.</p>
+
+<p>На данный момент все работающие процессы на сервере потребляют от силы 96 мегабайт. При той производительности, что обеспечивает Apache и удобству работы, я думаю выбор становится очевидным.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2011/08/15/jekyll-hidden/" title="View Jekyll 0.11.0">Jekyll 0.11.0</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2011/08/29/instapaper/" title="View Instapaper - сервис отложенного чтения">Instapaper - сервис отложенного чтения</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

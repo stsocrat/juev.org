@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>ScaleWay: впечатления от работы</title>
+  <meta name="description" content="DigitalOcean хороший хостинг, относительно дешевый, с массой возможностей.  Но совсем недавно столкнулся с тем, что инженеры нашли проблему в гипервизоре и попытались его обновить.  Да, они меня из...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2017/02/13/scaleway/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2017/02/12/save-lisp-and-die/">
+  <link rel="next" href="https://www.juev.org/2017/02/19/cloudflare/">
+  <!-- og:meta -->
+  <meta content="ScaleWay: впечатления от работы" property="og:title">
+  <meta content="DigitalOcean хороший хостинг, относительно дешевый, с массой возможностей.  Но совсем недавно столкнулся с тем, что инженеры нашли проблему в гипервизоре и попытались его обновить.  Да, они меня из..." property="og:description">
+  <meta content="https://www.juev.org/2017/02/13/scaleway/" property="og:url">
+  <meta content="2017-02-13T10:39:00+03:00" property="article:published_time">
+  <meta content="vps" property="article:tag">
+  <meta content="https://static.juev.org/2017/02/sis.27fe.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="ScaleWay: впечатления от работы" name="twitter:title">
+  <meta content="DigitalOcean хороший хостинг, относительно дешевый, с массой возможностей.  Но совсем недавно столкнулся с тем, что инженеры нашли проблему в гипервизоре и попытались его обновить.  Да, они меня из..." property="twitter:description">
+  <meta content="https://www.juev.org/2017/02/13/scaleway/" name="twitter:url">
+  <meta content="https://static.juev.org/2017/02/sis.27fe.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">ScaleWay: впечатления от работы</h1>
+<div id="metainfo">
+<span class="date">13 February 2017</span>
+<span class="tags"><a href="https://www.juev.org/tags/#vps" title="View posts tagged with &quot;vps&quot;" rel="nofollow">#vps</a></span>
+</div>
+<div class="post"><p>DigitalOcean хороший хостинг, относительно дешевый, с массой возможностей. Но совсем недавно столкнулся с тем, что инженеры нашли проблему в гипервизоре и попытались его обновить. Да, они меня известили об этом предварительно, но вместо 20 минут сам процесс занял несколько часов. Все бы ничего, но спустя некоторое время получаю еще одно письмо о том, что опять наблюдаются проблемы в гипервизоре и потребуется время на его обновление.</p>
+
+<p>Я решил не ждать момента, когда все решится, а попытаться найти альтернативный вариант. Linode использовал и очень доволен сервисом, за исключением стоимости, самый дешевый вариант начинается от $10. По рекомендации <a href="https://fluder.co/" title="Geek Blog">Fluder</a>, обратил внимание на <a href="https://www.scaleway.com/" title="Deploy BareMetal SSD cloud servers in seconds">ScaleWay</a>.</p>
+
+<p>Первое на что стоит обратить внимание, это стоимость. Минимальная машинка стоит 2.99 евро. А это либо реальная BareMetal машинка с 2 гигабайтами памяти, 4 ядрами и 50 гигабайтным диском, либо виртуальная машинка с теми же параметрами, но только 2 ядрами. Стоит обратить внимание на то, что BareMetal машинки с такой низкой стоимостью работают на Arm-процессорах. В чем и их преимущество и их недостаток. При этом на всех тарифных планах трафик безлимитный.</p>
+
+<p>На выбор предоставляется ряд операционных систем: Ubuntu, Debian, Gentoo, CentOS, Alpine Linux. Есть целый ряд готовых образов приложений для установки, полноценный API. И две зоны размещения серверов: Париж и Амстердам.</p>
+
+<p>Первоначально пробовал создавать именно BareMetal машинку, чтобы оценить работу ARM-процессоров. Если честно, остался немного недовольным, так как даже с SSD-дисками производительность работы оставляет желать лучшего. И машинка создавалась довольно долго и в работе чувстовалась некоторая медлительность и заторможенность. Но затем перешел к обычным вирутальным машинам. Тут и машинка создалась менее чем за минуту и работает все шустро.</p>
+
+<p>Есть ограничения на количество предоставляемых серверов/дисков/адресов для каждого уровня стоимости, которые можно найти на странице <a href="https://www.scaleway.com/faq/general/" title="General Help">General Help</a>. А так же по умолчанию предоставляется довольно ограниченная техническая поддержка. Если требуется что-то более существенное, придется платить дополнительные деньги в виде абонентской платы. И порой довольно значительные, если требуется быстрый ответ и решение. По стоимости поддержки информацию можно так же посмотреть на странице General Help.</p>
+
+<p>Из особенностей проекта стоит отметить выделение по умолчанию внутреннего ip-адреса к машине. И при необходимости к ней же можно назначить внешний ip-адрес. Принцип работы очень напоминает тот, что используется amazon в ec2. И таким образом можно построить свою собственную локальную сеть, недоступную из интернета, открывая доступ только с определенной машинки. Обращаю так же внимание на еще подход, взятый с амазона, это политики безопасности. Но если в амазон все работает, то тут по умолчанию блокируются все обращения ко внешним почтовым серверам. И что хуже всего, на рабочих серверах провести изменение политики безопасности почти невозможно. Не помогают ни перезагрузки, ни выключения машины. Нашел много обращения в поддержку по данному вопросу, но проблема до сих пор не решена.</p>
+
+<p>Так же обратил внимание на добавление SSH-ключей в root-аккаунт. Если в DigitalOcean по умолчанию добавляются ключи из админки, и если нужно добавить новый, делается это уже стандартными средствами операционной системы. То здесь все несколько иначе. У пользователя root файл <code class="highlighter-rouge">/root/.ssh/authorized_keys</code> генерируется при заргрузке системы. И в нем же прописано, что вносить изменения ручками не стоит, так как они будут потеряны при очередной перезагрузке системы. Есть несколько способов добавить ключ для входа:</p>
+
+<ol>
+  <li>добавить в панели управления</li>
+  <li>добавить в файл <code class="highlighter-rouge">/root/.ssh/instance_keys</code></li>
+  <li>добавить в теги сервера</li>
+</ol>
+
+<p>После проведения данной операции требуется выполнить команду:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>scw-fetch-ssh-keys --upgrade
+</code></pre></div></div>
+
+<p>Файл автоматически обновляется, ключики добавляются, после чего сразу же можно войти в систему с использованием добавленных ключей. Специфично, но довольно удобно.</p>
+
+<p>В целом мне понравился ScaleWay (не считая проблемы с их политиками безопасности). И его низкой стоимостью и мощными машинками, и безлимитным трафиком. ScaleWay вполне можно расматривать как рабочую альтернативу для DigitalOcean.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2017/02/12/save-lisp-and-die/" title="View SBCL: save-lisp-and-die">SBCL: save-lisp-and-die</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2017/02/19/cloudflare/" title="View Cloudflare">Cloudflare</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Программы для веб дизайна</title>
+  <meta name="description" content="Рассмотрим набор программ, позволяющий упростить разработку веб-сайтов.">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2011/06/22/soft-web-design/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2011/06/19/twitter-share-link/">
+  <link rel="next" href="https://www.juev.org/2011/06/23/web-for-mobile/">
+  <!-- og:meta -->
+  <meta content="Программы для веб дизайна" property="og:title">
+  <meta content="В последнее время активно занимаюсь веб-разработкой, создаю темы для Wordpress, изучаю jquery.  Все это требует наличия локального веб-сервера, так как работать на удаленном сервере не очень удобно..." property="og:description">
+  <meta content="https://www.juev.org/2011/06/22/soft-web-design/" property="og:url">
+  <meta content="2011-06-22T19:16:00+04:00" property="article:published_time">
+  <meta content="design" property="article:tag">
+  <meta content="web" property="article:tag">
+  <meta content="ruby" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Программы для веб дизайна" name="twitter:title">
+  <meta content="В последнее время активно занимаюсь веб-разработкой, создаю темы для Wordpress, изучаю jquery.  Все это требует наличия локального веб-сервера, так как работать на удаленном сервере не очень удобно..." property="twitter:description">
+  <meta content="https://www.juev.org/2011/06/22/soft-web-design/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Программы для веб дизайна</h1>
+<div id="metainfo">
+<span class="date">22 June 2011</span>
+<span class="tags"><a href="https://www.juev.org/tags/#design" title="View posts tagged with &quot;design&quot;" rel="nofollow">#design</a><a href="https://www.juev.org/tags/#web" title="View posts tagged with &quot;web&quot;" rel="nofollow">#web</a><a href="https://www.juev.org/tags/#ruby" title="View posts tagged with &quot;ruby&quot;" rel="nofollow">#ruby</a></span>
+</div>
+<div class="post"><p>В последнее время активно занимаюсь веб-разработкой, создаю темы для <em>Wordpress</em>, изучаю <em>jquery</em>. Все это требует наличия локального веб-сервера, так как работать на удаленном сервере не очень удобно, тем более на сервере, находящемся в работе. Естественно возник вопрос о том, что выбрать в качестве локального веб-сервера.</p>
+
+<p>Можно, конечно, установить весь набор <strong>LAMP</strong> на локальную машину и при необходимости запускать нужные сервисы. Но в моем случае это несколько обременительно, так как работаю в основном со статическими сайтами. И недавно нашел простое, но очень эффективное решение!</p>
+
+<h2 id="подготовка">Подготовка</h2>
+
+<p>Как не странно, но все необходимые для разработки программы были написаны на <strong>Ruby</strong>. Поэтому на машине устанавливаем все необходимое (у меня Debian stable, примеры буду приводить для данной операционной системы):</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo aptitude install ruby libzlib-ruby rdoc irb rubygems
+</code></pre></div></div>
+
+<p>База готова, теперь все последующие операции будут проходить через пакетный менеджер <em>Rubygems</em>.</p>
+
+<h2 id="serve">Serve</h2>
+
+<p><strong>Serve</strong> – это локальный веб-сервер, очень быстрый и с возможностью запуска в любой директории компьютера. Но если быть совсем точным, то это не сам веб-сервер, а обертка к существующим серверам.</p>
+
+<p>По умолчанию <em>Serve</em> использует для своей работы <em>Webrick</em>, который довольно медленно запускается, поэтому сразу же установим и <strong>Thin</strong>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo gem install serve thin
+</code></pre></div></div>
+
+<p>В <em>Ruby</em> есть три веб-сервера, которые можно использовать в своей работе:</p>
+
+<ol>
+  <li><strong>Webrick</strong></li>
+  <li><strong>Thin</strong></li>
+  <li><strong>Mongrel</strong></li>
+</ol>
+
+<p>Что выбирать, зависит только от нас. Я предпочитаю использовать <em>Thin</em>. После установки его даже не нужно настраивать, <em>Serve</em> автоматически определит его наличие в системе и будет использовать именно его.</p>
+
+<p>Для того, чтобы запустить локальный веб-сервер достаточно перейти в директорию, содержащую файлы и затем дать команду:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ serve
+</code></pre></div></div>
+
+<p>Если используется <em>Webrick</em>, то придется подождать пару секунд, в случае же использования <em>Thin</em> он сразу становиться активным. И достаточно в браузере перейти по адресу:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://localhost:4000
+</code></pre></div></div>
+
+<p>Есть возможность изменять используемый порт и ip сервера, но на локальной машине не думаю, что возникнет такая необходимость. При запуске просто после команды указывается либо порт, либо ip-адрес, либо и то и другое сразу:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ serve 4000               # a custom port
+
+$ serve 192.168.1.6        # a custom IP
+
+$ serve 192.168.1.6:4000   # a custom IP and port
+</code></pre></div></div>
+
+<p>Более подробную информацию можно получить на официальной странице <a href="https://github.com/jlong/serve" title="jlong/serve - Github">Serve</a>.</p>
+
+<h2 id="jammit">Jammit</h2>
+
+<p>Для минимизации и комбинирования css и js файлов я долгое время использовал <em>juicer</em>, о чем не так давно писал в своей статье <a href="http://www.juev.ru/2011/03/09/minify-and-combine-js-css-file/" title="Juicer - комбинируем CSS и JavaScript файлы">Juicer - комбинируем CSS и JavaScript файлы</a>. Однако после перехода на <strong>Debian</strong> столкнулся с проблемой ее установки. Пришлось искать альтернативу.</p>
+
+<p>Довольно быстро нашел упоминание на проект <a href="http://documentcloud.github.com/jammit/" title="Jammit: Industrial Strength Asset Packaging for Rails">Jammit</a>.</p>
+
+<p>Устанавливается так же просто, как и все, что связанно с <strong>Ruby</strong>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo gem install jammit
+</code></pre></div></div>
+
+<p>Теперь в директории нашего проекта достаточно будет создать файл конфигурации <code class="highlighter-rouge">assets.yml</code>, в котором указываем ряд параметров:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>package_assets:         off         # (on, off, always)
+embed_assets:           off         # (on, off, datauri)
+compress_assets:        on          # (on, off)
+gzip_assets:            off         # (on, off)
+template_function:      _.template  # (defaults to the built-in micro-templating)
+package_path:           packages    # (defaults to assets)
+javascript_compressor:  closure     # (yui, closure)
+
+stylesheets:
+master:
+    - _css/style.css
+    - _css/jquery.fancybox-1.3.4.css
+    - _css/ui.totop.css
+    - _css/highlight.css
+
+javascripts:
+master:
+    - _js/jquery.fancybox-1.3.4.js
+    - _js/jquery.ui.totop.js
+    - _js/main.js
+</code></pre></div></div>
+
+<p>Первые 7 строк описывают, что будет использовать и как будет использоваться, какие пакеты при этом будут использоваться. Самое интересное это блоки stylesheets и javascripts, в которых указывается, какие файлы будут созданы и какие файлы будет использоваться для их генерации.</p>
+
+<p>В приведенном примере используется только компрессия данных и в случае с <em>js</em> для компрессии используется <em>closure</em>. Создается один результирующий css-файл с именем <code class="highlighter-rouge">master.css</code> и один результирующий js-файл с именем <code class="highlighter-rouge">master.js</code>. Используемые для генерации файлы прописаны в соответствующих блоках, причем важен и порядок их указания. В данном случае файлы стилей и файлы скриптов располагаются в своих отдельных директориях.</p>
+
+<p>Результирующие файлы располагаются в директории <code class="highlighter-rouge">assets</code>. Однако все настройки можно изменять путем вызова <em>jammit</em> из командной строки с соответствующими параметрами.</p>
+
+<p>Например:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ jammit -c _assets.yml -u http://www.juev.ru -o assets
+</code></pre></div></div>
+
+<p>В данном случае используются следующие параметры:</p>
+
+<ol>
+  <li><strong>-c</strong> указывает на используемый файл конфигурации.</li>
+  <li><strong>-u</strong> используется для указания на текущий домен сайта</li>
+  <li><strong>-o</strong> служит для указания директории в которой будут располагаться результирующие файлы.</li>
+</ol>
+
+<p>Программа не настолько функциональна, как <em>juicer</em>, но работает очень стабильно и хорошо.</p>
+
+<h2 id="вывод">Вывод</h2>
+
+<p>Таким образом, установив на свой компьютер <strong>Ruby</strong> мы получаем в свои руки инструменты, на порядок упрощающие работу по созданию веб-сайтов. Здесь и веб-сервера и программы оптимизации файлов стилей и используемых скриптов.</p>
+
+<p>К тому же, именно на <strong>Ruby</strong> написан <em>Jekyll</em>, который я использую для генерации своего сайта. Все что необходимо веб-разработчику, все это есть. Почему бы не использовать данную возможность?</p>
+
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2011/06/19/twitter-share-link/" title="View Twitter share link">Twitter share link</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2011/06/23/web-for-mobile/" title="View Сайты для мобильных телефонов">Сайты для мобильных телефонов</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

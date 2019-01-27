@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Проблема с буфером обмена в Emacs</title>
+  <meta name="description" content="Прежде, чем начать, хотел бы сразу предупредить, что решения описываемоей проблемы я пока так и не нашел. В последнее время Emacs использую только в консоли.  Причем, подключаясь к постоянно работа...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2015/06/10/emacs-kill-ring/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2015/06/07/webfonts-on-amazon/">
+  <link rel="next" href="https://www.juev.org/2015/06/28/wasdkeyboard/">
+  <!-- og:meta -->
+  <meta content="Проблема с буфером обмена в Emacs" property="og:title">
+  <meta content="Прежде, чем начать, хотел бы сразу предупредить, что решения описываемоей проблемы я пока так и не нашел. В последнее время Emacs использую только в консоли.  Причем, подключаясь к постоянно работа..." property="og:description">
+  <meta content="https://www.juev.org/2015/06/10/emacs-kill-ring/" property="og:url">
+  <meta content="2015-06-10T08:32:00+03:00" property="article:published_time">
+  <meta content="emacs" property="article:tag">
+  <meta content="https://static.juev.org/2015/06/emacs-yank.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Проблема с буфером обмена в Emacs" name="twitter:title">
+  <meta content="Прежде, чем начать, хотел бы сразу предупредить, что решения описываемоей проблемы я пока так и не нашел. В последнее время Emacs использую только в консоли.  Причем, подключаясь к постоянно работа..." property="twitter:description">
+  <meta content="https://www.juev.org/2015/06/10/emacs-kill-ring/" name="twitter:url">
+  <meta content="https://static.juev.org/2015/06/emacs-yank.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Проблема с буфером обмена в Emacs</h1>
+<div id="metainfo">
+<span class="date">10 June 2015</span>
+<span class="tags"><a href="https://www.juev.org/tags/#emacs" title="View posts tagged with &quot;emacs&quot;" rel="nofollow">#emacs</a></span>
+</div>
+<div class="post"><p>Прежде, чем начать, хотел бы сразу предупредить, что решения описываемоей проблемы я пока так и не нашел.</p>
+
+<p>В последнее время Emacs использую только в консоли. Причем, подключаясь к постоянно работающему демону, с использованием <code class="highlighter-rouge">emacsclient</code>. На серверах устанавливаю Emacs, настраиваю его так же на работу в режиме демона, и подключаясь по ssh, работаю именно на удаленной машине. То есть в обоих случаях буфер обмена Emacs не может взаимодействовать с операционной системой локальной машины. И вставлять текст приходиться, используя системные комбинации клавиш, типа CMD-v или Shift-Insert.</p>
+
+<p>Если во время вставки активен английский язык, то никаких проблем не наблюдается. Но стоит переключиться на русский (переключение именно в Emacs), то наблюдается следующая картина при вставке текста на английском языке:</p>
+
+<p><a href="https://static.juev.org/2015/06/emacs-yank.png" title="Emacs Kill Ring"><img src="https://static.juev.org/2015/06/emacs-yank.png" alt="emacs-kill-ring" /></a></p>
+
+<p>Если я все правильно понимаю, то вставка текста в описанных режимах работы, воспринимается как обычный ввод с клавиатуры, и символы преобразуются в ту кодировку, что в данный момент активна.</p>
+
+<p>Предполагаемый вариант решения: не использовать Emacs на удаленных машинах, а запускать его на локальной машине и подключаться через Tramp. Но, так же выходит, что стоит отказаться и от режима демона?? Не вариант…</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2015/06/07/webfonts-on-amazon/" title="View Использование вебшрифтов с серверов Амазона">Использование вебшрифтов с серверов Амазона</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2015/06/28/wasdkeyboard/" title="View Знакомьтесь: WASD Keyboard">Знакомьтесь: WASD Keyboard</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

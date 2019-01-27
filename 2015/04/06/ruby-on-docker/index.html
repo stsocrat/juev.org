@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Ruby on Docker</title>
+  <meta name="description" content="Сложности в использовании Ruby в Windows возникают при попытке установить расширение, требующее компиляцию.  Используются многочисленные хаки для того, чтобы обойти эти ограничения, либо, что чаще ...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2015/04/06/ruby-on-docker/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2015/04/04/jekyll/">
+  <link rel="next" href="https://www.juev.org/2015/04/06/notify/">
+  <!-- og:meta -->
+  <meta content="Ruby on Docker" property="og:title">
+  <meta content="Сложности в использовании Ruby в Windows возникают при попытке установить расширение, требующее компиляцию.  Используются многочисленные хаки для того, чтобы обойти эти ограничения, либо, что чаще ..." property="og:description">
+  <meta content="https://www.juev.org/2015/04/06/ruby-on-docker/" property="og:url">
+  <meta content="2015-04-06T09:14:00+03:00" property="article:published_time">
+  <meta content="ruby" property="article:tag">
+  <meta content="docker" property="article:tag">
+  <meta content="jekyll" property="article:tag">
+  <meta content="https://static.juev.org/2015/04/docker.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Ruby on Docker" name="twitter:title">
+  <meta content="Сложности в использовании Ruby в Windows возникают при попытке установить расширение, требующее компиляцию.  Используются многочисленные хаки для того, чтобы обойти эти ограничения, либо, что чаще ..." property="twitter:description">
+  <meta content="https://www.juev.org/2015/04/06/ruby-on-docker/" name="twitter:url">
+  <meta content="https://static.juev.org/2015/04/docker.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Ruby on Docker</h1>
+<div id="metainfo">
+<span class="date">06 April 2015</span>
+<span class="tags"><a href="https://www.juev.org/tags/#ruby" title="View posts tagged with &quot;ruby&quot;" rel="nofollow">#ruby</a><a href="https://www.juev.org/tags/#docker" title="View posts tagged with &quot;docker&quot;" rel="nofollow">#docker</a><a href="https://www.juev.org/tags/#jekyll" title="View posts tagged with &quot;jekyll&quot;" rel="nofollow">#jekyll</a></span>
+</div>
+<div class="post"><p>Сложности в использовании Ruby в Windows возникают при попытке установить расширение, требующее компиляцию. Используются многочисленные хаки для того, чтобы обойти эти ограничения, либо, что чаще всего происходит, рекомендуют не использовать Windows вообще.</p>
+
+<p>Для решения данной проблемы и упрощения установки Ruby, решил использовать <a href="http://www.docker.com" title="Docker">Docker</a>. Основная задача, что передо мной стояла – использовать движок Jekyll без ограничений на любой платформе.</p>
+
+<p>Сначала обратил свое внимание на готовые образы. В официальном образе от разработчиков <a href="https://github.com/jekyll/docker" title="jekyll/jekyll">Jekyll</a> столкнулся с несколькими проблемами:</p>
+
+<ol>
+  <li>Для запуска Jekyll используется алиас, в котором строго задается расположение исходного кода сайта. В итоге параметры, заданные в конфигурации сайта игнорируются. И компиляция сайта завершается с ошибкой.</li>
+  <li>Образ сконфигурирован таким образом, что все сторонние расширения, если они используются, устанавливаются в сам образ, таким образом создается отдельный контейнер. Если есть несколько сайтов с различной конфигураций расширений, потребуется или все их устанавливать в один образ, или же создавать несколько отдельных контейнеров для каждого сайта.</li>
+  <li>Установка сторонних расширений, требующих компиляции невозможна, ввиду отсутствия необходимых библиотек.</li>
+  <li>В образе отсутствует библиотека GSL, которая позволяет ускорить обработку связей между статьями в десятки раз.</li>
+</ol>
+
+<p>В образе с <a href="https://github.com/docker-library/ruby" title="Ruby">Ruby</a> используется совершенно иной подход. Исходный код копируется в создаваемый образ и запускается из него. Это логично и правильно, но не приемлемо для моего случая, где требуется запускать Jekyll с различной конфигурацией, а создавать отдельные образы для каждого сайта, на мой взгляд, избыточно.</p>
+
+<p>В конце концов, взяв за основу Dockerfile от официальной сборки Jekyll, я его переделал и создал свой собственный образ <a href="https://github.com/Juev/dockerfiles/tree/master/ruby" title="juev/ruby">juev/ruby</a>. Данный образ ориентирован на использование языка программирования Ruby в окружении Docker.</p>
+
+<p>Для его использования достаточно <a href="https://docs.docker.com/installation/" title="Docker Installation Page">установить Docker</a> на компьютер. И затем скачать образ:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker pull juev/ruby
+</code></pre></div></div>
+
+<p>Или же создать образ самому:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git clone [https://github.com/Juev/dockerfiles.git](https://github.com/Juev/dockerfiles.git)
+$ cd dockerfiles/ruby
+$ docker build --no-cache --force-rm -t juev/ruby -f Dockerfile .
+</code></pre></div></div>
+
+<p>В поставку включены ruby v.1.9.3, nodejs 0.10.38, bundler, библиотека GSL и сторонние библиотеки для сборки расширений. Образ сконфигурирован таким образом, что bundler производит установку расширений (gems) в локальную директорию vendor/bundle.</p>
+
+<p>Таким образом, для установки программных модулей и расширений, достаточно в корневой директории приложения создать файл Gemfile, к примеру для моего сайта:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>source "https://rubygems.org"
+
+gem 'rake'
+gem 'jekyll'
+gem 'jekyll-tagging'
+gem 'compass'
+gem 'rouge'
+</code></pre></div></div>
+
+<p>И затем дать команду для установки указанных зависимостей:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker run --rm -v $(pwd):/srv/work  juev/ruby bundle install
+</code></pre></div></div>
+
+<p>В корневой директории будет создана директория <code class="highlighter-rouge">vendor/bundle</code> в которой будут размещены все зависимости. Директория <code class="highlighter-rouge">vendor/bundle/bin</code> уже прописана в переменной PATH, поэтому можно запускать новые команды без префикса <code class="highlighter-rouge">bundle exec</code>.</p>
+
+<p>Для того, чтобы запустить irb используем команду:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker run -it --rm -v $(pwd):/srv/work juev/ruby irb
+</code></pre></div></div>
+
+<p>А для сборки Jekyll сайта, находясь в рабочей директории:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker run --rm -v $(pwd):/srv/work juev/ruby jekyll build
+</code></pre></div></div>
+
+<p>Или, если определены цели сборки в Rakefile:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker run --rm -v $(pwd):/srv/work juev/ruby rake build
+</code></pre></div></div>
+
+<p>Для того, чтобы использовать Jekyll в режиме слежения и предпросмотра, достаточно указать параметр для проброса портов:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ docker run --rm -v $(pwd):/srv/work -p 127.0.0.1:4000:4000 juev/ruby jekyll serve
+</code></pre></div></div>
+
+<p>Есть сомнение по поводу того, как я назвал образ. Все таки при создании я ориентировался только на запуск Jekyll (по крайней мере пока). Но самое главное, что теперь есть возможность использовать Ruby в среде Windows, а так же не нужно больше мучиться с установкой библиотеки GSL, что используется для ускорения построения связей между статьями в среде Jekyll.</p>
+
+<p>Для использования Ruby теперь достаточно установить Docker и скачать образ <a href="https://registry.hub.docker.com/u/juev/ruby/" title="juev/ruby on HUB Docker">juev/ruby</a>. Что может быть проще?</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2015/04/04/jekyll/" title="View И снова Jekyll">И снова Jekyll</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2015/04/06/notify/" title="View Оповещение веб-сервисов при публикации статей">Оповещение веб-сервисов при публикации статей</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

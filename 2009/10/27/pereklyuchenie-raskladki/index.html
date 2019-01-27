@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Переключение раскладки</title>
+  <meta name="description" content="Довольно долгое время я использовать wm в качестве рабочего окружения.  Сначала в иксах убрали нормальное определение раскладки, сделали формат xml, не понятный нормальному человеку, и загружаемый ...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2009/10/27/pereklyuchenie-raskladki/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2009/10/24/ubuntu/">
+  <link rel="next" href="https://www.juev.org/2009/10/31/sborka-deb-paketa/">
+  <!-- og:meta -->
+  <meta content="Переключение раскладки" property="og:title">
+  <meta content="Довольно долгое время я использовать wm в качестве рабочего окружения.  Сначала в иксах убрали нормальное определение раскладки, сделали формат xml, не понятный нормальному человеку, и загружаемый ..." property="og:description">
+  <meta content="https://www.juev.org/2009/10/27/pereklyuchenie-raskladki/" property="og:url">
+  <meta content="2009-10-27T00:00:00+03:00" property="article:published_time">
+  <meta content="ibus" property="article:tag">
+  <meta content="emacs" property="article:tag">
+  <meta content="ubuntu" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Переключение раскладки" name="twitter:title">
+  <meta content="Довольно долгое время я использовать wm в качестве рабочего окружения.  Сначала в иксах убрали нормальное определение раскладки, сделали формат xml, не понятный нормальному человеку, и загружаемый ..." property="twitter:description">
+  <meta content="https://www.juev.org/2009/10/27/pereklyuchenie-raskladki/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Переключение раскладки</h1>
+<div id="metainfo">
+<span class="date">27 October 2009</span>
+<span class="tags"><a href="https://www.juev.org/tags/#ibus" title="View posts tagged with &quot;ibus&quot;" rel="nofollow">#ibus</a><a href="https://www.juev.org/tags/#emacs" title="View posts tagged with &quot;emacs&quot;" rel="nofollow">#emacs</a><a href="https://www.juev.org/tags/#ubuntu" title="View posts tagged with &quot;ubuntu&quot;" rel="nofollow">#ubuntu</a></span>
+</div>
+<div class="post"><p>Довольно долгое время я использовать wm в качестве рабочего окружения. Сначала в иксах убрали нормальное определение раскладки, сделали формат xml, не понятный нормальному человеку, и загружаемый отдельным демоном. Поэтому в качестве средства переключения системной раскладки клавиатуры я использовал SCIM. Были свои проблемы, типа огнелис не определял нажатия клавиш при включении программы, но жить можно было. Преимущества обычно перевешивали:</p>
+<ol>
+	<li>SCIM запоминает раскладку каждого окна (даже больше, каждой вкладки у Pidgin)</li>
+	<li>Переключение настраивается непосредственно в окне программы, а не в системе.</li>
+	<li>Можно одновременно использовать целый набор различных раскладок, переключаясь между ними по горячей клавише или меню.</li>
+</ol>
+<p>При этом клавиатуру я настраивал, используя xmodmap. Меняя, к примеру CapsLock на Ctrl или что-нибудь в этом роде.</p>
+
+<p>Когда установил Ubuntu 9.10 обратил внимание на то, что в пункте Система-Параметры присутствует пункт <strong>iBus Preferences</strong>. Естественно задался вопросом, что это такое???</p>
+
+<p>Как оказалось, SCIM больше не развивается и в качестве его замены создали ibus. Программа, которая позволяет с такой же легкостью работать со множеством раскладок, довольно проста в настройке и лишена тех недостатков, что были у SCIM.</p>
+
+<p>Для того, чтобы установить и использовать SCIM, требовалось прочитать документацию в интернете, провести некоторые изменения и разобраться с настройками. Теперь, при использовании <strong>ibus</strong>, достаточно выбрать указанный выше пункт меню, на что получим вопрос о запуске демона. Ответив утвердительно, увидим окно со строчками, которые необходимо просто скопировать в свой файл <em>~/.bashrc</em>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export GTK_IM_MODULE=ibus
+export XMODIFIERS=@im=ibus
+export QT_IM_MODULE=ibus
+</code></pre></div></div>
+
+<p>После чего необходимо завершить сеанс работы и войти в свою учетную запись повторно. В области уведомления будет располагаться еще один значок в виде клавиатуры, правый щелчок по которому вызывает меню. При использовании русской локали в списке используемых раскладок будут перечислены четыре русских раскладок, которые будут использоваться при использовании горячей клавиши. Выбрав пункт меню “Параметры” можно провести настройку работы <strong>ibus</strong>, то есть выбрать нужные раскладки клавиатуры и соответственно горячие клавиши для активации и переключения между ними.</p>
+
+<p>Так же, как и в SCIM, можно в системе указать приложения, которые будут игнорироваться <strong>ibus</strong>. Для этого создаем файл<em> ~/.Xdefaults</em> и прописываем примерно следующее:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Emacs*useXIM:false
+</code></pre></div></div>
+
+<p>для игнорирования переключения раскладки в емаксе (для примера). Точно так же можно указать любую другую программу.Не забывая при этом при старте гнома выполнить команду:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xrdb -load ~/.Xdefaults
+</code></pre></div></div>
+
+<p>К тому же, в Gnome очень просто и быстро отстраивается клавиатура. Достаточно выбрать пункт меню Система-Параметры-Клавиатура и провести соответствующую настройку. Здесь можно и назначать спецклавиши и менять CapsLock на Esc или Ctrl, меняя их местами или просто замещая. Вариантов масса, нужно только выбрать нужный. Настройка упрощается в разы, а удобство работы возрастает.</p>
+
+<p>С каждым днем Ubuntu мне нравиться все больше и больше! Хотя, естественно, данные средства уже доступны не только в ней…</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2009/10/24/ubuntu/" title="View Ubuntu - шаг к идеалу?">Ubuntu - шаг к идеалу?</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2009/10/31/sborka-deb-paketa/" title="View Сборка deb-пакета">Сборка deb-пакета</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

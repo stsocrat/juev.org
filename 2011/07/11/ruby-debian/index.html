@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Ruby в Debian</title>
+  <meta name="description" content="Решил поэкспериментировать с Ruby 1. 9. 2, установил через aptitude и столкнулся с тем, что команда ruby все так же указывала на запуск руби версии 1. 8. 7. Задумался, а ведь правда, каким образом ...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2011/07/11/ruby-debian/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2011/06/26/node-js-in-debian/">
+  <link rel="next" href="https://www.juev.org/2011/07/28/html-encoding/">
+  <!-- og:meta -->
+  <meta content="Ruby в Debian" property="og:title">
+  <meta content="Решил поэкспериментировать с Ruby 1. 9. 2, установил через aptitude и столкнулся с тем, что команда ruby все так же указывала на запуск руби версии 1. 8. 7. Задумался, а ведь правда, каким образом ..." property="og:description">
+  <meta content="https://www.juev.org/2011/07/11/ruby-debian/" property="og:url">
+  <meta content="2011-07-11T14:57:00+04:00" property="article:published_time">
+  <meta content="ruby" property="article:tag">
+  <meta content="debian" property="article:tag">
+  <meta content="rvm" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Ruby в Debian" name="twitter:title">
+  <meta content="Решил поэкспериментировать с Ruby 1. 9. 2, установил через aptitude и столкнулся с тем, что команда ruby все так же указывала на запуск руби версии 1. 8. 7. Задумался, а ведь правда, каким образом ..." property="twitter:description">
+  <meta content="https://www.juev.org/2011/07/11/ruby-debian/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Ruby в Debian</h1>
+<div id="metainfo">
+<span class="date">11 July 2011</span>
+<span class="tags"><a href="https://www.juev.org/tags/#ruby" title="View posts tagged with &quot;ruby&quot;" rel="nofollow">#ruby</a><a href="https://www.juev.org/tags/#debian" title="View posts tagged with &quot;debian&quot;" rel="nofollow">#debian</a><a href="https://www.juev.org/tags/#rvm" title="View posts tagged with &quot;rvm&quot;" rel="nofollow">#rvm</a></span>
+</div>
+<div class="post"><p>Решил поэкспериментировать с Ruby 1.9.2, установил через aptitude и столкнулся с тем, что команда <code class="highlighter-rouge">ruby</code> все так же указывала на запуск руби версии 1.8.7.</p>
+
+<p>Задумался, а ведь правда, каким образом можно одновременно использовать различные версии одной и той же программы?</p>
+
+<h2 id="rvm">RVM</h2>
+
+<p>На помощь приходит RVM (Ruby Version Manager). Перед его установкой необходимо удалить ruby из системы.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo aptitude purge ruby ruby1.8 rubygems
+$ sudo aptitude install bash curl git-core
+$ sudo aptitude install build-essential zlib1g-dev libssl-dev libreadline5-dev libxml2-dev libsqlite3-dev
+</code></pre></div></div>
+
+<p>Устанавливаем сам RVM:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ bash &lt; &lt;(curl -s https://rvm.beginrescueend.com/install/rvm)
+</code></pre></div></div>
+
+<p>Установка осуществляется в домашнюю папку пользователя, поэтому запуск, установка будет осуществляться от имени текущего пользователя.</p>
+
+<p>Чуть раньше по завершении данной команды требовалось добавлять определенную строку в файл <code class="highlighter-rouge">~/.bashrc</code>, теперь этого делать не нужно, она прописывается автоматически.</p>
+
+<p>Вполне вероятно, что при использовании bash при запуске оболочки будут появляться предупреждения о наличии ошибок в файле <code class="highlighter-rouge">~/.rvm/scripts/cd</code>. Можно, конечно на них не обращать внимания, но я решил разобраться. Оказалось, что в данном файле достаточно в строках 24 и 34 в объявление функции добавить ключевое слово <code class="highlighter-rouge">function</code>.</p>
+
+<p>Было</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd()
+</code></pre></div></div>
+
+<p>Стало</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function cd()
+</code></pre></div></div>
+
+<p>Теперь заставляем bash перечитать файлы конфигурации и проверяем, все ли установилось правильно:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ source ~/.bashrc
+$ rvm notes
+</code></pre></div></div>
+
+<p>Если все прошло нормально, то на экране увидим информацию по зависимостям данной программы.</p>
+
+<p>Настала пора устанавливать ruby. Посмотрим список доступных интерпретаторов:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rvm list known
+</code></pre></div></div>
+
+<p>И теперь устанавливаем требуемую версию:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rvm install 1.8.7
+</code></pre></div></div>
+
+<p>Придется немного подождать, пока интерпретатор собирается. После чего указываем системе на его использование и проверяем, все ли установилось правильно:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rvm use 1.8.7
+$ ruby -v
+</code></pre></div></div>
+
+<p>Теперь аналогично можно установить другую версию ruby, и в различных проектах использовать требуемую версию. Для того, чтобы в системе постоянно использовалась определенная версия ruby необходимо дать команду:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rvm --default use 1.8.7
+</code></pre></div></div>
+
+<h2 id="gem">Gem</h2>
+
+<p>Для каждой версии ruby создается своя коллекция gem. Что довольно удобно. К тому же есть возможность создавать свои собственные коллекции и использовать их для определенного круга задач. Так как ruby мы устанавливали от имени пользователя, то и gem необходимо устанавливать так же, например:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ gem install jekyll kramdown serve thin
+</code></pre></div></div>
+
+<p>Переключение коллекции осуществляется автоматически при изменении используемой версии ruby.</p>
+
+<p>Для управления коллекциями используется команда <code class="highlighter-rouge">gemset</code>. Создадим коллекцию и будем ее использовать:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rvm gemset create bestgems
+$ rvm gemset use bestgems
+</code></pre></div></div>
+
+<p>Теперь устанавливаем нужные нам gem (коллекция создается по умолчанию пустой). И для того, чтобы определенная коллекция использовалась по умолчанию, ее необходимо указать при определении версии ruby:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rvm use 1.9.2-head@bestgems --default
+</code></pre></div></div>
+
+<p>Для того, чтобы gem устанавливались без документации (к примеру, на сервере она совершенно не нужна), достаточно в файл <code class="highlighter-rouge">~/.gemrc</code> добавить строки:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>install: --no-rdoc --no-ri
+update: --no-rdoc --no-ri
+</code></pre></div></div>
+
+<h2 id="преимущества">Преимущества</h2>
+
+<p>В Debian ruby прекрасно ставится из репозитория, однако в дальнейшем обновлять версию ruby возможно только при обновлении соответствующего пакета, что происходит довольно редко и с большими задержками. Использование команды обновления просто заблокировано:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo gem update --system
+</code></pre></div></div>
+
+<p>При попытке ее использования мы получим довольно объемное описание, почему использование данной команды запрещено.</p>
+
+<p>Если же использовать <strong>RVM</strong>, то таких проблем не возникает.</p>
+
+<p>К тому же, установка по умолчанию производиться в домашнюю папку пользователя. И все программы, gems доступны только ему. Любой пользователь системы может иметь свой набор инструментов, который может понадобиться именно ему. А при необходимости RVM можно установить и как системный менеджер.</p>
+
+<p><strong>RVM</strong> позволяет очень просто создавать собственные коллекции gem, использовать для каждой отдельной задачи свой набор и свою версию ruby. Гибкость разработки просто невероятная!</p>
+
+<p>Вы все еще не используете RVM? Тогда мы идем к Вам!!!</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2011/06/26/node-js-in-debian/" title="View Установка node.js в Debian">Установка node.js в Debian</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2011/07/28/html-encoding/" title="View Стандарты html и кодировки файлов">Стандарты html и кодировки файлов</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

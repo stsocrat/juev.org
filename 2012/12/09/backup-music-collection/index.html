@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Резервная копия музыкальной коллекции</title>
+  <meta name="description" content="В моей музыкальной коллекции насчитывается более двух с половиной тысяч композиций.  Причем большая часть представлена в формате lossless.  На жестком диске все это дело занимает порядка 60 гигабай...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2012/12/09/backup-music-collection/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2012/11/05/rbenv/">
+  <link rel="next" href="https://www.juev.org/2013/01/19/umbrella/">
+  <!-- og:meta -->
+  <meta content="Резервная копия музыкальной коллекции" property="og:title">
+  <meta content="В моей музыкальной коллекции насчитывается более двух с половиной тысяч композиций.  Причем большая часть представлена в формате lossless.  На жестком диске все это дело занимает порядка 60 гигабай..." property="og:description">
+  <meta content="https://www.juev.org/2012/12/09/backup-music-collection/" property="og:url">
+  <meta content="2012-12-09T16:20:00+04:00" property="article:published_time">
+  <meta content="amazon" property="article:tag">
+  <meta content="google" property="article:tag">
+  <meta content="backup" property="article:tag">
+  <meta content="apple" property="article:tag">
+  <meta content="ipod" property="article:tag">
+  <meta content="music" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Резервная копия музыкальной коллекции" name="twitter:title">
+  <meta content="В моей музыкальной коллекции насчитывается более двух с половиной тысяч композиций.  Причем большая часть представлена в формате lossless.  На жестком диске все это дело занимает порядка 60 гигабай..." property="twitter:description">
+  <meta content="https://www.juev.org/2012/12/09/backup-music-collection/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Резервная копия музыкальной коллекции</h1>
+<div id="metainfo">
+<span class="date">09 December 2012</span>
+<span class="tags"><a href="https://www.juev.org/tags/#amazon" title="View posts tagged with &quot;amazon&quot;" rel="nofollow">#amazon</a><a href="https://www.juev.org/tags/#google" title="View posts tagged with &quot;google&quot;" rel="nofollow">#google</a><a href="https://www.juev.org/tags/#backup" title="View posts tagged with &quot;backup&quot;" rel="nofollow">#backup</a><a href="https://www.juev.org/tags/#apple" title="View posts tagged with &quot;apple&quot;" rel="nofollow">#apple</a><a href="https://www.juev.org/tags/#ipod" title="View posts tagged with &quot;ipod&quot;" rel="nofollow">#ipod</a><a href="https://www.juev.org/tags/#music" title="View posts tagged with &quot;music&quot;" rel="nofollow">#music</a></span>
+</div>
+<div class="post"><p>В моей музыкальной коллекции насчитывается более двух с половиной тысяч композиций. Причем большая часть представлена в формате lossless. На жестком диске все это дело занимает порядка 60 гигабайт. Потерять такую коллекцию довольно обидно. Восстановить конечно можно, но на это потребуется значительное количество времени. Поэтому стал искать возможность создания резервной копии.</p>
+
+<h2 id="amazon-s3">Amazon S3</h2>
+
+<p>Загружать на сервера <a href="http://aws.amazon.com/s3/pricing/" title="Amazon S3 Pricing">Amazon</a> выходит довольно накладно, так как за большие объемы данных и платить придется несколько другие суммы. Для моей коллекции выходило порядка $4-6 в месяц только за хранение и плюс еще стоимость загрузки данных в случае, если нужно будет проводить восстановление.</p>
+
+<p>Можно, конечно, использовать Amazon Glacier, но меня несколько смущает то, что во время восстановления нет возможности загрузить данные сразу, должно пройти порядка 3-4 часов на подготовку данных на сервере, прежде чем можно будет их загрузить. Как это осуществляется на практике, просто не представляю, а потому пока решил не рисковать.</p>
+
+<h2 id="crashplan">CrashPlan</h2>
+
+<p>Обратил внимание на <a href="http://www.crashplan.com/" title="CrashPlan">CrashPlan</a>, просто потому в «Черную пятницу» они проводили распродажу и я как раз попал на тот момент, когда годовое обслуживание раздавалось бесплатно. Оформил подписку на всю семью и включил загрузку данных.</p>
+
+<p>Первым делом оставил все настройки, как есть и спустя некоторое время (после индексации содержимого диска и загрузки данных в течение пары часов) CrashPlan мне выдал результат, что с текущей скоростью загрузки данные окажутся на сервере только спустя пару месяцев. Пришлось ограничивать директории, которые будут сохраняться. Но и в этом случае у меня потребовалось бы порядка 3-4 недель, так как скорость загрузки в среднем составляла всего 500-600 килобайт (это-то при канале в 50 мегабит).</p>
+
+<p>Расстроился конечно, но оставил данные загружаться, так как более 90% всех загружаемых данных составляла именно моя музыкальная коллекция и уменьшать размер данных просто не представлялось возможным.</p>
+
+<h2 id="itunes-match">iTunes Match</h2>
+
+<p>А спустя неделю в России запустили iTunes Store. И момент запуска я обратил внимание на ссылку под названием <a href="http://www.apple.com/itunes/itunes-match/" title="iTunes Match">iTunes Match</a>. Заинтересовался, что же это такое?</p>
+
+<p>Как оказалось, это возможность хранить свою музыкальную коллекцию на серверах Apple. И стоит эта услуга $25 в год. Поддерживаются все форматы файлов, с которыми умеет работать iTunes и есть только ограничение на количество треков, на сервера можно загрузить не более 25 тыс композиций (музыка купленная в iTunes Store не учитывается).</p>
+
+<p><a href="https://static.juev.org/2012/12/iTunes.jpg"><img src="https://static.juev.org/2012/12/th-iTunes.jpg" alt="iTunes" title="iTunes 11" /></a></p>
+
+<p>799 рублей в год – это не так много, и намного меньше, чем использовать Amazon S3, поэтому я оформил данную услугу и активировал ее в своем iTunes.</p>
+
+<p>Принцип работы iTunes Match несколько необычный. Перед тем, как данные будут загружаться на сервера, они анализируются на наличие в iTunes Store, и если есть совпадения, то файлы загружаться не будут, но появляется возможность загрузить их при необходимости из магазина. Первый анализ данных занимает довольно продолжительное время (у меня на это ушло несколько часов), после чего производиться загрузка данных, которые были не найдены в магазине. В общей сложности на все мои 60 гигабайт ушла одна ночь. Под утро вся моя коллекция была проанализирована и загружена.</p>
+
+<h3 id="преимущества">Преимущества</h3>
+
+<p>Одним из преимуществ iTunes Match является то, что если у меня на жестком диске есть данные с низким битрейтом и они будут найдены в iTunes Store, их можно будет в дальнейшем загрузить в формате AAC 256kbps. По качеству звучания музыка в данном формате и с данным битрейтом превосходит MP3 с битрейтом 320kbps. Так же производиться своеобразная «легализация» музыки на компьютере.</p>
+
+<p>Вторым преимуществом является то, что к iTunes Match можно подключить до 10 устройств и слушать музыку прямо из облака, не загружая ее на устройства. Особенно это становиться актуально при использовании iOS устройств небольшой емкости, главное, чтобы интернет на устройстве был доступен.</p>
+
+<h3 id="недостатки">Недостатки</h3>
+
+<p>Если музыка была в формате lossless, то перед загрузкой на сервер она предварительно конвертируется в AAC 256kbps. То есть вся lossless коллекция теряется, хотя многие пользователи вряд ли заметят изменения в качестве звучания.</p>
+
+<p>И вторым недостатком можно назвать то, что если iTunes Match активируется на iOS устройстве, то управлять музыкой с помощью iTunes по кабелю становиться невозможным. Музыка становиться доступной только из облака, ее можно или слушать в реалтайм, или же загружать из облака прямо на устройство.</p>
+
+<p>Естественно, что в данном случае для создания локальной копии потребуется много больше времени, чем если бы производилась загрузка по кабелю. Как решение данной проблемы, можно просто отключать iTunes Match на iOS устройстве перед тем, как подключить его к компьютеру, при этом активируется обычная загрузка музыки по кабелю. А по окончанию синхронизации просто включать iTunes Match вновь. Придется конечно подождать, пока данные iTunes Match загрузятся, но по времени это все равно много меньше, чем загрузка нескольких гигабайт музыки из облака.</p>
+
+<h2 id="amazon-cloud-player">Amazon Cloud Player</h2>
+
+<p>Уже после того, как стал использовать iTunes Match, нашел упоминание об <a href="https://www.amazon.com/gp/dmusic/mp3/player" title="Amazon Cloud Player">Amazon Cloud Player</a>. Это почти аналогичная услуга от компании Amazon, с той же стоимостью, но основным форматом для загрузки и хранения является mp3. Существуют клиенты для iOS и Android, но на компьютере можно слушать музыку из облака только используя веб-интерфейс.</p>
+
+<p>Есть так же возможность загрузки музыки с сервера на свой компьютер, используя специальное программное обеспечение.</p>
+
+<p>Преимущество и коренное отличие от iTunes Match в количестве композиций, которые можно загружать и хранить на сервере, оно составляет 250 тыс композиций, то есть ровно в 10 раз больше, чем в случае с Match. И данную услугу можно использовать на устройствах Android.</p>
+
+<h2 id="google-music">Google Music</h2>
+
+<p><a href="https://play.google.com/music/listen" title="Google Music">Google Music</a>, наверное один из самых «вкусных» сервисов на сегодняшний день. Только потому, что он позволяет загружать на свои сервера и стримить музыку на различные устройства абсолютно бесплатно! Ограничение на количество композиций в 20 тысяч позволяет использовать его для дольно больших коллекций.</p>
+
+<p>Минусом является только то, что полноценно использовать данный сервис можно только в вебе или с мобильных устройств. Отдельных приложений-плееров для десктоп-систем не представлено, кроме программ для загрузки музыки. И загружать музыку в формате lossless можно только в формате Flac и при этом она как и в случае с iTunes Match, будет преобразована в формат с потерей качества.</p>
+
+<p>И самый главный минус в том, что Google Music Store в России не работает, и купить музыку просто нет возможности.</p>
+
+<h2 id="выводы">Выводы</h2>
+
+<p>Если вы являетесь аудиофилом и у вас коллекция представлена lossless форматом, то самое оптимальное для создание резервной копии – это покупка дополнительного жесткого диска, пусть и обойдется это несколько дороже рассматриваемых сервисов. Ну и как вариант еще остается использование серверов Amazon S3.</p>
+
+<p>В любом другом случае целесообразно использовать либо iTunes Match, либо Amazon Cloud Player, либо Google Music, все зависит от того, какие именно устройства вы используете. Стоит только помнить о том, что Google Music на iOS до сих пор слабо представлен и магазины музыки Google в России не работают. Для работы же с плеером Amazon на компьютере требуется установленный Adobe AIR и полноценно слушать музыку из облака можно только на мобильных устройствах.</p>
+
+<p>И естественно, что для пользователей Apple самым оптимальным оказывается сервис iTunes Match. Дешево, быстро и легально. А наличие iTunes Store, в котором стоимость музыки для России очень низкая, и хранение купленной музыки просто не учитывается, делает данный сервис просто непревзойденным!</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2012/11/05/rbenv/" title="View Rbenv and Bundle">Rbenv and Bundle</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2013/01/19/umbrella/" title="View Umbrella – синоним слова безопасность">Umbrella – синоним слова безопасность</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

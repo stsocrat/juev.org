@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Amazon S3 and Cache Control</title>
+  <meta name="description" content="Перенес свои сайты на Amazon S3 и озадачился проблемой управления кешированием страниц.  На обычном сервере все просто, достаточно прописать необходимые директивы в файл . htaccess или задать требу...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2013/03/08/s3-and-cache-control/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2013/03/08/amazon/">
+  <link rel="next" href="https://www.juev.org/2013/04/06/ulyses/">
+  <!-- og:meta -->
+  <meta content="Amazon S3 and Cache Control" property="og:title">
+  <meta content="Перенес свои сайты на Amazon S3 и озадачился проблемой управления кешированием страниц.  На обычном сервере все просто, достаточно прописать необходимые директивы в файл . htaccess или задать требу..." property="og:description">
+  <meta content="https://www.juev.org/2013/03/08/s3-and-cache-control/" property="og:url">
+  <meta content="2013-03-08T19:58:00+04:00" property="article:published_time">
+  <meta content="amazon" property="article:tag">
+  <meta content="soft" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Amazon S3 and Cache Control" name="twitter:title">
+  <meta content="Перенес свои сайты на Amazon S3 и озадачился проблемой управления кешированием страниц.  На обычном сервере все просто, достаточно прописать необходимые директивы в файл . htaccess или задать требу..." property="twitter:description">
+  <meta content="https://www.juev.org/2013/03/08/s3-and-cache-control/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Amazon S3 and Cache Control</h1>
+<div id="metainfo">
+<span class="date">08 March 2013</span>
+<span class="tags"><a href="https://www.juev.org/tags/#amazon" title="View posts tagged with &quot;amazon&quot;" rel="nofollow">#amazon</a><a href="https://www.juev.org/tags/#soft" title="View posts tagged with &quot;soft&quot;" rel="nofollow">#soft</a></span>
+</div>
+<div class="post"><p>Перенес свои сайты на Amazon S3 и озадачился проблемой управления кешированием страниц. На обычном сервере все просто, достаточно прописать необходимые директивы в файл <code class="highlighter-rouge">.htaccess</code> или задать требуемые настройки в конфигурацию nginx.</p>
+
+<p>С S3 bucket несколько сложнее, загрузить объекты на сервер просто, но как управлять их доступом/заголовками? Вот тут на помощь и приходит консольная утилита <code class="highlighter-rouge">s3cmd</code>.</p>
+
+<p>Раньше для загрузки сайта на сервер S3 я использовал следующую команду:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ s3cmd sync -P --delete-removed --no-preserve public/ s3://www.juev.ru/
+</code></pre></div></div>
+
+<p>Теперь же у меня используется несколько команд, которые загружают определенные объекты и присваивают им нужные заголовки:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ s3cmd sync --acl-public --exclude "*.*" --include "*.png" --include "*.jpg" --include "*.ico" --add-header="Expires: Sat, 20 Nov 2020 18:46:39 GMT" --add-header="Cache-Control: max-age=6048000" --no-preserve public/ s3://www.juev.ru/
+$ s3cmd sync --acl-public --exclude "*.*" --include  "*.css" --include "*.js" --add-header="Cache-Control: max-age=604800"  --no-preserve public/ s3://www.juev.ru    
+$ s3cmd sync --acl-public --exclude "*.*" --include "*.html" --add-header="Cache-Control: max-age=0, private, must-revalidate" --no-preserve public/ s3://www.juev.ru    
+$ s3cmd sync --acl-public --exclude ".DS_Store" --exclude "assets/" --exclude "js/" --no-preserve public/ s3://www.juev.ru/    
+$ s3cmd sync --acl-public --delete-removed --no-preserve public/ s3://www.juev.ru/
+</code></pre></div></div>
+
+<p>Используемые ключи:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">--acl-public</code>, как и <code class="highlighter-rouge">-P</code> – делают файлы видимыми для всех,</li>
+  <li><code class="highlighter-rouge">--delete-removed</code> – позволяет на сервере удалить те файлы, что были удалены на компьютере,</li>
+  <li><code class="highlighter-rouge">--no-preserve</code> – удаляют заголовки доступа файла в локальной системе,</li>
+  <li><code class="highlighter-rouge">--exclude</code> – исключение из передачи файлов определенного типа,</li>
+  <li><code class="highlighter-rouge">--include</code> – включение в передачу файлов определенного типа,</li>
+  <li><code class="highlighter-rouge">--add-header</code> – ключ, позволяющий задать заголовки управляющие кешированием и другими директивами.</li>
+</ul>
+
+<p>Таким образом, если раньше передача шла в один поток, то теперь она разбивается на несколько этапов, в каждый из которых передаются только файлы определенного типа и каждому этапу соответствует свой определенный тип кеширования.</p>
+
+<p>Довольно простой прием, который позволил мне задать для страниц сайта тот уровень кеширования, что мне нужен.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2013/03/08/amazon/" title="View Amazon S3 and Route53">Amazon S3 and Route53</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2013/04/06/ulyses/" title="View Ulysses III">Ulysses III</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

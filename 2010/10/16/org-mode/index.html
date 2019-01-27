@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Создание сайтов с помощью Emacs</title>
+  <meta name="description" content="Режим Org-Mode в среде emacs может использоваться в целом ряде задач.  Таких как ведение списков дел, организация личного времени и подготовка публикаций в различных форматах. Причем файлы в формат...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2010/10/16/org-mode/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2010/10/09/bezopasnost-vps-servera/">
+  <link rel="next" href="https://www.juev.org/2010/10/17/github-com-kak-xosting-sajtov/">
+  <!-- og:meta -->
+  <meta content="Создание сайтов с помощью Emacs" property="og:title">
+  <meta content="Режим Org-Mode в среде emacs может использоваться в целом ряде задач.  Таких как ведение списков дел, организация личного времени и подготовка публикаций в различных форматах. Причем файлы в формат..." property="og:description">
+  <meta content="https://www.juev.org/2010/10/16/org-mode/" property="og:url">
+  <meta content="2010-10-16T00:00:00+04:00" property="article:published_time">
+  <meta content="emacs" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Создание сайтов с помощью Emacs" name="twitter:title">
+  <meta content="Режим Org-Mode в среде emacs может использоваться в целом ряде задач.  Таких как ведение списков дел, организация личного времени и подготовка публикаций в различных форматах. Причем файлы в формат..." property="twitter:description">
+  <meta content="https://www.juev.org/2010/10/16/org-mode/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Создание сайтов с помощью Emacs</h1>
+<div id="metainfo">
+<span class="date">16 October 2010</span>
+<span class="tags"><a href="https://www.juev.org/tags/#emacs" title="View posts tagged with &quot;emacs&quot;" rel="nofollow">#emacs</a></span>
+</div>
+<div class="post"><p>Режим <b>Org-Mode</b> в среде emacs может использоваться в целом ряде задач. Таких как ведение списков дел, организация личного времени и подготовка публикаций в различных форматах.</p>
+
+<p>Причем файлы в формате <b>.org</b> могут быть использованы на устройствах iPhone/iPod
+Touch/iPad, с помощью приложения <a href="http://mobileorg.ncogni.to/" rel="nofollow">MobileOrg</a>, а так же на аппаратах платформы Android с помощью приложения <a href="http://wiki.github.com/matburt/mobileorg-android/" rel="nofollow">MobileOrg-Andriod</a>.</p>
+
+<p>А сейчас давайте рассмотрим, как можно использовать режим Org-Mode для создания небольшого сайта?</p>
+
+<p>Более подробно об org-mode можно узнать на официальной странице <a href="http://orgmode.org/" rel="nofollow">orgmode.org</a>. Где функционирует сообщество <a href="http://orgmode.org/worg/" rel="nofollow">worg</a>, и сам сайт создан используя режим <b>org-mode</b>.</p>
+
+<p><a href="https://static.juev.org/2010/10/org-mode.png"><img src="https://static.juev.org/2010/10/org-mode-300x227.png" alt="" title="org-mode" width="300" height="227" class="aligncenter size-medium wp-image-1234" /></a></p>
+
+<p>И то, что получается в итоге:</p>
+
+<p><a href="https://static.juev.org/2010/10/org-mode-Chromium.png"><img src="https://static.juev.org/2010/10/org-mode-Chromium-300x228.png" alt="" title="org-mode-Chromium" width="300" height="228" class="aligncenter size-medium wp-image-1235" /></a></p>
+
+<p>Синтаксис текстовых файлов похож на тот, что используется в языке разметки <a href="http://ru.wikipedia.org/wiki/Markdown" rel="nofollow">MarkDown</a>. И при этом написание очень сильно упрощается в виду использования горячих клавиш.</p>
+
+<p>После написания статьи достаточно ее опубликовать, для этого используются комбинации клавиш <code>С-c e</code> и затем выбор клавиши, в зависимости от того, какой формат файла мы хотим использовать. Для публикации в html используется клавиша <b>h</b>, а для того, чтобы опубликовать в html и открыть в браузере <b>b</b>.</p>
+
+<p>Для того, чтобы указать специальные параметры публикации, например, использование конкретного стилевого файла,
+необходимо в начале файла прописывать блок, типа этого:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#+TITLE:     Безопасность VPS
+#+AUTHOR:    Евсюков Денис
+#+EMAIL:     juev@matrix
+#+DATE:      2010-10-09 Сбт
+#+DESCRIPTION: 
+#+KEYWORDS: 
+#+LANGUAGE:  ru
+#+OPTIONS:   H:2 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t &amp;lt;:t
+#+OPTIONS:   TeX:nil LaTeX:nil skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:   
+#+LINK_HOME: 
+#+XSLT: 
+#+STYLE: &amp;lt;link rel="stylesheet" type="text/css" href="worg.css" /&amp;gt;
+</code></pre></div></div>
+
+<p>В приведенном примере указано далеко не все, что может быть передано транслятору. За подробностями обращайтесь к
+официальной документации.</p>
+
+<p>Помимо этого <b>org-mode</b> имеет возможность создания страниц, использующих для отображения java-script. Пример такой страницы можно посмотреть в <a href="http://orgmode.org/worg/org-faq.php" rel="nofollow">FAQ Org-Mode</a>.</p>
+
+<p>Не хватает только использования более расширенного оформления, и наличия на странице сайта заголовка, футера… Но это можно реализовать уже с помощью другого расширения emacs, которое называется <b>muse</b>. О нем поговорим в другой раз.</p>
+
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2010/10/09/bezopasnost-vps-servera/" title="View Безопасность VPS-сервера">Безопасность VPS-сервера</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2010/10/17/github-com-kak-xosting-sajtov/" title="View GitHub.com как хостинг сайтов">GitHub.com как хостинг сайтов</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

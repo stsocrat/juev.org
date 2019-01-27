@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Twitter trackback</title>
+  <meta name="description" content="Сегодня занимался тем, что работал над оформлением сайта. Изменил немного стиль, сделал его более спокойным и приспособленным для чтения. Пытался реализовать twitter trackback на страницах сайта по методу Александра Соловьева. Подключил jquery, скопировал необходимые файлы, прописал их в заголовке html-документа.">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2011/03/07/twitter-trackback/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2011/03/06/jekyll/">
+  <link rel="next" href="https://www.juev.org/2011/03/09/minify-and-combine-js-css-file/">
+  <!-- og:meta -->
+  <meta content="Twitter trackback" property="og:title">
+  <meta content="Сегодня занимался тем, что работал над оформлением сайта.  Изменил немного стиль, сделалего более спокойным и приспособленным для чтения.  Пытался реализовать twitter trackback настраницах сайта по..." property="og:description">
+  <meta content="https://www.juev.org/2011/03/07/twitter-trackback/" property="og:url">
+  <meta content="2011-03-07T00:00:00+03:00" property="article:published_time">
+  <meta content="twitter" property="article:tag">
+  <meta content="webdesign" property="article:tag">
+  <meta content="jquery" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Twitter trackback" name="twitter:title">
+  <meta content="Сегодня занимался тем, что работал над оформлением сайта.  Изменил немного стиль, сделалего более спокойным и приспособленным для чтения.  Пытался реализовать twitter trackback настраницах сайта по..." property="twitter:description">
+  <meta content="https://www.juev.org/2011/03/07/twitter-trackback/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Twitter trackback</h1>
+<div id="metainfo">
+<span class="date">07 March 2011</span>
+<span class="tags"><a href="https://www.juev.org/tags/#twitter" title="View posts tagged with &quot;twitter&quot;" rel="nofollow">#twitter</a><a href="https://www.juev.org/tags/#webdesign" title="View posts tagged with &quot;webdesign&quot;" rel="nofollow">#webdesign</a><a href="https://www.juev.org/tags/#jquery" title="View posts tagged with &quot;jquery&quot;" rel="nofollow">#jquery</a></span>
+</div>
+<div class="post"><p>Сегодня занимался тем, что работал над оформлением сайта. Изменил немного стиль, сделал
+его более спокойным и приспособленным для чтения. Пытался реализовать twitter trackback на
+страницах сайта по методу <a href="http://solovyov.net/blog/" title="solovyov.net: blog in Russian">Александра Соловьева</a>. Подключил <code class="highlighter-rouge">jquery</code>, скопировал
+необходимые файлы, прописал их в заголовке html-документа. Просматриваю, и не вижу
+результата.</p>
+
+<p>Мучился довольно долго, успел и письмо написать Александру с вопросом, как у него
+организована работа с трекбеками сайта. И чуть позже опубликовал очередную статью и бросил
+ссылку на нее в twitter. Тут же на странице появился trackback. Проверил в веб-интерфейсе
+самого twitter, поиск выдает только эту ссылку, одну единственную. Понял, что нужно искать
+другие решения.</p>
+
+<p>Довольно быстро нашел <a href="http://www.moretechtips.net/2009/11/twitter-trackbacks-widget-jquery-plugin.html" title="Twitter Trackbacks Widget">Twitter Trackbacks Widget - A jQuery Plugin</a>. Подключил,
+убедился в том, что работает и стал приводить в порядок (занялся офорлением вывода).</p>
+
+<p>Использовать расширение довольно просто. Достаточно добавить в заголовок документа строки:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="http://twitter-trackbacks-widget.googlecode.com/files/jquery.twittertrackbacks-1.0.min.js"&gt;&lt;/script&gt;
+</code></pre></div></div>
+
+<p>И затем в тем месте, где будут располагаться реплаи добавить строку:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;div class="twitter-trackbacks"&gt;loading..&lt;/div&gt;
+</code></pre></div></div>
+
+<p>В данном случае показываться будет только один trackback, который с течением определенного
+времени будем сменяться другим, если он есть. Если же необходимо показать список из
+replay, то необходимо дополнительно задавать определенные параметры, которые перечислены
+на странице проекта <a href="http://code.google.com/p/twitter-trackbacks-widget/wiki/Options" title="Options">Options</a>.</p>
+
+<p>Для себя я выбрал следующие значения:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;script type="text/javascript"&gt;
+    $(document).ready(function(){
+            $('div.twitter-trackbacks').twitterTrackbacks({
+                    header:'&lt;h2&gt;Twitter trackback&lt;/h2&gt;'
+                    ,url:'http://www.juev.ru/2011/03/07/twitter-trackback/'
+                    ,n:8
+                    ,show_n:0
+                    ,inf_tip:0
+                    ,show_avatar:0
+                    ,show_author:1
+                    ,info:''
+            });
+    });
+&lt;/script&gt;
+</code></pre></div></div>
+
+<p>Кода минимум, и все работает. Код <code class="highlighter-rouge">css</code> для trackback, которые я прописал у себя, приводить не буду, так как взял его из кода
+примеров, приведенных на официальной странице расширения.</p>
+
+<p>Да, теперь пользователям приходиться дополнительно загружать библиотеку <code class="highlighter-rouge">jquery</code>, но она подгружается только один раз и в
+дальнейшем используется уже из кеша браузера. Поэтому это не так сильно сказывается на скорость загрузки страниц сайта.</p>
+
+<p>Начинаю понемногу формировать файл Rakefile, с помощью которого можно автоматизировать многие вещи, используемые в <code class="highlighter-rouge">jekyll</code>. И
+наткнулся на один <a href="https://gist.github.com/791030" title="dirty hack of a rakefile I use to upload new images to cloudfront for jekyll blog posts">snippet</a>, в котором показывается, как можно упростить работу с изображениями в статьях. При этом приводиться
+пример загрузки файлов изображений на <code class="highlighter-rouge">amazon s3</code>. Подобным же образом я планирую организовать работу со своей медиа-библиотекой.</p>
+
+<p>Работа над сайтом движется, и пока я думаю, какой сервер использовать для размещения своих сайтов? Уже почти все проекты у меня
+статические, особых требований к хостингу нет. И сейчас рассматриваю следующие варианты:</p>
+
+<ol>
+  <li>Остаться на Linode. В данном случае возникает только вопрос целесообразности. Стоит ли
+использовать отдельный сервер для размещения статических сайтов?</li>
+  <li>Использовать хостинг в Англии. Совсем недавно оформил заказ на хостинг в Великобритании. Цены очень демократичные,
+техническая поддержка просто на высоте, думаю отдельно описать про этот хостинг чуть позже. Пока же наблюдаю за стабильностью
+работы.</li>
+  <li>Использовать сервера <a href="http://pages.github.com" title="GitHub Pages">github.com</a>. Об этом я уже писал в статьях
+<a href="/2010/10/17/github-com-kak-xosting-sajtov/" title="GitHub.com как хостинг сайтов">GitHub.com как хостинг сайтов</a> и
+<a href="/2010/11/04/neobychnyj-xosting/" title="Необычный хостинг">Необычный хостинг</a>. Тут возможны два варианта
+использования: бесплатный, при котором репозитории с кодом сайтов будут открыты всем, и платный (7$ за 5 приватных
+репозиториев).</li>
+</ol>
+
+<p>Что использовать и что будет оптимально использовать именно под те задачи, что приходиться использовать сейчас? Пока думаю.</p>
+
+<p>Да, и при использовании <code class="highlighter-rouge">jekyll</code> обратил внимание на то, что писать статьи стало гораздо проще. Ввиду того, что в качестве
+исходного текста используется <code class="highlighter-rouge">markdown</code>, по сути обычный текст. Никаких ограничений для творчества!</p>
+
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2011/03/06/jekyll/" title="View Сменил wordpress на jekyll">Сменил wordpress на jekyll</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2011/03/09/minify-and-combine-js-css-file/" title="View Juicer - комбинируем CSS и JavaScript файлы">Juicer - комбинируем CSS и JavaScript файлы</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

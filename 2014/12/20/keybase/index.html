@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Keybase: Обмен ключами gpg</title>
+  <meta name="description" content="GnuPG – свободная программа для шифрования информации и создания электронных цифровых подписей.  Используется асимметричноешифрование, при котором генерируется пара ключей: публичный, для шифровани...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2014/12/20/keybase/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2014/12/15/alfred-symlink/">
+  <link rel="next" href="https://www.juev.org/2014/12/21/authy/">
+  <!-- og:meta -->
+  <meta content="Keybase: Обмен ключами gpg" property="og:title">
+  <meta content="GnuPG – свободная программа для шифрования информации и создания электронных цифровых подписей.  Используется асимметричноешифрование, при котором генерируется пара ключей: публичный, для шифровани..." property="og:description">
+  <meta content="https://www.juev.org/2014/12/20/keybase/" property="og:url">
+  <meta content="2014-12-20T19:07:12+03:00" property="article:published_time">
+  <meta content="internet" property="article:tag">
+  <meta content="security" property="article:tag">
+  <meta content="https://static.juev.org/2014/12/logo.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Keybase: Обмен ключами gpg" name="twitter:title">
+  <meta content="GnuPG – свободная программа для шифрования информации и создания электронных цифровых подписей.  Используется асимметричноешифрование, при котором генерируется пара ключей: публичный, для шифровани..." property="twitter:description">
+  <meta content="https://www.juev.org/2014/12/20/keybase/" name="twitter:url">
+  <meta content="https://static.juev.org/2014/12/logo.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Keybase: Обмен ключами gpg</h1>
+<div id="metainfo">
+<span class="date">20 December 2014</span>
+<span class="tags"><a href="https://www.juev.org/tags/#internet" title="View posts tagged with &quot;internet&quot;" rel="nofollow">#internet</a><a href="https://www.juev.org/tags/#security" title="View posts tagged with &quot;security&quot;" rel="nofollow">#security</a></span>
+</div>
+<div class="post"><p><a href="https://www.gnupg.org">GnuPG</a> – свободная программа для шифрования информации и создания электронных цифровых подписей. Используется асимметричное
+шифрование, при котором генерируется пара ключей: публичный, для шифрования, и приватный, для чтения.</p>
+
+<p>Сложность заключается в том, что для того, чтобы начать переписку, нужно обменяться ключами. Со знакомыми людьми особых проблем это не вызывает, а вот с незнакомыми, начинаются проблемы. Обычно для этого используются сервера, на которых публикуются публичные ключи, но произвести поиск можно только по заранее известному адресу электронной почты. И возникают сложности с отзывом ранее опубликованных ключей.</p>
+
+<p>Именно эту проблему позволяет решить сервис <a href="https://keybase.io">keybase.io</a>. На данный момент сервис находиться в тестировании, и регистрация проводиться по приглашениям. У меня есть 8 инвайтов, для получения обращайтесь в <a href="http://twitter.com/juev">Twitter</a> или <a href="https:/www.facebook.com/de.evsyukov">Facebook</a>.</p>
+
+<p>После регистрации на сервере, создается страница пользователя, в которой указываются “контактные данные”, по которым в дальнейшем будет проводиться поиск. Сначала необходимо подтвердить адрес своей электронной почты, и затем создать или импортировать существующие ключи. Для этого можно использовать curl, или, что более функционально, использовать официальный клиент для командной строки. На компьютере к тому времени уже должны быть установлены GnuPG и NodeJS. Для установки в OSX используем пакетный менеджер <a href="http://brew.sh">Homebrew</a>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew install nodejs
+brew install gpg
+</code></pre></div></div>
+
+<p>Затем генерируем ключи, если это не было проделано ранее:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gpg --gen-key
+</code></pre></div></div>
+
+<p>И теперь устанавливаем сам клиент для работы с сервисом:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm install -g keybase-installer
+keybase-installer
+</code></pre></div></div>
+
+<p>После чего можно опубликовать свой ключ на сервер, с использованием команды:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>keybase push
+</code></pre></div></div>
+
+<p>Этого вполне достаточно для того, чтобы ваш ключ можно быть найти в данном сервисе. Но чтобы найти вас было еще проще, нужно добавить так же ссылки на другие социальные сети (твиттер, гитхаб) или сылку на свой персональный сайт. Каждая ссылка при добавлении верифицируется.</p>
+
+<p>Полная документация по использованию клиента командной строки размещена на странице <a href="https://keybase.io/docs/command_line">keybase.io/docs/command_line</a>.</p>
+
+<p>К примеру, чтобы найти пользователя, и зашифровать для него сообщение, используются команды:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>keybase search juev                      # search user juev
+keybase encrypt juev -m 'secret'         # encrypt
+keybase encrypt juev -s -m 'secret'      # also sign with -s
+keybase encrypt juev foo.txt             # foo.txt -&gt; foo.txt.asc
+keybase encrypt juev foo.txt -o bar.asc  # foo.txt -&gt; bar.asc
+echo 'secret' | keybase encrypt juev     # stream
+</code></pre></div></div>
+
+<p>Можно воспользоваться так же веб-интерфейсом. Соответственно, страница <a href="https://keybase.io/encrypt">Encrypt</a> для того, чтобы зашифровать сообщение для
+определенного пользователя. Достаточно будет знать только его имя в социальных сетях или адрес электронной почты. И при этом
+не нужно иметь на компьютере установленных программ для шифрования. А страницу <a href="https://keybase.io/decrypt">Decrypt</a> можно использовать для расшифровки
+полученного сообщения, но только в том случае, если приватный ключ хранится на сервере.</p>
+
+<p>Обратили внимание на то, как упрощается коммуникация? Достаточно даже без регистрации зайти на страницу Encrypt, ввести имя пользователя и сообщения, и получить зашифрованное сообщение, после чего воспользоваться любым доступным средством связи, для того, чтобы передать сообщение.</p>
+
+<p>А если хранить свой приватный ключ на сервере Keybase, то и расшифровывать сообщения можно будет без установки программного обеспечения. Естественно, что это сказывается на уровне безопасности.</p>
+
+<p>Напоминаю, что за инвайтом можно обратиться ко мне в почту, в <a href="http://twitter.com/juev">Twitter</a> или <a href="https:/www.facebook.com/de.evsyukov">Facebook</a>.</p>
+
+<p>А найти меня можно на этом сервере по адресу <a href="https://keybase.io/juev">keybase.io/juev</a>.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2014/12/15/alfred-symlink/" title="View Alfred и ссылки на приложения">Alfred и ссылки на приложения</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2014/12/21/authy/" title="View Authy: новый этап в двухфакторной аутентификации">Authy: новый этап в двухфакторной аутентификации</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

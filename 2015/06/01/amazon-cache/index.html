@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Amazon S3: кеширование страниц веб-сайта</title>
+  <meta name="description" content="Во время публикации сайта с использованием s3_website есть возможность управлять кешированием для файлов определенных типов.  Для этого в конфигурации есть отдельный раздел:max_age:  &quot;assets/*...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2015/06/01/amazon-cache/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2015/06/01/timezone-travis/">
+  <link rel="next" href="https://www.juev.org/2015/06/07/webfonts-on-amazon/">
+  <!-- og:meta -->
+  <meta content="Amazon S3: кеширование страниц веб-сайта" property="og:title">
+  <meta content="Во время публикации сайта с использованием s3_website есть возможность управлять кешированием для файлов определенных типов.  Для этого в конфигурации есть отдельный раздел:max_age:  &quot;assets/*..." property="og:description">
+  <meta content="https://www.juev.org/2015/06/01/amazon-cache/" property="og:url">
+  <meta content="2015-06-01T12:17:00+03:00" property="article:published_time">
+  <meta content="amazon" property="article:tag">
+  <meta content="tips" property="article:tag">
+  <meta content="https://static.juev.org/2015/06/amazon-s3.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Amazon S3: кеширование страниц веб-сайта" name="twitter:title">
+  <meta content="Во время публикации сайта с использованием s3_website есть возможность управлять кешированием для файлов определенных типов.  Для этого в конфигурации есть отдельный раздел:max_age:  &quot;assets/*..." property="twitter:description">
+  <meta content="https://www.juev.org/2015/06/01/amazon-cache/" name="twitter:url">
+  <meta content="https://static.juev.org/2015/06/amazon-s3.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Amazon S3: кеширование страниц веб-сайта</h1>
+<div id="metainfo">
+<span class="date">01 June 2015</span>
+<span class="tags"><a href="https://www.juev.org/tags/#amazon" title="View posts tagged with &quot;amazon&quot;" rel="nofollow">#amazon</a><a href="https://www.juev.org/tags/#tips" title="View posts tagged with &quot;tips&quot;" rel="nofollow">#tips</a></span>
+</div>
+<div class="post"><p>Во время публикации сайта с использованием <a href="https://github.com/laurilehmijoki/s3_website" title="laurilehmijoki/s3_website">s3_website</a> есть возможность управлять кешированием для файлов определенных типов. Для этого в конфигурации есть отдельный раздел:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>max_age:
+  "assets/*": 6000
+  "*": 300
+</code></pre></div></div>
+
+<p>В приведенном примере для файлов из директории assets задается время жизни в 6000 секунд, а для всех остальных  300 секунд. Вроде все просто и замечательно. Но, как оказалось, амазон использует свои собственные параметры, задаваемые при создании нового bucket для веб-сайта. И эти настройки являются более приоритетными, чем те, что задаются отдельно для каждого файла.</p>
+
+<p>Для того, чтобы поправить эти настройки достаточно зайти на веб-страницу со списком всех bucket и в разделе Permissions выбрать кнопку “Edit CORS Configuration”:</p>
+
+<p><a href="https://static.juev.org/2015/06/bucket.png" title="Bucket Settings"><img src="https://static.juev.org/2015/06/bucket.png" alt="Settings" title="Bucket Setting" /></a></p>
+
+<p><a href="https://static.juev.org/2015/06/CORS.png" title="CORS Configuration"><img src="https://static.juev.org/2015/06/CORS.png" alt="CORS" title="CORS Configuration" /></a></p>
+
+<p>По умолчанию будет примерно следующая конфигурация:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="nt">&lt;CORSConfiguration</span> <span class="na">xmlns=</span><span class="s">"http://s3.amazonaws.com/doc/2006-03-01/"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;CORSRule&gt;</span>
+    <span class="nt">&lt;AllowedOrigin&gt;</span>*<span class="nt">&lt;/AllowedOrigin&gt;</span>
+    <span class="nt">&lt;AllowedMethod&gt;</span>GET<span class="nt">&lt;/AllowedMethod&gt;</span>
+    <span class="nt">&lt;MaxAgeSeconds&gt;</span>3000<span class="nt">&lt;/MaxAgeSeconds&gt;</span>
+    <span class="nt">&lt;AllowedHeader&gt;</span>Authorization<span class="nt">&lt;/AllowedHeader&gt;</span>
+  <span class="nt">&lt;/CORSRule&gt;</span>
+<span class="nt">&lt;/CORSConfiguration&gt;</span>
+</code></pre></div></div>
+
+<p>Для того, чтобы параметры кеширования брались только из параметров файлов, достаточно изменить параметр MaxAgeSeconds в 0:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="nt">&lt;CORSConfiguration</span> <span class="na">xmlns=</span><span class="s">"http://s3.amazonaws.com/doc/2006-03-01/"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;CORSRule&gt;</span>
+    <span class="nt">&lt;AllowedOrigin&gt;</span>*<span class="nt">&lt;/AllowedOrigin&gt;</span>
+    <span class="nt">&lt;AllowedMethod&gt;</span>GET<span class="nt">&lt;/AllowedMethod&gt;</span>
+    <span class="nt">&lt;MaxAgeSeconds&gt;</span>0<span class="nt">&lt;/MaxAgeSeconds&gt;</span>
+    <span class="nt">&lt;AllowedHeader&gt;</span>Authorization<span class="nt">&lt;/AllowedHeader&gt;</span>
+  <span class="nt">&lt;/CORSRule&gt;</span>
+<span class="nt">&lt;/CORSConfiguration&gt;</span>
+</code></pre></div></div>
+
+<p>И теперь можно для html-файлов задавать время жизни в 0 секунд. Что позволит показывать пользователям всегда актуальную версию страницы. И при этом иметь возможность сохранять стили и скрипты на продолжительное время.</p>
+
+<h3 id="update-jun-07-2015">Update (Jun 07 2015)</h3>
+
+<p>CORS расшифровывается как Cross-Origin Resource Sharing, и данная технология используется для шаринга ресурсов приложения между различными доменами. Эксперимент с использованием CORS проведен некорректно.</p>
+
+<p>Как выяснилось позже, моя ошибка заключалась в том, что я задавал параметры кеширования через max_age и в итоге получал следующий ответ от сервера:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Cache-Control: no-cache; max-age=0
+</code></pre></div></div>
+
+<p>В то время как требовалось получать ответ:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Cache-Control: no-cache, no-store
+</code></pre></div></div>
+
+<p>Более подробный ответ на вопрос почему, можно найти на странице <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching?hl=ru">developers.google.com</a>. Как оказалось, самый важный здесь именно параметр no-store.</p>
+
+<p>Для этого в s3_website используется параметр <code class="highlighter-rouge">cache_control</code>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cache_control: public, no-transform, max-age=1200, s-maxage=1200
+</code></pre></div></div>
+
+<p>или различные правила, для различных ресурсов:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cache_control:
+  "assets/*": public, max-age=3600
+  "*": no-cache, no-store
+</code></pre></div></div>
+
+<p>Только после внесения изменения в конфигурацию s3_website и повторной публикаций с принудительным обновлением ресурсов, получил требуемый результат: веб-страницы загружаются заново при каждом запросе, а все ресурсы из директории assets хранятся в кеше месяц.</p>
+
+<p>Результаты: <a href="http://www.webpagetest.org/result/150607_Q2_9FG/">прежняя конфигурация</a> и <a href="http://www.webpagetest.org/result/150607_YT_DWF/">новая конфигурация</a>. Обратите особое внимание на количество запросов при повторном обращении к серверу.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2015/06/01/timezone-travis/" title="View Travis CI: изменение таймзоны">Travis CI: изменение таймзоны</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2015/06/07/webfonts-on-amazon/" title="View Использование вебшрифтов с серверов Амазона">Использование вебшрифтов с серверов Амазона</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>NoScript ABE</title>
+  <meta name="description" content="Как описывал в прошлой статье, работать в интернете лучше всего с отключеным JavaScript, разрешая с помощью расширения Noscript выполнение только доверенных скриптов. Помимо этого, одной из функций...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2015/10/05/noscript-abe/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2015/09/27/firefox-privacy/">
+  <link rel="next" href="https://www.juev.org/2015/10/28/fb2mobi/">
+  <!-- og:meta -->
+  <meta content="NoScript ABE" property="og:title">
+  <meta content="Как описывал в прошлой статье, работать в интернете лучше всего с отключеным JavaScript, разрешая с помощью расширения Noscript выполнение только доверенных скриптов. Помимо этого, одной из функций..." property="og:description">
+  <meta content="https://www.juev.org/2015/10/05/noscript-abe/" property="og:url">
+  <meta content="2015-10-05T09:05:00+03:00" property="article:published_time">
+  <meta content="firefox" property="article:tag">
+  <meta content="web" property="article:tag">
+  <meta content="privacy" property="article:tag">
+  <meta content="https://static.juev.org/2015/10/ABE.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="NoScript ABE" name="twitter:title">
+  <meta content="Как описывал в прошлой статье, работать в интернете лучше всего с отключеным JavaScript, разрешая с помощью расширения Noscript выполнение только доверенных скриптов. Помимо этого, одной из функций..." property="twitter:description">
+  <meta content="https://www.juev.org/2015/10/05/noscript-abe/" name="twitter:url">
+  <meta content="https://static.juev.org/2015/10/ABE.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">NoScript ABE</h1>
+<div id="metainfo">
+<span class="date">05 October 2015</span>
+<span class="tags"><a href="https://www.juev.org/tags/#firefox" title="View posts tagged with &quot;firefox&quot;" rel="nofollow">#firefox</a><a href="https://www.juev.org/tags/#web" title="View posts tagged with &quot;web&quot;" rel="nofollow">#web</a><a href="https://www.juev.org/tags/#privacy" title="View posts tagged with &quot;privacy&quot;" rel="nofollow">#privacy</a></span>
+</div>
+<div class="post"><p>Как описывал в <a href="http://www.juev.org/2015/09/27/firefox-privacy/" title="Безопасность в сети Интернет">прошлой статье</a>, работать в интернете лучше всего с отключеным JavaScript, разрешая с помощью расширения Noscript выполнение только доверенных скриптов.</p>
+
+<p>Помимо этого, одной из функций данного расширения является <a href="https://noscript.net/abe/" title="ABE - Application Boundaries Enforcer">Application Boundaries Enforcer</a>, которое позволяет более гибко управлять разрешениями для скриптов.</p>
+
+<p>Для изменения параметров ABE необходимо перейти в настройки расширения Noscript, открыть вкладку “Дополнительно” и на данной вкладке перейти к пункту ABE.</p>
+
+<p><img src="https://static.juev.org/2015/10/ABE.png" alt="ABE" title="ABE" /></p>
+
+<p>По умолчанию правила включены и прописано только одно системное:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Prevent Internet sites from requesting LAN resources.
+Site LOCAL
+Accept from LOCAL
+Deny
+</code></pre></div></div>
+
+<p>Здесь же можно разрешить сайтам устанавливать свои правила (на данный момент времени таких сайтов по пальцам пересчитать можно).</p>
+
+<p>Общие правила прописываются разделе System, все остальные в разделе User. К примеру, для того, чтобы разрешить выполнение скриптов Facebook только на сайте Facebook и запретить внедрять их на остальных сайтах, можно использовать следующее правило:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Site .facebook.com .fbcdn.net
+Accept from .facebook.com .fbcdn.net
+Deny INCLUSION(SCRIPT, OBJ, SUBDOC)
+</code></pre></div></div>
+
+<p>Аналогичное правило для twitter:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Site platform.twitter.com
+Accept from twitter.com
+Deny INCLUSION(SCRIPT, OBJ, SUBDOC)
+</code></pre></div></div>
+
+<p>Для того, чтобы разрешить RECAPTCHA на сайтах, замкнуть Google на самого себя, а Youtube использовать анонимно, можно использовать следующие правила:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Site ^https?://www\.google\.com/recaptcha/*
+Accept
+Site ^https?://www\.google\.com/*
+Sandbox
+Site .youtube.com .ytimg.com .googlevideo.com
+Anonymize
+</code></pre></div></div>
+
+<p>Больше примеров и пояснений по правилам можно найти на <a href="https://noscript.net/abe/" title="ABE - Application Boundaries Enforcer">официальной странице</a> и на <a href="https://forums.informaction.com/viewforum.php?f=3" title="InformAction Forums">форуме</a>.</p>
+
+<p>Обращаю так же внимание на тот момент, что для того, чтобы скрипты Facebook выполнялись только на Facebook и нигде больше, помимо добавления правила в ABE, в настройках NoScript потребуется разрешить их выполнение, то есть добавить их в доверенные. После чего именно ABE будет управлять их запуском.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2015/09/27/firefox-privacy/" title="View Безопасность в сети Интернет">Безопасность в сети Интернет</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2015/10/28/fb2mobi/" title="View Конвертация книг с использованием fb2mobi">Конвертация книг с использованием fb2mobi</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

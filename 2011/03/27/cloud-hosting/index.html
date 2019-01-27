@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Облачный хостинг</title>
+  <meta name="description" content="Облачный хостинг в России">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2011/03/27/cloud-hosting/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2011/03/19/async-script-load/">
+  <link rel="next" href="https://www.juev.org/2011/04/13/cyanogenmod-wildfire/">
+  <!-- og:meta -->
+  <meta content="Облачный хостинг" property="og:title">
+  <meta content="Решил я попробовать в деле, что такое облачный хостинг у нас в России.  Произвел поиск в интернете, поспрашивал в твиттере.  В итоге выбралдве компании, предоставляющие эти услуги: selectel и clodo..." property="og:description">
+  <meta content="https://www.juev.org/2011/03/27/cloud-hosting/" property="og:url">
+  <meta content="2011-03-27T00:00:00+03:00" property="article:published_time">
+  <meta content="hosting" property="article:tag">
+  <meta content="vps" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Облачный хостинг" name="twitter:title">
+  <meta content="Решил я попробовать в деле, что такое облачный хостинг у нас в России.  Произвел поиск в интернете, поспрашивал в твиттере.  В итоге выбралдве компании, предоставляющие эти услуги: selectel и clodo..." property="twitter:description">
+  <meta content="https://www.juev.org/2011/03/27/cloud-hosting/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Облачный хостинг</h1>
+<div id="metainfo">
+<span class="date">27 March 2011</span>
+<span class="tags"><a href="https://www.juev.org/tags/#hosting" title="View posts tagged with &quot;hosting&quot;" rel="nofollow">#hosting</a><a href="https://www.juev.org/tags/#vps" title="View posts tagged with &quot;vps&quot;" rel="nofollow">#vps</a></span>
+</div>
+<div class="post"><p>Решил я попробовать в деле, что такое облачный хостинг у нас в России. Произвел поиск в интернете, поспрашивал в твиттере. В итоге выбрал
+две компании, предоставляющие эти услуги: <a href="http://selectel.ru/" title="Selectel">selectel</a> и <a href="http://www.clodo.ru/" title="Clodo">clodo</a>.</p>
+
+<p>Создаваемые машины мало различаются друг от друга. Единственно что, у <code class="highlighter-rouge">Clodo</code> используется 14 ядерный процессор, в то время как у <code class="highlighter-rouge">Selectel</code>
+только 8 ядерный. Но у <code class="highlighter-rouge">Clodo</code> минимальный уровень оперативной памяти, что можно задавать у машины 256 мегабайт, а у
+<code class="highlighter-rouge">Selectel</code> 128 мегабайт. Как это скажется на стоимости, рассмотрим дальше.</p>
+
+<h2 id="clodo">Clodo</h2>
+
+<p>Свое знакомство я начал с <code class="highlighter-rouge">Clodo</code>, просто потому, что там есть возможность заказать виртульный сервер на несколько дней в
+качестве теста. Единственно что, сервер обычный виртуальный, а не scale. В качестве операционной системы я выбрал Debian Squeeze
+32 bit, размер оперативной памяти выставил от 256 до 1024 мегабайт. В качестве веб-сервера установил nginx и решил провести
+тесты производительности. Для чего с сервера <a href="http://www.linode.com" title="Linode">linode</a> запустил следующую команду:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ab -n 5000 -c 50 http://test.server.ru
+</code></pre></div></div>
+
+<p>Каково же было мое удивление, когда сервер показал результат порядка 300 запросов в секунду. Используется ведь статика, и
+раздается она при этом с помощью nginx. Почему такой низкий результат?? Вопрос направил в техническую службу <code class="highlighter-rouge">Clodo</code>, но ничего
+вразумительного так и не услышал. Они только предложили мне попробовать в работе их scale сервер. Возможно там результат будет
+иной. Странная техническая поддержка, если они не знают, как работают их сервера.</p>
+
+<p>Минимальный порог вхождения у обоих компаний составляет 100 рублей. Именно эту сумму необходимо внести на счет, чтобы иметь
+возможность создавать и запускать виртуальные машины. Сумма не большая, поэтому я решил попробовать в работе сервера <code class="highlighter-rouge">Selectel</code>.
+У них нет тестового периода, поэтому пришлось регистрироваться и проводить оплату. К слову сказать, регистрация у Selectel на
+порядок сложнее, чем у Clodo, требуется указывать очень много личных данных, вплоть до паспортных данных, номеров телефонов и
+т.д. Оплата, как впрочем и у большинства российских хостеров, можно провести с помощью электронных платежных систем.
+Использовать пластиковые карты, увы, почти не представляется возможным. Пришлось делать лишние движения, чтобы вывести нужную
+сумму сначала на счета в Яндекс.Деньгах, и только потом проводить оплату.</p>
+
+<h2 id="selectel">Selectel</h2>
+
+<p>В случае с <code class="highlighter-rouge">Selectel</code>, я так же создал машину с Debian Squeeze 32 bit, только размер оперативной памяти выставил в пределах от
+128 до 1024 мегабайт. Минимальный размер можно устанавливать меньше, чем на машине <code class="highlighter-rouge">Clodo</code>.</p>
+
+<p>Тестирование проводил по тому же самому образцу, что и предыдущем случае. Было странно видеть абсолютно тот же самый результат!
+Порядка 300 запросов в секунду. Просто ступор какой-то. Облако и такой небольшой результат в тесте на производительность? Это
+показалось мне несколько странным. Пока думал, прошелся по интернету и натолкнулся на сайт российского хостера, где указывалось
+ограничение на 5 одновременных запросов с одного ip-адреса. Стал более или менее понимать суть происходящего. Если
+ограничивается число одновременных подключений с одного ip-адреса, то и производительность веб-сервера при тесте не выйдет за
+пределы какого-то определенного значения. И фактическую производительность узнать будет просто невозможно. Все встало на свои
+места, и я успокоился.</p>
+
+<h2 id="стоимость">Стоимость</h2>
+
+<p>Решил создать scale-сервер на основе <code class="highlighter-rouge">Clodo</code>. Там я уже был зарегистрирован, и не нужно было только создать новую машину. В
+отличие от <code class="highlighter-rouge">Selectel</code>, создание виртуальной машины у Clodo более информативное и проходит быстрее. Кроме того, образ
+операционной системы был заранее локализован, мелочь, а все равно приятно. После проведения тестирования производительности уже
+не удивлялся, увидел на экране все ту же цифру в ~300 запросов в секунду.</p>
+
+<p>По стоимости, прошло чуть менее суток с момента запуска машин, но уже можно подвести некоторые итоги. Создание самой машины тоже
+стоит определенных денег, в случае с <code class="highlighter-rouge">Clodo</code> она составила сумму примерно в 11 копеек, в случае же в <code class="highlighter-rouge">Selectel</code> сумма была
+порядка 90 копеек. Удивился, но решил посмотреть, что будет дальше. Оба сервера работают с одним и тем же программным
+обеспечением, с одним и тем же набором файлов. Единственно, что различаются мощности процессоров и объем оперативной памяти.
+Напомню, что у <code class="highlighter-rouge">Clodo</code> 14 ядерный процессор с минимум 256 мегабайтами оперативной памяти, а у <code class="highlighter-rouge">Selectel</code> только 8 ядерный
+процессор, но уже с минимальным значением оперативной памяти в 128 мегабайт.</p>
+
+<p>Время работы различается от силы на час, то есть можно считать почти одинаковым, и следует учесть, что <code class="highlighter-rouge">Selectel</code> взял много
+большую сумму за установку операционной системы, чем <code class="highlighter-rouge">Clodo</code>. <code class="highlighter-rouge">Selectel</code> насчитал мне за это время работы порядка 3.16 рубля, в
+то время как <code class="highlighter-rouge">Clodo</code> уже показывает уровень в 4.2 рубля.</p>
+
+<p>Много это или мало? Вполне прогнозируемо. Сервера находятся сейчас в покое, обращения практически нет, даже если были бы,
+nginx создает минимальную нагрузку на процессор и занимает минимум оперативной памяти. Поэтому можно брать за основу минимальный
+уровень стоимости, что был указан при устновке виртуальной машины. А это примерно 178 рублей в месяц для <code class="highlighter-rouge">Clodo</code>, и порядка 87
+рублей в случае с <code class="highlighter-rouge">Selectel</code>.</p>
+
+<h2 id="выводы">Выводы</h2>
+
+<p>Стоит ли использовать облачные сервера в своей работе? Конечно стоит! В отличие от обычного хостинга, мы получаем большую
+гибкость в использовании ресурсов сервера. При использовани статических сайтов стоимость аренды вирутального сервера оказывается
+минимальной и альтернатив просто не оказывается. Присутствует базовая защита от DDOS-атак на сервера.</p>
+
+<p>Единственно, не могу сказать ничего про техническую поддержку. В случае с <code class="highlighter-rouge">Selectel</code> я не использовал их услуги, не связывался с
+ними. А поддержка <code class="highlighter-rouge">Clodo</code> показала свою некомпетентность и очень долго отвечала, что понятно, в связи с наличием дополнительных
+пунктов оплаты за техническую поддержку.</p>
+
+<p>На тестирование я потратил 200 рублей. Сумма еще только-только начала расходоваться. И что же выбрать из данных вариантов, я
+пока не знаю. Мне нравиться панель управления сервера <code class="highlighter-rouge">Clodo</code> и нравится стоимость виртуальной машины <code class="highlighter-rouge">Selectel</code>. У меня еще
+есть время подумать.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2011/03/19/async-script-load/" title="View Асинхронная загрузка скриптов">Асинхронная загрузка скриптов</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2011/04/13/cyanogenmod-wildfire/" title="View HTC Wildfire прошивка CyanogenMod">HTC Wildfire прошивка CyanogenMod</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

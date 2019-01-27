@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Wordpess to Jekyll</title>
+  <meta name="description" content="Про генератор статических сайтов, используемый социальной сети разработчиков программного обеспечения Github. com, я уже писал и не раз.  В последней статье под названием Jekyll &amp;amp; Hyde, я п...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2010/11/13/wordpess-to-jekyll/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2010/11/13/jekyll-hyde/">
+  <link rel="next" href="https://www.juev.org/2010/11/14/vnedryaem-shrifty-na-stranicy-sajta/">
+  <!-- og:meta -->
+  <meta content="Wordpess to Jekyll" property="og:title">
+  <meta content="Про генератор статических сайтов, используемый социальной сети разработчиков программного обеспечения Github. com, я уже писал и не раз.  В последней статье под названием Jekyll &amp;amp; Hyde, я п..." property="og:description">
+  <meta content="https://www.juev.org/2010/11/13/wordpess-to-jekyll/" property="og:url">
+  <meta content="2010-11-13T00:00:00+03:00" property="article:published_time">
+  <meta content="jekyll" property="article:tag">
+  <meta content="wordpress" property="article:tag">
+  <meta content="git" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Wordpess to Jekyll" name="twitter:title">
+  <meta content="Про генератор статических сайтов, используемый социальной сети разработчиков программного обеспечения Github. com, я уже писал и не раз.  В последней статье под названием Jekyll &amp;amp; Hyde, я п..." property="twitter:description">
+  <meta content="https://www.juev.org/2010/11/13/wordpess-to-jekyll/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Wordpess to Jekyll</h1>
+<div id="metainfo">
+<span class="date">13 November 2010</span>
+<span class="tags"><a href="https://www.juev.org/tags/#jekyll" title="View posts tagged with &quot;jekyll&quot;" rel="nofollow">#jekyll</a><a href="https://www.juev.org/tags/#wordpress" title="View posts tagged with &quot;wordpress&quot;" rel="nofollow">#wordpress</a><a href="https://www.juev.org/tags/#git" title="View posts tagged with &quot;git&quot;" rel="nofollow">#git</a></span>
+</div>
+<div class="post"><p>Про генератор статических сайтов, используемый социальной сети разработчиков программного обеспечения <a href="http://www.github.com" rel="nofollow">Github.com</a>, я уже писал и не раз. В последней статье под названием <a href="/2010/11/13/jekyll-hyde/">Jekyll &amp; Hyde</a>, я попытался описать использование данного движка. И недавно уже указывал на то, что у меня возникли проблемы при попытке миграции с <code>WordPress</code> на <code>Jekyll</code>.</p>
+
+<p>Проблема заключалась в том, что при работе скрипта, осуществляющего экспорт записей из базы данных, использовалась кодировка <code>7bit</code>. Что делало невозможным использование скрипта в случае сайтов, использующих кодировку отличную от Latin.</p>
+
+<p>Поискав немного по всей сети github.com, нашел несколько gist, содержащих сторонние разработки скриптов, осуществляющих перенос записей из <code>Wordpress</code> в формат записей <code>Jekyll</code>. Опробовав несколько из них, остановился на варианте <a href="https://gist.github.com/522402" rel="nofollow">https://gist.github.com/522402</a>.</p>
+
+<p>Перенос записей осуществляется из xml-файла, создаваемого в админке Wordpress путем экспорта всех записей. Таким образом весь перенос можно осуществить и на локальном компьютере. Единственно, что потребуется, это установленный <code>PHP</code>.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git clone git://gist.github.com/522402.git gist-522402
+$ cd yourname.github.com
+$ php ../gist-522402/WordpressExporter.php ../wordpress.xml
+</code></pre></div></div>
+
+<p>Единственно, что, потребуется правильно прописывать используемые пути. В результате работы данного скрипта создается новый каталог <code>_posts</code>, в котором будут содержаться отдельные файлы в формате <code>html</code>. Имена файлов и их содержимое будет соответствовать тому, что требует <code>Jekyll</code>. И данный каталог можно смело переносить в свой репозиторий <code>Jekyll</code>.</p>
+
+<p>Единственная сложность, которая у меня возникла, заключалась в том, что одна запись содержала сочетание символов</p>
+<pre>&#123;&#123;</pre>
+
+<p>Что интерпретируется <code>Jekyll</code>, как управляющая последовательность. И, в связи с этим, работа <code>Jekyll</code> заканчивалась некорректно. Пришлось удалить данную запись, после чего создание статического сайта завершилось корректно. Насколько я понимаю, можно было решить данную проблему путем замены символа <code>&#123;</code> на его unicode последовательность.</p>
+
+<p>На этом можно уже констатировать то, что перенос сайта с <code>Wordpress</code> на <code>Jekyll</code> почти не представляет проблем.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2010/11/13/jekyll-hyde/" title="View Jekyll &amp; Hyde">Jekyll &amp; Hyde</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2010/11/14/vnedryaem-shrifty-na-stranicy-sajta/" title="View Внедряем шрифты на страницы сайта">Внедряем шрифты на страницы сайта</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

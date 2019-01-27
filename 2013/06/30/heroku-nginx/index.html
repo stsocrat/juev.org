@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Heroku – использование nginx для раздачи статики</title>
+  <meta name="description" content="Про Heroku я писал уже не раз, и после того, как нашел способ поддерживать сайты с малым трафиком в активном состоянии, решил снова вернуться к использованию сервиса. Создал новый сайт, взял за осн...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2013/06/30/heroku-nginx/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2013/06/24/wake-heroku/">
+  <link rel="next" href="https://www.juev.org/2013/07/18/codekit-for-windows/">
+  <!-- og:meta -->
+  <meta content="Heroku – использование nginx для раздачи статики" property="og:title">
+  <meta content="Про Heroku я писал уже не раз, и после того, как нашел способ поддерживать сайты с малым трафиком в активном состоянии, решил снова вернуться к использованию сервиса. Создал новый сайт, взял за осн..." property="og:description">
+  <meta content="https://www.juev.org/2013/06/30/heroku-nginx/" property="og:url">
+  <meta content="2013-06-30T08:25:00+04:00" property="article:published_time">
+  <meta content="heroku" property="article:tag">
+  <meta content="nginx" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Heroku – использование nginx для раздачи статики" name="twitter:title">
+  <meta content="Про Heroku я писал уже не раз, и после того, как нашел способ поддерживать сайты с малым трафиком в активном состоянии, решил снова вернуться к использованию сервиса. Создал новый сайт, взял за осн..." property="twitter:description">
+  <meta content="https://www.juev.org/2013/06/30/heroku-nginx/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Heroku – использование nginx для раздачи статики</h1>
+<div id="metainfo">
+<span class="date">30 June 2013</span>
+<span class="tags"><a href="https://www.juev.org/tags/#heroku" title="View posts tagged with &quot;heroku&quot;" rel="nofollow">#heroku</a><a href="https://www.juev.org/tags/#nginx" title="View posts tagged with &quot;nginx&quot;" rel="nofollow">#nginx</a></span>
+</div>
+<div class="post"><p>Про <a href="/tags/heroku/" title="Tags Heroku">Heroku</a> я писал уже не раз, и после того, как нашел способ поддерживать сайты с малым трафиком в активном состоянии, решил снова вернуться к использованию сервиса.</p>
+
+<p>Создал новый сайт, взял за основу свою визитку, единственно, что требовалось изменить – это добавить фейковый index.php, по которому Heroku будет определять приложение как динамический сайт и файл .htaccess с параметром отключения PHP. Если кого интересует, более подробно данная операция описана в статьей <a href="/2012/03/09/heroku/" title="Heroku в качестве хостинга сайтов">Heroku в качестве хостинга сайтов</a>.</p>
+
+<p>Но после первых же тестов оказалось, что не все так просто, и по умолчанию Heroku не поддерживает заголовки кеширования. То есть сайт работать будет, но скорость загрузки его будет значительно ниже, так как все файлы со страницы придеться загружать каждый раз заново.</p>
+
+<p>Решение нашлось довольно быстро. После перехода Heroku на новый стек приложений Cedar, появилась возможность использовать свое собственное <a href="https://devcenter.heroku.com/articles/buildpacks" title="Builpacks">рабочее окружение</a>.</p>
+
+<p>Выбор пал на <a href="https://github.com/abhishekmunie/heroku-buildpack-nginx" title="heroku-buildpack-nginx">heroku-buildpack-nginx</a>, просто потому, что при использовании данного рабочего окружения не нужно каждый раз заново компилировать nginx. 
+По умолчанию, для определения корректного типа приложения, используется следующая структура сайта:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>|
+|- conf
+| |- nginx.conf.erb
+| |- mime.types
+|- index.html
+</code></pre></div></div>
+
+<p>Директория <code class="highlighter-rouge">conf</code>, в которой располагаются конфигурационные файлы nginx и рядом с этой директорией само содержимое сайта. Я посчитал это несколько неудобным и создал свою конфигурацию <a href="https://github.com/Juev/heroku-nginx-conf" title="heroku-nginx-conf">heroku-nginx-conf</a>, в которой переместил все содержимое сайта в директорию <code class="highlighter-rouge">public</code>, и при этом задал в конфигурации параметры кеширования статических объектов и ряд дополнительных заголовков, типа:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Vary: Accept-Encoding
+X-Ua-Compatible: IE=Edge,chrome=1
+</code></pre></div></div>
+
+<p>В итоге при проверке pagespeed, получил значение 100 балов. В то время как при отключенном кешировании выходило максимум 83.</p>
+
+<p>Использовать конфигурацию довольно просто, достаточно только создать ее копию, затем создать приложении на основе определенного рабочего окружения и собственно загрузить файлы на сервер, для этого используются следующие команды:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(~) $ mkdir test
+(~) $ cd test
+(test) $ git clone https://github.com/Juev/heroku-nginx-conf.git
+(test) $ heroku create --stack cedar --buildpack https://github.com/abhishekmunie/heroku-buildpack-nginx.git
+(test) $ git push heroku master
+</code></pre></div></div>
+
+<p>Не знаю только, считать ли минусом то, что теперь при каждом комите (загрузке файлов на сервер Heroku) осуществляется установка и перезапуск веб-сервера? Время покажет. Но возможность создавать свои собственные рабочие окружения на серверах Heroku заслуживает особого внимания.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2013/06/24/wake-heroku/" title="View Heroku для сайтов с небольшим трафиком">Heroku для сайтов с небольшим трафиком</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2013/07/18/codekit-for-windows/" title="View Codekit for Windows">Codekit for Windows</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

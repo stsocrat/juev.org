@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Готовим рабочую среду для изучения SICP</title>
+  <meta name="description" content="В очередной раз обратил свое внимание на книгу Харольда Абельсона и Джеральда Джей Сассмана “Структура и интерпретация компьютерных программ”.  Давно уже пытался ее прочесть, но каждый раз сталкива...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2012/03/12/sicp/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2012/03/09/heroku/">
+  <link rel="next" href="https://www.juev.org/2012/03/17/email-encryption/">
+  <!-- og:meta -->
+  <meta content="Готовим рабочую среду для изучения SICP" property="og:title">
+  <meta content="В очередной раз обратил свое внимание на книгу Харольда Абельсона и Джеральда Джей Сассмана “Структура и интерпретация компьютерных программ”.  Давно уже пытался ее прочесть, но каждый раз сталкива..." property="og:description">
+  <meta content="https://www.juev.org/2012/03/12/sicp/" property="og:url">
+  <meta content="2012-03-12T23:29:00+04:00" property="article:published_time">
+  <meta content="mac" property="article:tag">
+  <meta content="lisp" property="article:tag">
+  <meta content="textmate" property="article:tag">
+  <meta content="sicp" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Готовим рабочую среду для изучения SICP" name="twitter:title">
+  <meta content="В очередной раз обратил свое внимание на книгу Харольда Абельсона и Джеральда Джей Сассмана “Структура и интерпретация компьютерных программ”.  Давно уже пытался ее прочесть, но каждый раз сталкива..." property="twitter:description">
+  <meta content="https://www.juev.org/2012/03/12/sicp/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Готовим рабочую среду для изучения SICP</h1>
+<div id="metainfo">
+<span class="date">12 March 2012</span>
+<span class="tags"><a href="https://www.juev.org/tags/#mac" title="View posts tagged with &quot;mac&quot;" rel="nofollow">#mac</a><a href="https://www.juev.org/tags/#lisp" title="View posts tagged with &quot;lisp&quot;" rel="nofollow">#lisp</a><a href="https://www.juev.org/tags/#textmate" title="View posts tagged with &quot;textmate&quot;" rel="nofollow">#textmate</a><a href="https://www.juev.org/tags/#sicp" title="View posts tagged with &quot;sicp&quot;" rel="nofollow">#sicp</a></span>
+</div>
+<div class="post"><p>В очередной раз обратил свое внимание на книгу Харольда Абельсона и Джеральда Джей Сассмана “Структура и интерпретация компьютерных программ”. Давно уже пытался ее прочесть, но каждый раз сталкивался с тем, что не мог нормально использовать scheme – один из диалектов языка lisp.</p>
+
+<p>Во-первых, нужно найти реализацию scheme, что работает под mac os. Как оказалось, сделать это очень просто, так как <a href="/2012/02/04/homebrew-on-mac/" title="Обновление программ с помощью HomeBrew">homebrew</a> содержит в себе формулы для установки целого ряда диалектов. Я выбрал guile:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ brew install guile
+</code></pre></div></div>
+
+<p>Теперь можно из командной строки запускать интерпретатор и пробовать его в работе. Однако редактор самого интерпретатора ограничен командной строкой, что делает очень неудобным использование объемных функций. Тут встал вопрос по выбору редактора.</p>
+
+<p>Это второй довольно важный момент. Естественно возникает вариант использования Emacs, ведь это и есть интерпретатор Lisp-кода. Но проблема в том, что он использует свой диалект языка – elisp. А для использования того же guile приходиться довольно долго его настраивать. Обратил внимание на Textmate. Это специализированный редактор кода для Mac, очень удобный, хотя и стоит денег.</p>
+
+<p>Как оказалось, по умолчанию в textmate отсутствует поддержка scheme. Но есть целый набор репозиториев <a href="https://github.com/textmate" title="TextMate on GitHub">github.com/textmate</a>, которые содержат в себе необходимые расширения, добавляющие поддержку нужных языков. Для scheme это <a href="https://github.com/textmate/scheme.tmbundle" title="scheme.tmbundle">scheme.tmbundle</a>. Осталось его установить. Для этого в консоли совершаем следующие операции:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ mkdir -p ~/Library/Application\ Support/TextMate/Bundles
+$ cd ~/Library/Application\ Support/TextMate/Bundles
+$ git clone https://github.com/textmate/scheme.tmbundle.git
+</code></pre></div></div>
+
+<p>На офсайте Textmate рекомендуют проводить установку в системную директорию Libarary, но так как на моей машинке один пользователь, я ставлю в домашнюю папку. После совершения указанных операций нужно или перезагрузить Textmate или дать следующую команду в терминале:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ osascript -e 'tell app "TextMate" to reload bundles'
+</code></pre></div></div>
+
+<p>Теперь Textmate умеет работать с языком Scheme, умеет раскрашивать код, делать отступы и умеет запускать код с использованием горячих клавиш.</p>
+
+<p>Но и здесь возникает небольшая проблема. Заключается она в том, что после установки Guile с помощью Homebrew, его не находит Textmate. Решается эта проблема просто – нужно в настройках программы указать в переменной PATH пути до brew, то есть:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/locale/bin:/usr/locale/sbin 
+</code></pre></div></div>
+
+<p>Так же рекомендуется в настройках Textmate создать переменную <code class="highlighter-rouge">TM_SCHEME_INTERPRETER</code> и ей присвоить значение <code class="highlighter-rouge">guile</code>.</p>
+
+<p>Теперь запуск кода будет проходить без ошибок. Но! Мы не будем видеть результата работы, так как это описывается в книге. Происходит это потому, что интерпретатор работает в различных режимах. В книге он используется именно в режиме интерпретатора, мы же в Textmate используем его в режиме обработки скрипт-файлов. Для решения данной проблемы просто придется использовать оператор display, который предусмотрен языком guile.</p>
+
+<p>Вот так просто с использованием двух программ мы создали для себя рабочую среду, с помощью которой можно пройти курс книги “Структура и интерпретация компьютерных программ”.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2012/03/09/heroku/" title="View Heroku в качестве хостинга сайтов">Heroku в качестве хостинга сайтов</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2012/03/17/email-encryption/" title="View Криптография почтовых сообщений">Криптография почтовых сообщений</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

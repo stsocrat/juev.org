@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Установка временной зоны при использовании Netlify</title>
+  <meta name="description" content="Про Netlify я уже писал.  Частично затронул тему про его возможности.  Наконец сегодня решился полностью мигрировать свой сайт.  Так как в статьях больше не использую список похожих, проблем со сбо...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2017/04/01/netlify-timezone/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2017/03/26/anki/">
+  <link rel="next" href="https://www.juev.org/2017/04/06/dnssec/">
+  <!-- og:meta -->
+  <meta content="Установка временной зоны при использовании Netlify" property="og:title">
+  <meta content="Про Netlify я уже писал.  Частично затронул тему про его возможности.  Наконец сегодня решился полностью мигрировать свой сайт.  Так как в статьях больше не использую список похожих, проблем со сбо..." property="og:description">
+  <meta content="https://www.juev.org/2017/04/01/netlify-timezone/" property="og:url">
+  <meta content="2017-04-01T17:17:00+03:00" property="article:published_time">
+  <meta content="web" property="article:tag">
+  <meta content="jekyll" property="article:tag">
+  <meta content="netlify" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Установка временной зоны при использовании Netlify" name="twitter:title">
+  <meta content="Про Netlify я уже писал.  Частично затронул тему про его возможности.  Наконец сегодня решился полностью мигрировать свой сайт.  Так как в статьях больше не использую список похожих, проблем со сбо..." property="twitter:description">
+  <meta content="https://www.juev.org/2017/04/01/netlify-timezone/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Установка временной зоны при использовании Netlify</h1>
+<div id="metainfo">
+<span class="date">01 April 2017</span>
+<span class="tags"><a href="https://www.juev.org/tags/#web" title="View posts tagged with &quot;web&quot;" rel="nofollow">#web</a><a href="https://www.juev.org/tags/#jekyll" title="View posts tagged with &quot;jekyll&quot;" rel="nofollow">#jekyll</a><a href="https://www.juev.org/tags/#netlify" title="View posts tagged with &quot;netlify&quot;" rel="nofollow">#netlify</a></span>
+</div>
+<div class="post"><p>Про <a href="https://www.juev.org/2017/03/12/netlify/" title="Netlify как хостинг статических сайтов">Netlify</a> я уже писал. Частично затронул тему про его возможности. Наконец сегодня решился полностью мигрировать свой сайт. Так как в статьях больше не использую список похожих, проблем со сборкой непосредственно в Continuous Integration Netlify у меня не возникает. Но столкнулся с тем, что в отличие от Travis, нет возможности управлять переменными среды, как например, нет возможности явно указать временную зону. В связи с чем комит новой статьи не приводил к появлению статьи на сайте, так как считалось, что статья написана в будущем.</p>
+
+<p>Решение нашлось непосредственно в настройках самого Jekyll, достаточно добавить опцию в файл конфигурации <code class="highlighter-rouge">_config.yaml</code>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>timezone: Europe/Samara
+</code></pre></div></div>
+
+<p>И во время сборки сайта время, указанное в статьях, переводиться в ту чесовую зону, что указана в конфигурации. При этом проводиться сопоставление с той часовой зоной, что выставлена в системе.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2017/03/26/anki/" title="View Anki: Интервальные повторения">Anki: Интервальные повторения</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2017/04/06/dnssec/" title="View Проблемы использования DNSSEC">Проблемы использования DNSSEC</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

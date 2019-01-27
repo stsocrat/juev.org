@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Резервная копия VPS на серверах Amazon</title>
+  <meta name="description" content="Программисты шутят: люди делятся на тех, кто НЕ делает бэкап и тех, кто его УЖЕ делает. Резервную копию своего сервера можно хранить и на серверах Amazon.  Про низкую стоимость сервисов S3  все уже...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2014/03/30/duplicity/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2014/03/30/crossing/">
+  <link rel="next" href="https://www.juev.org/2014/04/12/drafts/">
+  <!-- og:meta -->
+  <meta content="Резервная копия VPS на серверах Amazon" property="og:title">
+  <meta content="Программисты шутят: люди делятся на тех, кто НЕ делает бэкап и тех, кто его УЖЕ делает. Резервную копию своего сервера можно хранить и на серверах Amazon.  Про низкую стоимость сервисов S3  все уже..." property="og:description">
+  <meta content="https://www.juev.org/2014/03/30/duplicity/" property="og:url">
+  <meta content="2014-03-30T19:23:00+04:00" property="article:published_time">
+  <meta content="amazon" property="article:tag">
+  <meta content="security" property="article:tag">
+  <meta content="backup" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Резервная копия VPS на серверах Amazon" name="twitter:title">
+  <meta content="Программисты шутят: люди делятся на тех, кто НЕ делает бэкап и тех, кто его УЖЕ делает. Резервную копию своего сервера можно хранить и на серверах Amazon.  Про низкую стоимость сервисов S3  все уже..." property="twitter:description">
+  <meta content="https://www.juev.org/2014/03/30/duplicity/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Резервная копия VPS на серверах Amazon</h1>
+<div id="metainfo">
+<span class="date">30 March 2014</span>
+<span class="tags"><a href="https://www.juev.org/tags/#amazon" title="View posts tagged with &quot;amazon&quot;" rel="nofollow">#amazon</a><a href="https://www.juev.org/tags/#security" title="View posts tagged with &quot;security&quot;" rel="nofollow">#security</a><a href="https://www.juev.org/tags/#backup" title="View posts tagged with &quot;backup&quot;" rel="nofollow">#backup</a></span>
+</div>
+<div class="post"><p>Программисты шутят: люди делятся на тех, кто НЕ делает бэкап и тех, кто его УЖЕ делает.</p>
+
+<p>Резервную копию своего сервера можно хранить и на серверах Amazon. Про низкую стоимость сервисов S3  все уже слышали. А тут еще с <a href="http://aws.typepad.com/aws/2014/03/aws-price-reduction-42-ec2-s3-rds-elasticache-and-elastic-mapreduce.html">1 апреля 2014 года</a> стоимость падает на 65%. Грех не воспользоваться.</p>
+
+<h2 id="установка-и-настройка-программного-обеспечения">Установка и настройка программного обеспечения</h2>
+
+<p>Во-первых, установим все необходимое программное обеспечение:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo apt-get install duplicity duply python-boto
+</code></pre></div></div>
+
+<p>Теперь создаем профиль для работы с серверами Амазона:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ duply main create
+</code></pre></div></div>
+
+<p>В данном случае <code class="highlighter-rouge">main</code> это имя профиля, которые мы выбираем самостоятельно, и оно может быть любым. В профиле размещается файл конфигурации <code class="highlighter-rouge">$HOME/.duply/main/conf</code> с которым мы в дальнейшем будем работать. Программа Duplicity, с помощью которой будет осуществляться загрузка данных, поддерживает шифрование, причем как асимметричное, так и с использованием пароля. Использовать пароль это самое простое, именно этот вариант и будем использовать.</p>
+
+<p>Для генерации случайного пароля можно использовать команду:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ openssl rand -base64 20
+</code></pre></div></div>
+
+<p>И теперь в файле конфигурации комментируем строку <code class="highlighter-rouge">GPG_KEY</code> и задаем пароль в строке <code class="highlighter-rouge">GPG_PW</code>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#GPG_KEY='_KEY_ID_'
+GPG_PW='&lt;the password you just got from openssl&gt;'
+</code></pre></div></div>
+
+<p>Если же вы планируете вообще отключить шифрование данных, то в строке <code class="highlighter-rouge">GPG_KEY</code> необходимо задать значение <code class="highlighter-rouge">disabled</code>.</p>
+
+<p>Опускаемся ниже до строк TARGET:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>TARGET='s3://s3-&lt;region endpoint name&gt;.amazonaws.com/&lt;bucket name&gt;/&lt;folder name&gt;'
+TARGET_USER='&lt;your AWS access key ID&gt;'
+TARGET_PASS='&lt;your AWS secret key&gt;'
+</code></pre></div></div>
+
+<p>В <code class="highlighter-rouge">TARGET</code> задается адрес корзины и директории, в которой будут размещаться резервные копии. И чтобы не думать о правильности заполнения региона, проще всего его задать в виде:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>TARGET='s3+http://&lt;bucket name&gt;/&lt;folder name&gt;
+</code></pre></div></div>
+
+<p>Теперь самое главное, необходимо задать директории, которые планируется включить в резервную копию. Здесь есть небольшая тонкость, задать можно только одну директорию, поэтому всегда выбирается самая верхняя, относительно всех включаемых, директория, и часто это оказывается именно корень файловой системы:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SOURCE='/'
+</code></pre></div></div>
+
+<p>Продолжим задавать требуемые директории чуть позже, так как для того используется другой файл, а пока закончим основное конфигурирование. По умолчанию время хранения полного бекапа составляет один месяц, то есть через месяц полный бекап с сервера удаляется и резервная копия создается заново. Если это не устраивает, настройку можно изменить с помощью параметра:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MAX_AGE=6M
+</code></pre></div></div>
+
+<p>Так же стоит обратить внимание на параметр, задающий размер архива, по умолчанию он равен 25 мегабайт, увеличим его вдвое:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>VOLSIZE=50
+DUPL_PARAMS="$DUPL_PARAMS --volsize $VOLSIZE "
+</code></pre></div></div>
+
+<p>Теперь можно сохранить и закрыть файл конфигурации.</p>
+
+<p>Вот теперь продолжаем задавать список директорий, которые мы хотим включить в резервную копию. Для этого создаем файл <code class="highlighter-rouge">$HOME/.duply/main/exclude</code> со следующим содержанием:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+ /etc
++ /var/www
+- **
+</code></pre></div></div>
+
+<p>Формат файла простой, плюс/минус в начале строки задают включение/исключение директорий или файлов. Причем сначала описываются все включения и только затем исключения. Поддерживаются так же регэкспы, как в приведенном выше примере.</p>
+
+<p>В качестве основной директории мы задали корень файловой системы, и теперь в файле exclude определили, что из всего набора директорий нам необходимо включать в резервную копию только <code class="highlighter-rouge">/etc</code> и <code class="highlighter-rouge">/var/www</code>, а все остальные директории и файлы будут исключаться из резервной копии.</p>
+
+<p>После задания всех настроек необходимо будет перейти на сайт <a href="https://aws.amazon.com" title="Amazon">aws.amazon.com</a> и в консоли управления S3 создать bucket (корзину) для хранения резервных копий.</p>
+
+<h2 id="инициализация-резервной-копии">Инициализация резервной копии</h2>
+
+<p>После проведения настроек потребуется провести пробное создание резервной копии. При первом запуске проводится полный бекап, и часто он занимает продолжительное время (зависит от объемов включаемых данных). Чтобы не возникало проблем, воспользуемся программой tmux:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo apt-get install tmux
+$ tmux
+</code></pre></div></div>
+
+<p>Теперь запускаем создание резервной копии:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo duply main backup
+</code></pre></div></div>
+
+<p>После чего используем сочетание клавиш <code class="highlighter-rouge">Ctrl+b d</code> для того, чтобы отсоединиться от текущей сессии tmux. Теперь можно спокойно закрывать ssh-соединение, программа продолжит свою работу в фоне.</p>
+
+<p>Возвращаемся позже, соединяемся с сервером и подключаемся к сессии tmux:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ tmux attach
+</code></pre></div></div>
+
+<p>Если увидите в консоли подобное сообщение, значит создание резервной копии прошло успешно:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>--------------[ Backup Statistics ]--------------
+...
+Errors 0
+-------------------------------------------------
+
+--- Finished state OK at 16:48:16.192 - Runtime 01:17:08.540 ---
+
+--- Start running command POST at 16:48:16.213 ---
+Skipping n/a script '/home/admin/.duply/main/post'.
+--- Finished state OK at 16:48:16.244 - Runtime 00:00:00.031 ---
+</code></pre></div></div>
+
+<h2 id="автоматический-запуск-с-использованием-cron">Автоматический запуск с использованием cron</h2>
+
+<p>Для того чтобы проводить запуск duply регулярно, достаточно использовать cron:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo crontab -e
+</code></pre></div></div>
+
+<p>Добавляем в конец файла следующую строчку:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0 2 * * * env HOME=/home/admin duply main backup
+</code></pre></div></div>
+
+<p>В данном случае запуск будет проводиться ежедневно в 2 часа утра. Более подробно по формату задания времени можно узнать в справке cron.</p>
+
+<h2 id="восстановление-из-резервной-копии">Восстановление из резервной копии</h2>
+
+<h3 id="простое-восстановление">Простое восстановление</h3>
+
+<p>Для восстановления последнего состояния файлов используется команда <code class="highlighter-rouge">restore</code>. При этом указывается директория, в которой будут размещаться восстанавливаемые файлы:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo duply main restore /restored_files
+</code></pre></div></div>
+
+<p>И после восстановления уже перемещаем файлы/директории в требуемое место. Не пытайтесь использовать команду <code class="highlighter-rouge">sudo duply main restore /</code> так как системные файлы (такие как bash, libc и другие) наверняка будут заняты. И восстановление потребует загрузку сервера в режиме восстановления, после чего файлы можно будет перенести на свои законные места.</p>
+
+<h3 id="восстановление-определенных-файлов-или-директорий">Восстановление определенных файлов или директорий</h3>
+
+<p>Для восстановления определенных файлов или директорий используется команда <code class="highlighter-rouge">fetch</code>. К примеру, для восстановления файла <code class="highlighter-rouge">/etc/password</code> из бекапа и размещения его в директории <code class="highlighter-rouge">/home/admin/password </code> используется команда:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo duply main fetch etc/password /home/admin/password
+</code></pre></div></div>
+
+<p>Обратите внимание на то, что при указании файла, который восстанавливаем, первая косая черта пропущена специально, это не ошибка. Так же команда <code class="highlighter-rouge">fetch</code> работает и с директориями:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo duply main fetch etc /home/admin/etc
+</code></pre></div></div>
+
+<h3 id="восстановление-файлов-на-определенную-дату">Восстановление файлов на определенную дату</h3>
+
+<p>По умолчанию производиться восстановление последнего состояния файлов в бекапе. Но можно провести восстановление и предыдущих состояний. Для этого достаточно узнать, когда именно проводился бекап в предыдущие разы, для этого используется команда <code class="highlighter-rouge">status</code>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ duply main status
+...
+Number of contained backup sets: 2
+Total number of contained volumes: 2 
+Type of backup set:                            Time:      Num volumes:
+               Full         Sat Nov  8 07:38:30 2013                 1
+        Incremental         Sat Nov  9 07:43:17 2013                 1
+...
+</code></pre></div></div>
+
+<p>В данном примере проведем восстановление из резервной копии за 8 ноября:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo duply test restore /restored_files '2013-11-08T07:38:30'
+</code></pre></div></div>
+
+<p>Обратите внимание на то, что дата задается в формате w3. Про формат времени более подробно можно почитать на странице <a href="http://duplicity.nongnu.org/duplicity.1.html#toc9">the Time Formats section in the Duplicity man page</a>.</p>
+
+<h2 id="осторожность-в-хранении-ключейпароля">Осторожность в хранении ключей/пароля</h2>
+
+<p>После того, как будет проведена настройка резервных копий, не забудьте сохранить пароль или ключи, что были заданы в файле конфигурации. Причем сохранять их нужно НЕ на сервере. И если с сервером что-нибудь произойдет, а под рукой не окажется пароля или ключа, с помощью которого проводилось шифрование данных, то восстановить файлы будет уже не возможно.</p>
+
+<p>Поэтому храните пароли и ключи в программе <a href="https://agilebits.com/onepassword">1Password</a> и при этом дублируйте данные на телефон, планшет или другие сервера. Или же используйте альтернативные программы/сервисы, типа <a href="https://lastpass.com/">LastPass</a> или <a href="http://keepass.info/">KeePass</a>.</p>
+
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2014/03/30/crossing/" title="View Смена доменной зоны">Смена доменной зоны</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2014/04/12/drafts/" title="View Drafts – упрощение работы с текстом">Drafts – упрощение работы с текстом</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Оптимизация VPS сервера</title>
+  <meta name="description" content="После покупки VPS сервера возникает масса проблем.  Нужно выбрать веб-сервер, фтп-сервер, почтовый сервер.  Нужно продумать принципы организации работы веб-сервера с отдельными модулями. Проблемы н...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2010/08/25/optimizaciya-vps-servera/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2010/08/24/windows-amazon-backup/">
+  <link rel="next" href="https://www.juev.org/2010/08/28/mylifeorganized/">
+  <!-- og:meta -->
+  <meta content="Оптимизация VPS сервера" property="og:title">
+  <meta content="После покупки VPS сервера возникает масса проблем.  Нужно выбрать веб-сервер, фтп-сервер, почтовый сервер.  Нужно продумать принципы организации работы веб-сервера с отдельными модулями. Проблемы н..." property="og:description">
+  <meta content="https://www.juev.org/2010/08/25/optimizaciya-vps-servera/" property="og:url">
+  <meta content="2010-08-25T00:00:00+04:00" property="article:published_time">
+  <meta content="vps" property="article:tag">
+  <meta content="nginx" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Оптимизация VPS сервера" name="twitter:title">
+  <meta content="После покупки VPS сервера возникает масса проблем.  Нужно выбрать веб-сервер, фтп-сервер, почтовый сервер.  Нужно продумать принципы организации работы веб-сервера с отдельными модулями. Проблемы н..." property="twitter:description">
+  <meta content="https://www.juev.org/2010/08/25/optimizaciya-vps-servera/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Оптимизация VPS сервера</h1>
+<div id="metainfo">
+<span class="date">25 August 2010</span>
+<span class="tags"><a href="https://www.juev.org/tags/#vps" title="View posts tagged with &quot;vps&quot;" rel="nofollow">#vps</a><a href="https://www.juev.org/tags/#nginx" title="View posts tagged with &quot;nginx&quot;" rel="nofollow">#nginx</a></span>
+</div>
+<div class="post"><p>После покупки VPS сервера возникает масса проблем. Нужно выбрать веб-сервер, фтп-сервер, почтовый сервер. Нужно продумать принципы организации работы веб-сервера с отдельными модулями.</p>
+
+<p>Проблемы начинают проявлять себя непосредственно в работе. То памяти чересчур много расходуется, то процессор работает постоянно на максимуме, то начинает сказываться низкая скорость работы жесткого диска, то еще что-нибудь.</p>
+
+<p>Вот тут и наступает момент необходимости оптимизации. Когда установленные программы начинают настраивать, тестировать, опять настраивать.</p>
+
+<h2>Вводная</h2>
+<p>Напомню лишь, что я использую VPS от linode.com, минимальный тариф с 512 мегабайтами оперативной памяти и 4-х ядерных процессором. Установленная операционная система Ubuntu 10.04. В качестве веб-сервера используется <em>Nginx + php5-fpm + XCache</em>.</p>
+
+<p><img class="alignleft size-full wp-image-1154" src="https://static.juev.org/2010/08/01b_elephant_php.jpg" alt="" width="300" height="225" /></p>
+
+<p>Я проводил уже стресс-тест производительности, результаты описывал в статье <a href="/2010/08/23/test-vps-servera/">Тест производительности VPS сервера</a>. И на тот момент, сервер показал результат в 14.15 запроса/сек. Для того, чтобы выдержать посещаемость моего сайта этого результата вполне достаточно, но стала ощущаться другая проблема. В нагрузке чрезмерно расходовалась оперативная память.</p>
+
+<p>500 запросов вполне хватало для того, чтобы процессы php заполняли всю оперативную память, вытесняя попутно все буферы и кеши, а затем и весь своп. Продолжение подобной стрессовой нагрузки могли просто уронить сервер. И это меня очень сильно стало беспокоить.</p>
+
+<p>Я просто не понимал, почему php5-fpm начинает так сильно расходовать оперативную память. Как вообще в подобных условиях живут другие проекты?</p>
+
+<p>Пытался изменять число процессов и nginx и php5-fpm, уменьшая до минимума, однако это давало только лишние минуты работы, но не избавляло от самой проблемы. Два процесса php5-fpm точно так же заполняли все пространство выделенной памяти, как и все восемь. Пришлось на время оставить минимальное число процессов, для того, чтобы дольше выдерживать нагрузку и искать решение.</p>
+
+<p>Еще немного спасло положение изменение настроек php5-fpm. В файле <em>/etc/php5/fpm/php5-fpm.conf</em> изменил следующие значения:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>emergency_restart_threshold = 10
+emergency_restart_interval = 1m
+process_control_timeout = 5s
+pm.max_requests = 500
+</code></pre></div></div>
+
+<p>Стало чуть легче. Теперь спустя определенное время процессы php5-fpm стали перезапускаться, высвобождая занятую память. Но утечки продолжались.</p>
+
+<h2>Memcached</h2>
+
+<p><img class="alignright size-full wp-image-1155" src="https://static.juev.org/2010/08/php.jpg" alt="" width="300" height="191" /></p>
+
+<p>Сегодня решил попробовать в работе модуль <strong>memcached</strong>. Перед этим пришлось думать и решать, стоит ли это делать, так как на дополнительный модуль потребуется выделить определенное количество оперативной памяти, а ее и так катастрофически не хватало. Решил все таки рискнуть и посмотреть, что выйдет. Все равно на сайте нагрузка не большая. Устанавливаем и запускаем:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># apt-get install memcached php5-memcache
+# /etc/init.d/memcached start
+</code></pre></div></div>
+
+<p>Теперь необходимо прописать использование memcached в php5-fpm, для этого изменяем файл
+<em>/etc/php5/fpm/php.ini</em> и в самое начало, после директивы <code class="highlighter-rouge">[PHP]</code> прописываем:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>extension=memcache.so
+</code></pre></div></div>
+
+<p>Теперь перезапускаем php:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># /etc/init.d/php5-fpm restart
+</code></pre></div></div>
+
+<p>И смотрим, появился ли блок memcache в выводе функции phpinfo(), если появилось, значит все нормально. Единственно, перед самим запуском memcached я еще изменил его настройки, увеличив используемую память с 16 мегабайт до 64.</p>
+
+<p><img class="alignleft size-full wp-image-1156" src="https://static.juev.org/2010/08/memcached_banner75.jpg" alt="" width="129" height="110" /></p>
+
+<p>Последующий стресс-тест поверг меня в недоумение! Производительность не изменилась, но утечки памяти просто исчезли. Прекратился этот дикий расход оперативной памяти.</p>
+
+<p>Для того, чтобы посмотреть, сколько памяти используется в данный момент времени сам memcached, использовал команду:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps -e | grep 'memcached'  | awk '{print $0}{sum+=$1} END {print "\nMemory usage for memcached:", sum/1024, "MB\n"}'
+</code></pre></div></div>
+
+<p>Результат – чуть больше 6 мегабайтов оперативной памяти. То есть 64 мегабайта, что я выделил, с лихвой хватает на все.</p>
+
+<h2>Тесты</h2>
+<p>Провел ряд тестов, для того, чтобы отследить, какое число процессов nginx и php5-fpm является оптимальным для использования на VPS от Linode на минимальном тарифе. Для этого, как и в прошлый раз, использовал утилиту ab из поставки веб-сервера apache. Запускал следующим образом:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ab -n 1000 -n 50 http://domain.ru/index.php
+</code></pre></div></div>
+
+<p>Увеличил число запросов до 1000 и увеличил число одновременных запросов к серверу до 50. Меня интересовал расход оперативной памяти и естественно, производительность веб-сервера, то есть сколько запросов он сможет обрабатывать в секунду.</p>
+
+<p>Для этого я изменял число процессов nginx, затем число процессов php5-fpm и наблюдал за показаниями утилиты htop.</p>
+
+<p>Первый тест проводил с тем же числом процессов, что использовал до установки memcached.</p>
+
+<p><em>2 nginx и 2 php5-fpm</em>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Concurrency Level:      50
+Time taken for tests:   89.755 seconds
+Complete requests:      1000
+Failed requests:        0
+Write errors:           0
+Non-2xx responses:      1000
+Total transferred:      283000 bytes
+HTML transferred:       0 bytes
+Requests per second:    11.14 [#/sec] (mean)
+Time per request:       4487.736 [ms] (mean)
+Time per request:       89.755 [ms] (mean, across all concurrent requests)
+Transfer rate:          3.08 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.7      0       4
+Processing:  1656 4379 320.6   4390    6135
+Waiting:     1656 4379 320.6   4390    6135
+Total:       1661 4379 320.3   4390    6137
+</code></pre></div></div>
+
+<p>Максимальный расход памяти при этом 123Mb. Свободной памяти еще много, а вот производительность невысока, заметно, что в работе участвуют только два из четырех выделенных ядер. Увеличиваем число php процессов до 4.</p>
+
+<p><em>2 nginx и 4 php5-fpm</em>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Concurrency Level:      50
+Time taken for tests:   46.838 seconds
+Complete requests:      1000
+Failed requests:        0
+Write errors:           0
+Non-2xx responses:      1000
+Total transferred:      283000 bytes
+HTML transferred:       0 bytes
+Requests per second:    21.35 [#/sec] (mean)
+Time per request:       2341.875 [ms] (mean)
+Time per request:       46.838 [ms] (mean, across all concurrent requests)
+Transfer rate:          5.90 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.7      0       5
+Processing:   401 2287 225.4   2286    3039
+Waiting:      401 2286 225.4   2286    3039
+Total:        406 2287 225.0   2286    3041
+</code></pre></div></div>
+
+<p>Максимальный расход памяти в данном случае 157Mb. Количество обрабатываемых запросов выросло почти в два раза. Не плохо. Пробуем увеличить число процессов nginx, по сути должно вырасти значение максимального количества одновременных соединений.</p>
+
+<p><em>4 nginx и 4 php5-fpm</em>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Concurrency Level:      50
+Time taken for tests:   45.951 seconds
+Complete requests:      1000
+Failed requests:        0
+Write errors:           0
+Non-2xx responses:      1000
+Total transferred:      283000 bytes
+HTML transferred:       0 bytes
+Requests per second:    21.76 [#/sec] (mean)
+Time per request:       2297.534 [ms] (mean)
+Time per request:       45.951 [ms] (mean, across all concurrent requests)
+Transfer rate:          6.01 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.7      0       4
+Processing:   494 2239 214.0   2245    2988
+Waiting:      494 2239 214.0   2245    2988
+Total:        498 2240 213.6   2245    2990
+</code></pre></div></div>
+
+<p>Максимальный расход памяти в этом случае 154Mb. Что даже чуть меньше чем в предыдущем случае, что немного странно. Однако число запросов, которое обрабатывает сервер каждую секунду, осталось неизменным. Имеет ли тогда смысл держать запущенными несколько nginx??</p>
+
+<p><em>1 nginx и 4 php5-fpm</em>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Concurrency Level:      50
+Time taken for tests:   46.050 seconds
+Complete requests:      1000
+Failed requests:        0
+Write errors:           0
+Non-2xx responses:      1000
+Total transferred:      283000 bytes
+HTML transferred:       0 bytes
+Requests per second:    21.72 [#/sec] (mean)
+Time per request:       2302.504 [ms] (mean)
+Time per request:       46.050 [ms] (mean, across all concurrent requests)
+Transfer rate:          6.00 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.7      0       4
+Processing:   527 2246 201.0   2260    2968
+Waiting:      526 2246 201.0   2260    2968
+Total:        531 2246 200.6   2260    2969
+</code></pre></div></div>
+
+<p>Максимальный расход памяти 151Mb. Как видим, на расход памяти это влияет мало, и на число обрабатываемых запросов тоже. Пока не вижу смысла запускать дополнительные процессы nginx.</p>
+
+<p>Стало интересно, а что будет, если поставить число запущенных php-процессов больше, чем число ядер??</p>
+
+<p><em>1 nginx и 8 php5-fpm</em>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>220 Mb max
+Concurrency Level:      50
+Time taken for tests:   47.617 seconds
+Complete requests:      1000
+Failed requests:        0
+Write errors:           0
+Non-2xx responses:      1000
+Total transferred:      283000 bytes
+HTML transferred:       0 bytes
+Requests per second:    21.00 [#/sec] (mean)
+Time per request:       2380.835 [ms] (mean)
+Time per request:       47.617 [ms] (mean, across all concurrent requests)
+Transfer rate:          5.80 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   1.2      0       7
+Processing:   544 2331 202.2   2336    3307
+Waiting:      544 2331 202.2   2336    3307
+Total:        549 2331 201.9   2336    3312
+</code></pre></div></div>
+
+<p>Максимальный расход памяти составил 220Mb. Число запросов даже несколько упало, изменения нет. То есть фактически увеличивать число процессов php выше 4 для моего сервера вряд ли стоит.</p>
+
+<h2>Оптимизация XCache</h2>
+
+<p><img class="alignright size-full wp-image-1157" src="https://static.juev.org/2010/08/performance_tortoise_rocket.jpg" alt="" width="200" height="138" /></p>
+
+<p>Во всех тестах использовалось расширение WP Super Cache. При тесте, естественно были задействованы кешированные страницы, что довольно неплохо поднимало скорость отдачи странички и уменьшало время ее генерации. Администратор по умолчанию работает с некешированными страницами и на скорость влияет только производительность PHP-интерпретатора. Хотя и был установлен модуль <em>php5-xcache</em>, в админке былы заметны некие тормоза.</p>
+
+<p>До этого момента использовал настройки XCache по умолчанию. решил немного повозиться и поискать варианты конфигураций в сети интернет. Изменил лишь несколько настроек в файле <em>/etc/php5/conf.d/xcache.ini</em>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xcache.size  =               64M
+xcache.count =                 4
+xcache.var_size  =           64M
+</code></pre></div></div>
+
+<p>Значение <em>xcache.size</em> увеличил с 16 до 64 мегабайт. Параметр <em>xcache.count</em> указывает на количество используемых на машине ядер, установил в 4. И <em>xcache.var_size</em> изменил с 0 на 64 мегабайта.</p>
+
+<p>После перезапуска php5-fpm, и админка стала более отзывчивой!</p>
+
+<h2>Выводы</h2>
+<p>Установки используемых программ редко бывают оптимальными по умолчанию. Требуется каждый установленный сервис протестировать и определить оптимальные настройки для каждого конкретного случая.</p>
+
+<p><img class="alignleft size-full wp-image-1158" src="https://static.juev.org/2010/08/sneakimages_vps.jpg" alt="" width="275" height="244" /></p>
+
+<p>С помощью тестов мне удалось значительно снизить потребление оперативной памяти. И при этом достичь показателей обрабатываемых запросов к серверу до 21.72. Что выше, чем даже у настроенного шаред-хостинга, что я использовал раньше.</p>
+
+<p>Совершенно не ожидал, что установка <em>memcached</em> позволит мне решить проблему с утечками памяти. Теперь же настоятельно рекомендую использовать этот модуль PHP на серверах, размещающих в себе WordPress.</p>
+
+<p>После проведенных тестов загорелся довести обрабатываемое число запросов до 100 в секунду. Правда понимаю, что именно сейчас это вряд ли возможно, так как во время тестов все упиралось в производительность процессора. Буду искать варианты оптимизации PHP-приложения.</p>
+
+<p>Ждите продолжения!</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2010/08/24/windows-amazon-backup/" title="View Резервные копии файлов - Amazon S3">Резервные копии файлов - Amazon S3</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2010/08/28/mylifeorganized/" title="View Списки задач">Списки задач</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

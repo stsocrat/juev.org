@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Упрощение публикации статического сайта</title>
+  <meta name="description" content="О недостатках Jekyll мы уже говорили, теперь давайте рассмотрим, как можно  перенести процесс генерации сайта на рабочий сервер. Во-первых, сделать это можно и совершенно бесплатно.  Достаточно раз...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2013/11/17/automation-jekyll/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2013/11/10/lack-of-jekyll/">
+  <link rel="next" href="https://www.juev.org/2014/01/25/github-cdn/">
+  <!-- og:meta -->
+  <meta content="Упрощение публикации статического сайта" property="og:title">
+  <meta content="О недостатках Jekyll мы уже говорили, теперь давайте рассмотрим, как можно  перенести процесс генерации сайта на рабочий сервер. Во-первых, сделать это можно и совершенно бесплатно.  Достаточно раз..." property="og:description">
+  <meta content="https://www.juev.org/2013/11/17/automation-jekyll/" property="og:url">
+  <meta content="2013-11-17T08:58:00+04:00" property="article:published_time">
+  <meta content="jekyll" property="article:tag">
+  <meta content="server" property="article:tag">
+  <meta content="git" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Упрощение публикации статического сайта" name="twitter:title">
+  <meta content="О недостатках Jekyll мы уже говорили, теперь давайте рассмотрим, как можно  перенести процесс генерации сайта на рабочий сервер. Во-первых, сделать это можно и совершенно бесплатно.  Достаточно раз..." property="twitter:description">
+  <meta content="https://www.juev.org/2013/11/17/automation-jekyll/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Упрощение публикации статического сайта</h1>
+<div id="metainfo">
+<span class="date">17 November 2013</span>
+<span class="tags"><a href="https://www.juev.org/tags/#jekyll" title="View posts tagged with &quot;jekyll&quot;" rel="nofollow">#jekyll</a><a href="https://www.juev.org/tags/#server" title="View posts tagged with &quot;server&quot;" rel="nofollow">#server</a><a href="https://www.juev.org/tags/#git" title="View posts tagged with &quot;git&quot;" rel="nofollow">#git</a></span>
+</div>
+<div class="post"><p>О <a href="/2013/11/10/lack-of-jekyll/" title="Недостатки Jekyll">недостатках Jekyll</a> мы уже говорили, теперь давайте рассмотрим, как можно  перенести процесс генерации сайта на рабочий сервер.</p>
+
+<p>Во-первых, сделать это можно и совершенно бесплатно. Достаточно размещать код своего сайта на Github, а генерацию производить с использованием <a href="http://about.travis-ci.org" title="Travis CI">Travis CI</a>, с последующей публикацией результата на Github Pages.</p>
+
+<p>Во-вторых, если используется свой сервер, можно генерировать сайт непосредственно с его помощью. Это вариант сейчас и рассмотрим.</p>
+
+<h2 id="post-receive-hooks">Post-Receive Hooks</h2>
+
+<p>Для оповещения сервера о проведенных изменениях в репозитории кода используется <a href="https://help.github.com/articles/post-receive-hooks" title="Post-Receive Hooks">Post-Receive Hooks</a>. Довольно долго и безрезультатно пытался найти что-нибудь работоспособное для использования триггеров, пока наконец, не наткнулся на разработку <a href="http://solovyov.net/" title="Piranha">Александра Соловьева</a> под названием <a href="https://github.com/piranha/webhooker" title="piranha/webhooker">Webhooker</a>. Устанавливаем Golang:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo apt-get install python-software-properties  # 12.04
+$ sudo add-apt-repository ppa:duh/golang
+$ sudo apt-get update
+$ sudo apt-get install golang
+$ echo 'export GOPATH=$HOME' &gt;&gt; ~/.profile
+$ echo 'export PATH=$PATH:$GOPATH/bin' &gt;&gt; ~/.profile
+</code></pre></div></div>
+
+<p>Теперь устанавливаем сам Webhooker:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ go get github.com/piranha/webhooker
+</code></pre></div></div>
+
+<p>По привязке webhooker к nginx есть описание на официальной странице приложения, поэтому в данной статье я останавливаться на этом моменте не буду. Расскажу лишь об автоматизации запуска Webhooker при старте системы. Александр предлагает использовать для запуска и мониторинга его состояния работы <a href="http://supervisord.org" title="Supervisor: A Process Control System">Supervisor</a>. Но я нашел использование Upstart в Ubuntu наиболее приемлемым вариантом, тем более, что он сейчас используется в системе по умолчанию.</p>
+
+<p>Необходимо создать файл конфигурации <code class="highlighter-rouge">/etc/init/webhook.conf</code> в котором прописываем всего несколько строк:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>description	"Webhook for Gihub"
+
+start on startup
+stop on shutdown
+
+console none
+respawn
+
+exec su usename -c "~/bin/webhooker -p 5010 -i 127.0.0.1 -c ~/hooks/webhook.conf"
+</code></pre></div></div>
+
+<p>Теперь для запуска достаточно дать команду:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo start webhook
+</code></pre></div></div>
+
+<p>Для остановки:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo stop webhook
+</code></pre></div></div>
+
+<p>Файл <code class="highlighter-rouge">~/hooks/webhook.conf</code> я использую для описания правил работы триггеров, и если правило всего одно, его можно прописывать непосредственно в строке запуска. На данный момент в файле <code class="highlighter-rouge">~/hooks/webhook.conf</code> у меня одна строка:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Juev/juev.ru:master='/home/username/hooks/juevru.sh'
+</code></pre></div></div>
+
+<p>Александр задумывал использовать триггеры для запуска нескольких команд максимум, и при этом использует для запуска командный интерпретатор <code class="highlighter-rouge">sh</code>. А так как у меня на сервере используется <code class="highlighter-rouge">Ruby</code>, установленный с использованием <code class="highlighter-rouge">rbenv</code>, то приходиться запускать целый скрипт, в котором помимо запуска команд, необходимо еще установить рабочее окружение:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+<span class="nb">export </span><span class="nv">LANG</span><span class="o">=</span><span class="s2">"en_US.UTF-8"</span>
+<span class="nb">export </span><span class="nv">LC_ALL</span><span class="o">=</span><span class="s2">"en_US.UTF-8"</span>
+<span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/.rbenv/bin:</span><span class="nv">$PATH</span><span class="s2">"</span>
+<span class="nb">eval</span> <span class="s2">"</span><span class="k">$(</span>rbenv init -<span class="k">)</span><span class="s2">"</span>
+
+<span class="nb">cd</span> ~/Projects/juev.ru
+git pull
+rake
+rsync <span class="nt">-az</span> <span class="nt">--delete</span> public/ ~/web/juevru/
+</code></pre></div></div>
+
+<p>Хочу обратить внимание на тот факт, что генерация сайта производиться во временной директории. И только по окончанию работы осуществляется синхронизация этой временной директории с рабочим каталогом веб-сайта с использованием команды <code class="highlighter-rouge">rsync</code>. Это позволяет избежать моментов отсутствия страниц на сайте во время генерации.</p>
+
+<p>Теперь для публикации статьи достаточно будет получить доступ к веб-браузеру, в котором с использованием веб-редактора файлов создаем статью, а публикация будет проведена автоматически после сохранения результатов работы.</p>
+
+<p>Единственная проблема, которая остается при использовании Jekyll – это работа с изображениями. Влад Гороховский предложил вариант решения в статье <a href="http://macosworld.ru/screenshot-edit-and-upload-automatisation/" title="Автоматизация обработки картинок (Hazel, Transmit, TextExpander)">Автоматизация обработки картинок</a>, но он использует для этого одновременно несколько довольно дорогих программ, что делает публикацию возможной только при использовании своего компьютера, что не всегда возможно.</p>
+
+<p>Но уже сейчас работать с Jekyll стало гораздо проще.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2013/11/10/lack-of-jekyll/" title="View Недостатки Jekyll">Недостатки Jekyll</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2014/01/25/github-cdn/" title="View GitHub CDN">GitHub CDN</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

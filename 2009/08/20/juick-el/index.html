@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Juick-el</title>
+  <meta name="description" content="Вы еще не знаете, что такое juick?? Ммм… многое теряете…От себя могу сказать (если вкратце), что это сервис микроблогинга, что то типа twitter, в котором нет ограничений на количество символов, так...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2009/08/20/juick-el/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2009/08/20/emacs-tramp-mode/">
+  <link rel="next" href="https://www.juev.org/2009/08/24/mount/">
+  <!-- og:meta -->
+  <meta content="Juick-el" property="og:title">
+  <meta content="Вы еще не знаете, что такое juick?? Ммм… многое теряете…От себя могу сказать (если вкратце), что это сервис микроблогинга, что то типа twitter, в котором нет ограничений на количество символов, так..." property="og:description">
+  <meta content="https://www.juev.org/2009/08/20/juick-el/" property="og:url">
+  <meta content="2009-08-20T00:00:00+04:00" property="article:published_time">
+  <meta content="emacs" property="article:tag">
+  <meta content="juick" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Juick-el" name="twitter:title">
+  <meta content="Вы еще не знаете, что такое juick?? Ммм… многое теряете…От себя могу сказать (если вкратце), что это сервис микроблогинга, что то типа twitter, в котором нет ограничений на количество символов, так..." property="twitter:description">
+  <meta content="https://www.juev.org/2009/08/20/juick-el/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Juick-el</h1>
+<div id="metainfo">
+<span class="date">20 August 2009</span>
+<span class="tags"><a href="https://www.juev.org/tags/#emacs" title="View posts tagged with &quot;emacs&quot;" rel="nofollow">#emacs</a><a href="https://www.juev.org/tags/#juick" title="View posts tagged with &quot;juick&quot;" rel="nofollow">#juick</a></span>
+</div>
+<div class="post"><p>Вы еще не знаете, что такое <strong>juick</strong>?? Ммм… многое теряете…</p>
+
+<p>От себя могу сказать (если вкратце), что это сервис микроблогинга, что то типа twitter, в котором нет ограничений на количество символов, так как сообщения принимаются и отправляются не с помощью sms-сообщений, а с помощью jabber. Читать сообщения можно как и в twitter через веб-интерфейс.</p>
+
+<p>Подключиться очень просто. Достаточно в любом jabber-клиенте, что вы используете, добавить в ростер пользователя <em>juick@juick.com</em>. Все сообщения, которые будут к нему направляться, будут опубликованы в вашем микроблоге. Можно подписываться на сообщения определенных пользователей. можно комментировать чужие записи… Целый мир в кармане!</p>
+
+<p>Вообще пользоваться juick можно в любом jabber-клиенте, но если использовать его в jabber-el, о котором я уже писал, да с установленным расширением, работать будет одно удовольствие.</p>
+
+<p>Расширение о котором пойдет речь называется просто <em>juick-el</em>. Найти его можно по
+адресу <a href="http://github.com/mad/emacs-juick-el/tree/master" rel="nofollow">github.com/mad/emacs-juick-el</a></p>
+
+<p>К сожалению, об авторе известно только то, что он именует себя <strong>mad</strong>. Спасибо ему огромное за проделанную работу! Расширение кстати развивается и каждый раз в нем появляются какие новые функции…</p>
+
+<p>Установить довольно просто. Достаточно скачать файлы с сервера воспользовавшись кнопкой Download на указанной странице или создав локальную копию git-репозитория командой:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$git clone git://github.com/mad/emacs-juick-el.git
+</code></pre></div></div>
+
+<p>Созданную папку размещаем в путях, прописанных в emacs, и в конфигурации .emacs прописываем следующее:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(add-to-list 'load-path "~/.emacs.d/plugins/juick-el/")
+(require 'juick)
+(setq juick-tmp-dir "~/.emacs.d/juick-avatars/")
+(setq juick-tag-subscribed '("emacs" "linux" "juick" "GTD" "todo"))
+;(juick-auto-update t)
+</code></pre></div></div>
+
+<p>В первой строке указан путь до папки с файлами, вторая строка для подключения расширения, третья строка для указания папки, в которой будут храниться подгружаемые аватарки, в четвертой строке прописаны теги, на которые мы подписываемся, то есть все сообщения с данными тегами будут поступать к нам, вне зависимости от того, подписаны мы на данного пользователя или нет…</p>
+
+<p>Пятая строка служит как раз для получения сообщений с указанными тегами. У меня она закомментирована, так как я использую несколько аккаунтов jabber, а в данном случае данная функция работает не очень корректно.</p>
+
+<p>Общий вид буфера juick@juick.com:</p>
+
+<p><a href="https://static.juev.org/2009/08/juick.png"><img class="aligncenter size-medium wp-image-570" title="juick" src="https://static.juev.org/2009/08/juick-300x203.png" alt="Juick-el" width="300" height="203" /></a></p>
+
+<p>Для того, чтобы ответить на запись или комментарий достаточно подвести курсор к номеру сообщения и нажать <strong>RET</strong>. Для того, чтобы подписаться на сообщения пользователя подводим курсор к его имени и жмем <strong>s</strong>, чтобы отписаться <strong>u</strong>. Аналогично с сообщениями.</p>
+
+<p>Расширение сильно упрощает жизнь при работе с juick!</p>
+
+<p>И в качестве дополнения небольшой хак при работе с <em>jabber-el</em>. Как часто вы используете в работе буфер <strong><em>fsm-debug</em></strong>?? Никогда?</p>
+
+<p>Убрать его довольно просто, нужно прописать следующую строку в конфигурацию емакса:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(setq fsm-debug nil)
+</code></pre></div></div>
+
+<p>Теперь данный буфер не будет создаваться…</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2009/08/20/emacs-tramp-mode/" title="View Emacs Tramp-mode">Emacs Tramp-mode</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2009/08/24/mount/" title="View Автоматическое монтирование">Автоматическое монтирование</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

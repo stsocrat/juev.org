@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Проблемы с кодировкой</title>
+  <meta name="description" content="Прошло уже довольно много времени с тех пор, как я мигрировал с Wordpress на Jekyll.  И все это время у меня складывалось впечатление, что миграция прошла успешно. Все работает, что еще нужно? Но п...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2013/04/13/utf8/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2013/04/06/ulyses/">
+  <link rel="next" href="https://www.juev.org/2013/04/18/amazon-s3/">
+  <!-- og:meta -->
+  <meta content="Проблемы с кодировкой" property="og:title">
+  <meta content="Прошло уже довольно много времени с тех пор, как я мигрировал с Wordpress на Jekyll.  И все это время у меня складывалось впечатление, что миграция прошла успешно. Все работает, что еще нужно? Но п..." property="og:description">
+  <meta content="https://www.juev.org/2013/04/13/utf8/" property="og:url">
+  <meta content="2013-04-13T17:14:00+04:00" property="article:published_time">
+  <meta content="ruby" property="article:tag">
+  <meta content="octopress" property="article:tag">
+  <meta content="middleman" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Проблемы с кодировкой" name="twitter:title">
+  <meta content="Прошло уже довольно много времени с тех пор, как я мигрировал с Wordpress на Jekyll.  И все это время у меня складывалось впечатление, что миграция прошла успешно. Все работает, что еще нужно? Но п..." property="twitter:description">
+  <meta content="https://www.juev.org/2013/04/13/utf8/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Проблемы с кодировкой</h1>
+<div id="metainfo">
+<span class="date">13 April 2013</span>
+<span class="tags"><a href="https://www.juev.org/tags/#ruby" title="View posts tagged with &quot;ruby&quot;" rel="nofollow">#ruby</a><a href="https://www.juev.org/tags/#octopress" title="View posts tagged with &quot;octopress&quot;" rel="nofollow">#octopress</a><a href="https://www.juev.org/tags/#middleman" title="View posts tagged with &quot;middleman&quot;" rel="nofollow">#middleman</a></span>
+</div>
+<div class="post"><p>Прошло уже довольно много времени с тех пор, как я мигрировал с Wordpress на Jekyll. И все это время у меня складывалось впечатление, что миграция прошла успешно.</p>
+
+<p>Все работает, что еще нужно? Но проблемы стали возникать, когда я стал экспериментировать с другими движками. Пробовал использовать Middleman, Octopress. И каждый раз, когда я запускал генерацию сайта, я получал примерно следующее:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Liquid Exception: incompatible character encodings: ASCII-8BIT and UTF-8 in post
+</code></pre></div></div>
+
+<p>Проверял кодировку файлов с помощью enca, и на все попытки получал:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Universal transformation format 8 bits; UTF-8
+</code></pre></div></div>
+
+<p>То есть вполне нормальный UTF-8. Я непонимал, что происходит, и думал, что все проблемы из-за того, что Ruby новых версий как-то неправильно работает с UTF-8.</p>
+
+<p>Вчера я попытался не мигрировать, а просто создать новый сайт на основе Octopress с нуля. Генерация прошла успешно. Затем скопировал свои статьи, и генерация опять оборвалась и опять с той же ошибкой.</p>
+
+<p>Стало понятно, что причина не в Ruby и не в движке. Что-то не так именно в моих статьях. Неожиданно вспомнил, что у меня есть статьи, в которых заголовки задаются в закодированном виде, то есть:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>title: !binary | 0YHQvNC10L3QsCDRhNCw0LnQu9C+0LLQvtC5INGB0LjRgdGC0LXQvNGL
+</code></pre></div></div>
+
+<p>Прошелся поиском, оказалось, что подобных статей у меня свыше сотни, то есть почти добрая половина. Подобные заголовки появились у меня еще со времен миграции, а часть после того, как я создавал статьи с помощью rake-задачи и при этом задавал название на русском языке.</p>
+
+<p>Для примера взял только одну такую статью и попробовал сгенерировать сайт с помощью Octopress: получил ошибку. Заменил текст заголовка на обычное написание, то есть просто по русски написал, и сайт сгенерировался успешно. Значит проблема у меня была в заголовках…</p>
+
+<p>Править руками свыше сотни статей пробематично, поэтому написал небольшой скрипт на ruby, который производит конвертирование:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#!/usr/bin/env ruby</span>
+
+<span class="nb">require</span> <span class="s2">"yaml"</span>
+
+<span class="k">unless</span> <span class="n">not</span> <span class="no">ARGV</span><span class="p">.</span><span class="nf">empty?</span>
+  <span class="nb">puts</span> <span class="s2">"syntax: binary.rb dirname"</span>
+  <span class="nb">exit</span>
+<span class="k">end</span>
+
+<span class="n">dir</span> <span class="o">=</span> <span class="no">ARGV</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="k">unless</span> <span class="no">Dir</span><span class="p">.</span><span class="nf">exist?</span><span class="p">(</span><span class="n">dir</span><span class="p">)</span>
+  <span class="nb">puts</span> <span class="s2">"</span><span class="si">#{</span><span class="n">dir</span><span class="si">}</span><span class="s2"> not exist or not a dir"</span>
+  <span class="nb">exit</span>
+<span class="k">end</span>
+
+<span class="no">Dir</span><span class="p">.</span><span class="nf">chdir</span><span class="p">(</span><span class="n">dir</span><span class="p">)</span>
+<span class="k">unless</span> <span class="no">Dir</span><span class="p">.</span><span class="nf">exist?</span><span class="p">(</span><span class="s2">"../temp"</span><span class="p">)</span>
+  <span class="no">Dir</span><span class="p">.</span><span class="nf">mkdir</span><span class="p">(</span><span class="s2">"../temp"</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="no">Dir</span><span class="p">.</span><span class="nf">glob</span><span class="p">(</span><span class="s2">"*"</span><span class="p">).</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span>
+  <span class="n">yaml_file</span> <span class="o">=</span> <span class="no">YAML</span><span class="o">::</span><span class="n">load_file</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+  <span class="n">yaml_file</span><span class="p">[</span><span class="s1">'title'</span><span class="p">]</span> <span class="o">=</span> <span class="n">yaml_file</span><span class="p">[</span><span class="s1">'title'</span><span class="p">].</span><span class="nf">force_encoding</span><span class="p">(</span><span class="s2">"UTF-8"</span><span class="p">)</span>
+  <span class="n">yaml_file</span><span class="p">[</span><span class="s1">'date'</span><span class="p">]</span> <span class="o">=</span> <span class="n">yaml_file</span><span class="p">[</span><span class="s1">'date'</span><span class="p">].</span><span class="nf">strftime</span><span class="p">(</span><span class="s2">"%F %R"</span><span class="p">)</span>
+  <span class="n">file</span> <span class="o">=</span> <span class="no">File</span><span class="p">.</span><span class="nf">open</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="s2">"rb"</span><span class="p">)</span>
+  <span class="n">contents</span> <span class="o">=</span> <span class="n">file</span><span class="p">.</span><span class="nf">read</span><span class="p">.</span><span class="nf">gsub</span><span class="p">(</span><span class="sr">/^---(.|\n)*^---/</span><span class="p">,</span> <span class="s1">''</span><span class="p">)</span>
+  <span class="no">File</span><span class="p">.</span><span class="nf">open</span><span class="p">(</span><span class="s2">"../temp/</span><span class="si">#{</span><span class="n">f</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="s1">'w+'</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">fo</span><span class="o">|</span>
+    <span class="n">fo</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="n">yaml_file</span><span class="p">.</span><span class="nf">to_yaml</span><span class="p">)</span>
+    <span class="n">fo</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="s2">"---"</span><span class="p">)</span>
+    <span class="n">fo</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="n">contents</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>В качестве параметров скрипт принимает имя директории, в которой размещаются статьи, и затем рядом с исходной создается директория temp, в которую и помещается результат конвертации.</p>
+
+<p>После проверки в Octopress, сайт опять отказался у меня генерироваться, но уже с совершенно другой ошибкой:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>octopress/plugins/raw.rb:11:in `gsub': invalid byte sequence in UTF-8 (ArgumentError)
+</code></pre></div></div>
+
+<p>Поиск в интернете указывал на то, что подобные ошибки обычно возникают при использовании адресов ссылок, в которых присутсвуют национальные символы. Вспомнил, что у меня используется тег с именем “хостинг”, и он же используется в части адресов. Произвел быструю замену с помощью <code class="highlighter-rouge">sed</code>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sed -i 's/-\ хостинг/-\ hosting/g' source/_posts/*
+</code></pre></div></div>
+
+<p>Единственно, чтобы произвести данную операцию в OSX, пришлось из репозитория homebrew ставить gnu-sed, так как системная версия очень ограничена.</p>
+
+<p>Думаете, что вот он тот момент, когда наконец все заработало?? Как бы не так! Ошибка осталась и пришлось разбираться дальше.</p>
+
+<p>Вовремя заметил, что по умолчанию в Octopress используется rdiscount, в то время как у меня используется kramdown, который позволяет использовать сноски и задавать классы определенным тегам. А часть этих возможностей я использую в своих статьях. Изменил в настройках используемый движок и только после этого генерация прошла успешно.</p>
+
+<p>После предварительной проверки оказалось, что у меня порядка 5 статей сгенерировались с покореженными заголовками, но 5 статей это не сотня, руками быстро поправил. Проверил в работе на нескольких движках, и на octopress и на middleman, менял версии Ruby, теперь генерация стала проходить без каких-либо проблем. Везде все работает.</p>
+
+<p>Таким образом опытным путем убедился, что в Ruby версии 1.9 и выше, проблем при работе с UTF-8 нет. И просто нужно более системно подходить к решению проблем.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2013/04/06/ulyses/" title="View Ulysses III">Ulysses III</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2013/04/18/amazon-s3/" title="View Оптимизация сайта для Amazon S3">Оптимизация сайта для Amazon S3</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

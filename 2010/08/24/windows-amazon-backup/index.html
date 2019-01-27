@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Резервные копии файлов - Amazon S3</title>
+  <meta name="description" content="У любого пользователя порой случаются ситуации потери информации.  Вышел из строя винчестер/флешка, кто-то злостно потер данные, да мало ли существует причин? Как раз для этого и организуют резервн...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2010/08/24/windows-amazon-backup/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2010/08/23/test-vps-servera/">
+  <link rel="next" href="https://www.juev.org/2010/08/25/optimizaciya-vps-servera/">
+  <!-- og:meta -->
+  <meta content="Резервные копии файлов - Amazon S3" property="og:title">
+  <meta content="У любого пользователя порой случаются ситуации потери информации.  Вышел из строя винчестер/флешка, кто-то злостно потер данные, да мало ли существует причин? Как раз для этого и организуют резервн..." property="og:description">
+  <meta content="https://www.juev.org/2010/08/24/windows-amazon-backup/" property="og:url">
+  <meta content="2010-08-24T00:00:00+04:00" property="article:published_time">
+  <meta content="windows" property="article:tag">
+  <meta content="dropbox" property="article:tag">
+  <meta content="cloudberry" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Резервные копии файлов - Amazon S3" name="twitter:title">
+  <meta content="У любого пользователя порой случаются ситуации потери информации.  Вышел из строя винчестер/флешка, кто-то злостно потер данные, да мало ли существует причин? Как раз для этого и организуют резервн..." property="twitter:description">
+  <meta content="https://www.juev.org/2010/08/24/windows-amazon-backup/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Резервные копии файлов - Amazon S3</h1>
+<div id="metainfo">
+<span class="date">24 August 2010</span>
+<span class="tags"><a href="https://www.juev.org/tags/#windows" title="View posts tagged with &quot;windows&quot;" rel="nofollow">#windows</a><a href="https://www.juev.org/tags/#dropbox" title="View posts tagged with &quot;dropbox&quot;" rel="nofollow">#dropbox</a><a href="https://www.juev.org/tags/#cloudberry" title="View posts tagged with &quot;cloudberry&quot;" rel="nofollow">#cloudberry</a></span>
+</div>
+<div class="post"><p>У любого пользователя порой случаются ситуации потери информации. Вышел из строя винчестер/флешка, кто-то злостно потер данные, да мало ли существует причин? Как раз для этого и организуют резервные копии, из которых в дальнейшем можно восстановить потерянную информацию.</p>
+
+<p>В качестве носителей часто применяют дополнительные жесткие диски, флешки, DVD и CD диски. Которые нужно где-то хранить и подключать в случае организации бекапа или восстановления данных. К тому же это способ требуют единовременно отдать довольно существенную сумму денег, на покупку жесткого диска или флешки. Но есть и другой способ – хранить свои данные в интернете.</p>
+
+<p>Существует несколько вариантов организации резервных копий в сети интернет.</p>
+
+<h2>Dropbox</h2>
+<p><img class="alignleft size-full wp-image-1144" src="https://static.juev.org/2010/08/dropbox-rocks.jpg" alt="" width="300" height="238" /></p>
+
+<p>Вариант, известный многим и многими используется. Регистрация и клиент бесплатны. После регистрации бесплатно предоставляются 2 гигабайта места. Если регистрация проходила по реферальной ссылке, то дополнительно начисляют 250 мегабайт. При выполнении шагов, указанных на странице Get Started, так же добавляют к аккаунту дополнительные 250 мегабайт. Таким образом, практически ничего не делая, можно заполучить удаленный диск размером в 2.5 гигабайта, который можно использовать по своему усмотрению.</p>
+
+<p>Если кого-то заинтересовал данный вариант, то моя реферальная ссылка, ведущая на страницу
+регистрации <a href="http://www.dropbox.com/referrals/NTEwMTE2NzU5" rel="nofollow">www.dropbox.com</a>.</p>
+
+<p>Для получения 250 мегабайт необходимо пройти регистрацию и затем установить официальный клиент. В связи с этим, я не знаю, происходит ли начисление дополнительного дискового пространства пользователям Linux.</p>
+
+<p>Увеличение доступного пространства возможно двумя путями – или привлечением рефералов или переходом на платных тарифный план. Привлечение рефералов – это рекомендация сервиса своим знакомым, после их удачной регистрации производиться начисление дополнительных 250 мегабайт непосредственно зарегистрированным пользователям и 250 мегабайт тому, кто привлек реферала. Таким образом можно дополнительно увеличить доступное дисковое пространство еще на 8 гигабайт.</p>
+
+<p>Если же и этого мало, то есть два платных тарифных плана:</p>
+<ul>
+	<li><em>Pro 50</em> за 9,99$ в месяц или 99$ в год;</li>
+	<li><em>Pro 100</em> за 19,99$ в месяц или 199$ в год.</li>
+</ul>
+<p>К тому же в платном варианте есть несколько дополнительных опций, недоступных бесплатным аккаунтам. Одна из таких опций – это версии файлов. В бесплатной версии версии ограничены временным промежутком в один месяц. В платном ограничения нет. То есть на платном аккаунте есть возможность восстановления файла, что был удален или изменен более месяца назад.</p>
+
+<p><img class="size-full wp-image-1147 alignright" src="https://static.juev.org/2010/08/online_file_storage_service.jpg" alt="" width="300" height="225" /></p>
+
+<p>Это была предистория, рассмотрим теперь, как можно использовать DropBox. Как ни странно, но основное предназначение DropBox заключается не в том, чтобы сохранять резервные копии, а проводить синхронизацию между несколькими компьютерами. К примеру, на работе создали ряд документов, сохранили в свою папку, автоматически проводиться синхронизация с сервером. Пришли домой, включили компьютер, происходит синхронизация с сервером, подгружаются те файлы, что были загружены на работе. И вот, вы ничего ни делали, а файлы оказываются уже на вашем компьютере дома.</p>
+
+<p>Да, историю изменений файлов можно использовать в качестве запасного варианта. Но очень не удобно отслеживать, какие файлы были удалены и какие из них вам нужно восстановить.</p>
+
+<p>Можно так же делать с помощью сторонних утилит архив файлов, который будет храниться на сервере. Но опять же, возникает неудобство в том, что приходиться организовывать этот архив, и каждый раз полностью загружать его на сервер.</p>
+
+<p>В итоге получается, что использовать DropBox для резервных копий можно, но крайне неудобно. Не для тех целей он создавался.</p>
+
+<h2>CloudBerry Backup</h2>
+<p>CloudBerry компания, которая разрабатывает целую линейку программных продуктов для работы с Amazon S3. Это и <a href="http://cloudberrylab.com/default.aspx?page=cloudberry-explorer-amazon-s3" rel="nofollow">CloudBerry Explorer Freeware</a>/Pro, о которых я рассказывал в статье <a href="/2010/03/06/amazon-s3/">Amazon S3</a>. Это так же и <a href="http://cloudberrylab.com/default.aspx?page=cloudberry-backup" rel="nofollow">Cloudberry Backup</a>, о которой я сейчас хочу рассказать.</p>
+
+<p><img class="aligncenter size-full wp-image-1146" src="https://static.juev.org/2010/08/backup.jpg" alt="" width="600" height="138" /></p>
+
+<p>Программа платная, ее стоимость составляет 29,99$. Существует несколько версий, Desktop Edition, Server Edition и Home Server Edition, различающимися своим функционалом и, соответственно, стоимостью.</p>
+
+<p>Однако стоит заметить, что, как указано на банере, для блогеров, образовательных учреждений и некоммерческих организаций данная программа предоставляется бесплатно. Для этого достаточно обратиться в <a href="http://cloudberrylab.com/contact.aspx" rel="nofollow">форму обратной связи</a> на сайте компании, с указанием причины предоставления лицензии. Кстати, форму можно заполнять на русском языке.</p>
+
+<p>Теперь перейдем непосредственно к тому, ради чего писалась статья. К организации резервной копии своих данных.</p>
+
+<p>При первом запуске программы открывается мастер создания новой учетной записи. К этому времени нужно иметь регистрацию на одном из сервисов, с которыми программа умеет работать: <a href="http://aws.amazon.com/s3/" rel="nofollow">Amazon S3</a>, <a href="http://www.dunkel.de/s3/" rel="nofollow">Dunkel Storage</a> или Walrus Storage.</p>
+
+<p>Начинается все с вопроса, в каком режиме будет организована работа данного плана резервного копирования: Advanced Mode или Simple Mode. Различия понятны непосредственно из скриншота:</p>
+
+<p><img class="aligncenter size-full wp-image-1148" src="https://static.juev.org/2010/08/wizard_1.jpg" alt="" width="600" height="466" /></p>
+
+<p>Затем производиться выбор типа учетной записи и ввод ее данных, то есть имя пользователя, ключи и тому подобное.</p>
+
+<p>Следующим шагом задаются каталоги, с которых будет делаться резервная копия и задание исключений. То есть определяются какие именно файлы необходимо обрабатывать в этих каталогах. Есть возможность очень четко разграничивать файлы по типам, которые задаются регулярными выражениями.</p>
+
+<p>После этого задаются основные параметры размещения файлов на сервере, стоит ли их сжимать, нужно ли их шифровать (при этом предлагается целый набор алгоритмов шифрования) и стоит ли использовать RRS (в случае с Amazon небольшое снижение надежности хранения с уменьшением стоимости размещения файлов на сервере).</p>
+
+<p>Затем задается настройка очистка удаленных файлов. Что и как их очищать, сколько времени хранить и так далее.</p>
+
+<p>Следующим шагом определяется расписание, по которому будет производиться проверка на изменения в файловой системе и при наличии этих изменений загрузка новых файлов на сервер и соответственно удаление с сервера тех файлов, что были удалены на машине.</p>
+
+<p>Последним шагом задается адрес электронной почты, на который будет высылаться уведомление о проведенной работе.</p>
+
+<p>Производиться сохранение плана работы по созданию резервной копии с определенным именем и появляется окно с существующими планами:</p>
+
+<p><img class="aligncenter size-full wp-image-1149" src="https://static.juev.org/2010/08/BackupPlans.png" alt="" width="600" height="575" /></p>
+
+<p>Любой из перечисленных планов можно запустить, если они были предварительно сконфигурированы. Первый запуск самый долгий и зависит от объема данных и соответственно скорости работы интернета. У меня документы общим объемом в 2.3 гигабайта копировались на сервер чуть более 2 часов. При этом используется линия Ethernet со скоростью 8 мегабит в секунду на внешние ресурсы. По окончании создания резервной копии на свой электронный ящик я получил письмо:</p>
+
+<p><img class="aligncenter size-full wp-image-1151" src="https://static.juev.org/2010/08/mail.png" alt="" width="625" height="355" /></p>
+
+<p>После окончания работы решил проверить, сколько времени понадобиться программе для того, чтобы отследить изменения в файловой системе и произвести их на сервере. Добавил несколько небольших файлов и повторно запустил тот же план. Больше всего времени ушло на сканирование изменений, секунд 10-20 и затем секунд пять на загрузку измененных файлов. Я по сути и заметить не успел.</p>
+
+<p>Создание резервной копии – это полдела. Основная задача – восстановление! Для этого просто переходим во вкладку Backup Storage и просматриваем сохраненное дерево каталогов на сервере:</p>
+
+<p><img class="aligncenter size-full wp-image-1150" src="https://static.juev.org/2010/08/BackupStorage.png" alt="" width="600" height="575" /></p>
+
+<p>Отметив необходимые файлы галочкой, щелкаем правой кнопкой мыши и выбираем пункт Restore Selected Items. Другой вариант – выбор на панели инструментов кнопки Resore Wizard, где ответив на ряд вопросов, получаем на жестком диске нужные нам файлы. Все очень просто и прозрачно. При этом производиться контроль версий файлов, времени изменения и том подобное. Очень удобно!</p>
+
+<p>Что выходит по стоимости? Сама программа стоит 29.9$, но как я уже говорил, блогеры, некоммерческие или образовательные учреждения могут получить лицензию на ее использование бесплатно. Основные затраты будут идти на оплату дискового пространства, что используется в Amazon. Про другие сервисы, с которыми умеет работать CloudBerry Backup ничего не говорю, просто потому, что нет опыта работы с ними.</p>
+
+<p>Для использования сервиса Amazon S3 требуется иметь пластиковую карту международного класса, типа VISA или MasterCard. Стоимость же одного гигабайта на сервисе составляет 15 центов, либо 10 центов при использовании услуги RRS. То есть те 2 гигабайта, что я загрузил на сервис будет мне стоить чуть более 6 рублей в месяц.</p>
+
+<p>10 гигабайт – 30 рублей в месяц. Смешные деньги! А при увеличении надежности хранения увеличиваем стоимость в 1,5 раза.</p>
+
+<h2>Вывод</h2>
+<p>Бесплатные сервисы, типа <strong>Dropbox</strong> предназначены для синхронизации файлов между несколькими компьютерами и только при некоторой сноровке для резервного копирования.</p>
+
+<p>Рекомендуется для организации бекапов использовать онлайн-диски, типа <strong>Amazon S3</strong>, в которых оплата зависит только от используемых ресурсов. Единственным недостатком является необходимость иметь пластиковую карту для оплаты работы сервиса.</p>
+
+<p>Для существенного упрощения работы с онлайн-дисками рекомендуется использовать программу <a href="http://cloudberrylab.com/default.aspx?page=cloudberry-backup" rel="nofollow">CloudBerry Backup</a>, аналогов которой в операционной системе Windows, я пока не нашел. Для блогеров, некоммерческих и образовательных учреждений есть возможность получить данную программу бесплатно.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2010/08/23/test-vps-servera/" title="View Тест производительности VPS сервера">Тест производительности VPS сервера</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2010/08/25/optimizaciya-vps-servera/" title="View Оптимизация VPS сервера">Оптимизация VPS сервера</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

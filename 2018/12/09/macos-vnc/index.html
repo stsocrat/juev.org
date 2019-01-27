@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>MacOS: проблемы с удаленным доступом</title>
+  <meta name="description" content="Вот уже семь лет как дома использую MacOS.  За это время сменил ряд устройств.  Все это время недоумевал, почему в компаниях не используют MacOS на работе? Ведь это так удобно, и нет тех проблем, ч...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2018/12/09/macos-vnc/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2018/12/08/weblinks-3/">
+  <link rel="next" href="https://www.juev.org/2018/12/15/weblinks-4/">
+  <!-- og:meta -->
+  <meta content="MacOS: проблемы с удаленным доступом" property="og:title">
+  <meta content="Вот уже семь лет как дома использую MacOS.  За это время сменил ряд устройств.  Все это время недоумевал, почему в компаниях не используют MacOS на работе? Ведь это так удобно, и нет тех проблем, ч..." property="og:description">
+  <meta content="https://www.juev.org/2018/12/09/macos-vnc/" property="og:url">
+  <meta content="2018-12-09T10:51:00+03:00" property="article:published_time">
+  <meta content="osx" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="MacOS: проблемы с удаленным доступом" name="twitter:title">
+  <meta content="Вот уже семь лет как дома использую MacOS.  За это время сменил ряд устройств.  Все это время недоумевал, почему в компаниях не используют MacOS на работе? Ведь это так удобно, и нет тех проблем, ч..." property="twitter:description">
+  <meta content="https://www.juev.org/2018/12/09/macos-vnc/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">MacOS: проблемы с удаленным доступом</h1>
+<div id="metainfo">
+<span class="date">09 December 2018</span>
+<span class="tags"><a href="https://www.juev.org/tags/#osx" title="View posts tagged with &quot;osx&quot;" rel="nofollow">#osx</a></span>
+</div>
+<div class="post"><p>Вот уже семь лет как дома использую MacOS. За это время сменил ряд устройств. Все это время недоумевал, почему в компаниях не используют MacOS на работе? Ведь это так удобно, и нет тех проблем, что присутствуют в windows.</p>
+
+<p>На работе часто приходиться подключаться к рабочему компьютеру, на Windows использовался RPD, который автоматом блокирует рабочую станцию при удаленном подключении. При использовании же Linux используется VNC-протокол, который подключается по умолчанию к текущей сессии. Но есть возможность использовать отдельные X-сессии для подключения, в результате чего рабочий компьютер остается заблокированным.</p>
+
+<p>Для удаленного подключения в MacOS используются штатные “Общий экран” или “Удаленное управление”. При этом так же используется VNC-протокол, но подключение проводиться только к той одной сессии рабочего экрана. То есть подключившись к рабочей машине, открываешь доступ к ней всем рядом находящимся людям.</p>
+
+<p>Так же оказалось, что в Mojave появился новый баг, затрагивающий как раз удаленный доступ. Первое подключение проходит успешно, но каждое последующее завершается появлением окна логина с вечно крутящимся значком активности.</p>
+
+<p>Много времени потратил на решение данной проблемы. Решение нашел на странице <a href="https://apple.stackexchange.com/questions/342161/macos-mojave-remote-access-login-screen-stuck-on-infinite-loading-spinner/342553">apple.stackexchange.com</a>, которое заключается в отключении парольной авторизации VNC. Как только отключил использование пароля для подключения к VNC, доступ заработал. При этом новостей от Apple по решению данной проблемы пока нет.</p>
+
+<p>Таким образом на текущий момент времени использовать MacOS в корпорациях практически не возможно из-за проблем с безопасностью. Допускается использование только в том случае, если к рабочей машине не требуется удаленный доступ.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2018/12/08/weblinks-3/" title="View Ссылки #3">Ссылки #3</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2018/12/15/weblinks-4/" title="View Ссылки #4">Ссылки #4</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

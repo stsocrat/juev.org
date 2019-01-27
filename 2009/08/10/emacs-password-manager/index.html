@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Emacs Password Manager</title>
+  <meta name="description" content="Думаю, что объяснять, для чего нужны Password Managers не нужно.  Ресурсов много, желательно для каждого использовать свои логины и пароли, причем пароли должны быть стойкими.  Запомнить их проблем...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2009/08/10/emacs-password-manager/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2009/08/09/chromium/">
+  <link rel="next" href="https://www.juev.org/2009/08/12/github/">
+  <!-- og:meta -->
+  <meta content="Emacs Password Manager" property="og:title">
+  <meta content="Думаю, что объяснять, для чего нужны Password Managers не нужно.  Ресурсов много, желательно для каждого использовать свои логины и пароли, причем пароли должны быть стойкими.  Запомнить их проблем..." property="og:description">
+  <meta content="https://www.juev.org/2009/08/10/emacs-password-manager/" property="og:url">
+  <meta content="2009-08-10T00:00:00+04:00" property="article:published_time">
+  <meta content="emacs" property="article:tag">
+  <meta content="security" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Emacs Password Manager" name="twitter:title">
+  <meta content="Думаю, что объяснять, для чего нужны Password Managers не нужно.  Ресурсов много, желательно для каждого использовать свои логины и пароли, причем пароли должны быть стойкими.  Запомнить их проблем..." property="twitter:description">
+  <meta content="https://www.juev.org/2009/08/10/emacs-password-manager/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Emacs Password Manager</h1>
+<div id="metainfo">
+<span class="date">10 August 2009</span>
+<span class="tags"><a href="https://www.juev.org/tags/#emacs" title="View posts tagged with &quot;emacs&quot;" rel="nofollow">#emacs</a><a href="https://www.juev.org/tags/#security" title="View posts tagged with &quot;security&quot;" rel="nofollow">#security</a></span>
+</div>
+<div class="post"><p>Думаю, что объяснять, для чего нужны Password Managers не нужно. Ресурсов много, желательно для каждого использовать свои логины и пароли, причем пароли должны быть стойкими. Запомнить их проблематично, а когда количество ресурсов становиться более сотни – то и не реально.</p>
+
+<p>Для хранения паролей используются специализированные программы, типа keepassx, fpm2… Но часто, работая в Emacs просто не хочется переключаться на другие программы. Да и зачем собственно? Если в Emacs уже присутствует интерфейс для работы с GPG (свободная реализация PGP). Давайте попробуем создать свой Password Manager на основе Emacs?</p>
+
+<p>Для этого создаем файл с расширением <em>.org.gpg</em>. И открываем его в Emacs. Двойное расширение используется для указания режимов, в которых будет работать емакс после открытия данного файла.</p>
+
+<p>org – используется для указания режима org-mode, подробно на нем останавливаться не буду, чуть позже только покажу, для чего мы будем использовать его, расскажу чуть позже.</p>
+
+<p>gpg – используется для указания того, что данный файл кодируется с применением GnuPG.</p>
+
+<p>Если org-mode установлен и настроен, то после открытия файла появляются два пункта меню: Org и Tbl. Вот вторым мы и воспользуемся. Выбираем создание таблицы и указываем формат 4x2, то есть четыре столбца и 2 строки.</p>
+
+<p>Заполняем заголовки нужными нам значениями (по сути формируем таблицу так, как считаем нужным), я выбрал следующие поля и начал заполнять значения:</p>
+
+<p><a href="https://static.juev.org/2009/08/emacs-pass-1.png"><img class="aligncenter size-medium wp-image-529" title="emacs-pass-1" src="https://static.juev.org/2009/08/emacs-pass-1-300x240.png" alt="Создание таблицы" width="300" height="240" /></a></p>
+
+<p>Режим org-mode очень удобен при создании таблиц тем, что при заполнении таблицы ширина столбцов меняется автоматически (обратите внимание на то, как изменилась ширина при изменении содержимого стобцов):</p>
+
+<p><a href="https://static.juev.org/2009/08/emacs-pass-2.png"><img class="aligncenter size-medium wp-image-530" title="emacs-pass-2" src="https://static.juev.org/2009/08/emacs-pass-2-300x240.png" alt="Изменение ширины столбцов" width="300" height="240" /></a></p>
+
+<p>После того, как заполнили таблицу, просто сохраняем файл (Ctrl+x Ctrl+s), на что получаем вопрос об используемом ключе:</p>
+
+<p><a href="https://static.juev.org/2009/08/emacs-pass-3.png"><img class="aligncenter size-medium wp-image-531" title="emacs-pass-3" src="https://static.juev.org/2009/08/emacs-pass-3-300x240.png" alt="Запрос на использование ключа" width="300" height="240" /></a></p>
+
+<p>В зависимости от того, что мы выберем (ключ или просто нажмем ок), будет использоваться различный тип шифрования. Если будет выбран ключ, то используется асимметричное шифрование. Более строгое и надежное, но возникает сложность в том случае, если срок действия ключа не большой, и в том случае, если собираемся использовать файл с паролями вне рабочей машины.</p>
+
+<p>Если же просто нажать ОК, то будет использоваться симметричное шифрование. В данном случае сложность шифрования зависит только от выбранного пароля.</p>
+
+<p><a href="https://static.juev.org/2009/08/emacs-pass-4.png"><img class="aligncenter size-medium wp-image-532" title="emacs-pass-4" src="https://static.juev.org/2009/08/emacs-pass-4-300x240.png" alt="Ввод пароля" width="300" height="240" /></a></p>
+
+<p>После ввода пароля файл сохраняется на диске уже в закодированном виде. В активном буфере будет все так же отображаться наша таблица. При попытке открытия данного файла сразу будет спрашиваться пароль, который использовался при шифровании.</p>
+
+<p>Далее возможно два варианта: или введенный пароль будет кешироваться и в следующий раз при открытии данного файла пароль уже запрашиваться не будет (в течение текущей сессии), или же пароль будет спрашиваться каждый раз. Регулировать данное поведение можно устанавливая значение переменной <em>epa-file-cache-passphrase-for-symmetric-encryption</em> в файле конфигурации емакса:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(setq epa-file-cache-passphrase-for-symmetric-encryption t)
+</code></pre></div></div>
+
+<p>в данном случае пароль будет кэшироваться, а если</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(setq epa-file-cache-passphrase-for-symmetric-encryption nil)
+</code></pre></div></div>
+
+<p>то пароль не сохраняется… Естественно, в традициях безопасности пароль лучше всего не сохранять, каждый раз спрашивая его у пользователя.</p>
+
+<p>Таким образом мы только что, с минимумом усилий, создали небольшой и довольно надежный менеджер паролей. При этом, для удобства, можно в конфигурации задать клавиатурную комбинацию для открытия данного файла. Жмем данную комбинацию, вводим пароль, осуществляем поиск по файлу, копируем в буфер нужные данные, закрываем файл…</p>
+
+<p>зы: совсем забыл указать, что в версии емакса 23.1 работа с gpg встроена и работает из коробки, не требуя предварительной настройки…</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2009/08/09/chromium/" title="View Chromium">Chromium</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2009/08/12/github/" title="View GitHub">GitHub</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

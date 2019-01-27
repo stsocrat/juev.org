@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Amazon S3 and Route53</title>
+  <meta name="description" content="В конце декабря 2012 года Amazon анонсировал возможность использования корневых доменов для хостинга статических сайтов со своего сервиса S3. Раньше доменные имена можно было привязать к своему сай...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2013/03/08/amazon/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2013/01/19/umbrella/">
+  <link rel="next" href="https://www.juev.org/2013/03/08/s3-and-cache-control/">
+  <!-- og:meta -->
+  <meta content="Amazon S3 and Route53" property="og:title">
+  <meta content="В конце декабря 2012 года Amazon анонсировал возможность использования корневых доменов для хостинга статических сайтов со своего сервиса S3. Раньше доменные имена можно было привязать к своему сай..." property="og:description">
+  <meta content="https://www.juev.org/2013/03/08/amazon/" property="og:url">
+  <meta content="2013-03-08T16:55:00+04:00" property="article:published_time">
+  <meta content="amazon" property="article:tag">
+  <meta content="dns" property="article:tag">
+  <meta content="hosting" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Amazon S3 and Route53" name="twitter:title">
+  <meta content="В конце декабря 2012 года Amazon анонсировал возможность использования корневых доменов для хостинга статических сайтов со своего сервиса S3. Раньше доменные имена можно было привязать к своему сай..." property="twitter:description">
+  <meta content="https://www.juev.org/2013/03/08/amazon/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Amazon S3 and Route53</h1>
+<div id="metainfo">
+<span class="date">08 March 2013</span>
+<span class="tags"><a href="https://www.juev.org/tags/#amazon" title="View posts tagged with &quot;amazon&quot;" rel="nofollow">#amazon</a><a href="https://www.juev.org/tags/#dns" title="View posts tagged with &quot;dns&quot;" rel="nofollow">#dns</a><a href="https://www.juev.org/tags/#hosting" title="View posts tagged with &quot;hosting&quot;" rel="nofollow">#hosting</a></span>
+</div>
+<div class="post"><p>В конце декабря 2012 года Amazon анонсировал возможность использования корневых доменов для хостинга статических сайтов со своего сервиса S3.</p>
+
+<p>Раньше доменные имена можно было привязать к своему сайту на S3 только с помощью CNAME, то есть задания определенных псевдонимов. Но DNS не позволяет назначать псевдонимы на корневые домены (например juev.ru). Приходилось использовать поддомены вида www.juev.ru, а для переадресации с поддомена на корневой домен использовать дополнительные сервисы, типа wwwiser.com. Теперь же все стало значительно проще.</p>
+
+<p>Создаем bucket S3 для своего сайта и задаем в его параметрах настройки website hosting:</p>
+
+<p><img src="https://static.juev.org/2013/03/amazon-website-hosting.png" alt="amazon-website-hosting" title="Settings WebSite Hosting in Amazon S3" /></p>
+
+<p>Затем создаем еще один bucket S3 для домена с переадресацией и задаем следующие настройки:</p>
+
+<p><img src="https://static.juev.org/2013/03/amazon-webhosting-redirect.png" alt="amazon-website-redirect" title="Settings WebSite Hosting Redirect in Amazon S3" /></p>
+
+<p>Единственно, ассоциировать корневой домен со своим сайтом на S3 возможно только при использовании DNS-сервера самого Amazon (сервис называется Route53). Для этого создаем запись типа A – IPv4 address и указываем псевдоним:</p>
+
+<p><img src="https://static.juev.org/2013/03/route53-alias.png" alt="route53-alias" title="Settings Route53 Alias" /></p>
+
+<p>И затем остается только задать CNAME для своего поддомена:</p>
+
+<p><img src="https://static.juev.org/2013/03/route53-cname.png" alt="route53-cname" title="Settings Route53 CNAME" /></p>
+
+<p>При этом абсолютно не важно, какой из доменов будет отвечать за редирект, а какой из них будет заниматься отдачей сайта.</p>
+
+<p>Я решил в очередной раз попробовать использовать Amazon S3 в качестве хостинга для своих статических сайтов. Уже завершил операцию переноса, обновил DNS-записи и сегодня утром выключил сервер на EC2.</p>
+
+<p>Посмотрим, насколько это будет оправдано.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2013/01/19/umbrella/" title="View Umbrella – синоним слова безопасность">Umbrella – синоним слова безопасность</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2013/03/08/s3-and-cache-control/" title="View Amazon S3 and Cache Control">Amazon S3 and Cache Control</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

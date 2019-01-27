@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>SBCL: save-lisp-and-die</title>
+  <meta name="description" content="Steel Bank Common Lisp предоставляет функцию save-lisp-and-die для сохранения образа памяти на диск, что используется для создания запускных файлов.  Во-первых, это позволяет использовать программы...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2017/02/12/save-lisp-and-die/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2016/12/30/soft-2016/">
+  <link rel="next" href="https://www.juev.org/2017/02/13/scaleway/">
+  <!-- og:meta -->
+  <meta content="SBCL: save-lisp-and-die" property="og:title">
+  <meta content="Steel Bank Common Lisp предоставляет функцию save-lisp-and-die для сохранения образа памяти на диск, что используется для создания запускных файлов.  Во-первых, это позволяет использовать программы..." property="og:description">
+  <meta content="https://www.juev.org/2017/02/12/save-lisp-and-die/" property="og:url">
+  <meta content="2017-02-12T12:08:00+03:00" property="article:published_time">
+  <meta content="lisp" property="article:tag">
+  <meta content="tips" property="article:tag">
+  <meta content="https://static.juev.org/2017/02/lisp-logo.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="SBCL: save-lisp-and-die" name="twitter:title">
+  <meta content="Steel Bank Common Lisp предоставляет функцию save-lisp-and-die для сохранения образа памяти на диск, что используется для создания запускных файлов.  Во-первых, это позволяет использовать программы..." property="twitter:description">
+  <meta content="https://www.juev.org/2017/02/12/save-lisp-and-die/" name="twitter:url">
+  <meta content="https://static.juev.org/2017/02/lisp-logo.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">SBCL: save-lisp-and-die</h1>
+<div id="metainfo">
+<span class="date">12 February 2017</span>
+<span class="tags"><a href="https://www.juev.org/tags/#lisp" title="View posts tagged with &quot;lisp&quot;" rel="nofollow">#lisp</a><a href="https://www.juev.org/tags/#tips" title="View posts tagged with &quot;tips&quot;" rel="nofollow">#tips</a></span>
+</div>
+<div class="post"><p>Steel Bank Common Lisp предоставляет функцию <code class="highlighter-rouge">save-lisp-and-die</code> для сохранения образа памяти на диск, что используется для создания запускных файлов. Во-первых, это позволяет использовать программы на системах, где не установлен Lisp, и во-вторых, это значительно увеличивает скорость запуска программы.</p>
+
+<p>Полное описание параметров функции представлены на странице <a href="http://www.sbcl.org/manual/#Function-sb_002dext_003asave_002dlisp_002dand_002ddie" title="SBCL: save-lisp-and-die">официального руководства</a>. Заинтересовало, как влияет ряд параметров на скорость загрузки и на размер итоговой программы. Для чего провел небольшой эксперимент.</p>
+
+<p>Проводил запуск sbcl (на текущий момент времени SBCL 1.3.14), определял функцию <code class="highlighter-rouge">main</code>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(defun main ()
+  (write-line "hello world"))
+</code></pre></div></div>
+
+<p>После чего создал несколько образов с использованием различных параметров:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(sb-ext:save-lisp-and-die "hello-compress" :compression 9 :toplevel #'main :executable t)
+(sb-ext:save-lisp-and-die "hello" :toplevel #'main :executable t)
+</code></pre></div></div>
+
+<p>Для создания 2 образов приходилось запускать sbcl 2 раза, каждый раз определяя функцию <code class="highlighter-rouge">main</code> и используя определенную функцию для создания образа памяти. В результате получил 2 файла:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-rwxr-xr-x   1 juev  staff    59M Feb 12 12:03 hello
+-rwxr-xr-x   1 juev  staff    12M Feb 12 12:06 hello-compress
+</code></pre></div></div>
+
+<p>Как видно из приведенного примера, размер образа без компрессии составляет 59 мегабайт. С полной компресией 12 мегабайт. Осталось сопоставить время выполнения полученных программ друг с другом, для этого воспользуемся системной командой <code class="highlighter-rouge">time</code>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ time ./hello
+hello world
+
+real	0m0.201s
+user	0m0.014s
+sys	0m0.035s
+</code></pre></div></div>
+
+<p>Время первой загрузки чистого образа 0.2 секунды. При последующих запусках время сокращается до 0.03 секунд. Теперь посмотрим, влияет ли сжатие образа на время загрузки.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ time ./hello-compress
+hello world
+
+real	0m0.258s
+user	0m0.200s
+sys	0m0.047s
+</code></pre></div></div>
+
+<p>Видно увеличение времени загрузки, но не значительное. И при этом все последующие запуски обладают примерно тем же временем, без значительного ускорения, что наблюдалось в случае без использования сжатия. То есть при использовании небольших программ использование сжатия при создании образов вполне обосновано.</p>
+
+<p>Если вам интересен Lisp, у вас есть вопросы, или вы хотели бы поделиться своим опытом, приглашаем вас в наше небольшое сообщество <a href="http://40ants.com" title="40Ants">40ants</a>. Все обсуждения проходят в <a href="https://gitter.im/40ants/team" title="40Ants Team">Gitter</a> чате.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2016/12/30/soft-2016/" title="View Подборка программ 2016">Подборка программ 2016</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2017/02/13/scaleway/" title="View ScaleWay: впечатления от работы">ScaleWay: впечатления от работы</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

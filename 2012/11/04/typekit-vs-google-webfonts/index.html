@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Typekit vs Google Webfonts</title>
+  <meta name="description" content="При создании веб-страниц возникает необходимость указания шрифтов, которые используются для отображения текста.  И так как на сегодняшний день существует довольно большое число различных устройств,...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2012/11/04/typekit-vs-google-webfonts/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2012/10/20/safari-duckduckgo/">
+  <link rel="next" href="https://www.juev.org/2012/11/05/facebook-clean/">
+  <!-- og:meta -->
+  <meta content="Typekit vs Google Webfonts" property="og:title">
+  <meta content="При создании веб-страниц возникает необходимость указания шрифтов, которые используются для отображения текста.  И так как на сегодняшний день существует довольно большое число различных устройств,..." property="og:description">
+  <meta content="https://www.juev.org/2012/11/04/typekit-vs-google-webfonts/" property="og:url">
+  <meta content="2012-11-04T15:02:00+04:00" property="article:published_time">
+  <meta content="fonts" property="article:tag">
+  <meta content="webdesign" property="article:tag">
+  <meta content="services" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Typekit vs Google Webfonts" name="twitter:title">
+  <meta content="При создании веб-страниц возникает необходимость указания шрифтов, которые используются для отображения текста.  И так как на сегодняшний день существует довольно большое число различных устройств,..." property="twitter:description">
+  <meta content="https://www.juev.org/2012/11/04/typekit-vs-google-webfonts/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Typekit vs Google Webfonts</h1>
+<div id="metainfo">
+<span class="date">04 November 2012</span>
+<span class="tags"><a href="https://www.juev.org/tags/#fonts" title="View posts tagged with &quot;fonts&quot;" rel="nofollow">#fonts</a><a href="https://www.juev.org/tags/#webdesign" title="View posts tagged with &quot;webdesign&quot;" rel="nofollow">#webdesign</a><a href="https://www.juev.org/tags/#services" title="View posts tagged with &quot;services&quot;" rel="nofollow">#services</a></span>
+</div>
+<div class="post"><p>При создании веб-страниц возникает необходимость указания шрифтов, которые используются для отображения текста. И так как на сегодняшний день существует довольно большое число различных устройств, операционных систем и браузеров, в каждом отдельном случае доступный набор шрифтов очень сильно отличается. В итоге задумываем одно, а на экране пользователя получается совершенно другое.</p>
+
+<p>В качестве решения данной проблемы выступают webfonts. То есть шрифты, которые загружаются с сервера в момент обращения к странице. Это, конечно, сказывается на скорости загрузки страницы, но позволяет обеспечить одинаковое отображение текста  на различных устройствах.</p>
+
+<h2 id="google-webfonts">Google webfonts</h2>
+
+<p>Бесплатный сервис <a href="http://www.google.com/webfonts" title="Google Web Fonts">google.com/webfonts</a> служит для предоставления шрифтов вебразработчикам. Содержит в себе только бесплатные варианты шрифтов. Общее число 573, но с поддержкой русского языка их всего 43. При этом что странно, некоторые шрифты, которые изначально имеют поддержку русского языка, на сервере представлены без нее (к примеру шрифт Droid Sans).</p>
+
+<p><a href="https://static.juev.org/2012/11/google-webfonts.png" title="Google Webfonts"><img src="https://static.juev.org/2012/11/th-google-webfonts.png" alt="google-webfonts" /></a></p>
+
+<p><a href="https://static.juev.org/2012/11/google-use.png" title="Google Webfonts Use"><img src="https://static.juev.org/2012/11/th-google-use.png" alt="google-use" /></a></p>
+
+<p>Шрифты можно подключать тремя способами:</p>
+
+<ol>
+  <li>
+    <p>Использование внешнего css-файла, загружаемого с сервера google. (используется по умолчанию)</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> &lt;link href='http://fonts.googleapis.com/css?family=Playfair+Display+SC:400,400italic,700&amp;subset=latin,cyrillic' rel='stylesheet' type='text/css'&gt;
+</code></pre></div>    </div>
+  </li>
+  <li>Использование директивы @import в css-файле</li>
+  <li>Использование javascript</li>
+</ol>
+
+<p>Стоит только обратить внимание на то, что некоторые шрифты отображаются несколько иначе, чем их исходный вариант. К примеру, после подключения шрифта Ubuntu с поддержкой русского языка, обратил внимание на то, что символы с полужирным начертанием содержат довольно странное сглаживание и отображаются чрезмерно жирными и размытыми.</p>
+
+<p>Плюсы сервиса:</p>
+
+<ol>
+  <li>Бесплатность</li>
+  <li>Высокая скорость загрузки и доступность серверов</li>
+</ol>
+
+<p>Минусы сервиса:</p>
+
+<ol>
+  <li>Ограниченное число шрифтов, и все шрифты только свободные</li>
+  <li>JS-код для подключения слишком объемный</li>
+  <li>Малое число шрифтов с поддержкой русского языка</li>
+  <li>Шрифты в некоторых начертаниях отображаются несколько иначе, чем их исходный вариант</li>
+</ol>
+
+<h2 id="typekit">Typekit</h2>
+
+<p><a href="https://typekit.com" title="Typekit">Typekit</a> отличается от Google Webfonts тем, что предоставляет доступ к коммерческим шрифтам. За использование приходиться или платить абонентскую плату, или же пользуясь ограниченным набором шрифтов, показывать в правом нижнем углу сайта небольшой баннер сервиса.</p>
+
+<p><a href="https://static.juev.org/2012/11/typekit-webfonts.png" title="Typekit"><img src="https://static.juev.org/2012/11/th-typekit-webfonts.png" alt="typekit-webfonts" /></a></p>
+
+<p><a href="https://static.juev.org/2012/11/typekit-use.png" title="Typekit Use"><img src="https://static.juev.org/2012/11/th-typekit-use.png" alt="typekit-use" /></a></p>
+
+<p>Всего шрифтов на сервере Typekit – 783, но с поддержкой русского языка 92. Для подключения используется JS-скрипт, который генерируется отдельно для каждого проекта.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;script type="text/javascript" src="//use.typekit.net/sux8vth.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;try{Typekit.load();}catch(e){}&lt;/script&gt;
+</code></pre></div></div>
+
+<p><a href="https://static.juev.org/2012/11/typekit-editor.png" title="Typekit Editor"><img src="https://static.juev.org/2012/11/th-typekit-editor.png" alt="typekit-editor" /></a></p>
+
+<p>Плюсы сервиса:</p>
+
+<ol>
+  <li>Большое число доступных шрифтов, в том числе с поддержкой русского языка</li>
+  <li>Высокая скорость загрузки, распределенная сеть серверов по всему миру</li>
+  <li>Очень удобный интерфейс сервиса. Довольно просто можно подобрать требуемый шрифт и встроить его в нужный проект</li>
+  <li>Простота подключения шрифта к странице</li>
+  <li>Есть возможность указания правил css для элементов, которые будут использоваться на сайте</li>
+</ol>
+
+<p>Минусы сервиса:</p>
+
+<ol>
+  <li>Платность (если, конечно можно отнести к отрицательным моментам)</li>
+  <li>Нет некоторых распространенных шрифтов, типа georgia, helvetica из-за лицензионных ограничений [<a href="http://www.quora.com/Typekit/Why-isnt-Helvetica-available-in-Typekit">источник</a>]. Приходиться использовать их альтернативы</li>
+</ol>
+
+<h2 id="итоги">Итоги</h2>
+
+<p>Веб-шрифты значительно упрощают разработку оформления сайта, поэтому игнорировать их не стоит. Что использовать, бесплатные сервисы с ограниченным набором шрифтов или платные сервисы с расширенными наборами шрифтов – зависит только от нашего желания.</p>
+
+<p>Стоит только помнить о том, что использование русских символов в шрифтах увеличивает их объем почти в три раза. Что будет сказываться на скорости загрузки страниц сайта.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2012/10/20/safari-duckduckgo/" title="View DuckDuckGo в Safari">DuckDuckGo в Safari</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2012/11/05/facebook-clean/" title="View Укрощение Facebook">Укрощение Facebook</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

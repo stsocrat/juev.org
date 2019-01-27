@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Организация переключения раскладок в linux с xorg 1.5.3</title>
+  <meta name="description" content="Недавно обновил xorg, само собой пришлось настраивать переключение раскладок через создание правил udev…Так как в последнее время очень часто работаю в emacs, задумался, как сделать так, чтобы сист...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2008/12/15/organizaciya-pereklyucheniya-raskladok-v-linux-s-xorg-153/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2008/12/11/ion3/">
+  <link rel="next" href="https://www.juev.org/2009/01/25/linux-ispolzovanie-pamyati/">
+  <!-- og:meta -->
+  <meta content="Организация переключения раскладок в linux с xorg 1.5.3" property="og:title">
+  <meta content="Недавно обновил xorg, само собой пришлось настраивать переключение раскладок через создание правил udev…Так как в последнее время очень часто работаю в emacs, задумался, как сделать так, чтобы сист..." property="og:description">
+  <meta content="https://www.juev.org/2008/12/15/organizaciya-pereklyucheniya-raskladok-v-linux-s-xorg-153/" property="og:url">
+  <meta content="2008-12-15T00:00:00+03:00" property="article:published_time">
+  <meta content="ibus" property="article:tag">
+  <meta content="emacs" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Организация переключения раскладок в linux с xorg 1.5.3" name="twitter:title">
+  <meta content="Недавно обновил xorg, само собой пришлось настраивать переключение раскладок через создание правил udev…Так как в последнее время очень часто работаю в emacs, задумался, как сделать так, чтобы сист..." property="twitter:description">
+  <meta content="https://www.juev.org/2008/12/15/organizaciya-pereklyucheniya-raskladok-v-linux-s-xorg-153/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Организация переключения раскладок в linux с xorg 1.5.3</h1>
+<div id="metainfo">
+<span class="date">15 December 2008</span>
+<span class="tags"><a href="https://www.juev.org/tags/#ibus" title="View posts tagged with &quot;ibus&quot;" rel="nofollow">#ibus</a><a href="https://www.juev.org/tags/#emacs" title="View posts tagged with &quot;emacs&quot;" rel="nofollow">#emacs</a></span>
+</div>
+<div class="post"><p>Недавно обновил xorg, само собой пришлось настраивать переключение раскладок через создание правил udev…</p>
+
+<p>Так как в последнее время очень часто работаю в emacs, задумался, как сделать так, чтобы системное переключение раскладки игнорировало бы emacs… Встретил два варианта решения – один переключение раскладки с помощью отдельной программы, которая контролирует активное окно. Программа нормально не заработала, пришлось искать другой вариант решения. И на блоге <a href="http://vyazovoi.info/" rel="nofollow">Вязового Павла</a> нашел упоминание, что scim позволяет решить эту проблему…</p>
+
+<p>Долго не решался попробовать, просто потому, что еще год назад пытался использовать scim в гноме, неудачно… В итоге решился… :)</p>
+
+<p>Удаляем правила hal, которые создали для переключения раскладок…</p>
+
+<p>Устанавливаем следующие пакеты: scim, scim-tables и scim-m17n, затем в ~/.xinitrc или в файл, отрабатываемый при запуске оконного менеджера прописываем следующие строки:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export XMODIFIERS=@im=SCIM
+export GTK_IM_MODULE=xim
+export QT_IM_MODULE=xim
+scim -d &amp;
+</code></pre></div></div>
+
+<p>Для того, чтобы задать игнорирование переключение раскладки в отдельных приложениях нужно в ~/.Xdefaults прописать следующее (на примере emacs):</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Emacs*useXIM:false
+</code></pre></div></div>
+
+<p>После перезагрузки иксов scim вызывается нажатием Ctrl-Space, после чего появляется панель программки, которая показывает текущую раскладку и предоставляет возможность настроить программу. Чем мы и воспользуемся.</p>
+
+<p>Принцип работы основан на том, что по умолчанию в системе уже используется определенный
+язык, который был выбран при установке и для его использования сторонних программ не
+нужно. А для включения второго языка просто запускается сам scim, который позволяет
+использовать массу языков, массу раскладок… Все это задается в настройках программы. Для
+начала выключаем все языки и раскладки и оставляем включенной только ru_kbd, после чего задаем нужную клавишу (или комбинацию клавиш) для включения программы, если дополнительных раскладок использовать не собираемся, то все остальные хоткеи выключаем. Задаем в программе основной язык – Russia… Собственно можно начинать пользоваться. :)</p>
+
+<p>По умолчанию scim запоминает кодировку для каждого окна, при этом он становиться активен только в том случае, если фокус находиться в поле ввода. Все остальное время активна раскладка по умолчанию, в связи с чем те программы, что не понимают по русски начинают прекрасно работать…</p>
+
+<p>Плюсы программы – не нужно трогать настройки клавы xorg, что в последнее время стало проблемой; не нужно использовать сторонние программы, которые запоминают раскладку каждого окна, все работает из коробки; встроенная индикация языка, при включении русского появляется маленькая панелька; отсутствие проблем с незнанием программами русской раскладки; умение программы игнорировать переключение раскладки в определенных программах.</p>
+
+<p>Недостатки программы – замечено, что при использовании данного переключения в программе conkeror (форк огнелиса) при вводе на русском языке переопределяются некоторые клавиши, но это проблемы именно conkeror, больше этого не было замечено нигде.</p>
+
+<p>Теперь становиться понятным, почему в Ubuntu включали scim по умолчанию. Жаль только не обьяснили, как ей пользоваться раньше, намного меньше проблем было бы… :)</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2008/12/11/ion3/" title="View ion3">ion3</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2009/01/25/linux-ispolzovanie-pamyati/" title="View linux использование памяти">linux использование памяти</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Организация сетевой музыкальной библиотеки на примере lastfm</title>
+  <meta name="description" content="Практически у каждого пользователя компьютера организована своя музыкальная коллекция.  Размеры коллекции у каждого свои и могут колебаться в очень больших пределах.  У меня, к примеру, она составл...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2010/07/16/lastfm/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2010/07/09/windows-7-lokalnaya-set/">
+  <link rel="next" href="https://www.juev.org/2010/07/19/zhizn-v-seti/">
+  <!-- og:meta -->
+  <meta content="Организация сетевой музыкальной библиотеки на примере lastfm" property="og:title">
+  <meta content="Практически у каждого пользователя компьютера организована своя музыкальная коллекция.  Размеры коллекции у каждого свои и могут колебаться в очень больших пределах.  У меня, к примеру, она составл..." property="og:description">
+  <meta content="https://www.juev.org/2010/07/16/lastfm/" property="og:url">
+  <meta content="2010-07-16T00:00:00+04:00" property="article:published_time">
+  <meta content="internet" property="article:tag">
+  <meta content="services" property="article:tag">
+  <meta content="music" property="article:tag">
+  <meta content="chrome" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Организация сетевой музыкальной библиотеки на примере lastfm" name="twitter:title">
+  <meta content="Практически у каждого пользователя компьютера организована своя музыкальная коллекция.  Размеры коллекции у каждого свои и могут колебаться в очень больших пределах.  У меня, к примеру, она составл..." property="twitter:description">
+  <meta content="https://www.juev.org/2010/07/16/lastfm/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Организация сетевой музыкальной библиотеки на примере lastfm</h1>
+<div id="metainfo">
+<span class="date">16 July 2010</span>
+<span class="tags"><a href="https://www.juev.org/tags/#internet" title="View posts tagged with &quot;internet&quot;" rel="nofollow">#internet</a><a href="https://www.juev.org/tags/#services" title="View posts tagged with &quot;services&quot;" rel="nofollow">#services</a><a href="https://www.juev.org/tags/#music" title="View posts tagged with &quot;music&quot;" rel="nofollow">#music</a><a href="https://www.juev.org/tags/#chrome" title="View posts tagged with &quot;chrome&quot;" rel="nofollow">#chrome</a></span>
+</div>
+<div class="post"><p>Практически у каждого пользователя компьютера организована своя музыкальная коллекция. Размеры коллекции у каждого свои и могут колебаться в очень больших пределах. У меня, к примеру, она составляет порядка 43 гигабайт (это при условии того, что я периодически устраиваю зачистку своей коллекции).</p>
+
+<p>Это не мало, и в последнее время я задумался о том, чтобы без потерь уменьшить размеры своей коллекции на компьютере. Без потерь, спросите вы? Да, то есть я планирую уменьшить свою коллекцию музыки без потерь в ее прослушивании. Реально ли это?</p>
+
+<p>На мой взгляд, вполне. И разгадка кроется в современном развитии Интернета,  в возрастании скоростей и увеличении количества разнообразных интернет-сервисов.</p>
+
+<p>Можно конечно обратить внимание на Amazon, DropBox, Яндекс. Но зачем? Эти сервисы предоставляют возможность хранения файлов. И если на Амазоне есть возможность организации потоковой раздачи контента, то на остальных сервисах этого нет, причем еще самому нужно будет писать библиотеку. Зачем? Если все уже есть и используется давно.</p>
+
+<p>В Интернете есть масса бесплатных и платных вариантов использования музыкальной коллекции.
+Это и <a href="http://prostopleer.com/" rel="nofollow">prostopleer.com</a> и <a href="http://www.pandora.com/" rel="nofollow">pandora.com</a> и всем известный сервис <a href="http://www.lastfm.ru" rel="nofollow">last.fm</a>, а также множество других. Остановиться и рассмотреть подробнее я хочу именно last.fm, так как сам его использую уже почти 2 года, заскробблил на него довольно большое число композиций. И отказываться от такого “достояния” довольно сложно.</p>
+
+<p>Сам сервис last.fm имеет два варианта работы – платный и бесплатный. Отличие заключается только в возможности прослушивания интернет-радио, вариаций которого на сервисе очень много. Скробблить музыку и прослушивать конкретные композиции предоставляется всем, так же как использовать социальные возможности сервиса, такие как поиск пользователей, музыкальные вкусы которых совпадают с вашими. Или прослушивание композиций, которые удовлетворяют вашим вкусам, но еще не были зафиксированы в вашей коллекции, так называемые рекомендации. Во всех случаях предоставляется возможность слушать только одну композицию единовременно. Ткнул, послушал, опять ткнул, не очень удобно.</p>
+
+<p>Именно для упрощения работы было создано радио. Которое позволяет прослушивать композиции в одном потоке. Можно слушать радио рекомендаций, радио своих друзей, соседей, любимых композиций или радио своей библиотеки. Это не полный перечень возможных радиостанций, так как отдельный поток формируется еще и по каждому исполнителю, который находиться в базе last.fm…</p>
+
+<p>Но, есть небольшое НО. При прослушивании радио какого-либо исполнителя, вы не услышите ни одной его композиции. Радио будет строиться из музыки, которая очень похожа, либо просто близка по звучанию или настрою на данного исполнителя. Для некоторых это покажется минусом, но на самом деле это позволяет познакомиться с еще незнакомой музыкой. И, как показывает практика, все в этом мире можно изменить.</p>
+
+<p>Радио – платное приложение сервиса last.fm. Только в США, Англии и Германии, в связи с очень хорошей отдачей рекламы, радио бесплатное. Во всех остальных странах, для его использования необходимо заплатить 3$ в месяц. Причем для оплаты используется PayPal. Стоит ли оформлять подписку? Зависит от вас…</p>
+
+<p>Однако есть возможность бесплатного и неограниченного использования радио last.fm. Для этого просто используются прокси-сервера, располагающиеся в вышеперечисленных странах. Единственный недостаток заключается в том, что прокси-сервера долго не живут и малое их число обеспечивает должную скорость передачи. Мне удалось довольно быстро найти работающий прокси-сервер, но слушать музыку было проблематично. Приходилось ждать пока мелодия будет загружена в буфер и по непонятной причине многие мелодии просто обрывались на середине.</p>
+
+<p>На мой взгляд, оплатить использование радиостанции куда проще, и стоит это не так уж и много.</p>
+
+<p>Но радиостанции и прослушивание композиций по одной – это очень скудно и совершенно не сопоставимо с локальной коллекцией музыки. Ведь так? Что их отличает? То, что в локальной коллекции можно в любой момент времени включить любой альбом, плейлист и насладиться конкретной музыкой. Если такая возможность будет в lastfm, тогда можно будет говорить о том, что музыкальная коллекция организована в сети.</p>
+
+<p>Другой вопрос, как это сделать? Сам сервис такой возможности не предоставляет. Но народные умельцы создали расширение для Google Chrome, которое называется <a href="https://chrome.google.com/extensions/detail/bbncpldmanoknoahidbgmkgobgmhnafh?hl=ru" rel="nofollow">Last.fm free music player</a>. Работает данное расширение как интегрированный плеер, которое не требует наличия flash и использует возможности HTML5. При просмотре страницы lastfm, все музыкальные композиции подсвечиваются синим кружочком при нажатии на который все композиции со страницы подгружаются в плеер и начинают проигрываться. При этом естественно осуществляется скробблинг на lastfm прослушанных композиций. После начала проигрывания страницу lastfm можно спокойно закрывать и продолжать просмотр других страниц.</p>
+
+<p>Еще одно замечательное свойство данного расширения заключается в том, что сами музыкальные композиции берутся не с сервера lastfm, а подгружаются с сервера vkontakte.ru, на котором храниться просто море различной музыки. То есть можно слушать не только бесплатные композиции, но и обрезанные (в полном их варианте) и те, которых нет на сервере lastfm.</p>
+
+<p>Таким образом можно довольно просто организовывать музыкальную коллекцию в интернете. Освобождая пространство на своем винте. Если все есть в интернете, то зачем создавать ненужные копии??</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2010/07/09/windows-7-lokalnaya-set/" title="View Windows 7: не работает локальная сеть?">Windows 7: не работает локальная сеть?</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2010/07/19/zhizn-v-seti/" title="View Жизнь в сети">Жизнь в сети</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

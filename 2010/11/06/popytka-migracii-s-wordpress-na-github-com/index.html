@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Попытка миграции с WordPress на GitHub.com</title>
+  <meta name="description" content="Не мало уже статей написал про платформу Github. com.  И постоянно готовил себя к переносу сайта. После некоторых тестов, возник вопрос о переносе существующих записей на новый движок.  В разделе B...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2010/11/06/popytka-migracii-s-wordpress-na-github-com/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2010/11/06/jekyll-on-ubuntu-10-04/">
+  <link rel="next" href="https://www.juev.org/2010/11/13/jekyll-hyde/">
+  <!-- og:meta -->
+  <meta content="Попытка миграции с WordPress на GitHub.com" property="og:title">
+  <meta content="Не мало уже статей написал про платформу Github. com.  И постоянно готовил себя к переносу сайта. После некоторых тестов, возник вопрос о переносе существующих записей на новый движок.  В разделе B..." property="og:description">
+  <meta content="https://www.juev.org/2010/11/06/popytka-migracii-s-wordpress-na-github-com/" property="og:url">
+  <meta content="2010-11-06T00:00:00+03:00" property="article:published_time">
+  <meta content="jekyll" property="article:tag">
+  <meta content="wordpress" property="article:tag">
+  <meta content="ruby" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Попытка миграции с WordPress на GitHub.com" name="twitter:title">
+  <meta content="Не мало уже статей написал про платформу Github. com.  И постоянно готовил себя к переносу сайта. После некоторых тестов, возник вопрос о переносе существующих записей на новый движок.  В разделе B..." property="twitter:description">
+  <meta content="https://www.juev.org/2010/11/06/popytka-migracii-s-wordpress-na-github-com/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Попытка миграции с WordPress на GitHub.com</h1>
+<div id="metainfo">
+<span class="date">06 November 2010</span>
+<span class="tags"><a href="https://www.juev.org/tags/#jekyll" title="View posts tagged with &quot;jekyll&quot;" rel="nofollow">#jekyll</a><a href="https://www.juev.org/tags/#wordpress" title="View posts tagged with &quot;wordpress&quot;" rel="nofollow">#wordpress</a><a href="https://www.juev.org/tags/#ruby" title="View posts tagged with &quot;ruby&quot;" rel="nofollow">#ruby</a></span>
+</div>
+<div class="post"><p>Не мало уже статей написал про платформу <a href="http://pages.github.com" rel="nofollow">Github.com</a>. И постоянно готовил себя к переносу сайта.</p>
+
+<p>После некоторых тестов, возник вопрос о переносе существующих записей на новый движок. В разделе <a href="https://github.com/mojombo/jekyll/wiki/Blog-Migrations" rel="nofollow">Blog migrations</a> официальной документации <code>jekyll</code> представлены примеры миграции с различных платформ. Решил попробовать, так ли все безоблачно?</p>
+
+<p>Так как миграция проходит с непосредственным обращением к базе данных, то либо приходиться ставить <code>jekyll</code> на сервер, либо переносить базу на локальный компьютер. Я решил совершить всю операцию непосредственно на сервере.</p>
+
+<p>Предварительно нужно подготовить сервер установкой ряда пакетов:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo gem install sequel
+$ sudo apt-get install libmysql-ruby
+</code></pre></div></div>
+
+<p>Теперь вытягиваем с помощью Git последнюю версию <code>jekyll</code> (можно этого и не делать, ведь мы уже устанавливали <code>jekyll</code> на сервер, и просто скопировать требуемые файлы из <code>/usr/lib/ruby/gems/1.8/gems/jekyll-0.7.0/</code>, это кому как проще), и создаем директорию для работы:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd
+$ mkdir temp; cd temp
+$ git clone https://github.com/mojombo/jekyll.git
+</code></pre></div></div>
+
+<p>И проводим сам импорт, вместо соответствующих значений подставляя свои:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ export DB=my_wpdb
+$ export USER=dbuser 
+$ export PASS=dbpass 
+$ ruby -r './jekyll/lib/jekyll/migrators/wordpress' -e 'Jekyll::WordPress.process( "#&amp;#123;ENV["DB"]}", "#&amp;#123;ENV["USER"]}", "#&amp;#123;ENV["PASS"]}")'
+</code></pre></div></div>
+
+<p>Если префикс таблиц базы данных не менялся, то все пройдет достаточно спокойно. В противном случае экспорт закончится сообщением об ошибке соединения с таблицей базы данных <code>wp_post</code>, что у меня и произошло.</p>
+
+<p>Для решения данной проблемы, открываем файл <code>jekyll/lib/jekyll/migrators/wordpress.rb</code> и в 19 строке меняем префикс таблицы на свой (для примера <code>from wp_post =&gt; from sec_post</code>). После чего запускаем последнюю из приведенных выше команд снова и получаем каталог <code>_post</code>, который будет содержать в себе все импортируемые записи. Обращаю внимание на то, что обрабатываются только те записи, что имеют статус опубликованных. Все черновики пропускаются.</p>
+
+<p>И вот тут появляется проблема, решения которой я пока не нашел. Все файлы, которые создаются в результате миграции (а это обычные текстовые файлы в разметке markdown), имеют кодировку <code>7bit ASCII characters</code>, все русские символы, естественно пропадают. Если бы все статьи были бы на английском языке, то проблем бы не возникло. Но тут, вся информация теряется.</p>
+
+<p>Очередная проблема, которая требует своего решения. Будем копать!</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2010/11/06/jekyll-on-ubuntu-10-04/" title="View Jekyll on Ubuntu 10.04">Jekyll on Ubuntu 10.04</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2010/11/13/jekyll-hyde/" title="View Jekyll &amp; Hyde">Jekyll &amp; Hyde</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

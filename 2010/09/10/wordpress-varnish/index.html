@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Wordpress Speed Up</title>
+  <meta name="description" content="После того, как настроил свой сервер, немного успокоился и расслабился.  Время отклика минимальное, нагрузка на процессор очень маленькая, уровень используемой памяти практически не изменяется и ес...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2010/09/10/wordpress-varnish/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2010/09/07/nginx-apache/">
+  <link rel="next" href="https://www.juev.org/2010/09/20/emacs-on-windows/">
+  <!-- og:meta -->
+  <meta content="Wordpress Speed Up" property="og:title">
+  <meta content="После того, как настроил свой сервер, немного успокоился и расслабился.  Время отклика минимальное, нагрузка на процессор очень маленькая, уровень используемой памяти практически не изменяется и ес..." property="og:description">
+  <meta content="https://www.juev.org/2010/09/10/wordpress-varnish/" property="og:url">
+  <meta content="2010-09-10T00:00:00+04:00" property="article:published_time">
+  <meta content="wordpress" property="article:tag">
+  <meta content="varnish" property="article:tag">
+  <meta content="vps" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Wordpress Speed Up" name="twitter:title">
+  <meta content="После того, как настроил свой сервер, немного успокоился и расслабился.  Время отклика минимальное, нагрузка на процессор очень маленькая, уровень используемой памяти практически не изменяется и ес..." property="twitter:description">
+  <meta content="https://www.juev.org/2010/09/10/wordpress-varnish/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Wordpress Speed Up</h1>
+<div id="metainfo">
+<span class="date">10 September 2010</span>
+<span class="tags"><a href="https://www.juev.org/tags/#wordpress" title="View posts tagged with &quot;wordpress&quot;" rel="nofollow">#wordpress</a><a href="https://www.juev.org/tags/#varnish" title="View posts tagged with &quot;varnish&quot;" rel="nofollow">#varnish</a><a href="https://www.juev.org/tags/#vps" title="View posts tagged with &quot;vps&quot;" rel="nofollow">#vps</a></span>
+</div>
+<div class="post"><p>После того, как настроил свой сервер, немного успокоился и расслабился. Время отклика минимальное, нагрузка на процессор очень маленькая, уровень используемой памяти практически не изменяется и есть очень большой запас.</p>
+
+<p>Что еще нужно для счастливой жизни? Ан нет, в последнее время все больше не давал покоя показатель уровня обрабатываемых запросов. Максимум, что удалось выжать это порядка 20 запросов в секунду. Сопоставляя с показаниями зарубежных блогеров, у которых на чистом apache были значения в 5-7 тыс запросов в секунду, ощущал неудовлетворенность.</p>
+
+<p>По сути проблема заключалась в использовании в каждом запросе PHP-интерпретатора, что излишне загружало процессор. Нужно было каким-то образом избавиться от повторной генерации страниц. И как раз, на днях, на глаза стали попадаться статьи про кеширующий сервер Varnish. Решил его сегодня попробовать.</p>
+
+<p>В Ubuntu устанавливается, как всегда, очень просто:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># apt-get install varnish
+</code></pre></div></div>
+
+<p>Сразу после установки он запускается, но для его использования нужно еще верно указать порты frontend-серверу, что используются Varnish. Но перед этим немного изменим конфигурацию, для корректного использования WordPress. Изменяем файл <code>/etc/varnish/default.vcl</code>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>backend default {
+     .host = "127.0.0.1";
+     .port = "8080";
+ }
+
+# Unless this is the login or admin page, unset the cookie!
+sub vcl_recv {
+# admin users always miss the cache
+  if( req.url ~ "^/wp-(login|admin)" || req.http.Cookie ~ "wordpress_logged_in_" ){
+    return (pass);
+  }
+  # ignore any other cookies
+  unset req.http.Cookie;
+  return (lookup);
+}
+</code></pre></div></div>
+
+<p><img class="aligncenter" src="https://static.juev.org/2010/09/varnishprojsoft1.jpg" alt="" width="240" height="140" /></p>
+
+<p>И если первый блок остается почти без изменения, там изменяется только номер порта, по которому работает apache, обрабатывающий PHP-скрипты, то второй блок прописывается полностью. Он нужен для того, чтобы администратор мог работать с сайтом напрямую, минуя кэш. И для того, чтобы исключить все те cookies, что плодит WordPress. Без данного блока будет использоваться не кеш, а страницы каждый раз будут генерироваться по новой.</p>
+
+<p>Теперь перезапускаем Varnish:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># /etc/init.d/varnish restart
+</code></pre></div></div>
+
+<p>И изменяем конфигурацию виртуального сервера в nginx, у меня это файл <code>/etc/nginx/sites-available/juev.ru</code>, меняется только следующий раздел:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        location / {
+                proxy_set_header X-Real-IP  $remote_addr;
+                proxy_set_header Host $host;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+#               proxy_pass http://127.0.0.1:8080; # Apache listening
+                proxy_pass http://127.0.0.1:6081; # Varnish listening
+        }
+</code></pre></div></div>
+
+<p>То есть просто указали другой порт backend’а. Перезапускаем nginx и смотрим на работу сайта. Я протестировал работу сайта с помощью <em>ab</em>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># ab -n 5000 -c 100 http://www.juev.ru/index.php
+ . . . 
+Concurrency Level:      100
+Time taken for tests:   0.952 seconds
+Complete requests:      5000
+Failed requests:        0
+Write errors:           0
+Non-2xx responses:      5000
+Total transferred:      1875000 bytes
+HTML transferred:       0 bytes
+Requests per second:    5253.66 [#/sec] (mean)
+Time per request:       19.034 [ms] (mean)
+Time per request:       0.190 [ms] (mean, across all concurrent requests)
+Transfer rate:          1923.95 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    2   2.5      1      11
+Processing:     2   17   5.8     17      46
+Waiting:        2   16   6.0     16      45
+Total:          2   19   5.7     18      46
+ . . .
+</code></pre></div></div>
+
+<p>При этом, во время теста процессор практически не нагружался. Заметить работу теста было просто не возможно.</p>
+
+<p>Разница между 20 запросами в секунду и 5253.66 довольно существенная. Я думаю, что использование Varnish в качестве дополнительной прослойки между Nginx и Apache вполне оправданно!</p>
+
+<p>Итого Nginx занимается отдачей мультимедиа файлов и регулированием внешними соединениями, Apache занимается обработкой PHP-скриптов, а Varnish кеширует работу Apache. Система потихоньку усложняется, обрастает новыми элементами, но в то же время повышает свою эффективность и производительность.</p>
+
+<p>Я думаю, тут есть еще над чем поработать!</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2010/09/07/nginx-apache/" title="View Использование связки Nginx+Apache">Использование связки Nginx+Apache</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2010/09/20/emacs-on-windows/" title="View Emacs on Windows">Emacs on Windows</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

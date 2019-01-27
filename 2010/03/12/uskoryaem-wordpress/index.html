@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Ускоряем Wordpress</title>
+  <meta name="description" content="Недавно я описывал процесс подключения WordPress блога к Amazon, в целях распределения нагрузки и использования CDN.  При этом приводил анализ работы блога до подключения амазона и после.  Ускорени...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2010/03/12/uskoryaem-wordpress/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2010/03/11/tidyread/">
+  <link rel="next" href="https://www.juev.org/2010/03/14/podkast-internet/">
+  <!-- og:meta -->
+  <meta content="Ускоряем Wordpress" property="og:title">
+  <meta content="Недавно я описывал процесс подключения WordPress блога к Amazon, в целях распределения нагрузки и использования CDN.  При этом приводил анализ работы блога до подключения амазона и после.  Ускорени..." property="og:description">
+  <meta content="https://www.juev.org/2010/03/12/uskoryaem-wordpress/" property="og:url">
+  <meta content="2010-03-12T00:00:00+03:00" property="article:published_time">
+  <meta content="wordpress" property="article:tag">
+  <meta content="jquery" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Ускоряем Wordpress" name="twitter:title">
+  <meta content="Недавно я описывал процесс подключения WordPress блога к Amazon, в целях распределения нагрузки и использования CDN.  При этом приводил анализ работы блога до подключения амазона и после.  Ускорени..." property="twitter:description">
+  <meta content="https://www.juev.org/2010/03/12/uskoryaem-wordpress/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Ускоряем Wordpress</h1>
+<div id="metainfo">
+<span class="date">12 March 2010</span>
+<span class="tags"><a href="https://www.juev.org/tags/#wordpress" title="View posts tagged with &quot;wordpress&quot;" rel="nofollow">#wordpress</a><a href="https://www.juev.org/tags/#jquery" title="View posts tagged with &quot;jquery&quot;" rel="nofollow">#jquery</a></span>
+</div>
+<div class="post"><p>Недавно я <a href="/2010/03/03/wordpress-amazon/">описывал процесс</a> подключения WordPress блога к Amazon, в целях распределения нагрузки и использования CDN. При этом приводил анализ работы блога до подключения амазона и после. Ускорение составило порядка одной секунды.</p>
+
+<p>Однако, когда зашел на страницу <a href="http://www.google.com/webmasters/tools/" rel="nofollow">google for webmasters</a> и посмотрел результаты экспериментальной функции “Эффективность сайта”, то увидел следующее:</p>
+
+<p><a href="https://static.juev.org/2010/03/page-speed.png"><img class="aligncenter size-medium wp-image-950" title="page speed" src="https://static.juev.org/2010/03/page-speed-300x74.png" alt="" width="300" height="74" /></a></p>
+
+<p>Результаты впечатляют! Изменение скорости загрузки страницы с почти 7 секунд до 0.6 секунды – это что-то!</p>
+
+<p>При этом с момента подключения S3 и CloudFront (прошло 9 дней) мне насчитали 22 цента.</p>
+
+<p><a href="https://static.juev.org/2010/03/amazon.png"><img class="aligncenter size-medium wp-image-951" title="amazon" src="https://static.juev.org/2010/03/amazon-187x300.png" alt="" width="187" height="300" /></a></p>
+
+<p>И тут вспомнил о том, как на mashable.com изображения появляются не сразу, а только по мере прокрутки страницы. Фактически страница начинает отображаться намного раньше, чем будет загружен весь входящий в нее контент. И как раз на habrahabr.ru появляется <a href="http://habrahabr.ru/blogs/client_side_optimization/87083/" rel="nofollow">краткая заметка</a> про эту технологию. Прочел все приведенные страницы, но так и не понял, каким образом это реализуется. Думал до тех пор, пока в голову не пришла идея просто поискать среди расширений WordPress те, что имеют соответствующие имена.</p>
+
+<p>Довольно быстро в результатах поиска увидел <a href="http://github.com/ayn/wp-jquery-lazy-load/" rel="nofollow">jQuery lazy load plugin</a>. В использовании его достаточно установить и активировать. Больше ничего не требуется. Изображения начинают подгружаться по мере прокрутки страницы. Естественно, что возрастает скорость показа страницы. Единственно, что я не проводил пока детальных тестов данной технологии, и пришлось отключить расширение, так как изображения, расположенные в сайдбаре идентифицируются, как расположенные за пределами экрана и они не сразу показываются.</p>
+
+<p>Как только решу эту проблему, полностью перейду на использование данного расширения!</p>
+
+<p>Надеюсь, что мой опыт будет полезен и вам.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2010/03/11/tidyread/" title="View TidyRead - улучшаем вид страниц">TidyRead - улучшаем вид страниц</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2010/03/14/podkast-internet/" title="View Размещение подкаста в интернете">Размещение подкаста в интернете</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Синхронизация времени</title>
+  <meta name="description" content="В Linux вопрос синхронизации времени решается довольно просто, причем существует масса различных способов.  В Windows все сложнее. Да, есть возможность синхронизировать время встроенными средствами...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2010/03/07/time-sync/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2010/03/06/amazon-s3/">
+  <link rel="next" href="https://www.juev.org/2010/03/11/tidyread/">
+  <!-- og:meta -->
+  <meta content="Синхронизация времени" property="og:title">
+  <meta content="В Linux вопрос синхронизации времени решается довольно просто, причем существует масса различных способов.  В Windows все сложнее. Да, есть возможность синхронизировать время встроенными средствами..." property="og:description">
+  <meta content="https://www.juev.org/2010/03/07/time-sync/" property="og:url">
+  <meta content="2010-03-07T00:00:00+03:00" property="article:published_time">
+  <meta content="windows" property="article:tag">
+  <meta content="soft" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Синхронизация времени" name="twitter:title">
+  <meta content="В Linux вопрос синхронизации времени решается довольно просто, причем существует масса различных способов.  В Windows все сложнее. Да, есть возможность синхронизировать время встроенными средствами..." property="twitter:description">
+  <meta content="https://www.juev.org/2010/03/07/time-sync/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Синхронизация времени</h1>
+<div id="metainfo">
+<span class="date">07 March 2010</span>
+<span class="tags"><a href="https://www.juev.org/tags/#windows" title="View posts tagged with &quot;windows&quot;" rel="nofollow">#windows</a><a href="https://www.juev.org/tags/#soft" title="View posts tagged with &quot;soft&quot;" rel="nofollow">#soft</a></span>
+</div>
+<div class="post"><p>В Linux вопрос синхронизации времени решается довольно просто, причем существует масса различных способов. В Windows все сложнее.</p>
+
+<p>Да, есть возможность синхронизировать время встроенными средствами. Но настройка их довольно убогая и если возникает ошибка во время синхронизации, а это происходит довольно часто, то мы об этом ничего не узнаем. А время тем временем все куда то бежит… Часы сбиваются.</p>
+
+<p>Проверить точность хода часов довольно просто в любой системе, если зайти на сайт <a href="http://time.is/" rel="nofollow">time.is</a></p>
+
+<p><a href="https://static.juev.org/2010/03/timeis.png"><img class="aligncenter size-medium wp-image-933" title="timeis" src="https://static.juev.org/2010/03/timeis-300x192.png" alt="" width="300" height="192" /></a></p>
+
+<p>В данном случае время синхронизировано, поэтому показывается сообщение “You have the exact time!”, в остальных случаях показывается величина отклонения в секундах.</p>
+
+<p>Что же можно использовать для синхронизации времени в Windows, помимо встроенных средств? Воспользуемся программой <a href="http://keir.net/neutron.html" rel="nofollow">Neutron</a>. Архив с программой весит всего 7 килобайт. Распаковываем программу в любую папку на диске. Установка не требуется.</p>
+
+<p>При запуске получаем следующее окно:</p>
+
+<p><img class="aligncenter size-full wp-image-934" title="scrn_neutron" src="https://static.juev.org/2010/03/scrn_neutron.png" alt="" width="356" height="523" /></p>
+
+<p>Проставляем все возможные галочки в настройках, чтобы программа автоматически синхронизировалась с сервером точного времени при запуске и завершала свою работу в случае удачи и так же перебирала сервера в случае, если синхронизация не удалась. Так же эти опции можно указать путем редактирования файла Neutron.ini, который располагается в папке с программой.</p>
+
+<p>Примерное содержимое файла:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[Options]
+AutoSync=1
+AutoExit=1
+Server=14
+Retry=1
+[Servers]
+0="cuckoo.nevada.edu"
+1="ntp.nblug.org"
+</code></pre></div></div>
+
+<p>Из серверов оставил только первые два, список по умолчанию довольно обширный.</p>
+
+<p>Небольшое замечание, в Windows 7 для того, чтобы программа провела синхронизацию времени, ее необходимо запускать от имени администратора системы. В противном случае мы сможем посмотреть отклонение времени, но не сможем изменить системное время из-за недостатка прав.</p>
+
+<p>Итак, разобрались как можно вручную синхронизировать время. Осталось только этот процесс автоматизировать. По сути вся задача автоматизации сводиться к периодическому запуску программы с правами администратора. Воспользуемся для этого встроенными средствами операционной системы.</p>
+
+<p>Для этого переходим в “Панель управления\Все элементы панели управления\Администрирование” и выбираем пункт “Планировщик заданий”.</p>
+
+<p><a href="https://static.juev.org/2010/03/PlanJob.png"><img class="aligncenter size-medium wp-image-935" title="PlanJob" src="https://static.juev.org/2010/03/PlanJob-300x136.png" alt="" width="300" height="136" /></a></p>
+
+<p>Создаем новое задание:</p>
+
+<p><a href="https://static.juev.org/2010/03/main3.png"><img class="aligncenter size-medium wp-image-936" title="main" src="https://static.juev.org/2010/03/main3-300x225.png" alt="" width="300" height="225" /></a></p>
+
+<p>Указываем имя задачи (в данном случае я открыл для редактирования существующую задачу, поэтому поле ввода не активно). Указываем, что задача будет запускаться как системный процесс и с наивысшими правами. Затем переходим во вкладки Триггеры и задаем следующие условия запуска:</p>
+
+<p><a href="https://static.juev.org/2010/03/trigger.png"><img class="aligncenter size-medium wp-image-939" title="trigger" src="https://static.juev.org/2010/03/trigger-300x258.png" alt="" width="300" height="258" /></a></p>
+
+<p>После чего нам осталось только указать, что именно мы собираемся запускать. Это делается во вкладке действия:</p>
+
+<p><a href="https://static.juev.org/2010/03/run.png"><img class="aligncenter size-medium wp-image-938" title="run" src="https://static.juev.org/2010/03/run-300x225.png" alt="" width="300" height="225" /></a></p>
+
+<p>Вот и все. После создания задания оно становиться активным и согласно нашим настройкам Neutron будет автоматически запускаться раз в 3 часа с правами администратора, приводя наше системное время в порядок.</p>
+
+<p>Данный способ автоматизации запуска можно использовать не только для синхронизации времени. Но это в другой раз.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2010/03/06/amazon-s3/" title="View Amazon S3">Amazon S3</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2010/03/11/tidyread/" title="View TidyRead - улучшаем вид страниц">TidyRead - улучшаем вид страниц</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

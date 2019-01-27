@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>TL-WR1043ND откат DD-WRT на стандартную прошивку</title>
+  <meta name="description" content="Долгое время я использовал в качестве домашнего роутера Asus wl-500gpv2, отличный роутер, многофункциональный.  Прошивка Олега позволила избавиться от ряда проблем с маршрутизацией в локальной сети...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2011/10/07/wr1043nd/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2011/10/04/macos-fonts/">
+  <link rel="next" href="https://www.juev.org/2011/11/12/cntlm/">
+  <!-- og:meta -->
+  <meta content="TL-WR1043ND откат DD-WRT на стандартную прошивку" property="og:title">
+  <meta content="Долгое время я использовал в качестве домашнего роутера Asus wl-500gpv2, отличный роутер, многофункциональный.  Прошивка Олега позволила избавиться от ряда проблем с маршрутизацией в локальной сети..." property="og:description">
+  <meta content="https://www.juev.org/2011/10/07/wr1043nd/" property="og:url">
+  <meta content="2011-10-07T18:23:00+04:00" property="article:published_time">
+  <meta content="tips" property="article:tag">
+  <meta content="ddwrt" property="article:tag">
+  <meta content="tplink" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="TL-WR1043ND откат DD-WRT на стандартную прошивку" name="twitter:title">
+  <meta content="Долгое время я использовал в качестве домашнего роутера Asus wl-500gpv2, отличный роутер, многофункциональный.  Прошивка Олега позволила избавиться от ряда проблем с маршрутизацией в локальной сети..." property="twitter:description">
+  <meta content="https://www.juev.org/2011/10/07/wr1043nd/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">TL-WR1043ND откат DD-WRT на стандартную прошивку</h1>
+<div id="metainfo">
+<span class="date">07 October 2011</span>
+<span class="tags"><a href="https://www.juev.org/tags/#tips" title="View posts tagged with &quot;tips&quot;" rel="nofollow">#tips</a><a href="https://www.juev.org/tags/#ddwrt" title="View posts tagged with &quot;ddwrt&quot;" rel="nofollow">#ddwrt</a><a href="https://www.juev.org/tags/#tplink" title="View posts tagged with &quot;tplink&quot;" rel="nofollow">#tplink</a></span>
+</div>
+<div class="post"><p>Долгое время я использовал в качестве домашнего роутера Asus wl-500gpv2, отличный роутер, многофункциональный. Прошивка Олега позволила избавиться от ряда проблем с маршрутизацией в локальной сети при поднятом VPN. Канал держался на протяжении нескольких месяцев, стабильность устраивала.</p>
+
+<p>Однако данный роутер был выпущен уже достаточно давно и явно не был рассчитан на те скорости, что сейчас предоставляют провайдеры. И все бы ничего, да мой провайдер использует для подключения к интернету VPN, который довольно сильно нагружает процессор, что сказывается на общей производительности сети. Таким образом при работе на локальных торрентах я наблюдал вместо 10-11 мегабайт в секунду максимум 6-7.</p>
+
+<p>Именно это заставило меня задуматься о покупке нового устройства. Мне повезло и на глаза попался роутер TP-Link TL-WR1043ND, недолго думая я его приобрел. Все таки гигабитные порты, функционал, который заложен в него, при стоимости менее 2 тыс рублей – это просто подарок! Упускать такой шанс было бы глупостью.</p>
+
+<p>Настройка роутера заняла от силы минут пять, это если учитывать еще прописывание локальных маршрутов провайдера на роутере. После чего роутер у меня проработал пару месяцев.  Стабильность работы, его производительность только радовали. Но буквально несколько дней назад я озадачился качеством SIP-звонков. Долгое время мы использовали SIP и мирились с тем, что качество было не очень хорошим, были прерывания звука, но в целом при его стоимости нас устраивало. А тут мне пришлось позвонить с сотового через SIP, используя при этом мобильный интернет от MTS. Качество связи меня просто поразило! И я понял, что проблема заключается не в технологии/провайдере/программе, а только в том, что мы находимся за NAT.</p>
+
+<h2 id="проблема">Проблема</h2>
+
+<p>Стал рассматривать различные решения, которые предлагаются в сети. И в качестве одного из них предлагалось прошить роутер прошивкой DD-WRT, в которую включался модуль SIP-proxy.  Еще до этого момента я был наслышан об этой прошивке, поэтому решился попробовать.</p>
+
+<p>Сам процесс протекал довольно просто и быстро, буквально через 10 минут я уже был обладателем роутера с установленной прошивкой DD-WRT. И вот тут то начались проблемы.</p>
+
+<p>Я пытался использовать на роутере DNS-сервера OpenDNS, так как давно хотел сделать это именно на роутере, а не только на компьютере, но VPN не поднимался. Попытался руками прописать DNS-сервера провайдера, так же безрезультатно. И только спустя почти час мне удалось поднять VPN отключив при этом сервис DNSMasq на роутере.</p>
+
+<p>Заработать заработал, но при этом uPNP не работало, кнопка QSS для быстрой настройки беспроводных устройств так же не работала. Торрент еле шевелился, хотя порт был заранее проброшен и открыт.</p>
+
+<p>Решил проверить SIP. Каково же было мое удивление, когда обнаружил, что SIP-proxy не дает никаких преимуществ при соединении. И это при условии того, что я потерял еще массу других удобств.</p>
+
+<h2 id="шьем-официальную-прошивку">Шьем официальную прошивку</h2>
+
+<p>Решил прошиться на стандартную прошивку. Но основная масса статей гласила, что прошить роутер обратно практически не возможно. Это меня еще больше смутило. Продолжил поиск и решил обратиться к опыту людей, работающих с прошивками OpenWRT. Это прошивка для специалистов и требует особых навыков и знаний, и сам процесс прошивки протекает несколько иначе.</p>
+
+<p>Именно у них я нашел вариант прошивки, при котором используется доступ через telnet или ssh (<a href="http://wiki.openwrt.org/doc/howto/generic.uninstall" title="Back to original firmware - OpenWRT">ссылка</a>). Единственно, описанный способ требует установки дополнительных пакетов на роутер для распаковки zip-архива. И я решил несколько упростить этот процесс.</p>
+
+<p>Для начала с официального сайта <a href="http://www.tp-link.com/en/support/download/?model=TL-WR1043ND" title="TL-WR1043ND">TP-Link</a> качаем последнюю версию прошивки.  Распаковываем файл, переименовываем его во что-нибудь попроще (к примеру wl1043.bin) и кладем его в папку Public на сервисе Dropbox.</p>
+
+<p>Подключаемся к роутеру по ssh (если он был предварительно включен), либо по telnet:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ssh root@192.168.1.1
+    password: password
+</code></pre></div></div>
+
+<p>Естественно, что в качестве пароля указываем тот, что был установлен при использовании прошивки DD-WRT. Я надеюсь, что интернет у вас на этом этапе еще работает, выполняем команды:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># cd /tmp
+# wget http://dl.dropbox.com/234234/wl1043.bin
+</code></pre></div></div>
+
+<p>В качестве ссылки необходимо использовать ту, что выдаст вам ваш аккаунт Dropbox для файла прошивки, в примере указаны случайные числа. И теперь прошиваем наше устройство:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># mtd -r write /tmp/wl1043.bin linux
+</code></pre></div></div>
+
+<p>Обращаю внимание на то, что в конце команды нужно указывать именно linux, а не firmware, как в примере для прошивки OpenWRT. Проверить, что именно нужно использовать в качестве аргумента команды можно следующим образом:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># cat /proc/mtd
+</code></pre></div></div>
+
+<p>Вывод команды указывает разделы, доступные в системе, первым идет загрузчик и затем ядро и остальные разделы.  В прошивке DD-WRT ядро называется linux, и именно его нужно использовать в команде mtd.</p>
+
+<p>После того, как дали команду <code class="highlighter-rouge">mtd -r</code> остается только ждать и надеяться на то, что во время прошивки не отключиться свет. Прошивка идет достаточно быстро, минуты 3-4. По завершении соединение ssh разорвется, еще немного ждем и пробуем зайти браузером по адресу <code class="highlighter-rouge">192.168.1.1</code>. Если все прошло нормально и увидели стандартный интерфейс прошивки TP-Link, то нужно выключить устройство и примерно через минуту включить вновь (желательно сбросить устройство методом 30/30/30). После чего останется только настроить его вновь.</p>
+
+<h2 id="итоги">Итоги</h2>
+
+<p>Вот так просто оказалось вернуться на заводскую прошивку. Странно даже, что пишут о невозможности данной операции или о ее рискованности. Риск не более велик, чем при прошивке через веб-интерфейс.</p>
+
+<p>А для себя я сделал вывод, что прошивка DD-WRT на роутере TP-Link TL-WR1043ND совершенно ничего не стоит. И лучше всего использовать стандартную прошивку, которая показывает достаточную функциональность и очень хорошую стабильность.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2011/10/04/macos-fonts/" title="View MacOS сглаживание шрифтов">MacOS сглаживание шрифтов</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2011/11/12/cntlm/" title="View Упрощаем работу с прокси">Упрощаем работу с прокси</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

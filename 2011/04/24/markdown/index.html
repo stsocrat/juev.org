@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Markdown</title>
+  <meta name="description" content="Использование markdown для создания web-страниц. Особенности различных движков.">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2011/04/24/markdown/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2011/04/15/amazon-ec2/">
+  <link rel="next" href="https://www.juev.org/2011/05/02/android-applications/">
+  <!-- og:meta -->
+  <meta content="Markdown" property="og:title">
+  <meta content="Markdown — это облегченный язык разметки, призванный облегчить подготовку текстов для публикации в Интернете. Собственно, Markdown — это простой текст. Когда я переходил на jekyll одной из причин б..." property="og:description">
+  <meta content="https://www.juev.org/2011/04/24/markdown/" property="og:url">
+  <meta content="2011-04-24T00:00:00+04:00" property="article:published_time">
+  <meta content="markdown" property="article:tag">
+  <meta content="design" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Markdown" name="twitter:title">
+  <meta content="Markdown — это облегченный язык разметки, призванный облегчить подготовку текстов для публикации в Интернете. Собственно, Markdown — это простой текст. Когда я переходил на jekyll одной из причин б..." property="twitter:description">
+  <meta content="https://www.juev.org/2011/04/24/markdown/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Markdown</h1>
+<div id="metainfo">
+<span class="date">24 April 2011</span>
+<span class="tags"><a href="https://www.juev.org/tags/#markdown" title="View posts tagged with &quot;markdown&quot;" rel="nofollow">#markdown</a><a href="https://www.juev.org/tags/#design" title="View posts tagged with &quot;design&quot;" rel="nofollow">#design</a></span>
+</div>
+<div class="post"><p><strong><a href="http://ru.wikipedia.org/wiki/Markdown" title="Markdown">Markdown</a></strong> — это облегченный язык разметки, призванный облегчить подготовку текстов для публикации в Интернете.</p>
+
+<p>Собственно, Markdown — это простой текст.</p>
+
+<p>Когда я переходил на <em>jekyll</em> одной из причин было именно использование языка разметки <strong>Markdown</strong>.</p>
+
+<p><strong>Jekyll</strong> использует <em>markdown</em> нативно, вообще данный язык разметки очень любят на <em><a href="https://www.github.com/" title="GitHub">GitHub</a></em>, используют его везде, где только
+можно (и в комментариях, и в отчетах, и в readme файлах). Почему спросите вы, очень просто, работать с ним куда удобнее, чем
+использовать нативный html или любой из редакторов.</p>
+
+<h2 id="синтаксис">Синтаксис</h2>
+
+<p>Оригинальное описание синтаксиса находится здесь (англ.): <a href="http://daringfireball.net/projects/markdown/syntax">http://daringfireball.net/projects/markdown/syntax</a></p>
+
+<p>Русский перевод официальной документации можно найти здесь: <a href="http://markdown.pp.ru/">http://markdown.pp.ru/</a></p>
+
+<p>Ниже следует краткое описание синтаксиса.</p>
+
+<ul>
+  <li>Абзацы разделяются пустой строкой</li>
+  <li>Два или более пробела на конце строки задают разрыв строки</li>
+  <li>Шрифты: <code class="highlighter-rouge">**жирный**</code>, <code class="highlighter-rouge">_курсив_</code>, <code class="highlighter-rouge">`моноширинный`</code></li>
+  <li>Заголовки:
+    <ul>
+      <li>Atx-style: <code class="highlighter-rouge">#первый уровень#</code>, <code class="highlighter-rouge">##второй уровень##</code> и т.д.</li>
+      <li>Setext-style: подчеркивание знаками <code class="highlighter-rouge">=</code> задает первый уровень, дефисами <code class="highlighter-rouge">-</code> — второй</li>
+    </ul>
+  </li>
+  <li>Цитаты: <code class="highlighter-rouge">&gt; текст цитаты</code></li>
+  <li>Списки:
+    <ul>
+      <li>неупорядоченные: <code class="highlighter-rouge">* элемент списка</code> (также могут использоваться символы <code class="highlighter-rouge">-</code> или <code class="highlighter-rouge">+</code>).</li>
+      <li>упорядоченные: <code class="highlighter-rouge">1. элемент списка</code></li>
+    </ul>
+  </li>
+  <li>Блок кода — каждая строка начинается с 4 или более пробелов</li>
+  <li>Горизонтальная черта: три или более дефиса или звездочки</li>
+  <li>Ссылки:
+    <ul>
+      <li>встроенные <code class="highlighter-rouge">[label](url)</code></li>
+      <li>автоматические <code class="highlighter-rouge">&lt;url&gt;</code></li>
+      <li>в виде сносок</li>
+    </ul>
+  </li>
+  <li>Изображения:
+    <ul>
+      <li>встроенные <code class="highlighter-rouge">![alt text](url)</code></li>
+      <li>в виде сносок</li>
+    </ul>
+  </li>
+  <li>Экранирование символов — чтобы вставить спецсимвол, используемый в разметке, как обычный символ, его нужно предварить
+символом обратной косой черты. Экранироваться должны следующие символы: <code class="highlighter-rouge">* _ { } [ ] ( ) # + - . !</code></li>
+</ul>
+
+<h2 id="использование">Использование</h2>
+
+<p>В <em>Jekyll</em> есть возможность использовать следующие движки <em>Markdown</em>:</p>
+
+<ul>
+  <li><a href="http://maruku.rubyforge.org/maruku.html" title="Maruku">Maruku</a></li>
+  <li><a href="https://github.com/rtomayko/rdiscount/" title="Rdiscount">Rdiscount</a></li>
+  <li><a href="http://kramdown.rubyforge.org/" title="Kramdown">Kramdown</a></li>
+</ul>
+
+<p>По умолчанию, если не указывается иное, используется движок <em>Maruku</em>. Однако при первых же тестах показало свою
+несостоятельность. Генерация сайта занимала очень много времени, при этом было очень много сообщений об ошибках и
+предупреждениях. Практически сразу же я стал использовать <em>Rdiscount</em>. Время генерации всего сайта стало занимать всего
+несколько секунд, и при этом никаких ошибок.</p>
+
+<p>Я бы продолжил использовать данный генератор, если бы не одно НО. Выяснилось, что <em>Rdiscount</em> не умеет обрабатывать
+дополнительные параметры тегов. То есть нет возможности указывать классы, идентификаторы. Что, естественно, несколько
+ограничивает использование стилей на сайте. Как оказалось, данную возможность имеет движок <em>Maruku</em>, но его использовать я не
+хотел в виду тех проблем, что осветил выше. Решил искать альтернативу.</p>
+
+<p>Странно, что раньше я упускал из виду генератор <em><a href="http://kramdown.rubyforge.org/" title="Kramdown">Kramdown</a></em>. Фактически я его игнорировал, не замечал. И
+только на днях “вспомнил” о нем и попробовал использовать. Время генерации примерно то же, что и у <em>Rdiscount</em>, но есть
+возможность использования параметров в тегах. Делается это примерно следующим образом:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; A nice blockquote
+{: .class1 .class2}
+</code></pre></div></div>
+
+<p>На выходе получаем следующий html-код:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;blockquote class="class1 class2"&gt;
+  &lt;p&gt;A nice blockquote&lt;/p&gt;
+&lt;/blockquote&gt;
+</code></pre></div></div>
+
+<p>То есть все, что необходимо для работы в данном генераторе присутствует.</p>
+
+<h2 id="установка">Установка</h2>
+
+<p>Для использования генераторов <em>Markdown</em> на машине необходимо установить ruby и gem:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo aptitude install ruby-full rubygems
+</code></pre></div></div>
+
+<p>И теперь можно устанавливать сами генераторы:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo gem install kramdown
+</code></pre></div></div>
+
+<p>Теперь создаем обычный текстовый файл, прописываем текст. После чего для генерации html-файла используется команда:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ kramdown file.markdown &gt; file.html
+</code></pre></div></div>
+
+<p>При использовании <em>Jekyll</em> достаточно в файле <code class="highlighter-rouge">_config.yml</code> прописать строку с указанием используемого генератора:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>markdown:    kramdown
+</code></pre></div></div>
+
+<h2 id="итоги">Итоги</h2>
+
+<p>С того момента, как я стал использовать <em>Markdown</em> я ощутил всю прелесть работы с “нормальными” редакторами, а не убожеством,
+типа веб-редактора <em>Wordpress</em>. Появляется желание писать и писать, работать, не останавливаясь. При этом текст воспринимается
+и читается именно как обычный текст, ничто не мешает его восприятию и, соответственно, работы с ним.</p>
+
+<p>Никак не могу понять, почему <em>markdown</em> до сих пор не используется так широко, как мог бы?</p>
+
+<p>Для примера выкладываю код данной страницы в формате <em>markdown</em> на странице <a href="https://gist.github.com/939713" title="Gist">gist.gihub.com</a></p>
+
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2011/04/15/amazon-ec2/" title="View Amazon EC2">Amazon EC2</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2011/05/02/android-applications/" title="View 15 лучших android приложений">15 лучших android приложений</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

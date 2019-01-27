@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Переход с ext3 на ext4</title>
+  <meta name="description" content="Сегодня мало спал.  Лег в 12 ночи, проснулся в 5 утра.  Причина неизвестна. Но когда проснулся – появилась твердая уверенность, что пора переходить на новую файловую систему ext4.   Так как часто и...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2009/02/23/ext3-ext4/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2009/02/19/mfu-hp-psc-1210-v-archlinux/">
+  <link rel="next" href="https://www.juev.org/2009/03/01/wpbackup/">
+  <!-- og:meta -->
+  <meta content="Переход с ext3 на ext4" property="og:title">
+  <meta content="Сегодня мало спал.  Лег в 12 ночи, проснулся в 5 утра.  Причина неизвестна. Но когда проснулся – появилась твердая уверенность, что пора переходить на новую файловую систему ext4.   Так как часто и..." property="og:description">
+  <meta content="https://www.juev.org/2009/02/23/ext3-ext4/" property="og:url">
+  <meta content="2009-02-23T00:00:00+03:00" property="article:published_time">
+  <meta content="ext4" property="article:tag">
+  <meta content="ext3" property="article:tag">
+  <meta content="fs" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Переход с ext3 на ext4" name="twitter:title">
+  <meta content="Сегодня мало спал.  Лег в 12 ночи, проснулся в 5 утра.  Причина неизвестна. Но когда проснулся – появилась твердая уверенность, что пора переходить на новую файловую систему ext4.   Так как часто и..." property="twitter:description">
+  <meta content="https://www.juev.org/2009/02/23/ext3-ext4/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Переход с ext3 на ext4</h1>
+<div id="metainfo">
+<span class="date">23 February 2009</span>
+<span class="tags"><a href="https://www.juev.org/tags/#ext4" title="View posts tagged with &quot;ext4&quot;" rel="nofollow">#ext4</a><a href="https://www.juev.org/tags/#ext3" title="View posts tagged with &quot;ext3&quot;" rel="nofollow">#ext3</a><a href="https://www.juev.org/tags/#fs" title="View posts tagged with &quot;fs&quot;" rel="nofollow">#fs</a></span>
+</div>
+<div class="post"><p>Сегодня мало спал. Лег в 12 ночи, проснулся в 5 утра. Причина неизвестна.</p>
+
+<p>Но когда проснулся – появилась твердая уверенность, что пора переходить на новую файловую систему ext4.  Так как часто использую torrent, и часто приходиться выделять большое пространство под файлы. На ext3 это занимает определенное время, так же как и удаление больших файлов.</p>
+
+<p>Предварительно решил проверить, не появилась ли новая версия ядра? Хотя в новостях ничего не было слышно, на kernel.org увидел, что последнее обновление было 20 февраля, то есть три дня назад. Версия ядра 2.6.28.7.  Изменений много и большая часть была посвящена именно файловой системе ext4.</p>
+
+<p>Обновил ядро. Более подробно по процедуре обновления ядра я расскажу в отдельной статье.</p>
+
+<p>После проверки работоспособности нового ядра переходим к конвертированию файловой системы.</p>
+
+<p>Во время установки у меня образовалась следующая конфигурация разделов:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/dev/sda1  /boot  - ext2
+/dev/sda2  swap
+/dev/sda3 /  - ext3
+/dev/sda4 /home  - ext3&lt;/pre&gt;
+</code></pre></div></div>
+
+<p>Раздел /boot оставляем без изменений, так как необходимости использовать на нем новую файловую систему просто нет необходимости. Для изменения корневой файловой системы необходимо использовать livecd, с которого осуществляется загрузка и конвертирование осуществляется на отмонтированной файловой системе. Так как livecd с поддержкой ext4 под рукой не оказалось оставил его без изменения.</p>
+
+<p>Теперь приступаем к самой ковертации. Перезагружаем компьютер и когда появляется приглашение grub изменяем пункт, отвечающий за загрузку нашего нового ядра. Для этого нажимаем клавишу <strong>e</strong> в тот момент, когда курсор находиться над нужным пунктом. Появляются несколько строк, отвечающих за передачу параметров нашему ядру.</p>
+
+<p>Так же нажатием на <strong>e</strong> переходим в режим редактирования строки. И в конец дописываем цифру 1 чтобы получилось нечто, похожее на это:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kernel /vmlinuz26 root=/dev/disk/by-uuid/e8cb29e8-ff8b-4f08-ae93-e7e63e27d9be ro quiet vga=791 1
+</code></pre></div></div>
+
+<p>Жмем Enter для того, чтобы выйти из режима редактирования и <strong>b</strong> для того, чтобы приступить к загрузке нашего ядра с новыми параметрами. Переданная единица указывает ядру загружаться в режиме init 1, то есть однопользовательский режим администрирования. Что позволит нам спокойно работать с файловыми системами.</p>
+
+<p>Во время загрузки у нас спросят пароль администратора, который мы и введем. Оказавшись сразу в командной строке bash.</p>
+
+<p>Отмонтируем раздел <code class="highlighter-rouge">/home</code></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>umount /home
+</code></pre></div></div>
+
+<p>И затем непосредственно сама конвертация:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># tune2fs -O extents,uninit_bg,dir_index /dev/sda4
+# fsck -pf /dev/sda4
+</code></pre></div></div>
+
+<p>Первая команда выполняется почти мгновенное, вторая чуть дольше. На моем разделе в 140 гигобайт пришлось ждать порядка 15 минут.</p>
+
+<p>После конвертации изменяем файл /etc/fstab, заменив в строке нужного нам раздела значение ext3 на ext4. После чего можно спокойно перезагружаться.</p>
+
+<p>Тесты производительности не проводил – и поэтому пока ничего не могу сказать о том, насколько лучше или хуже стало работать. Этому будет поясвящена отдельная статья.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2009/02/19/mfu-hp-psc-1210-v-archlinux/" title="View МФУ HP PSC 1210 в archlinux">МФУ HP PSC 1210 в archlinux</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2009/03/01/wpbackup/" title="View Бэкап базы данных wordpress по почте">Бэкап базы данных wordpress по почте</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

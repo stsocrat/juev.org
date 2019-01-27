@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>pdnsd - локальный кэширующий dns сервер</title>
+  <meta name="description" content="pdnsd – это локальный кэширующий dns-сервер, который используется в основном на машинах с модемным соединением. Вы наверняка замечали, что когда даем запрос браузеру на просмотр страницы, некоторое...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2009/03/17/pdnsd-lokalnyj-keshiruyushhij-dns-server/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2009/03/07/archlinux-sborka-yadra/">
+  <link rel="next" href="https://www.juev.org/2009/03/31/yaourt/">
+  <!-- og:meta -->
+  <meta content="pdnsd - локальный кэширующий dns сервер" property="og:title">
+  <meta content="pdnsd – это локальный кэширующий dns-сервер, который используется в основном на машинах с модемным соединением. Вы наверняка замечали, что когда даем запрос браузеру на просмотр страницы, некоторое..." property="og:description">
+  <meta content="https://www.juev.org/2009/03/17/pdnsd-lokalnyj-keshiruyushhij-dns-server/" property="og:url">
+  <meta content="2009-03-17T00:00:00+03:00" property="article:published_time">
+  <meta content="dns" property="article:tag">
+  <meta content="services" property="article:tag">
+  <meta content="daemon" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="pdnsd - локальный кэширующий dns сервер" name="twitter:title">
+  <meta content="pdnsd – это локальный кэширующий dns-сервер, который используется в основном на машинах с модемным соединением. Вы наверняка замечали, что когда даем запрос браузеру на просмотр страницы, некоторое..." property="twitter:description">
+  <meta content="https://www.juev.org/2009/03/17/pdnsd-lokalnyj-keshiruyushhij-dns-server/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">pdnsd - локальный кэширующий dns сервер</h1>
+<div id="metainfo">
+<span class="date">17 March 2009</span>
+<span class="tags"><a href="https://www.juev.org/tags/#dns" title="View posts tagged with &quot;dns&quot;" rel="nofollow">#dns</a><a href="https://www.juev.org/tags/#services" title="View posts tagged with &quot;services&quot;" rel="nofollow">#services</a><a href="https://www.juev.org/tags/#daemon" title="View posts tagged with &quot;daemon&quot;" rel="nofollow">#daemon</a></span>
+</div>
+<div class="post"><p>pdnsd – это локальный кэширующий dns-сервер, который используется в основном на машинах с модемным соединением.</p>
+
+<p>Вы наверняка замечали, что когда даем запрос браузеру на просмотр страницы, некоторое время тратиться на определение ip-адреса сервера, что указан в адресной строке. И это время тем больше, чем хуже работает dns-сервер, который прописан у нас в системе. И зависит также от типа линии, то есть на модемном соединении оно очень велико, так же как и на gprs, а на ethernet линиях уменьшается до приемлемых величин.</p>
+
+<p>Для таких случаев и был создан pdnsd. Он позволяет сохранить в базе все ip-адреса, к которым обращались и использовать в дальнейшем их уже с локальной машины, без обращения в сеть. Установить этот пакет в archlinux не составляет труда:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo pacman -S pdnsd
+</code></pre></div></div>
+
+<p>После чего приступаем к его конфигурированию. Для этого переименовываем файл <code>/etc/pdsnd.conf.sample</code> в <code>/etc/pdsnd.conf</code> и затем его начинаем изменять. В секции global можно ничего не трогать, все настроено на оптимальную производительность и безопасность. Нас в данный момент времени интересуют секции server, важен порядок указания серверов.</p>
+
+<p>В этих секциях достаточно изменить только ip-адреса серверов. В первой секции прописать ip-адрес dns провайдера, затем уже дополнительные.</p>
+
+<p>Приложения обычно узнают адрес DNS-сервера из файла <strong>/etc/resolv.conf</strong>. Поэтому для использования локального dns-сервера достаточно прописать в самом начале следующую строку:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;nameserver 127.0.0.1
+</code></pre></div></div>
+
+<p>Однако, если у вас используется динамическая адресация, то данный файл будет каждый раз при перезапуске компьютера сбрасывать все изменения. Поэтому создаем файл <strong>/etc/resolv.conf.head</strong> в который прописываем вышеуказанную строчку.</p>
+
+<p>Теперь нужно только прописать запуск данного сервера на автомате при запуске компьютера. Для этого изменяем в файле <strong>/etc/rc.conf</strong> строку DAEMONS, добавляя в самый конец имя демона, в моем случае данная строка имеет вид:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>DAEMONS=(syslog-ng crond @hal @cpufreq @iptables @network !netfs @hddtemp @sensors @pdnsd @xfs @alsa @mpd @lastfmsubmitd @lastmp @vboxnet @xinetd @preload @fam @cups)
+</code></pre></div></div>
+
+<p>Для запуска демона без перезапуска компьютера используем команду:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo /etc/rc.d/pdnsd start
+</code></pre></div></div>
+
+<p>И теперь проверяем работу сервера, для этого можно использовать команду nslookup, которая возвращает ip-адрес указанного доменного имени:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nslookup ya.ru
+Server:         127.0.0.1
+Address:        127.0.0.1#53
+
+Non-authoritative answer:
+Name:   ya.ru
+Address: 213.180.204.8
+</code></pre></div></div>
+
+<p>Как видим 0 используется именно локальный dns-сервер. И при повторном обращении к dns адрес будет возвращен почти сразу, без задержек.</p>
+
+<p>Размер кэша можно определить следующим образом:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo ls -l /var/cache/pdnsd/pdnsd.cache
+-rw-r----- 1 nobody root 272860 Мар 17 20:23 /var/cache/pdnsd/pdnsd.cache
+</code></pre></div></div>
+
+<p>Как видим, у меня за несколько дней работы кэш уже порядка 270 Килобайт. Но в дальнейшем, судя по отзывам, размер кэша изменяется не так значительно.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2009/03/07/archlinux-sborka-yadra/" title="View archlinux - сборка ядра">archlinux - сборка ядра</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2009/03/31/yaourt/" title="View yaourt - установка и использование">yaourt - установка и использование</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

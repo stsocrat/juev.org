@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Сборка deb-пакета</title>
+  <meta name="description" content="Как уже неоднократно мне говорил Григорий (он же OM), для поддержания системы в актуальном состоянии достаточно обновлять только те несколько программ, которые чаще всего используешь.  Потихоньку н...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2009/10/31/sborka-deb-paketa/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2009/10/27/pereklyuchenie-raskladki/">
+  <link rel="next" href="https://www.juev.org/2009/11/07/ibus/">
+  <!-- og:meta -->
+  <meta content="Сборка deb-пакета" property="og:title">
+  <meta content="Как уже неоднократно мне говорил Григорий (он же OM), для поддержания системы в актуальном состоянии достаточно обновлять только те несколько программ, которые чаще всего используешь.  Потихоньку н..." property="og:description">
+  <meta content="https://www.juev.org/2009/10/31/sborka-deb-paketa/" property="og:url">
+  <meta content="2009-10-31T00:00:00+03:00" property="article:published_time">
+  <meta content="ubuntu" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Сборка deb-пакета" name="twitter:title">
+  <meta content="Как уже неоднократно мне говорил Григорий (он же OM), для поддержания системы в актуальном состоянии достаточно обновлять только те несколько программ, которые чаще всего используешь.  Потихоньку н..." property="twitter:description">
+  <meta content="https://www.juev.org/2009/10/31/sborka-deb-paketa/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Сборка deb-пакета</h1>
+<div id="metainfo">
+<span class="date">31 October 2009</span>
+<span class="tags"><a href="https://www.juev.org/tags/#ubuntu" title="View posts tagged with &quot;ubuntu&quot;" rel="nofollow">#ubuntu</a></span>
+</div>
+<div class="post"><p>Как уже неоднократно мне говорил Григорий (он же OM), для поддержания системы в актуальном состоянии достаточно обновлять только те несколько программ, которые чаще всего используешь. Потихоньку начинаю понимать данную философию. И с переходом на Ubuntu озадачился сборкой новых версий программ.</p>
+
+<p>Систему нужно подготовить к сборке, для этого  устанавливаем следующие пакеты:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo aptitude install dpkg-dev autoconf automake
+</code></pre></div></div>
+
+<p>При этом желательно устанавливать рекомендуемые пакеты, как зависимости, чтобы подтянулись все остальные, нужные для работы, пакеты. После чего необходимо в <em>~/.bashrc</em> добавить следующие строки:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export DEBFULLNAME='Denis Evsyukov'
+export DEBEMAIL=mymail@gmail.com
+</code></pre></div></div>
+
+<p>В принципе это не обязательное условие, но исходя из значений данных переменных формируется информация о пакете, и ищется ключ для подписи пакета.</p>
+
+<p>Теперь для примера рассмотрим сборку Midnight Commander версии 4.7.0-pre4. В темповой директории создаем отдельную папку для работы:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ mkdir ~/Temp/mc
+</code></pre></div></div>
+
+<p>И загружаем в нее <a href="http://www.midnight-commander.org/downloads/15">исходники</a> с официального сайта. Распаковываем их, архив с исходниками оставляем на месте. Читаем файл INSTALL, где обычно указываются пакеты, необходимые для сборки, и если их в системе нет, устанавливаем. После чего выполняем следующие команды:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~/Temp/mc$ cd mc-4.7.0-pre4
+~/Temp/mc/mc-4.7.0-pre4$ dh_make -f ../mc-4.7.0-pre4.tar.bz2
+~/Temp/mc/mc-4.7.0-pre4$ vim debian/control
+~/Temp/mc/mc-4.7.0-pre4$ rm debian/*.ex
+~/Temp/mc/mc-4.7.0-pre4$ dpkg-buildpackage -rfakeroot
+</code></pre></div></div>
+
+<p>Первой командой переходим в директорию с исходниками. Второй командой подготавливаем служебные файлы, здесь обязательно указывать архив с исходными файлами, которые распаковывали. Во время исполнения данной команды нас спросят, что именно мы собираемся собирать, в нашем случае мы собираем одиночный пакет, поэтому жмем <strong>s</strong> и затем после просмотра значений, жмем <strong>Enter</strong>. Третьей командой необходимо изменить файл debian/control, приводим его примерно к следующему виду:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Source: mc
+Section: utils
+Priority: extra
+Maintainer: Denis Evsyukov &lt;mymail@gmail.com&gt;
+Build-Depends: debhelper (&gt;= 7), autotools-dev
+Standards-Version: 3.8.1
+Homepage: http://www.juev.ru
+
+Package: mc
+Architecture: amd64
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: &lt;insert up to 60 chars description&gt;
+ &lt;insert long description, indented with spaces&gt;
+</code></pre></div></div>
+
+<p>При использовании редактора vim, ошибки будут подсвечиваться красным, что довольно удобно. Поле <em>Maintainer</em> заполняется исходя из значений переменных, которые мы задали в файле <em>~/.bashrc</em> чуть ранее. Изменяем поля Section, прописывая в какой группе программ будет располагаться наш пакет, задаем домашнюю страницу, если она есть, обязательно меняем архитектуру с any на свою (x86 или amd64), иначе сборка не будет завершена корректно и последним шагом задаем описание пакета, в примере оно не заполнено.</p>
+
+<p>Закрываем файл, сохранив изменения и удаляем в папке <em>debian</em> все файлы c расширением <strong>ex</strong>, они для сборки не нужны. Если это необходимо, можно поправить файл <em>debian/rules</em>, прописав нужные опции в строке с <em>configure</em>. И завершающим шагом собираем пакет, дав последнюю команду из приведенного выше списка.</p>
+
+<p>Результатом наших действий является deb-пакет, который будет располагаться в родительской директории, в нашем случае это ~/Temp/mc. Просто устанавливаем его, для того, чтобы начать использовать программу:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~/Temp/mc$ sudo dpkg -i mc_4.7.0-pre4-1_amd64.deb
+</code></pre></div></div>
+
+<p>Собственно все! Единственно, что мне так и не удалось сделать – это подписать пакет своим ключом и объяснить системе, что установленный пакет является более новым, чем тот, что располагается в репозитории. Ключ он пока просто не находит, хотя gpg работает с ним без проблем, а с пакетным менеджером я еще не разбирался так плотно.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2009/10/27/pereklyuchenie-raskladki/" title="View Переключение раскладки">Переключение раскладки</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2009/11/07/ibus/" title="View ibus - переключение раскладки">ibus - переключение раскладки</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

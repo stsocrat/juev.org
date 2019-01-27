@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Размещение подкаста в интернете</title>
+  <meta name="description" content="Нет, я не собираюсь пока записывать подкасты.  Я просто хочу рассмотреть вариант создания собственной “площадки” для ведения подкастов. Основная сложность заключается в скорости отдачи файлов серве...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2010/03/14/podkast-internet/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2010/03/12/uskoryaem-wordpress/">
+  <link rel="next" href="https://www.juev.org/2010/03/21/blogger-com/">
+  <!-- og:meta -->
+  <meta content="Размещение подкаста в интернете" property="og:title">
+  <meta content="Нет, я не собираюсь пока записывать подкасты.  Я просто хочу рассмотреть вариант создания собственной “площадки” для ведения подкастов. Основная сложность заключается в скорости отдачи файлов серве..." property="og:description">
+  <meta content="https://www.juev.org/2010/03/14/podkast-internet/" property="og:url">
+  <meta content="2010-03-14T00:00:00+03:00" property="article:published_time">
+  <meta content="amazon" property="article:tag">
+  <meta content="hosting" property="article:tag">
+  <meta content="internet" property="article:tag">
+  <meta content="services" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Размещение подкаста в интернете" name="twitter:title">
+  <meta content="Нет, я не собираюсь пока записывать подкасты.  Я просто хочу рассмотреть вариант создания собственной “площадки” для ведения подкастов. Основная сложность заключается в скорости отдачи файлов серве..." property="twitter:description">
+  <meta content="https://www.juev.org/2010/03/14/podkast-internet/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Размещение подкаста в интернете</h1>
+<div id="metainfo">
+<span class="date">14 March 2010</span>
+<span class="tags"><a href="https://www.juev.org/tags/#amazon" title="View posts tagged with &quot;amazon&quot;" rel="nofollow">#amazon</a><a href="https://www.juev.org/tags/#hosting" title="View posts tagged with &quot;hosting&quot;" rel="nofollow">#hosting</a><a href="https://www.juev.org/tags/#internet" title="View posts tagged with &quot;internet&quot;" rel="nofollow">#internet</a><a href="https://www.juev.org/tags/#services" title="View posts tagged with &quot;services&quot;" rel="nofollow">#services</a></span>
+</div>
+<div class="post"><p>Нет, я не собираюсь пока записывать подкасты. Я просто хочу рассмотреть вариант создания собственной “площадки” для ведения подкастов.</p>
+
+<p>Основная сложность заключается в скорости отдачи файлов сервером. Поэтому часто при использовании бесплатных площадок возникают проблемы с получением потока. Мы же воспользуемся Amazon для хранения файлов и еще одним сервисом для создания плеера.</p>
+
+<p>Amazon позволяет без проблем отдавать файлы в режиме реального времени, практически не думая о нагрузке на сервер. При этом стоимость использования его ресурсов минимальна (о чем я уже указывал). Для начала работы создадим отдельный Bucket, который будет предназначен только для хранения файлов. Для работы с Amazon воспользуемся программой CloudBerry Explorer, о которой я уже рассказывал в предыдущих статьях.</p>
+
+<p><img class="aligncenter size-full wp-image-954" title="create_bucket" src="https://static.juev.org/2010/03/create_bucket.png" alt="" width="340" height="225" /></p>
+
+<p>Какой использовать сервер – зависит только от вас. Европейский чуть дороже, но в то же время он самый быстрый для России, так как расположен ближе. Теперь, так как все файлы, которые мы будем загружать, должны быть доступны всем, задаем для Bucket права доступа:</p>
+
+<p><img class="aligncenter size-full wp-image-955" title="ACL" src="https://static.juev.org/2010/03/ScreenShot001.png" alt="" width="381" height="391" /></p>
+
+<p><a href="https://static.juev.org/2010/03/ScreenShot002.png"><img class="aligncenter size-medium wp-image-956" title="ScreenShot002" src="https://static.juev.org/2010/03/ScreenShot002-300x181.png" alt="" width="300" height="181" /></a></p>
+
+<p>Для All Users ставим галочку в столбце Read. После чего файлы данного Bucket будут по умолчанию доступны для чтения всем пользователям. Теперь загружаем нужный нам файл на сервер и получаем ссылку на него (для этого щелкаем правой кнопкой мыши на нужном файле и выбираем пункт меню Web URL):</p>
+
+<p><a href="https://static.juev.org/2010/03/web-url.png"><img class="aligncenter size-medium wp-image-957" title="web-url" src="https://static.juev.org/2010/03/web-url-300x242.png" alt="" width="300" height="242" /></a></p>
+
+<p>Никаких дополнительных параметров тут устанавливать не нужно. Просто копируем текст ссылки
+для дальнейшего использования. И теперь нам необходимо использовать данную ссылку для
+того, чтобы создать плеер, с помощью которого будем играть наш podcast. Я выбрал для этой
+цели сервис <a href="http://muzicons.com" rel="nofollow">muzicons.com</a></p>
+
+<p>Необходимо пройти процедуру регистрации для того, чтобы иметь доступ к своим созданным плеерам в дальнейшем. После чего переходим по ссылке “Создать музикон” и заполняем поля формы:</p>
+
+<p><a href="https://static.juev.org/2010/03/muzicons.png"><img class="aligncenter size-medium wp-image-958" title="muzicons" src="https://static.juev.org/2010/03/muzicons-290x300.png" alt="" width="290" height="300" /></a></p>
+
+<p>Иконку и внешний вид, цвет выбираем по вкусу, главное здесь – это указать URL нашего файла, который мы получили на предыдущем шаге во втором пункте формы. После нажатия на кнопку Ok, в разделе “Результат” можно проверить то, что получилось. При нажатии на кнопку “Воспроизвести” вы должны услышать звуки своего подкаста.</p>
+
+<p>По сути данный сервис еще должен предоставлять статистику прослушиваний, но сколько я не пытался, постоянно натыкался на нули. Хотя прекрасно знаю, что мой мини-подкаст прослушали минимум несколько человек.</p>
+
+<p>Если вы знаете другой сервис по созданию веб-плееров, подскажите пожалуйста? Буду благодарен!</p>
+
+<p>Ну а для полноценного подкастинга, конечно же лучше всего воспользоваться сервисами типа <a href="http://rpod.ru" rel="nofollow">rpod.ru</a>.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2010/03/12/uskoryaem-wordpress/" title="View Ускоряем Wordpress">Ускоряем Wordpress</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2010/03/21/blogger-com/" title="View Blogger.com - платформа для создания блогов">Blogger.com - платформа для создания блогов</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

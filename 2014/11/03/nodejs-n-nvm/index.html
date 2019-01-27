@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>NodeJS – управление версиями</title>
+  <meta name="description" content="В Ruby есть два основных способа управлять активными версиями языка: rbenv и rvm.  Их использование позволяет значительно упрощать установку/обновление Ruby на локальную машину и одновременно испол...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2014/11/03/nodejs-n-nvm/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2014/11/02/jekyll-to-ghost/">
+  <link rel="next" href="https://www.juev.org/2014/11/16/ispolzovaniie-shriftov-na-saitie/">
+  <!-- og:meta -->
+  <meta content="NodeJS – управление версиями" property="og:title">
+  <meta content="В Ruby есть два основных способа управлять активными версиями языка: rbenv и rvm.  Их использование позволяет значительно упрощать установку/обновление Ruby на локальную машину и одновременно испол..." property="og:description">
+  <meta content="https://www.juev.org/2014/11/03/nodejs-n-nvm/" property="og:url">
+  <meta content="2014-11-03T11:05:18+03:00" property="article:published_time">
+  <meta content="vps" property="article:tag">
+  <meta content="ubuntu" property="article:tag">
+  <meta content="node.js" property="article:tag">
+  <meta content="osx" property="article:tag">
+  <meta content="https://static.juev.org/2014/11/node-nvm.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="NodeJS – управление версиями" name="twitter:title">
+  <meta content="В Ruby есть два основных способа управлять активными версиями языка: rbenv и rvm.  Их использование позволяет значительно упрощать установку/обновление Ruby на локальную машину и одновременно испол..." property="twitter:description">
+  <meta content="https://www.juev.org/2014/11/03/nodejs-n-nvm/" name="twitter:url">
+  <meta content="https://static.juev.org/2014/11/node-nvm.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">NodeJS – управление версиями</h1>
+<div id="metainfo">
+<span class="date">03 November 2014</span>
+<span class="tags"><a href="https://www.juev.org/tags/#vps" title="View posts tagged with &quot;vps&quot;" rel="nofollow">#vps</a><a href="https://www.juev.org/tags/#ubuntu" title="View posts tagged with &quot;ubuntu&quot;" rel="nofollow">#ubuntu</a><a href="https://www.juev.org/tags/#node.js" title="View posts tagged with &quot;node.js&quot;" rel="nofollow">#node.js</a><a href="https://www.juev.org/tags/#osx" title="View posts tagged with &quot;osx&quot;" rel="nofollow">#osx</a></span>
+</div>
+<div class="post"><p>В Ruby есть два основных способа управлять активными версиями языка: <strong>rbenv</strong> и <strong>rvm</strong>. Их использование позволяет значительно упрощать установку/обновление Ruby на локальную машину и одновременно использовать несколько версий языка в различных проектах.</p>
+
+<p>Как оказалось, в NodeJS есть нечто подобное.</p>
+
+<h3 id="n">N</h3>
+
+<p><a href="https://github.com/tj/n" title="tj/n">N</a> – Node version management. Для установки требует, чтобы на машине уже стояла NodeJS с пакетным менеджером npm. А дальше все просто:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ npm install -g n
+</code></pre></div></div>
+
+<p>Для установки нескольких версий NodeJS используются команды:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ n 0.8.14
+$ n 0.8.17
+$ n 0.9.6
+</code></pre></div></div>
+
+<p>Для переключения между ними запускаем менеджер и выбираем из списка требуемую версию:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ n
+
+  0.8.14
+ο 0.8.17
+  0.9.6
+</code></pre></div></div>
+
+<p>Для удаления используется команда <code class="highlighter-rouge">rm</code>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ n rm 0.9.4 v0.10.0
+</code></pre></div></div>
+
+<p>Преимущества данного менеджера версий в том, что устанавливаются бинарные пакеты, то есть не нужно на локальной машине ничего компилировать. Недостатком же является то, что для того, чтобы его использовать, нужно предварительно установить NodeJS.</p>
+
+<h3 id="nvm">NVM</h3>
+
+<p><a href="https://github.com/creationix/nvm" title="Node Version Manager">NVM</a> – Node Version Manager. Для установки требуется наличия на локальной машине GIT и C++ компилятора. На OSX для этого достаточно установить XCode, а для Ubuntu установим два пакета:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo apt-get install build-essential libssl-dev
+</code></pre></div></div>
+
+<p>Теперь устанавливаем сам nvm:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ curl https://raw.githubusercontent.com/creationix/nvm/v0.17.3/install.sh | bash
+</code></pre></div></div>
+
+<p>или с помощью wget:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.17.3/install.sh | bash
+</code></pre></div></div>
+
+<p>По завершении данной операции рекомендуют закрыть окно терминала и открыть его вновь. Но вполне достаточно провести чтение файла конфигурации bash/zsh:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ source ~/.zshrc
+</code></pre></div></div>
+
+<p>После чего становиться доступной для работы команда nvm. Для установки последней стабильной версии NodeJS используется команда:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ nvm install 0.10
+</code></pre></div></div>
+
+<p>или же используя алиас:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ nvm install stable
+</code></pre></div></div>
+
+<p>Для просмотра установленных версий используется команда:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ nvm ls
+</code></pre></div></div>
+
+<p>Для просмотра доступных для установки версий:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ nvm ls-remote
+</code></pre></div></div>
+
+<p>Чтобы использовать определенную версию NodeJS по умолчанию, задаем алиас:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ nvm alias default stable
+</code></pre></div></div>
+
+<p>Для того, чтобы запустить проект под определенной версией NodeJS:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ nvm exec 0.9 node --version
+</code></pre></div></div>
+
+<p>Преимущества nvm в том, что для его использования на компьютере достаточно иметь только GIT и C++, что в случае с OSX или Linux не представляет проблем. С его помощью очень просто управлять установленными версиями NodeJS.</p>
+
+<p>Недостатком является то, что как и в N, нет возможности явно указать, какую версию NodeJS использовать в определенном проекте.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2014/11/02/jekyll-to-ghost/" title="View Ghost">Ghost</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2014/11/16/ispolzovaniie-shriftov-na-saitie/" title="View Использование шрифтов на страницах сайта">Использование шрифтов на страницах сайта</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

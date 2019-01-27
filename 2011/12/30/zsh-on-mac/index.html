@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Долгий запуск Terminal.app</title>
+  <meta name="description" content="Так привык, что в Linux программы запускаются очень быстро, что очень долго не мог понять, почему в MacOS при запуске Terminal. app приходиться ждать от 5 до 10 секунд.  При этом не важно, запускае...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2011/12/30/zsh-on-mac/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2011/12/18/wren/">
+  <link rel="next" href="https://www.juev.org/2012/01/04/live-conversations/">
+  <!-- og:meta -->
+  <meta content="Долгий запуск Terminal.app" property="og:title">
+  <meta content="Так привык, что в Linux программы запускаются очень быстро, что очень долго не мог понять, почему в MacOS при запуске Terminal. app приходиться ждать от 5 до 10 секунд.  При этом не важно, запускае..." property="og:description">
+  <meta content="https://www.juev.org/2011/12/30/zsh-on-mac/" property="og:url">
+  <meta content="2011-12-30T20:03:00+04:00" property="article:published_time">
+  <meta content="mac" property="article:tag">
+  <meta content="zsh" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Долгий запуск Terminal.app" name="twitter:title">
+  <meta content="Так привык, что в Linux программы запускаются очень быстро, что очень долго не мог понять, почему в MacOS при запуске Terminal. app приходиться ждать от 5 до 10 секунд.  При этом не важно, запускае..." property="twitter:description">
+  <meta content="https://www.juev.org/2011/12/30/zsh-on-mac/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Долгий запуск Terminal.app</h1>
+<div id="metainfo">
+<span class="date">30 December 2011</span>
+<span class="tags"><a href="https://www.juev.org/tags/#mac" title="View posts tagged with &quot;mac&quot;" rel="nofollow">#mac</a><a href="https://www.juev.org/tags/#zsh" title="View posts tagged with &quot;zsh&quot;" rel="nofollow">#zsh</a></span>
+</div>
+<div class="post"><p>Так привык, что в Linux программы запускаются очень быстро, что очень долго не мог понять, почему в MacOS при запуске Terminal.app приходиться ждать от 5 до 10 секунд. При этом не важно, запускается новое окно или же только открывается новая вкладка.</p>
+
+<p>В Интернете предлагали несколько вариантов решения, в которых все сводилось в основном к изменению настроек системы логирования. Сколько не пытался, это давало только кратковременное решение.</p>
+
+<h2 id="смена-командного-интерпретатора">Смена командного интерпретатора</h2>
+
+<p>Все это время я использовал командный интерпретатор <strong>Bash</strong>. Настроил и очень комфортно себя в нем чувствовал. Менять его на что-то другое совершенно не хотелось. И тут совсем недавно вспомнил о том, что есть готовый набор настроек для командного интерпретатора <strong>Zsh</strong>. Я его уже пробовал в работе, но те настройки, что в итоге получились у меня, были для меня просто неудобными. Добиться комфорта мне не удавалось, поэтому я его забросил. Тут же предлагается уже настроенный интерпретатор, не думаю, что разработчики используют то, что не удобно им. Решил попробовать.</p>
+
+<p>Настройки располагаются на сервере Github в репозитории <a href="https://github.com/robbyrussell/oh-my-zsh" title="robbyrussell / oh-my-zsh">oh-my-zsh</a>. Там же описано, как производить установку к себе на компьютер.</p>
+
+<p>Для автоматической установки необходимо дать команду:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ wget --no-check-certificate https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
+</code></pre></div></div>
+
+<p>Если же проводить установку вручную, прийдется дать чуть больше команд:</p>
+
+<ol>
+  <li>
+    <p>клонируем репозиторий</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> $ git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>копируем заготовку настроек в домашнюю директорию</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> $ cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>устанавливаем zsh интерпретатором по умолчанию</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> $ chsh -s /bin/zsh
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<p>Теперь можно перезапустить Terminal.app и посмотреть на то, что получилось. По умолчанию поведение терминала очень напоминает Bash, мне было комфортно. Плюс ко всему добавляются некоторые “плюшки”, типа исправление ошибок при наборе команд, дополнение параметров команд и т.п.</p>
+
+<h2 id="настройка-zsh">Настройка Zsh</h2>
+
+<p>Осталось только немного настроить оболочку под себя. Для этого открываем для редактирования файл <code class="highlighter-rouge">~/.zshrc</code> и начинаем его править. Я лишь немного дописал список используемых расширений:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>plugins=(git ruby textmate brew gem github npm node osx pow powder)
+</code></pre></div></div>
+
+<p>И затем изменил цветовую схему и настройки приглашения командного интерпретатора:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ZSH_THEME="robbyrussell"
+</code></pre></div></div>
+
+<p>Для использования данной темы оформления лучше всего изменить настройки цветового профиля, что используется в Terminal.app. Рекомендуется использовать цветовой профиль <a href="http://ethanschoonover.com/solarized" title="Solarized - Ethan Schoonover">Solarized</a>. Для его использования достаточно только скопировать архив с профилем на свой компьютер, либо клонировать репозиторий:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git clone git://github.com/altercation/solarized.git
+</code></pre></div></div>
+
+<p>В папке <code class="highlighter-rouge">osx-terminal.app-colors-solarized</code> располагаются файлы цветовых профилей для Terminal.app. Двойным кликом устанавливаем нужный вариант (их два – один светлый, другой темный), при этом открываются настройки Terminal.app с выбранным профилем Solarized. Я использую светлую схему. И в настройках терминала я изменил лиловый цвет на ярко-голубой (14 цвет). Именно он используется при показе директорий и лиловый был слишком светлым.</p>
+
+<p><img src="https://static.juev.org/2011/12/terminal-settings.png" alt="terminal-settings" /></p>
+
+<p>Изменил так же шрифт на любимый мною Menlo. И в совокупности с расширениями теперь в директории с Git-репозиторием отображается его название и активная ветка:</p>
+
+<p><img src="https://static.juev.org/2011/12/terminal-git.png" alt="terminal-git" /></p>
+
+<h2 id="итоги">Итоги</h2>
+
+<p>В настройках Terminal.app, в первой вкладке “Загрузка” в параметре “Открытие Shell” сменил значение по умолчанию на использование команды <code class="highlighter-rouge">/bin/zsh</code>. И теперь Terminal.app запускается максимум за 2 секунды в случае холодного старта. Если же приложение было уже запущено, то открытие новых вкладок и создание новых окон производиться мгновенно.</p>
+
+<p>Таким образом не только решилась проблема с долгим запуском Terminal.app, но и работать в консоли стало гораздо удобнее! При этом, заметьте, мы приложили минимум усилий для настройки самого командного интерпретатора.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2011/12/18/wren/" title="View Wren - когда twitter не отвлекает от работы">Wren - когда twitter не отвлекает от работы</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2012/01/04/live-conversations/" title="View Не комментарии, но живой разговор">Не комментарии, но живой разговор</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

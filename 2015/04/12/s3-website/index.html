@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Упрощение публикации сайта в Amazon S3</title>
+  <meta name="description" content="Ранее я уже затрагивал тему размещения сайта в сервисе Amazon S3 в статьях: Оптимизация сайта для Amazon S3 и Amazon S3 and Cache Control.  Для передачи файлов на сервера амазона использовалась отд...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2015/04/12/s3-website/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2015/04/06/notify/">
+  <link rel="next" href="https://www.juev.org/2015/05/02/debian/">
+  <!-- og:meta -->
+  <meta content="Упрощение публикации сайта в Amazon S3" property="og:title">
+  <meta content="Ранее я уже затрагивал тему размещения сайта в сервисе Amazon S3 в статьях: Оптимизация сайта для Amazon S3 и Amazon S3 and Cache Control.  Для передачи файлов на сервера амазона использовалась отд..." property="og:description">
+  <meta content="https://www.juev.org/2015/04/12/s3-website/" property="og:url">
+  <meta content="2015-04-12T13:59:00+03:00" property="article:published_time">
+  <meta content="amazon" property="article:tag">
+  <meta content="ruby" property="article:tag">
+  <meta content="java" property="article:tag">
+  <meta content="web" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Упрощение публикации сайта в Amazon S3" name="twitter:title">
+  <meta content="Ранее я уже затрагивал тему размещения сайта в сервисе Amazon S3 в статьях: Оптимизация сайта для Amazon S3 и Amazon S3 and Cache Control.  Для передачи файлов на сервера амазона использовалась отд..." property="twitter:description">
+  <meta content="https://www.juev.org/2015/04/12/s3-website/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Упрощение публикации сайта в Amazon S3</h1>
+<div id="metainfo">
+<span class="date">12 April 2015</span>
+<span class="tags"><a href="https://www.juev.org/tags/#amazon" title="View posts tagged with &quot;amazon&quot;" rel="nofollow">#amazon</a><a href="https://www.juev.org/tags/#ruby" title="View posts tagged with &quot;ruby&quot;" rel="nofollow">#ruby</a><a href="https://www.juev.org/tags/#java" title="View posts tagged with &quot;java&quot;" rel="nofollow">#java</a><a href="https://www.juev.org/tags/#web" title="View posts tagged with &quot;web&quot;" rel="nofollow">#web</a></span>
+</div>
+<div class="post"><p>Ранее я уже затрагивал тему размещения сайта в сервисе Amazon S3 в статьях: <a href="http://www.juev.org/2013/04/18/amazon-s3/" title="Оптимизация сайта для Amazon S3">Оптимизация сайта для Amazon S3</a> и <a href="http://www.juev.org/2013/03/08/s3-and-cache-control/" title="Amazon S3 and Cache Control">Amazon S3 and Cache Control</a>. Для передачи файлов на сервера амазона использовалась отдельная программа <a href="http://s3tools.org/s3cmd" title="s3cmd">s3cmd</a>. Скорость загрузки оставляла желать лучшего, и управление заголовками кеширования было затруднительно, не говоря уже про необходимость сжимать готовые файлы gzip. Но теперь ситуация значительно упростилась с появлением утилиты <a href="https://github.com/laurilehmijoki/s3_website" title="s3_website">s3_website</a>.</p>
+
+<p>Для её использования на компьютере должны быть установлены <strong>Ruby</strong> и <strong>Java</strong>. Устанавливаем утилиту:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo gem install s3_website
+</code></pre></div></div>
+
+<p>Или прописываем <code class="highlighter-rouge">s3_website</code> в Gemfile и проводим установку с помощью <a href="http://bundler.io" title="Bundler">bundle</a>.</p>
+
+<p>Для создания файла конфигурации используется команда:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ s3_website cfg create
+</code></pre></div></div>
+
+<p>Примеры заполнения созданного файла конфигурации приведены на <a href="https://github.com/laurilehmijoki/s3_website" title="s3_website">официальной странице</a> и на странице <a href="https://github.com/laurilehmijoki/s3_website/blob/master/additional-docs/example-configurations.md" title="Example-configurations">примеров конфигураций</a>.</p>
+
+<p>Применяем конфигурацию и проводим загрузку файлов на сервер командами:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ s3_website cfg apply
+$ s3_website push
+</code></pre></div></div>
+
+<p>Во время запуска первой команды, если корзина для размещения файлов не была ранее создана, она создается автоматически с использованием того имени, что было указано в файле конфигурации.</p>
+
+<p>Из плюсов данной утилиты хочется отметить упростившуюся процедуру настройки кеширования различных типов файлов. К примеру, задать для всех файлов время жизни в 300 секунд, а для файлов, находящихся в директории <code class="highlighter-rouge">assets</code> в 6000 секунд:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>max_age:
+  "assets/*": 6000
+  "*": 300
+</code></pre></div></div>
+
+<p>Можно также задать автоматическое сжатие gzip всех файлов, или только для файлов определенного типа:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gzip:
+  - .html
+  - .css
+  - .md
+</code></pre></div></div>
+
+<p>И сама загрузка на сервера амазона производиться в несколько потоков (по умолчанию в три потока), что приводит к значительному ускорению передачи файлов. К примеру, для моего сайта:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ time s3_website push --force
+[info] Deploying /Users/juev/Projects/Github/juev.org/public/* to test.juev.org
+[succ] Updated index.html (no-cache; max-age=0 | text/html; charset=utf-8 | gzip)
+...
+[succ] Invalidated 414 items on CloudFront
+[info] Summary: Updated 413 files. Transferred 1.6 MB, 826.0 kB/s.
+[info] Successfully pushed the website to http://test.juev.org.s3-website-eu-west-1.amazonaws.com
+
+real    0m41.954s
+user    0m40.617s
+sys 0m3.059s
+</code></pre></div></div>
+
+<p>Как видно, 413 файлов были переданы за 41 секунду. При использовании <code class="highlighter-rouge">s3cmd</code> это время растягивается на несколько минут.</p>
+
+<p>Провел тесты полученных сайтов с использованием сервиса webpagetest.org, получил следующие результаты:</p>
+
+<ol>
+  <li><a href="http://www.webpagetest.org/result/150412_CH_FT7/">При использовании S3</a></li>
+  <li><a href="http://www.webpagetest.org/result/150412_2T_GPN/">При использовании CloudFront</a></li>
+</ol>
+
+<p>В обоих случаях скорость полной загрузки страницы порядка 1 секунды для первого посещения, и при этом нет критических замечаний по оптимизации. В случае CloudFront время повторной загрузки страницы уменьшается почти в два раза.</p>
+
+<p>Значение Google PageSpeed для обоих вариантов, что для S3, что для CloudFront, составило 95 балов из 100.</p>
+
+<p>Из тестов видно, что размещение сайта в CloudFront эффективнее в плане скорости, но при каждом обновлении сайта придется проводиться инвалидацию кеша, чтобы контент обновился. На это уходит время. К примеру, для моего сайта из 413 файлов, инвалидация проходила более 10 минут (значение не точное, указано минимальное значение). И это нужно учитывать. После генерации и загрузки, результат будет виден только по прошествии времени, необходимое для обновления кеша.</p>
+
+<p>Исходя из <a href="http://aws.amazon.com/s3/pricing/" title="Amazon S3 Pricing">стоимости</a> размещения файлов в Amazon S3 и стоимости их передачи, для сайта, подобного моему, общая стоимость размещения в месяц будет выражаться максимум в 20-30 центов. А при использовании утилиты s3_website, работа с ним будет максимально простой.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2015/04/06/notify/" title="View Оповещение веб-сервисов при публикации статей">Оповещение веб-сервисов при публикации статей</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2015/05/02/debian/" title="View Debian Jessie">Debian Jessie</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Netlify и Amazon Cloudfront</title>
+  <meta name="description" content="Возникли мысли о децентрализации используемых ресурсов.  На текущий момент времени все сайты и все используемые сервисы у меня размещаются на одном сервере.  И если возникнет проблема с ним, я теря...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2018/09/02/amazon-cloudfront/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2018/07/27/atom-ssl/">
+  <link rel="next" href="https://www.juev.org/2018/11/25/weblinks-1/">
+  <!-- og:meta -->
+  <meta content="Netlify и Amazon Cloudfront" property="og:title">
+  <meta content="Возникли мысли о децентрализации используемых ресурсов.  На текущий момент времени все сайты и все используемые сервисы у меня размещаются на одном сервере.  И если возникнет проблема с ним, я теря..." property="og:description">
+  <meta content="https://www.juev.org/2018/09/02/amazon-cloudfront/" property="og:url">
+  <meta content="2018-09-02T08:45:00+03:00" property="article:published_time">
+  <meta content="amazon" property="article:tag">
+  <meta content="web" property="article:tag">
+  <meta content="netlify" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Netlify и Amazon Cloudfront" name="twitter:title">
+  <meta content="Возникли мысли о децентрализации используемых ресурсов.  На текущий момент времени все сайты и все используемые сервисы у меня размещаются на одном сервере.  И если возникнет проблема с ним, я теря..." property="twitter:description">
+  <meta content="https://www.juev.org/2018/09/02/amazon-cloudfront/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Netlify и Amazon Cloudfront</h1>
+<div id="metainfo">
+<span class="date">02 September 2018</span>
+<span class="tags"><a href="https://www.juev.org/tags/#amazon" title="View posts tagged with &quot;amazon&quot;" rel="nofollow">#amazon</a><a href="https://www.juev.org/tags/#web" title="View posts tagged with &quot;web&quot;" rel="nofollow">#web</a><a href="https://www.juev.org/tags/#netlify" title="View posts tagged with &quot;netlify&quot;" rel="nofollow">#netlify</a></span>
+</div>
+<div class="post"><p>Возникли мысли о децентрализации используемых ресурсов. На текущий момент времени все сайты и все используемые сервисы у меня размещаются на одном сервере. И если возникнет проблема с ним, я теряю сразу все. Мало того, что теряю в сервисах, так еще и восстанавливать их на другом сервере проблематично. Задумался.</p>
+
+<p>Во-первых, нужно перенести сайты с сервера. Только куда? Статический сайт можно разместить по сути где угодно, тут и Github Pages и Netlify и Amazon S3. Не считая еще массы других вариантов. Сперва перенес визитку на Github Pages, вспомнил о том, что здесь нет возможности управлять кешированием страниц. И по умолчанию он задается довольно коротким. Для непопулярного сайта, типа моих это нормально. Но хочется же большего.</p>
+
+<p>Перенес сначала визитку, а затем и сайт на Netlify. Понравилось то, что сделать это крайне просто. Достаточно подключить репозиторий к сервису, задать команду сборки и указать директорию с результатом. Для того, чтобы управлять кешированием и редиректами можно или задать отдельные файлы конфигурации в результирующей директории сайта. Или же создать единый файл конфигурации для Netlify в корне репозитория.</p>
+
+<p>Несколько недель тестировал поведение сайтов. Давно уже настроен непрерывный момниторинг. И как только появляются проблемы с доступом, тут же в ящик падает письмо. К чему это я? К тому, что за эти недели возникали ситуации, когда сайт был просто недоступен. Пусть не надолго, но мое доверие они потеряли. В чем сложность хостить простенький статический сайт? И из-за чего возникают такие проблемы??</p>
+
+<p>К тому же возникли проблемы со стандартными редиректами, типа с одного протокола на другой. Или с теми редиректами, что задавал, то есть с корневого домена на www. Периодически возникали ситуации, когда время ответа от сервера достигал от 5 до 10 секунд. Время ответа сервера, задумайтесь!</p>
+
+<p>Подумал и решил попробовать в очередной раз Amazon. Стоимость небольшая. Есть масса разработок по деплою результатов сборки. Ранее у меня возникали проблемы только с кешированием. И после деплоя нужно было проводить инвалидацию страниц сайта, чтобы пользователи получили доступ к новой версии. В этот раз решил попробовать задать TTL равным нулю. Как оказалось это решило проблемы с кешированием. Каждый запрос адресовался напрямую в S3, и каждый раз бралась актуальная версия.</p>
+
+<p>В итоге экспериментов сайты перенес на Amazon. Размещаются в S3, раздаются с помощью Cloudfront, DNS-зона в Route 53. Деплой производиться с помощью Travis по комиту в репозиторий, все в автоматическом режиме. И таким образом работа сайтов теперь не зависит от работосопосбности моего сервера.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2018/07/27/atom-ssl/" title="View Atom: Unable to get local issuer certificate">Atom: Unable to get local issuer certificate</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2018/11/25/weblinks-1/" title="View Ссылки #1">Ссылки #1</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

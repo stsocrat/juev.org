@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>HTC Wildfire прошивка CyanogenMod</title>
+  <meta name="description" content="Процесс смены прошивки Wildfire на CyanogenMod">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2011/04/13/cyanogenmod-wildfire/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2011/03/27/cloud-hosting/">
+  <link rel="next" href="https://www.juev.org/2011/04/15/amazon-ec2/">
+  <!-- og:meta -->
+  <meta content="HTC Wildfire прошивка CyanogenMod" property="og:title">
+  <meta content="В статье Прошивка HTC Wildfire от МТС я уже описывал как можно изменять прошивку телефона HTC Wildfire.  Однако проработав с официальной прошивкой от HTC, захотелось большего. После непродолжительн..." property="og:description">
+  <meta content="https://www.juev.org/2011/04/13/cyanogenmod-wildfire/" property="og:url">
+  <meta content="2011-04-13T00:00:00+04:00" property="article:published_time">
+  <meta content="android" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="HTC Wildfire прошивка CyanogenMod" name="twitter:title">
+  <meta content="В статье Прошивка HTC Wildfire от МТС я уже описывал как можно изменять прошивку телефона HTC Wildfire.  Однако проработав с официальной прошивкой от HTC, захотелось большего. После непродолжительн..." property="twitter:description">
+  <meta content="https://www.juev.org/2011/04/13/cyanogenmod-wildfire/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">HTC Wildfire прошивка CyanogenMod</h1>
+<div id="metainfo">
+<span class="date">13 April 2011</span>
+<span class="tags"><a href="https://www.juev.org/tags/#android" title="View posts tagged with &quot;android&quot;" rel="nofollow">#android</a></span>
+</div>
+<div class="post"><p>В статье <a href="/2011/02/27/proshivka-htc-wildfire-ot-mts/" title="Прошивка HTC Wildfire от МТС">Прошивка HTC Wildfire от МТС</a> я уже описывал как можно изменять прошивку телефона HTC Wildfire. Однако проработав с официальной прошивкой от HTC, захотелось большего.</p>
+
+<p>После непродолжительных поисков наткнулся на модифицированную прошивку <a href="http://www.cyanogenmod.com/" title="CyanogenMod">Cyangenmod</a>, которая 11 апреля обновилась до версии 7.</p>
+
+<p>Сам процесс смены прошивки состоит из двух этапов:</p>
+
+<ol>
+  <li>root телефона</li>
+  <li>смена прошивки</li>
+</ol>
+
+<p>Так как для прошивки используется уже зарутованный телефон, никаких препятствий в плане использования определенных аппаратов нет. Можно использовать все тот же телефон от МТС и при этом не создавать GoldCard.</p>
+
+<p>Обращаю внимание на то, что данная модификация прошивки предназначена только для определенных моделей телефонов, поэтому перед тем, как приступать, сверьтесь со списком аппаратов, приведенных на сайте. В противном случае вы рискуете потерять свой аппарат.</p>
+
+<p>Зарутить телефон можно несколькими способами. Я выбрал тот, что рекомендуют во многих источниках, так называемый Unrevoked Metod.</p>
+
+<p>Инструкция очень простая. И что самое замечательное – программа существует в версиях для операционных систем windows, linux и macos.</p>
+
+<h2 id="root-wildfire">Root Wildfire</h2>
+
+<p>Инструкция по получению root телефона:</p>
+
+<ol>
+  <li>Идем на сайт <a href="http://unrevoked.com/" title="unrevoked">unrevoked</a></li>
+  <li>Выбираем из списка HTC Wildfire</li>
+  <li>Качаем программу под ту операционную систему, что используем</li>
+  <li>Если используется операционная система Windows требуется так же установить <a href="http://unrevoked.com/rootwiki/doku.php/public/windows_hboot_driver_install" title="HBOOT driver">HBOOT driver</a></li>
+  <li>Подключаем телефон, переводим USB в режим отладки (Настройки-Приложения-Разработка-Отладка по USB) и запускаем программу от имени администратора.</li>
+  <li>Начинается прошивка телефона, во время которой необходимо следить за сообщениями, которые показывает программа. И ни в коем случае не отключать и не трогать телефон до тех пор, пока программа не покажет сообщение “Done”.</li>
+</ol>
+
+<p>Во время работы программы телефон будет перезагружен порядка 3 раз.</p>
+
+<p>Как только появляется сообщение “Done” в программе, дожидаемся полной загрузки смартфона, проверяем, в списке приложений должен появиться пункт superuser.</p>
+
+<p>На это первый этап завершен. Wildfire зарутован и готов к прошивке.</p>
+
+<h2 id="прошивка">Прошивка</h2>
+
+<p>Непосредственно перед самой прошивкой необходимо сохранить все свои данные. Так как в процессе прошивки все информация стирается.</p>
+
+<ol>
+  <li>Устанавливаем программу <a href="http://www.appbrain.com/app/rom-manager/com.koushikdutta.rommanager" title="ROM Manager">ROM Manager</a></li>
+  <li>При первом запуске программы рекомендуют провести <strong>Flash ClockworkMod Recovery</strong>.</li>
+  <li>В главном меню программы выбираем <strong>Download ROM</strong>.</li>
+  <li>Выбираем пункт <strong>CyanogenMod</strong> и в списке версий выбираем последнюю.  Опционально устанавливаем галку <strong>Google Apps</strong> если собираемся использовать стандартные приложения Google.</li>
+  <li>После того, как файлы будут загружены (объем довольно большой, рекомендуется использовать wifi), у нас спросят <strong>Backup Existing ROM</strong> (делать ли бекап текущей прошивки) и <strong>Wipe Data and Cache</strong> (очищать ли данные и кеш). Рекомендуется установить обе галки и продолжать.</li>
+  <li>Если появиться запрос от программы SuperUser, разрешаем Rom Manager работать от имени администратора системы, при этом устанавливаем галку запомнить выбор.</li>
+  <li>После чего телефон перезагружается в режим восстановления, проводит очистку данных и кеша, после чего устанавливает CyanogenMod.</li>
+</ol>
+
+<p>По завершению прошивки телефон перезагрузится и на экране появиться приветственное сообщение с просьбой нажать на изображение робота.  Предварительно необходимо изменить язык системы с помощью соответствующей кнопки внизу экрана.</p>
+
+<p>Вот тут есть один момент, на котором я споткнулся. Перед тем, как вводить свои учетные данные гугла необходимо настроить wifi, так как во время настройки аккаунта будет предложено скачать несколько приложений.  Если же этого не сделать и попытаться остановиться процесс загрузки, настройка аккаунта не будет завершена, после чего не будет работать синхронизация с серверами гугла. При этом повторно запустить мастер настройки учетной записи уже не удастся. Придется сбрасывать все настройки телефона к заводским и производить настройку аппарата с самого начала (как это пришлось делать мне, потеряв в очередной раз все установленные перед этим приложения).</p>
+
+<p>Поэтому на вопрос настроить ли учетную запись гугла, отвечаем – настроить позже. Загрузится система, производим настройку wifi, и только после этого переходим в пункт <em>Настройка</em>-<em>Аккаунты и Синхронизация</em> и там добавляем учетную запись google. Запустится мастер, который спросит какие приложения необходимо установить, отмечаем галочками те, что хотим видеть в своем телефоне.</p>
+
+<p>Заканчиваем настройку и только после этого можно будет полноценно использовать свой телефон.</p>
+
+<h2 id="оформление">Оформление</h2>
+
+<p>По умолчанию в прошивке CyanogenMod используется темная тема оформления. Абсолютно все на экране будет черным с яркими белыми символами. Не знаю, кому как, но мне эта тема не понравилась.</p>
+
+<p>Переходим в пункт меню <em>Приложения</em>-<em>Theme Chooser</em>, где в списке будет представлено три темы. При попытке активировать любую из них будет появляться предупреждающее сообщение о том, что чего-то там не хватает, на это сообщение просто отвечаем утвердительно и затем перезапускаем телефон. Перезапуск требуется для того, чтобы изменилось оформление статусной панели.</p>
+
+<p>Дополнительные темы оформления можно найти в интернете по запросу “Cyanogen themes”. Я нашел тему <a href="http://forum.xda-developers.com/showthread.php?t=970459" title="NTSense">NTSense</a>, которая по оформлению копирует оформление HTC Sense, естественно, что без использования виджетов Sense. Тема устанавливается как обычная программа, затем через <em>Theme Chooser</em> выбирается та тема, что только что была установлена, перезапускаем телефон и наслаждаемся результатом.</p>
+
+<h2 id="системные-программы">Системные Программы</h2>
+
+<p>По умолчанию в качестве рабочего стола в прошивке CyanogenMod используется ADW.Launcher. Темы к данной программе устанавливаются отдельно из маркета. Я же поставил себе <a href="https://market.android.com/details?id=com.gau.go.launcherex" title="Go Launcher Ex">Go Launcher Ex</a>, который мне понравился больше по своим настройкам и возможностям.</p>
+
+<p>В качестве адресной книги по умолчанию используется программа <em>Контакты</em>, все бы ничего, но оформление ее было изменено на темное (чрезмерно темное), которое мне не нравится. Пришлось искать замену и для нее. Выбор был небольшой, и я остановился на <a href="https://market.android.com/details?id=com.jbapps.contact" title="Go Contacts">Go Contacts</a>. Очень красивая и довольно функциональная программа.</p>
+
+<p>А в качестве программы для работы с SMS/MMS я давно уже использую <a href="https://market.android.com/details?id=com.jb.gosms" title="GO SMS Pro">GO SMS Pro</a>. Она намного превосходит по возможностям и оформлению стандартную программу <em>Сообщения</em>.</p>
+
+<p>Да, так уж получилось, что все системные программы, что я использую, от одного и того же производителя. Но пока не нашел достойной альтернативы этим программам.</p>
+
+<p>Те программы, что были установлены с прошивкой я пока не удалял. Оставил на всякий случай, сегодня еще проверю работу телефона, после чего и их удалю. Телефон после прошивки рутованный, есть возможность удалять ВСЕ программы без исключения.</p>
+
+<h2 id="итоги">Итоги</h2>
+
+<p>Стоило ли прошивать? Законный вопрос.</p>
+
+<p><strong>Во-первых</strong>, за счет того, что телефон получается рутованный, получаем полный контроль за ним. То есть можно устанавливать/удалять любые приложения, так же как и любые файлы в памяти телефона.</p>
+
+<p><strong>Во-вторых</strong>, используется версия android 2.3.3, последняя из стабильных для подобного рода аппаратов. Сам телефон начинает работать несколько быстрее, становиться более отзывчивым и в нем появляется возможность устанавливать программы на SD-карту телефона и использовать программы типа <em>Живых обоев</em>. Появилась возможность включать полноценный поворот экрана, то есть статусная панель теперь так же меняет свое положение при повороте экрана. Что очень удобно! И экран теперь поворачивается во все стороны.</p>
+
+<p><strong>В-третьих</strong>, за счет использования модифицированной прошивки свободной памяти оказывается много больше, чем обычно. Если на прошивке от МТС у меня было свободно порядка 25 мегабайт оперативной памяти. На официальной прошивке при том же наборе программ выходило уже порядка 60 мегабайт свободной памяти. На прошивке CyanogenMod у меня при том же наборе программ выходит порядка 100 мегабайт свободной оперативной памяти.</p>
+
+<p><strong>В-четвертых</strong>, оформление системы полностью зависит от воли пользователя. Можно использовать массу готовых тем, либо пробовать создать свою.</p>
+
+<p><strong>В-пятых</strong>, сама модифицированная прошивка имеет массу настроек, которые позволяют задавать не только использование аккумулятора и соответственно производительность аппарата, но и много других вещей (анимация, вид статусной панели, различные виджеты и т.п.)</p>
+
+<p>Пока же прошивка мне очень нравится!</p>
+
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2011/03/27/cloud-hosting/" title="View Облачный хостинг">Облачный хостинг</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2011/04/15/amazon-ec2/" title="View Amazon EC2">Amazon EC2</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

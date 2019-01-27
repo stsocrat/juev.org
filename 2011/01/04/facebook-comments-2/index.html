@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Facebook comments</title>
+  <meta name="description" content="Я уже рассказывал в статье Валидация FaceBook комментариев про то, как можно добавить комментарии Facebook на страницы своего сайта.  Причем как сделать так, чтобы код страницы проходил валидацию н...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2011/01/04/facebook-comments-2/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2011/01/03/dropbox-i-git-repozitorij/">
+  <link rel="next" href="https://www.juev.org/2011/01/05/opendns-i-linux/">
+  <!-- og:meta -->
+  <meta content="Facebook comments" property="og:title">
+  <meta content="Я уже рассказывал в статье Валидация FaceBook комментариев про то, как можно добавить комментарии Facebook на страницы своего сайта.  Причем как сделать так, чтобы код страницы проходил валидацию н..." property="og:description">
+  <meta content="https://www.juev.org/2011/01/04/facebook-comments-2/" property="og:url">
+  <meta content="2011-01-04T00:00:00+03:00" property="article:published_time">
+  <meta content="facebook" property="article:tag">
+  <meta content="webdesign" property="article:tag">
+  <meta content="javascript" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Facebook comments" name="twitter:title">
+  <meta content="Я уже рассказывал в статье Валидация FaceBook комментариев про то, как можно добавить комментарии Facebook на страницы своего сайта.  Причем как сделать так, чтобы код страницы проходил валидацию н..." property="twitter:description">
+  <meta content="https://www.juev.org/2011/01/04/facebook-comments-2/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Facebook comments</h1>
+<div id="metainfo">
+<span class="date">04 January 2011</span>
+<span class="tags"><a href="https://www.juev.org/tags/#facebook" title="View posts tagged with &quot;facebook&quot;" rel="nofollow">#facebook</a><a href="https://www.juev.org/tags/#webdesign" title="View posts tagged with &quot;webdesign&quot;" rel="nofollow">#webdesign</a><a href="https://www.juev.org/tags/#javascript" title="View posts tagged with &quot;javascript&quot;" rel="nofollow">#javascript</a></span>
+</div>
+<div class="post"><p>Я уже рассказывал в статье <a href="/2010/12/26/facebook-comments/">Валидация FaceBook комментариев</a> про то, как можно добавить комментарии Facebook на страницы своего сайта. Причем как сделать так, чтобы код страницы проходил валидацию на стандарты языка html. Сегодня же хочу чуть более подробно рассказать о том, как задавать определенные параметры отображения этих комментариев и какие есть средства управления размещенными комментариями.</p>
+
+<p>Начну с того, как управлять параметрами размещения, к примеру, как задать определенную ширину поля. Суть размещаемого javascript-кода заключается в том, что теги <code>&lt;fb:comments&gt;</code> добавляются автоматически при обработке браузером страницы в том месте, где размещены теги <code>&lt;fb-root&gt;</code>. И для того, чтобы добавить определенные параметры отображения, необходимо только добавить строки (выделены жирным):</p>
+<pre><code>&lt;div id="fb-root"&gt;&lt;/div&gt;
+&lt;script&gt;
+  window.fbAsyncInit = function() &#123;
+    FB.init(&#123;appId: 'you-app-code', status: true, cookie: true,
+             xfbml: true});
+  };
+  (function() &#123;
+    var c = document.createElement('script'); c.async = true;
+    c.src = document.location.protocol +
+      '//connect.facebook.net/en_US/all.js';
+    document.getElementById('fb-root').appendChild(c);
+    var e = document.createElement('fb:comments');
+<strong>    e.setAttribute('width', '750');
+    e.setAttribute('numposts', '10');
+    e.setAttribute('publish_feed', 'true');</strong>
+    document.getElementById('fb-root').appendChild(e);
+  }());
+&lt;/script&gt;</code></pre>
+
+<p>Таким образом формируются именно те параметры тега <code>&lt;fb:comments&gt;</code>, которые необходимы для формирования нужного отображения комментариев на странице сайта.</p>
+
+<p>Теперь про то, как можно управлять самими комментариями. Вот так выглядит форма комментариев, если на нее заходит администратор, обратите внимание, в правом нижнем углу появляется ссылка <strong>Administer Comments</strong>.</p>
+
+<p><a href="https://static.juev.org/2011/01/fb-comments.png"><img src="https://static.juev.org/2011/01/fb-comments-300x75.png" alt="" title="fb-comments" width="300" height="75" class="aligncenter size-medium wp-image-1305" /></a></p>
+
+<p>При нажатии на эту ссылку появляется следующее окно:</p>
+
+<p><a href="https://static.juev.org/2011/01/fb-param.png"><img src="https://static.juev.org/2011/01/fb-param-300x178.png" alt="" title="fb-param" width="300" height="178" class="aligncenter size-medium wp-image-1306" /></a></p>
+
+<p>Где и задаются соответствующие настройки доступа.</p>
+
+<p>Все комментарии, которые были уже размещены, могут быть удалены администратором. Так как форма добавления комментария появляется на странице только при использовании javascript, спам-боты до нее добраться не могут. А количество спама исходящее от людей на порядки меньше, можно и руками зачистить, занеся соответствующих личностей в черный список.</p>
+
+<p>На сколько удобна данная система комментирования в работе, я пока ничего не могу сказать. Она размещена на juev.info, но он только только оказался в индексе гугла и число посетителей близко к нулю. Естественно, что проверить систему комментирования facebook в работе мне пока так и не удалось.</p>
+
+<p>Надеюсь приведенная информация будет для вас полезной.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2011/01/03/dropbox-i-git-repozitorij/" title="View DropBox и Git-репозиторий">DropBox и Git-репозиторий</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2011/01/05/opendns-i-linux/" title="View OpenDNS &amp; Linux">OpenDNS &amp; Linux</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

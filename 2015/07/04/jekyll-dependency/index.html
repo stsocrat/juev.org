@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Jekyll: Travis и зависимости</title>
+  <meta name="description" content="На днях занимался обновлением стилей на своем сайте.  И вчера попытался провести пробную публикацию.  Очень удивился, когда получил на свою почту уведомление о том, что задача в Travis-CI выполняла...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2015/07/04/jekyll-dependency/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2015/06/29/no-dropbox/">
+  <link rel="next" href="https://www.juev.org/2015/07/18/amazon-https/">
+  <!-- og:meta -->
+  <meta content="Jekyll: Travis и зависимости" property="og:title">
+  <meta content="На днях занимался обновлением стилей на своем сайте.  И вчера попытался провести пробную публикацию.  Очень удивился, когда получил на свою почту уведомление о том, что задача в Travis-CI выполняла..." property="og:description">
+  <meta content="https://www.juev.org/2015/07/04/jekyll-dependency/" property="og:url">
+  <meta content="2015-07-04T11:48:00+03:00" property="article:published_time">
+  <meta content="jekyll" property="article:tag">
+  <meta content="travis" property="article:tag">
+  <meta content="https://static.juev.org/2015/07/jekyll.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Jekyll: Travis и зависимости" name="twitter:title">
+  <meta content="На днях занимался обновлением стилей на своем сайте.  И вчера попытался провести пробную публикацию.  Очень удивился, когда получил на свою почту уведомление о том, что задача в Travis-CI выполняла..." property="twitter:description">
+  <meta content="https://www.juev.org/2015/07/04/jekyll-dependency/" name="twitter:url">
+  <meta content="https://static.juev.org/2015/07/jekyll.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Jekyll: Travis и зависимости</h1>
+<div id="metainfo">
+<span class="date">04 July 2015</span>
+<span class="tags"><a href="https://www.juev.org/tags/#jekyll" title="View posts tagged with &quot;jekyll&quot;" rel="nofollow">#jekyll</a><a href="https://www.juev.org/tags/#travis" title="View posts tagged with &quot;travis&quot;" rel="nofollow">#travis</a></span>
+</div>
+<div class="post"><p>На днях занимался обновлением стилей на своем сайте. И вчера попытался провести пробную публикацию. Очень удивился, когда получил на свою почту уведомление о том, что задача в Travis-CI выполнялась более 10 минут без какого-то вывода, поэтому была принудительно остановленна. Как выяснилось чуть позже, проблема заключается в том, что произошло обновление одной из зависимостей Jekyll.</p>
+
+<p>Обновилась версия rb-gsl, что используется для работы GSL-движка, что ускоряет обработку содержимого страниц при генерации списка связанных статей. И в данном обновлении убрали явную зависимость на другую библиотеку narray, о чем, кстати предупредили при установке:</p>
+
+<figure class="highlight"><pre><code class="language-conf" data-lang="conf"><span class="n">Installing</span> <span class="n">gsl</span> <span class="m">1</span>.<span class="m">16</span>.<span class="m">0</span>.<span class="m">6</span>
+<span class="n">Installing</span> <span class="n">rb</span>-<span class="n">gsl</span> <span class="m">1</span>.<span class="m">16</span>.<span class="m">0</span>.<span class="m">6</span>
+<span class="n">Your</span> <span class="n">bundle</span> <span class="n">is</span> <span class="n">complete</span>!
+<span class="n">It</span> <span class="n">was</span> <span class="n">installed</span> <span class="n">into</span> ./<span class="n">vendor</span>/<span class="n">bundle</span>
+<span class="n">Post</span>-<span class="n">install</span> <span class="n">message</span> <span class="n">from</span> <span class="n">gsl</span>:
+<span class="n">gsl</span> <span class="n">can</span> <span class="n">be</span> <span class="n">installed</span> <span class="n">with</span> <span class="n">or</span> <span class="n">without</span> <span class="n">narray</span> <span class="n">support</span>. <span class="n">Please</span> <span class="n">install</span> <span class="n">narray</span> <span class="n">before</span> <span class="n">and</span> <span class="n">reinstall</span> <span class="n">gsl</span> <span class="n">if</span> <span class="n">it</span> <span class="n">is</span> <span class="n">missing</span>.
+<span class="n">Post</span>-<span class="n">install</span> <span class="n">message</span> <span class="n">from</span> <span class="n">rb</span>-<span class="n">gsl</span>:
+<span class="n">rb</span>-<span class="n">gsl</span> <span class="n">has</span> <span class="n">been</span> <span class="n">replaced</span> <span class="n">by</span> <span class="n">gsl</span></code></pre></figure>
+
+<p>Исходя из чего поменял содержимое файла <code class="highlighter-rouge">Gemfile</code>:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">source</span> <span class="s2">"https://rubygems.org"</span>
+
+<span class="n">gem</span> <span class="s1">'rake'</span>
+<span class="n">gem</span> <span class="s1">'bundle'</span>
+<span class="n">gem</span> <span class="s1">'jekyll'</span>
+<span class="n">gem</span> <span class="s1">'jekyll-tagging'</span>
+<span class="n">gem</span> <span class="s1">'compass'</span>
+<span class="n">gem</span> <span class="s1">'rouge'</span>
+<span class="n">gem</span> <span class="s1">'s3_website'</span>
+<span class="n">gem</span> <span class="s1">'narray'</span>
+<span class="n">gem</span> <span class="s1">'gsl'</span></code></pre></figure>
+
+<p>И после комита и обновления зависимостей, сборка стала работать так же быстро, как и ранее.</p>
+
+<p>Можно было пойти и другим путем, просто указать те версии, что использовались до этого в списке зависимостей <code class="highlighter-rouge">Gemfile</code>:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">source</span> <span class="s2">"https://rubygems.org"</span>
+
+<span class="n">gem</span> <span class="s1">'rake'</span>
+<span class="n">gem</span> <span class="s1">'jekyll'</span><span class="p">,</span> <span class="s1">'2.5.3'</span>
+<span class="n">gem</span> <span class="s1">'jekyll-tagging'</span><span class="p">,</span> <span class="s1">'0.6.0'</span>
+<span class="n">gem</span> <span class="s1">'rouge'</span><span class="p">,</span> <span class="s1">'1.8.0'</span>
+<span class="n">gem</span> <span class="s1">'s3_website'</span><span class="p">,</span> <span class="s1">'2.8.6'</span>
+<span class="n">gem</span> <span class="s1">'narray'</span><span class="p">,</span> <span class="s1">'0.6.1.1'</span>
+<span class="n">gem</span> <span class="s1">'gsl'</span><span class="p">,</span> <span class="s1">'1.16.0.6'</span></code></pre></figure>
+
+<p>Обратите внимание, я так же убрал ряд зависимостей, что были ранее явно описаны.</p>
+
+<p>Теперь при каждом запуске сборки на сервере Travis будет устанавливаться строго заданная версия зависимости. И это значит, что каждый раз будет использоваться одно и то же сборочное окружение. Что не будет приводить к непредвиденным последствиям из-за обновления каких-нибудь зависимостей.</p>
+
+<p>Travis так же поддерживает фиксацию версией зависимостей через файл <code class="highlighter-rouge">Gemfile.lock</code>, для этого его достаточно только внести под версионный контроль. И при этом явно указывать версии в файле Gemfile уже не нужно. Кстати, после добавления файла <code class="highlighter-rouge">Gemfile.lock</code>, сборка в Travis-CI стала проходить чуть быстрее.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2015/06/29/no-dropbox/" title="View Скажем Dropbox нет">Скажем Dropbox нет</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2015/07/18/amazon-https/" title="View Использование HTTPS на серверах Амазона">Использование HTTPS на серверах Амазона</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

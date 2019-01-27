@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Создание проекта для Go</title>
+  <meta name="description" content="Несколько раз программировал на Golang, несколько раз отказывался от него.  Да, есть проблемные моменты, но нельзя не признать тот факт, что язык движется и развивается довольно быстро.  И самое гл...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2018/01/14/go-create/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2017/11/14/acrobits-push-notifications/">
+  <link rel="next" href="https://www.juev.org/2018/04/15/macbook-keyboard/">
+  <!-- og:meta -->
+  <meta content="Создание проекта для Go" property="og:title">
+  <meta content="Несколько раз программировал на Golang, несколько раз отказывался от него.  Да, есть проблемные моменты, но нельзя не признать тот факт, что язык движется и развивается довольно быстро.  И самое гл..." property="og:description">
+  <meta content="https://www.juev.org/2018/01/14/go-create/" property="og:url">
+  <meta content="2018-01-14T11:08:00+03:00" property="article:published_time">
+  <meta content="golang" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Создание проекта для Go" name="twitter:title">
+  <meta content="Несколько раз программировал на Golang, несколько раз отказывался от него.  Да, есть проблемные моменты, но нельзя не признать тот факт, что язык движется и развивается довольно быстро.  И самое гл..." property="twitter:description">
+  <meta content="https://www.juev.org/2018/01/14/go-create/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Создание проекта для Go</h1>
+<div id="metainfo">
+<span class="date">14 January 2018</span>
+<span class="tags"><a href="https://www.juev.org/tags/#golang" title="View posts tagged with &quot;golang&quot;" rel="nofollow">#golang</a></span>
+</div>
+<div class="post"><p>Несколько раз программировал на Golang, несколько раз отказывался от него. Да, есть проблемные моменты, но нельзя не признать тот факт, что язык движется и развивается довольно быстро. И самое главное, что каждый день для Golang появляются новые библиотеки под самые разные нужды.</p>
+
+<p>В новых языках программирования создание проекта автоматизируют. Чтобы не приходилось каждый раз копировать конфигурационные файлы, править их. Тратить время на то, что можно сделать автоматически. К примеру в том же Rust:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cargo new newproject
+</code></pre></div></div>
+
+<p>И будет создана новая директория newproject, в которой будут представлены и файлы конфигурации и простой файл исходного кода. Замечательно, но почему этого нет в Go?</p>
+
+<p>Прекрасно понимаю, что каждый разработчик создает свою собственную структуру директорий, использует привычную билд-систему. И угодить на всех просто не возможно. Но для себя я решил создать сперва репозиторий, в котором будут представлены файлы, что я обычно создаю при работе с Golang проектами. В итоге создал <a href="https://github.com/Juev/go-scratch" title="go-scratch">go-scratch</a>, который достаточно клонировать в рабочую директорию, подправить ряд файлов, переинициализировать Git-репозиторий и можно начинать работать. Все хорошо, уже не нужно переписывать или копировать файлы, но нужно их править и к тому же появляются новые операции типа удаления репозитория и его инициализация.</p>
+
+<p>В итоге создал новый проект <a href="https://github.com/Juev/go-create" title="go-create">go-create</a>, который именно автоматизирует сам процесс создания нового проекта. При этом проект автоматически создается в директории <code class="highlighter-rouge">$GOPATH</code>, с использованием вашего Github-имени пользователя. Имя пользователя берется или из git-конфигурации системы, или из параметров командной строки. Так же можно его задать в конфигурационном файле <code class="highlighter-rouge">~/.gocreate</code>. Имя проекта, его версия задаются из параметров командной строки:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ go-create --help
+usage: go-create [&lt;flags&gt;] &lt;name&gt;
+
+Flags:
+-h, --help               Show context-sensitive help (also try --help-long and --help-man).
+-n, --number="0.0.1"     Project version.
+-g, --github=GITHUB      Github username.
+-u, --username=USERNAME  Username.
+-l, --local              Use current directory for creating.
+    --version            Show application version.
+
+Args:
+&lt;name&gt;  Project name.
+</code></pre></div></div>
+
+<p>Создается директория проекта по образцу <code class="highlighter-rouge">go-scratch</code>, который упоминался чуть выше. Создаются два файла исходного кода, один из которых упрощает работу с версиями проекта. Создается Makefile для упрощения сборки проекта. Пустой <code class="highlighter-rouge">README.md</code> файл, файл <code class="highlighter-rouge">.gitigonre</code> и директория для бинарников <code class="highlighter-rouge">bin</code>.</p>
+
+<p><code class="highlighter-rouge">Makefile</code> сконфигурирован для сборки релиз-версии под четыре различные платформы: Linux, FreeBSD, OSX и Windows. Сборка осуществляется под 64-битную операционную систему. Прописаны так же правила по анализу кода, и в будущем планируется добавить запуск тестов.</p>
+
+<p>Таким образом теперь для того, чтобы начать мне не нужно что-то копировать или править. Достаточно использовать одну команду:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ go-create petproject
+</code></pre></div></div>
+
+<p>И уже можно начинать работать! Если вы пишете на Golang, надеюсь <code class="highlighter-rouge">go-create</code> окажется вам полезным инструментом.</p>
+
+<p>Готовые бинарники можно скачать на странице <a href="https://github.com/Juev/go-create/releases/latest" title="Latest release">релиза</a>.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2017/11/14/acrobits-push-notifications/" title="View Push уведомления в SIP-приложениях от Acrobits">Push уведомления в SIP-приложениях от Acrobits</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2018/04/15/macbook-keyboard/" title="View Проблемы с MacBook Pro Keyboard">Проблемы с MacBook Pro Keyboard</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Оптимизация работы MySQL-сервера</title>
+  <meta name="description" content="После того, как перешел на Linode, я mysql-сервер установил, и с тех пор его не трогал.  Возникали проблемы с нехваткой памяти во время стресс-нагрузки, но я никак не мог связать, с чем именно это ...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2010/11/22/optimizaciya-raboty-mysql-servera/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2010/11/14/vnedryaem-shrifty-na-stranicy-sajta/">
+  <link rel="next" href="https://www.juev.org/2010/11/25/dropbox/">
+  <!-- og:meta -->
+  <meta content="Оптимизация работы MySQL-сервера" property="og:title">
+  <meta content="После того, как перешел на Linode, я mysql-сервер установил, и с тех пор его не трогал.  Возникали проблемы с нехваткой памяти во время стресс-нагрузки, но я никак не мог связать, с чем именно это ..." property="og:description">
+  <meta content="https://www.juev.org/2010/11/22/optimizaciya-raboty-mysql-servera/" property="og:url">
+  <meta content="2010-11-22T00:00:00+03:00" property="article:published_time">
+  <meta content="vps" property="article:tag">
+  <meta content="mysql" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Оптимизация работы MySQL-сервера" name="twitter:title">
+  <meta content="После того, как перешел на Linode, я mysql-сервер установил, и с тех пор его не трогал.  Возникали проблемы с нехваткой памяти во время стресс-нагрузки, но я никак не мог связать, с чем именно это ..." property="twitter:description">
+  <meta content="https://www.juev.org/2010/11/22/optimizaciya-raboty-mysql-servera/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Оптимизация работы MySQL-сервера</h1>
+<div id="metainfo">
+<span class="date">22 November 2010</span>
+<span class="tags"><a href="https://www.juev.org/tags/#vps" title="View posts tagged with &quot;vps&quot;" rel="nofollow">#vps</a><a href="https://www.juev.org/tags/#mysql" title="View posts tagged with &quot;mysql&quot;" rel="nofollow">#mysql</a></span>
+</div>
+<div class="post"><p>После того, как перешел на Linode, я mysql-сервер установил, и с тех пор его не трогал. Возникали проблемы с нехваткой памяти во время стресс-нагрузки, но я никак не мог связать, с чем именно это происходило.</p>
+
+<p>Помогло то, что установил memcache на сервере. Проблема исчезла, но в последнее время стало сильно удручать то, что на сервере работает очень много сторонних сервисов, которые были установлены для решения ряда проблем, но которые не выполняют те задачи, для которых они были напрямую предназначены. Решил понемногу избавляться от них.</p>
+
+<p>Стал искать корень проблемы нехватки памяти. Наткнулся на скрипт <a href="http://mysqltuner.pl/mysqltuner.pl" rel="nofollow">mysqltuner.pl</a>, позволяющий оценить оптимальность выбранных настроек mysql-сервера.</p>
+
+<p>Первый же запуск показал, что 512 мегабайт оперативной памяти явно недостаточно для выбранной конфигурации mysql-сервера. Требовалось либо менять конфигурацию, либо увеличивать размер оперативной памяти. Как оказалось в дальнейшем, в комплект поставки mysql-сервера входят несколько конфигурационных файлов, которые можно найти в каталоге <code>/usr/share/doc/mysql-server-5.1/examples/</code> для операционной системы Ubuntu.</p>
+
+<p>В каталоге лежат следующие файлы:</p>
+<ul>
+	<li>my-small.cnf — для систем с малым обьемом памяти (&lt; =64Mb), в которых MySQL используется редко.</li>
+	&lt;/li&gt;<li>my-medium.cnf — если памяти мало (32-64Mb) или MySQL используется совместно с другими приложениями (например Apache) и памяти около 128Mb.</li>
+	<li>my-large.cnf, my-huge.cnf — для систем с большим обьемом памяти (512Mb, 1-2Gb), где MySQL играет главную роль.</li>
+	<li>my-innodb-heavy-4G.cnf — 4Gb памяти, InnoDB, MySQL играет главную роль.</li>
+</ul>
+
+<p>Использовать файл <code>my-small.cnf</code> не представлялось необходимым, так как свободная оперативная память присутствовала, и сервер планировалось использовать несколько более активно, чем на встраиваемых системах.</p>
+
+<p>Попытка использования файла <code>my-large.cnf</code> показало нехватку оперативной памяти. Таким образом остановил свой выбор на конфигурации представленной в файле <code>my-medium.cnf</code>. Единственно, чего я не понял, так это то, что представленная конфигурация у меня не заработала. пришлось искать тот же самый файл в интернете. И как оказалось, в рабочей конфигурации отличаются имена используемых параметров. Не понимаю, почему в поставке самого сервера присутствуют файлы конфигурации, которые к нему не подходят?</p>
+
+<p>Главное, что удалось запустить сервер с новыми параметрами, скрипт <a href="http://mysqltuner.pl/mysqltuner.pl" rel="nofollow">mysqltuner.pl</a> больше не показывал на недостаток оперативной памяти. И стал выдавать примерно следующее:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-------- General Statistics --------------------------------------------------
+[--] Skipped version check for MySQLTuner script
+[OK] Currently running supported MySQL version 5.1.41-3ubuntu12.7-log
+[OK] Operating on 32-bit architecture with less than 2GB RAM
+
+-------- Storage Engine Statistics -------------------------------------------
+[--] Status: -Archive -BDB -Federated -InnoDB -ISAM -NDBCluster
+[--] Data in MyISAM tables: 15M (Tables: 108)
+[!!] Total fragmented tables: 10
+
+-------- Performance Metrics -------------------------------------------------
+[--] Up for: 6m 11s (1K q [4.674 qps], 212 conn, TX: 4M, RX: 285K)
+[--] Reads / Writes: 95% / 5%
+[--] Total buffers: 160.0M global + 1.6M per thread (151 max threads)
+[OK] Maximum possible memory usage: 395.9M (79% of installed RAM)
+[OK] Slow queries: 1% (18/1K)
+[OK] Highest usage of available connections: 7% (11/151)
+[OK] Key buffer size / total MyISAM indexes: 16.0M/10.9M
+[OK] Key buffer hit rate: 99.8% (242K cached / 454 reads)
+[OK] Query cache efficiency: 40.3% (522 cached / 1K selects)
+[OK] Query cache prunes per day: 0
+[OK] Sorts requiring temporary tables: 0% (0 temp sorts / 225 sorts)
+[!!] Temporary tables created on disk: 35% (187 on disk / 526 total)
+[OK] Thread cache hit rate: 94% (11 created / 212 connections)
+[OK] Table cache hit rate: 25% (135 open / 535 opened)
+[OK] Open file limit used: 26% (267/1K)
+[OK] Table locks acquired immediately: 100% (958 immediate / 958 locks)
+
+-------- Recommendations -----------------------------------------------------
+General recommendations:
+    Run OPTIMIZE TABLE to defragment tables for better performance
+    MySQL started within last 24 hours - recommendations may be inaccurate
+    When making adjustments, make tmp_table_size/max_heap_table_size equal
+    Reduce your SELECT DISTINCT queries without LIMIT clauses
+Variables to adjust:
+    tmp_table_size (&gt; 128M)
+    max_heap_table_size (&gt; 128M)
+</code></pre></div></div>
+
+<p>Указывается на фрагментированность таблиц баз данных, и на использование временных файлов на жестком диске. Первое решается путем оптимизации таблиц базы данных в панели <code>phpmyadmin</code>. А второе уже не так страшно.</p>
+
+<p>После того, как я оптимизировал параметры конфигурации в соответствии с рекомендациями скрипта <a href="http://mysqltuner.pl/mysqltuner.pl" rel="nofollow">mysqltuner.pl</a>, мне удалось избавиться от <code>memcache</code>, при этом в нагрузке уже не происходило потребление всей доступной оперативной памяти. И скорость работы системы несколько увеличилась. Особенно заметно это стало в админке блога, на глаз видно, что открываться страницы стали быстрее.</p>
+
+<p>Стоит еще отключить использование таблиц InnoDB, BDB за счет включения следующих строк в
+секцию <code class="highlighter-rouge">[mysqld]</code>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>skip-innodb
+skip-bdb
+</code></pre></div></div>
+
+<p>Осталось еще поэкспериментировать со значением переменных</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>query_cache_size (&gt; 16M)
+tmp_table_size (&gt; 128M)
+max_heap_table_size (&gt; 128M)
+</code></pre></div></div>
+
+<p>Посмотрим, к чему это приведет! А главное, что я для себя вынес из данного эксперимента, не стоит останавливаться на полпути, и нужно разбираться во всем, что касается работы сервера!</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2010/11/14/vnedryaem-shrifty-na-stranicy-sajta/" title="View Внедряем шрифты на страницы сайта">Внедряем шрифты на страницы сайта</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2010/11/25/dropbox/" title="View Прокачиваем Dropbox">Прокачиваем Dropbox</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

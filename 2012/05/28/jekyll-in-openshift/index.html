@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Jekyll in OpenShift</title>
+  <meta name="description" content="Amazon S3 прекрасный сервис для размещения сайтов.  Надежный, очень дешевый.  Единственная проблема, которая меня не устраивала – это скорость передачи файлов на сервер.  У меня небольшой сайт, но ...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2012/05/28/jekyll-in-openshift/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2012/05/19/stop-tracking/">
+  <link rel="next" href="https://www.juev.org/2012/06/08/github/">
+  <!-- og:meta -->
+  <meta content="Jekyll in OpenShift" property="og:title">
+  <meta content="Amazon S3 прекрасный сервис для размещения сайтов.  Надежный, очень дешевый.  Единственная проблема, которая меня не устраивала – это скорость передачи файлов на сервер.  У меня небольшой сайт, но ..." property="og:description">
+  <meta content="https://www.juev.org/2012/05/28/jekyll-in-openshift/" property="og:url">
+  <meta content="2012-05-28T22:40:00+04:00" property="article:published_time">
+  <meta content="web" property="article:tag">
+  <meta content="hosting" property="article:tag">
+  <meta content="jekyll" property="article:tag">
+  <meta content="openshift" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Jekyll in OpenShift" name="twitter:title">
+  <meta content="Amazon S3 прекрасный сервис для размещения сайтов.  Надежный, очень дешевый.  Единственная проблема, которая меня не устраивала – это скорость передачи файлов на сервер.  У меня небольшой сайт, но ..." property="twitter:description">
+  <meta content="https://www.juev.org/2012/05/28/jekyll-in-openshift/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Jekyll in OpenShift</h1>
+<div id="metainfo">
+<span class="date">28 May 2012</span>
+<span class="tags"><a href="https://www.juev.org/tags/#web" title="View posts tagged with &quot;web&quot;" rel="nofollow">#web</a><a href="https://www.juev.org/tags/#hosting" title="View posts tagged with &quot;hosting&quot;" rel="nofollow">#hosting</a><a href="https://www.juev.org/tags/#jekyll" title="View posts tagged with &quot;jekyll&quot;" rel="nofollow">#jekyll</a><a href="https://www.juev.org/tags/#openshift" title="View posts tagged with &quot;openshift&quot;" rel="nofollow">#openshift</a></span>
+</div>
+<div class="post"><p>Amazon S3 прекрасный сервис для размещения сайтов. Надежный, очень дешевый. Единственная проблема, которая меня не устраивала – это скорость передачи файлов на сервер. У меня небольшой сайт, но даже для его размещения на сервере амазона требуется порядка двух-трех минут. Когда же я держал для своих сайтов отдельный сервер, передача всего сайта с помощью rsync занимало всегда не более одной-двух секунд. Разница просто на порядки…</p>
+
+<p>Стал рассматривать различные возможные варианты хостинга с ssh. Интересовала не только сама возможность, но и надежность сервиса и наличие рекомендаций по нему. Таким образом в моем списке остались только <a href="/2010/10/17/github-com-kak-xosting-sajtov/" title="GitHub.com как хостинг сайтов">Github</a>, <a href="/2012/03/09/heroku/" title="Heroku в качестве хостинга сайтов">Heroku</a> и <a href="https://openshift.redhat.com/app/" title="OpenShift by Red Hat">OpenShift</a>.</p>
+
+<p>GitHub у меня отпал по той простой причине, что он предоставляет возможность размещать только один сайт. Как создать дополнительный – я так и не нашел, в итоге решил не страдать и просто перейти на использование других сервисов. (<strong>upd</strong>: как мне указали в комментариях, есть возможность создания множества сайтов на github, способ описан на странице <a href="http://stackoverflow.com/questions/9082499/custom-domain-for-github-project-pages" title="Custom domain for GitHub project pages">stackoverflow.com</a>)</p>
+
+<p>С Heroku у меня не сложилось. Так как для передачи файлов на сервер используется git-репозиторий. Организовать несколько репозиториев в рамках одного сайта мне не представляется возможным, а использование jekyll непосредственно на Heroku показало очень низкую производительность.</p>
+
+<h2 id="openshift-by-red-hat">OpenShift by Red Hat</h2>
+
+<p>Обратил внимание на OpenShift, как пишут на официальной странице – OpenShift is Red Hat’s free, auto-scaling Platform as a Service (PaaS) for applications. Условия использования сервиса оказались очень демократичными. Предоставляется возможность создания трех приложений в рамках одного аккаунта. И каждое приложение имеет квоту в 40 000 файлов, 1 гигабайт пространства и 512 мегабайт оперативной памяти. При этом, как пишут в <a href="https://openshift.redhat.com/community/faq" title="OpenShift - Frequently Asked Questions">FAQ</a>, если необходимо использовать большее число приложений, необходимо лишь использовать различные аккаунты.</p>
+
+<p>В сети можно найти массу информации по использовании в OpenShift различных фреймворков и приложений. Но практически нигде не было описано, как использовать его вместе с Jekyll.</p>
+
+<p>Создавать и управлять приложениями можно несколькими способами:</p>
+
+<ol>
+  <li>Web UI: использование данного интерфейса, на мой взгляд, очень удобно и не требует особых знаний. Но некоторые операции, как например, привязка домена к приложению с помощью веб-интерфейса, выполнить не возможно.</li>
+  <li>rhc client tools: консольное ruby-приложение, с помощью которого можно полностью управлять своим аккаунтом и создавать и редактировать приложения. Единственный минус заключается в том, что приходиться каждый раз вводить пароль от своего аккаунта при вводе любой команды.</li>
+  <li>Eclipse Plugin</li>
+  <li>Java Client API</li>
+</ol>
+
+<p>Последние два варианта я не пробовал, и потому ничего не могу сказать по их работоспособности и удобности. В основной своей массе все операции я осуществлял с помощью Web UI.</p>
+
+<h2 id="jekyll-in-openshift">Jekyll in OpenShift</h2>
+
+<p>По умолчанию в OpenShift предлагается использование приложений и нет простого способа для размещения обычного статического сайта. Однако, как и в случае с Heroku, данная проблема очень легко решается путем создания PHP-приложения.</p>
+
+<p>Итак – регистрируемся на сервисе, подтверждаем свой адрес электронной почты, после чего необходимо создать свой namespace, то есть домен, в котором будут размещаться все приложения. Естественно, имя данного namespace должно быть уникальным. Затем загружаем свой публичный ключ для того, чтобы иметь возможность работать с сервером через консоль по SSH.</p>
+
+<p>После чего приступаем к созданию своего первого приложения. Достаточно будет выбрать его тип, на данном шаге выбираем PHP-приложение. И задаем имя приложения. Теперь, когда приложение создано, нам будет предложено клонировать git-репозиторий на свой компьютер. Если мы работаем с Jekyll или любым другим генератором статических сайтов, делать это совершенно не обязательно. Просто потому, что загружать файлы на сервер можно двумя способами: используя git или используя rsync. Естественно, что в случае Jekyll второй способ куда удобнее.</p>
+
+<p>Просто дописываем в наше Rakefile в правило для deploy следующую команду:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sh "rsync -az --delete public/ server:~/app/repo/php/"
+</code></pre></div></div>
+
+<p>Где app – это имя нашего приложения, а server – это имя конфигурации SSH, что была прописана в файле <code class="highlighter-rouge">~/.ssh/config</code>, которая задается в виде:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Host server
+    HostName app-namespace.rhcloud.com
+    User f34545176723434502d345a1e345492
+    Port 22
+</code></pre></div></div>
+
+<p>Где app-namespace.rhcloud.com – домен нашего приложения, а f34545176723434502d345a1e345492 – идентификатор пользователя, который будет указан после создания приложения.</p>
+
+<p>Собственно на этом все. Генерируем сайт и загружаем его на сервер. Осталось только задать доменное имя. Для этого используется консольная утилита rhc, установим ее:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo gem install json_pure
+$ sudo gem install rhc
+</code></pre></div></div>
+
+<p>И теперь определяем привязку к домену:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rhc app add-alias -a app --alias www.domain.com -l user@mail.com
+</code></pre></div></div>
+
+<p>При этом app – это имя нашего приложения, а user@mail.com – это адрес электронной почты, на который был зарегистрирован аккаунт. На данном этапе, после ввода команды, необходимо будет ввести пароль от нашего аккаунта. В случае успеха, появится сообщение SUCCESS, если этого не произошло, а выдалось сообщение об ошибке, но в веб-интерфейсе привязка появилась, рекомендую удалить привязку и проделать эту операцию повторно. Для удаления привязки используется команда:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rhc app remove-alias -a app --alias www.domain.com -l user@mail.com
+</code></pre></div></div>
+
+<p>Если все прошло успешно, необходимо у своего доменного регистратора создать запись типа CNAME, которая будет указывать на домен с нашим приложением.</p>
+
+<h2 id="итоги">Итоги</h2>
+
+<p>OpenShift показался мне довольно интересным сервисом. В отличие от GitHub, он позволяет размещать полноценные приложения, и при этом это может быть не одно приложение. А в отличие от Heroku, бесплатно предоставляется значительные ресурсы для каждого приложения. При этом есть возможность работать с сервером по SSH, загружать файлы по rsync. И, опять же в отличие от Heroku, веб-сервером можно управлять с помощью файлов htaccess.</p>
+
+<p>Теперь осталось посмотреть на то, насколько этот сервис является стабильным и как много времени сайт будет недоступен по причине каких-то работ на сервере. Но оценить это можно будет только спустя определенное время.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2012/05/19/stop-tracking/" title="View Stop Tracking">Stop Tracking</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2012/06/08/github/" title="View Публикация сайтов на GitHub">Публикация сайтов на GitHub</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Скрываем приложения из дока и менюбара</title>
+  <meta name="description" content="Свой Mac Mini я выключаю крайне редко, и когда ухожу куда-нибудь, я его просто усыпляю.  И в основном держу программы в запущенном состоянии.  Зачем по несколько раз запускать одно и то же?И сегодн...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2012/07/24/clean/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2012/07/12/twitter-track/">
+  <link rel="next" href="https://www.juev.org/2012/07/28/rvm-update-gems/">
+  <!-- og:meta -->
+  <meta content="Скрываем приложения из дока и менюбара" property="og:title">
+  <meta content="Свой Mac Mini я выключаю крайне редко, и когда ухожу куда-нибудь, я его просто усыпляю.  И в основном держу программы в запущенном состоянии.  Зачем по несколько раз запускать одно и то же?И сегодн..." property="og:description">
+  <meta content="https://www.juev.org/2012/07/24/clean/" property="og:url">
+  <meta content="2012-07-24T21:38:00+04:00" property="article:published_time">
+  <meta content="mac" property="article:tag">
+  <meta content="tips" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Скрываем приложения из дока и менюбара" name="twitter:title">
+  <meta content="Свой Mac Mini я выключаю крайне редко, и когда ухожу куда-нибудь, я его просто усыпляю.  И в основном держу программы в запущенном состоянии.  Зачем по несколько раз запускать одно и то же?И сегодн..." property="twitter:description">
+  <meta content="https://www.juev.org/2012/07/24/clean/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Скрываем приложения из дока и менюбара</h1>
+<div id="metainfo">
+<span class="date">24 July 2012</span>
+<span class="tags"><a href="https://www.juev.org/tags/#mac" title="View posts tagged with &quot;mac&quot;" rel="nofollow">#mac</a><a href="https://www.juev.org/tags/#tips" title="View posts tagged with &quot;tips&quot;" rel="nofollow">#tips</a></span>
+</div>
+<div class="post"><p>Свой Mac Mini я выключаю крайне редко, и когда ухожу куда-нибудь, я его просто усыпляю. И в основном держу программы в запущенном состоянии. Зачем по несколько раз запускать одно и то же?</p>
+
+<p>И сегодня обратил внимание на то, что у меня в доке было порядка 25-30 различных иконок. И это все запущенные приложения! Задумался о том, почему бы не скрыть целый ряд иконок? Пусть программы себе работают, но просто не показывать их в доке? Все равно я давно уже использую для запуска и переключения между программами <a href="http://www.obdev.at/products/launchbar/index.html" title="Launchbar 5">Launchbar</a>. Все нужные мне операции совершаются с клавиатуры.</p>
+
+<p>Ряд приложений, как например Twitterrific, позволяет скрывать свою иконку в настройках. Но основная масса программ эту возможность не предоставляет. Немного поискав по интернету, нашел небольшой трюк, который позволяет скрыть иконку любой программы в доке, используя всего одну команду в консоли:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ defaults write /Applications/iTerm.app/Contents/Info LSUIElement 1
+</code></pre></div></div>
+
+<p>В данном примере показано, каким образом скрыть иконку для приложения iTerm. После очередного запуска программы иконка отображаться уже не будет.</p>
+
+<p>Для того, чтобы вернуть иконку на место, можно использовать ту же самую строку, только с нулем (0) в конце. Или же, просто удаляем тот ключ, что сами создали, с помощью команды:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ defaults delete /Applications/iTerm.app/Contents/Info LSUIElement
+</code></pre></div></div>
+
+<p>Какую именно команду использовать для того, чтобы вернуть все обратно, зависит от того, использовался этот ключ до того, как мы сами решили скрыть иконку или нет. Если использовался, то нужно изменить значение на ноль, если же нет, то нужно этот ключ удалять.</p>
+
+<p>Теперь в доке уже меньше приложений, уже хорошо. Но есть еще одно место, где любят висеть приложения – это менюбар (menubar). Порой встречаются скриншоты экранов, когда в менюбаре располагаются порядка 15-20 иконок, и занимают все пространство экрана. Я очень щепетилен к менюбару и люблю, когда там минимум иконок. Чем меньше, тем лучше.</p>
+
+<p>Для того, чтобы скрыть приложение из менюбара можно использовать бесплатное приложение <a href="http://www.zibity.com/broomstick" title="Zibity: Broomstick">Broomstick</a>. При его запуске появляется небольшое окно с выбором функций:</p>
+
+<p><img src="https://static.juev.org/2012/07/broomstick-main.png" alt="broomstick-main" title="Broomstick Main" /></p>
+
+<p>Выбрав пункт <code class="highlighter-rouge">Hide an App</code> открывается список приложений, которые можно скрыть:</p>
+
+<p><img src="https://static.juev.org/2012/07/broomstick-hide.png" alt="broomstick-hide" title="Broomstick Hide" /></p>
+
+<p>Выбираем нужное нам приложение, затем будет предложено ввести пароль администратора и иконка скрывается из менюбара. Соответственно, для того, чтобы показать ее вновь, нужно в основном меню программы выбрать пункт <code class="highlighter-rouge">Show an App</code>. Таким образом я скрыл иконку Dropbox из менюбара.</p>
+
+<p>Есть еще один вариант управления иконками в менюбаре, для этого используется приложение <a href="http://www.macbartender.com/" title="Mac Bartender">Bartender</a>. После того, как несколько дней проработал с Broomstick, обратил внимание на то, что некоторые приложения хотя бы иногда, но нужны. Поэтому удалил Broomstick и установил Bartender.</p>
+
+<p>Программа мне понравилась куда больше! Она позволяет работать в нескольких режимах:</p>
+
+<ol>
+  <li>Показывать иконку в менюбаре при нажатии на которую показывается или отдельная панель со скрытыми иконками приложений или в самом менюбаре начинают отображаться скрытые иконки.</li>
+  <li>Иконка приложения не отображается вовсе, а вызов скрытых иконок производится по использованию заданного сочетания горячих клавиш.</li>
+</ol>
+
+<p>При этом стоит так же упомянуть о том, что Bartender работать практически со всеми программами, которые размещают свои иконки в менюбаре. В отличие от Broomstick, у которой этот список очень ограничен.</p>
+
+<p>Так же мне очень понравилось то, что в программе предусмотрен показ иконки приложения в случае, если с ее помощью осуществляется какая-то индикация (к примеру в DropBox производятся изменения файлов или пришло сообщение в почтовый ящик).</p>
+
+<p>Немного проработав с этой программой я купил. Пока Bartender находиться в статусе бета, ее стоимость снижена на 50%, что составляет примерно $7,5. На мой взгляд, Bartender этих денег стоит!</p>
+
+<p>На данный момент у меня в менюбаре более 5 приложений, которые скрыты за одной иконкой. Очень удобно и не отвлекает от работы.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2012/07/12/twitter-track/" title="View Отключаем слежение в кнопках Твиттера">Отключаем слежение в кнопках Твиттера</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2012/07/28/rvm-update-gems/" title="View Как обновлять пакеты ruby при использовании RVM">Как обновлять пакеты ruby при использовании RVM</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

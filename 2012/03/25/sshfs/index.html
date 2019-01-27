@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>SSHFS как альтернатива Samba</title>
+  <meta name="description" content="В MacOS Lion свободная версия Samba была заменена на собственную разработку SMB.  В результате чего организовать связь между машиной с Windows и MacOS стало проблематично.  Завязать их между собой ...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2012/03/25/sshfs/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2012/03/17/email-encryption/">
+  <link rel="next" href="https://www.juev.org/2012/04/13/openwrt/">
+  <!-- og:meta -->
+  <meta content="SSHFS как альтернатива Samba" property="og:title">
+  <meta content="В MacOS Lion свободная версия Samba была заменена на собственную разработку SMB.  В результате чего организовать связь между машиной с Windows и MacOS стало проблематично.  Завязать их между собой ..." property="og:description">
+  <meta content="https://www.juev.org/2012/03/25/sshfs/" property="og:url">
+  <meta content="2012-03-25T21:24:00+04:00" property="article:published_time">
+  <meta content="mac" property="article:tag">
+  <meta content="windows" property="article:tag">
+  <meta content="ssh" property="article:tag">
+  <meta content="security" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="SSHFS как альтернатива Samba" name="twitter:title">
+  <meta content="В MacOS Lion свободная версия Samba была заменена на собственную разработку SMB.  В результате чего организовать связь между машиной с Windows и MacOS стало проблематично.  Завязать их между собой ..." property="twitter:description">
+  <meta content="https://www.juev.org/2012/03/25/sshfs/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">SSHFS как альтернатива Samba</h1>
+<div id="metainfo">
+<span class="date">25 March 2012</span>
+<span class="tags"><a href="https://www.juev.org/tags/#mac" title="View posts tagged with &quot;mac&quot;" rel="nofollow">#mac</a><a href="https://www.juev.org/tags/#windows" title="View posts tagged with &quot;windows&quot;" rel="nofollow">#windows</a><a href="https://www.juev.org/tags/#ssh" title="View posts tagged with &quot;ssh&quot;" rel="nofollow">#ssh</a><a href="https://www.juev.org/tags/#security" title="View posts tagged with &quot;security&quot;" rel="nofollow">#security</a></span>
+</div>
+<div class="post"><p>В MacOS Lion свободная версия Samba была заменена на собственную разработку SMB. В результате чего организовать связь между машиной с Windows и MacOS стало проблематично. Завязать их между собой можно, но при попытке скопировать вложенные директории возникает ошибка передачи данных. И связана она каким то образом с файлами <code class="highlighter-rouge">.DS_Store</code>, в которых хранится информация о формате отображения текущей папки в окне Finder.</p>
+
+<p>Довольно долго я мучился с SMB. Поднимать для связи отдельный сервер FTP крайне не хотелось, в том числе и вопросами безопасности. И только недавно обратил внимание на SSHFS. На MacOS организовать SSH-сервер очень просто, следовательно, осталось только найти подходящий клиент SSHFS для Windows.</p>
+
+<h2 id="клиенты-sshfs-под-windows">Клиенты SSHFS под Windows</h2>
+
+<p>Первым мне на глаза попался клиент <a href="http://dokan-dev.net/en/" title="Dokan">Dokan</a>, японская разработка, которая позволяет монтировать удаленные директории как отдельные локальные диски. С установкой проблем не возникло, а вот при использовании столкнулся с тем, что многие директории почему-то оказывались пустыми.</p>
+
+<p>Вторым клиентом оказался <a href="http://winscp.net/eng/docs/lang:ru" title="WinSCP">WinSCP</a>. На деле данная программа является не клиентом SSHFS, а является простым графическим клиентом к SFTP. То есть работать с удаленной файловой системой как со своей собственной не получиться, но все очень близко к этому.</p>
+
+<p>Установка WinSCP очень проста, а точнее можно выбрать, установить программу или же просто распаковать и использовать из текущей папки. Различные варианты представлены на странице загрузки. Если необходимо, программу можно локализовать.</p>
+
+<p>При использовании достаточно указать адрес SSH-сервера и учетные данные для входа. После чего открывается двухпанельный интерфейс (используется по умолчанию, но есть возможность его сменить), в которой на одной паели отображаются локальные папки, а на второй – удаленные. Интерфейс достаточно простой, поэтому не буду на нем останавливаться.</p>
+
+<h2 id="безопасность">Безопасность</h2>
+
+<p>В любом вопросе, касающемся работе с сетью, всегда старюсь уделять основное внимание вопросам безопасности. Именно поэтому я не доверяю парольной аутентификации на SSH-сервере. Естественно задумался, каким образом можно организовать вход только по ключу.</p>
+
+<p>WinSCP поддерживает ключи аутентификации, но приватные ключи используются в формате ppk, то есть генерируются с использованием <a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html" title="Putty Download Page">Putty</a>.</p>
+
+<p>Проще всего скачать архив со всеми предлагаемыми программами, распаковать его и затем уже запускать PuTTYgen. Это отдельная программа для генерации ключей. В открывшемся окне жмем кнопку Generate, а по завершении операции, сохраняем публичный и приватный ключи в отдельные файлы.</p>
+
+<p>Приватный ключ уже готов к использованию. Его достаточно указать в настройках WinSCP в параметрах аутентификации. А вот публичный ключ нужно передать на сервер и немного с ним поработать.</p>
+
+<p>Если в <strong>Системных настройках</strong> MacOS в разделе <strong>Общий доступ</strong> еще не был включен <strong>Удаленный вход</strong>, то проделываем это и затем на машине с Windows запускаем WinSCP, создаем новое подключение, в котором используем наши учетные данные пользователя MacOS и организуем удаленное подключение. После чего копируем ранее созданный публичный ключ в папку <code class="highlighter-rouge">~/.ssh</code>. Теперь отключаемся и переходим на машину с MacOS. Запускаем Terminal.App и выполняем следующие команды:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd ~/.ssh
+$ ssh-keygen -i -f key.pub &gt; key2.pub
+$ cat key2.pub &gt; authorized_keys
+$ chmod 0600 *
+</code></pre></div></div>
+
+<p>Теперь необходимо изменить настройки OpenSSH-сервера для того, чтобы отключить вход по паролю, для это открываем в редакторе файл <code class="highlighter-rouge">/etc/sshd_config</code>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo mate /etc/sshd_config
+</code></pre></div></div>
+
+<p>И находим в нем следующие строки:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PasswordAuthentication no
+ChallengeResponseAuthentication no
+</code></pre></div></div>
+
+<p>В обоих строках снимаем комментарии и изменяем значение на <code class="highlighter-rouge">no</code>. Теперь для проформы в системных настройках отключаем удаленный вход и включаем его вновь. Теперь можно попытаться зайти с другой машины по паролю, если не удастся, значит все отлично. После чего пробуем зайти по сгенерированному ранее ключу. Вход должен состояться. Причем, если во время создания ключа вы задавали и пароль, то при каждом входе он у вас будет запрашиваться.</p>
+
+<p>И WinSCP и Putty – бесплатные программы, использовать их довольно просто. Используемый канал связи и вход по ключу максимально безопасны. Не имея ключа нет возможности получить доступ к системе. И при этом не возникает больше проблем при копировании вложенных директорий с одной машины на другую. Таким образом мы избавились от Samba, довольно проблемной зоны в локальной сети, и значительно улучшили безопасность работы.</p>
+
+<p>Проблема решена!</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2012/03/17/email-encryption/" title="View Криптография почтовых сообщений">Криптография почтовых сообщений</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2012/04/13/openwrt/" title="View TL-WR1043ND установка OpenWRT">TL-WR1043ND установка OpenWRT</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

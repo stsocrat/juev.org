@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Travis CI для автоматизации сборки статичного сайта</title>
+  <meta name="description" content="Для запуска сборки статического сайта совершенно не обязательно использовать свой компьютер или выделенный сервер.  Достаточно воспользоваться сервисом Continuous integration (CI).  Одним из предст...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2015/05/31/travis/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2015/05/25/systemd/">
+  <link rel="next" href="https://www.juev.org/2015/06/01/timezone-travis/">
+  <!-- og:meta -->
+  <meta content="Travis CI для автоматизации сборки статичного сайта" property="og:title">
+  <meta content="Для запуска сборки статического сайта совершенно не обязательно использовать свой компьютер или выделенный сервер.  Достаточно воспользоваться сервисом Continuous integration (CI).  Одним из предст..." property="og:description">
+  <meta content="https://www.juev.org/2015/05/31/travis/" property="og:url">
+  <meta content="2015-05-31T14:33:00+03:00" property="article:published_time">
+  <meta content="amazon" property="article:tag">
+  <meta content="web" property="article:tag">
+  <meta content="services" property="article:tag">
+  <meta content="jekyll" property="article:tag">
+  <meta content="tips" property="article:tag">
+  <meta content="travis" property="article:tag">
+  <meta content="https://static.juev.org/2015/05/travis-ci.jpg" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Travis CI для автоматизации сборки статичного сайта" name="twitter:title">
+  <meta content="Для запуска сборки статического сайта совершенно не обязательно использовать свой компьютер или выделенный сервер.  Достаточно воспользоваться сервисом Continuous integration (CI).  Одним из предст..." property="twitter:description">
+  <meta content="https://www.juev.org/2015/05/31/travis/" name="twitter:url">
+  <meta content="https://static.juev.org/2015/05/travis-ci.jpg" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Travis CI для автоматизации сборки статичного сайта</h1>
+<div id="metainfo">
+<span class="date">31 May 2015</span>
+<span class="tags"><a href="https://www.juev.org/tags/#amazon" title="View posts tagged with &quot;amazon&quot;" rel="nofollow">#amazon</a><a href="https://www.juev.org/tags/#web" title="View posts tagged with &quot;web&quot;" rel="nofollow">#web</a><a href="https://www.juev.org/tags/#services" title="View posts tagged with &quot;services&quot;" rel="nofollow">#services</a><a href="https://www.juev.org/tags/#jekyll" title="View posts tagged with &quot;jekyll&quot;" rel="nofollow">#jekyll</a><a href="https://www.juev.org/tags/#tips" title="View posts tagged with &quot;tips&quot;" rel="nofollow">#tips</a><a href="https://www.juev.org/tags/#travis" title="View posts tagged with &quot;travis&quot;" rel="nofollow">#travis</a></span>
+</div>
+<div class="post"><p>Для запуска сборки статического сайта совершенно не обязательно использовать свой компьютер или выделенный сервер. Достаточно воспользоваться сервисом Continuous integration (CI). Одним из представителей которых является <a href="https://travis-ci.org" title="Travis CI - Test and Deploy You Code with Confidence">Travis CI</a>.</p>
+
+<p>Для регистрации достаточно авторизоваться с использованием своего аккаута Github. После чего на экране будет представлен полный список репозиториев, из которых нужно выбирать нужные и включить. При этом автоматически создадутся вебхуки в Github и каждый комит в репозитории будет инициировать новую сборку проекта.</p>
+
+<p>Для управления процесом сборки используется файл <code class="highlighter-rouge">.travis.yml</code>, который располагается в корневой директории репозитория. именно в нем определяется, какой язык програмирования будет использоваться для сборки, в каком окружении будет работать сборщик и какие команды требуется выполнить. Документация по формату данного файла довольно обширная, и лучше обратиться в <a href="http://docs.travis-ci.com" title="Travis CI: Travis CI Documentation">официальную документацию</a> сервиса для получения подробной информации. Я же остановлюсь только на вопросах сборки сайта с использованием Jekyll и последующим его деплоем.</p>
+
+<h3 id="сборка">Сборка</h3>
+
+<p>Для использования Jekyll используется язык программирования Ruby и при этом для ускорения сборки при использовании LSI нужно еще дополнительно установить библиотеки gsl. Для этого достаточно использовать следующий файл <code class="highlighter-rouge">.travis.yml</code>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rvm:
+  - 2.1
+
+cache:
+  - apt
+  - bundler
+
+addons:
+  apt:
+    packages:
+      - libgsl0-dev
+
+script: bundle exec rake build
+
+after_success: bundle exec rake deploy
+
+branches:
+  only:
+    - master
+</code></pre></div></div>
+
+<p>Первый блок указывает на использование RVM версии 2.1, следующий блок активирует использование кеша для ускорения сборки. Блок <code class="highlighter-rouge">addons</code> используется в данном случае для установки дополнительного пакета libgsl0-dev, который будет использоваться при установке gem. В блоках <code class="highlighter-rouge">script</code> и <code class="highlighter-rouge">after_success</code> указаны команды, которые используются для сборки и соответственно деплоя (обе задачи определяются в Rakefile проекта). И самый последний блок используется для указания того, что сборка запускается только при комите в основную ветку разработки.</p>
+
+<p>Использование кеша зависимостей и установленной gsl-библиотеки позволило мне при активированном LSI сократить время сборки и деплоя до менее чем полутора минут. Отличный результат!</p>
+
+<p>Обратите внимание, в приведенном примере сборка и деплой разделены на две отдельные задачи и запускаются на различных этапах, хотя по сути ничто не мешает объеденить их в одну задачу. Сделано это для того, чтобы проводить деплой только в том случае, если сборка проекта завершена успешно.</p>
+
+<h3 id="деплой">Деплой</h3>
+
+<p>Travis-CI поддерживает очень большое число сервисов для деплоя (<a href="http://docs.travis-ci.com/user/deployment/" title="Travis CI: Deployment">полный список</a>). И плюс к этому можно определять свои правила.</p>
+
+<p>Я протестировал три варианта:</p>
+
+<ol>
+  <li>Деплой на Amazon S3 средствами Travis.</li>
+  <li>Деплой на Amazon S3 с использованием <code class="highlighter-rouge">s3_website</code>.</li>
+  <li>Деплой на свой сервер с использованием Rsync.</li>
+</ol>
+
+<p>Для того, чтобы авторизоваться в сервисах, необходимо использовать либо свои учетные данные, либо ssh-ключи. Выкладывать их в открытый доступ нет совершенно никакого смысла. Поэтому для решения данной проблемы в Travis используется шифрование с ключом (<a href="http://docs.travis-ci.com/user/encryption-keys/" title="Travis CI: Encryption keys">описание</a>), который генерируется для каждого репозитория отдельно.</p>
+
+<p>И если для использования деплоя в S3 требуется только определить переменные со своими учетными данными, то с ключами требуется еще прописать ряд команд:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>addons:
+  ssh_known_hosts:
+  - git.example.com
+  - 111.22.33.44
+
+before_install:
+  - openssl aes-256-cbc -K $encrypted_964109d0fde0_key -iv $encrypted_964109d0fde0_iv
+    -in travis.id_rsa.enc -out $HOME/.ssh/id_rsa -d
+  - chmod 600 $HOME/.ssh/id_rsa
+  - eval "$(ssh-agent -s)"
+  - ssh-add $HOME/.ssh/id_rsa
+</code></pre></div></div>
+
+<p>Первый блок <code class="highlighter-rouge">addons</code> требуется для того, чтобы заранее добавить хосты для деплоя в разряд известных. В противном случае во время сборки будет запрос на добавление хоста в список известных, но так как сборка осуществляется в неинтерактивном режиме, она не сможет корректно завершиться.</p>
+
+<p>Выполняются команды перед тем, как начать установку пакетов, требуемых для сборки. Первая команда с использованием openssl генерируется автоматически при криптовании файла приватного ключа. Единственно, что здесь нужно будет подправить, это расположение закодированного файла в репозитории и место, где он будет расмещаться на сервере.</p>
+
+<p>Вторая команда устанавливает права доступа файла только для текущего пользователя. И следующая запускает ssh-agent, который будет использоваться в Rsync. И последняя команда используется для добавления нового ключа в ssh-agent. Только после использования данных команд мне удалось провести загрузку файлов на свой сервер.</p>
+
+<p>Так же обращаю внимание на то, что для Travis необходимо генерировать отдельные ключи, которые больше нигде не будут использоваться. И при генерации не задается пароль для доступа к ключу, так как во время сборки все операции проводятся не интерактивно.</p>
+
+<p>После того, как задали ключи доступа к серверу, деплой может осуществляться с использованием команды:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rsync -qavz public/* temp@176.52.134.25:~/public/
+</code></pre></div></div>
+
+<p>При использовании деплоя на сервера Амазона попробовал использовать решение от Travis, но остался недоволен, так как оно ориентировано на загрузку результатов компиляции и не ориентировано на загрузку большого числа небольших по размеру файлов или задания нестандартных правил кеширования. В итоге загрузка моего сайта заняла более 8 минут и при этом файлы были не сжаты и без заголовков кеширования. Для размещения сайта использовать решение Travis не имеет смысла.</p>
+
+<p>И попробовал использовать <a href="https://github.com/laurilehmijoki/s3_website" title="laurilehmijoki/s3_website">s3_website</a>, которое позволяет очень тонко настраивать различные параметры сайта, и при этом имеет очень высокую скорость загрузки файлов на сервера амазона. В итоге остался более чем доволен, файлы загружаются сжатыми, для различных типов файлов задаются свои правила кеширования. Есть возможность задавать редиректы. По использованию данного решения отправляю на страницу проекта.</p>
+
+<p>Почти сутки потратил на тестирование различных вариантов размещения сайта с использованием Travis. Было много ошибок, и много находок. В итоге осознал, что теперь мне не нужен сервер для того, чтобы генерировать и хостить свой сайт. Произвел его перенос в Amazon S3. Генерацию перенес на Travis. И теперь уже без своего сервера имею возможность комитить и получить на выходе рабочий сайт.</p>
+
+<p>Была мысль использовать CloudFront, как уже делаю для своей визитки <a href="http://denis.evsyukov.org" title="Denis Evsyukov">denis.evsyukov.org</a>. Но при использовании обновляемого сайта это оказалось неудобным, так как на инвалидацию объектов кеша уходит довольно много времени.</p>
+
+<p>Так же вернулся на использование <a href="http://aws.amazon.com/route53/" title="Amazon Route 53">Amazon Route53</a> для управления своей доменной зоной. По стоимости выходит чуть более $0.5 в месяц за одну зону, но имеет гораздо более гибкие настройки, и при этом есть возможность каждые 30 секунд проверять сайт на работоспособность. И в случае возникновения проблем, сообщать об этом письмом. На мой взгляд это небольшие деньги за такие возможности.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2015/05/25/systemd/" title="View Debian: запуск systemd от имени пользователя">Debian: запуск systemd от имени пользователя</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2015/06/01/timezone-travis/" title="View Travis CI: изменение таймзоны">Travis CI: изменение таймзоны</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

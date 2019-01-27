@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Оптимизация сайта для Amazon S3</title>
+  <meta name="description" content="После размещения сайта на Amazon S3, задумался об его оптимизации.  Во-первых, Liquid, используемый по умолчанию язык разметки, оставляет в результирующем html-коде массу пустых строк.  Можно, коне...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2013/04/18/amazon-s3/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2013/04/13/utf8/">
+  <link rel="next" href="https://www.juev.org/2013/04/20/jekyll-tags/">
+  <!-- og:meta -->
+  <meta content="Оптимизация сайта для Amazon S3" property="og:title">
+  <meta content="После размещения сайта на Amazon S3, задумался об его оптимизации.  Во-первых, Liquid, используемый по умолчанию язык разметки, оставляет в результирующем html-коде массу пустых строк.  Можно, коне..." property="og:description">
+  <meta content="https://www.juev.org/2013/04/18/amazon-s3/" property="og:url">
+  <meta content="2013-04-18T06:42:00+04:00" property="article:published_time">
+  <meta content="amazon" property="article:tag">
+  <meta content="hosting" property="article:tag">
+  <meta content="html" property="article:tag">
+  <meta content="jekyll" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Оптимизация сайта для Amazon S3" name="twitter:title">
+  <meta content="После размещения сайта на Amazon S3, задумался об его оптимизации.  Во-первых, Liquid, используемый по умолчанию язык разметки, оставляет в результирующем html-коде массу пустых строк.  Можно, коне..." property="twitter:description">
+  <meta content="https://www.juev.org/2013/04/18/amazon-s3/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Оптимизация сайта для Amazon S3</h1>
+<div id="metainfo">
+<span class="date">18 April 2013</span>
+<span class="tags"><a href="https://www.juev.org/tags/#amazon" title="View posts tagged with &quot;amazon&quot;" rel="nofollow">#amazon</a><a href="https://www.juev.org/tags/#hosting" title="View posts tagged with &quot;hosting&quot;" rel="nofollow">#hosting</a><a href="https://www.juev.org/tags/#html" title="View posts tagged with &quot;html&quot;" rel="nofollow">#html</a><a href="https://www.juev.org/tags/#jekyll" title="View posts tagged with &quot;jekyll&quot;" rel="nofollow">#jekyll</a></span>
+</div>
+<div class="post"><p>После размещения сайта на Amazon S3, задумался об его оптимизации. Во-первых, Liquid, используемый по умолчанию язык разметки, оставляет в результирующем html-коде массу пустых строк. Можно, конечно и оставить все это в таком виде, но я не мог оставить это просто так.</p>
+
+<p>И во-вторых, всегда ведь хочется чего-то большего?? Не правда ли?</p>
+
+<h2 id="оптимизация-html">Оптимизация HTML</h2>
+
+<p>Как оказалось, вариантов по оптимизации html-кода очень мало. С большим трудом нашел расширение для Jekyll, которое занимается удалением из html и js кода символов переносов строк. Причем нашел уже модифицированный вариант, который позволял исключать этот алгоритм для блоков <code class="highlighter-rouge">&lt;pre&gt;&lt;code&gt;</code>.</p>
+
+<p>Но когда попробовал в деле, оказалось, что сжатие js-файлов приводит к неработоспособности расширения shadowbox, которое я использую на сайте для показа изображений. Пришлось немного вмешаться в код, и убрать все лишнее. В итоге получил <a href="https://gist.github.com/Juev/5381968" title="compressor.rb">compressor.rb</a>. Данный файл достаточно сохранить в директорию <code class="highlighter-rouge">_plugins</code> и после каждой генерации сайта уже будем получать оптимизированные html-страницы.</p>
+
+<h2 id="оптимизация-css-и-js-файлов">Оптимизация css и js файлов</h2>
+
+<p>Ранее я использовал для оптимизации js и css – <a href="/2011/06/22/soft-web-design/" title="Программы для веб-дизайна">jammit</a>. Но данное расширение не позволяет использовать технологию cache-busting.</p>
+
+<p>Сама технология заключается в том, что при генерации файлов производится расчет их контрольной суммы. И затем эта сумма подставляется в имя файла. К примеру, был файл с именем <code class="highlighter-rouge">master.css</code>, после генерации и оптимизации получаем нечто вроде <code class="highlighter-rouge">master-cc56fd3da8c477d2bc00397664ca243f.css</code>. Это позволяет задать для js и css файлов довольно большой срок кеширования, а при обновлении файлов не беспокоится о том, что у пользователей будет показываться старая версия сайта.</p>
+
+<p>Пришлось опять искать замену.</p>
+
+<p>В итоге наткнулся на расширение <a href="https://github.com/matthodan/jekyll-asset-pipeline" title="Github: jekyll-asset-pipeline">matthodan/jekyll-asset-pipeline</a>, которое позволяет без использования сторонних gem-ов собирать несколько css или js файлов в один, и при этом сжимать его.</p>
+
+<p>Для использования расширения необходимо в Gemfile добавить строку:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>require 'jekyll-asset-pipeline'
+</code></pre></div></div>
+
+<p>И использовать команду:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ bundle install
+</code></pre></div></div>
+
+<p>Затем в директории <code class="highlighter-rouge">_plugins</code> создаем новый файл, к примеру <code class="highlighter-rouge">jekyll_assets_ppeline.rb</code>, в который первой строкой добавляем:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>require 'jekyll_asset_pipeline'
+</code></pre></div></div>
+
+<p>Обратите внимание на то, что в Gemfile добавляли файл с тире, а в коде используем уже файл с подчеркиванием.</p>
+
+<p>В этом же файле можно прописать модули данного расширения, которые описаны на официальной странице. Таким образом я подключил возможность использования дополнительного сжатия за счет <code class="highlighter-rouge">yui-compressor</code>, и задал, в каком именно формате будут вставляться на страницы сайта теги <code class="highlighter-rouge">script</code> и <code class="highlighter-rouge">link</code>.</p>
+
+<p>Для вставки подготовленных тегов необходимо в шаблон страницы добавить в нужные места следующие блоки кода:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{% css_asset_tag global %}
+- /_assets/foo.css
+- /_assets/bar.css
+{% endcss_asset_tag %}
+
+{% javascript_asset_tag global %}
+- /_assets/foo.js
+- /_assets/bar.js
+{% endjavascript_asset_tag %}
+</code></pre></div></div>
+
+<p>Первый соответственно для вставки тега <code class="highlighter-rouge">link</code>, второй для тега <code class="highlighter-rouge">script</code>. Внутри блока просто перечисляются в нужном порядке те файлы, что будут включаться в результирующий файл, имя которого задается в первых строках кода (в примере это файл global).</p>
+
+<p>Для управлением поведением расширения в файле <code class="highlighter-rouge">_config.yml</code> добавляется следующий блок кода:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>asset_pipeline:
+  bundle: true            # Default = true
+  compress: true          # Default = true
+  output_path: assets     # Default = assets
+  display_path: nil       # Default = nil
+  gzip: false             # Default = false
+</code></pre></div></div>
+
+<p>В коммментариях указаны значения по умолчанию.</p>
+
+<h2 id="gzip">GZip</h2>
+
+<p>При использовании Amazon S3 в качестве хостинга сайтов, одной из проблем, с которыми приходиться сталкиваться, остается невозможность задействовать сжатие GZip, которое обычно по умолчанию используется на веб-серверах Apache. Контент раздается в том виде, в котором он был доставлен на сервер. Но поискав по интернету, нашел решение.</p>
+
+<p>Для этого перед загрузкой сайта на сервер амазона, все файлы предварительно сжимаются с помощью GZip, затем переименовываются, убирая дополнительное расширение <code class="highlighter-rouge">gz</code>. И затем при загрузке на сервер передается дополнительный заголовок <code class="highlighter-rouge">--add-header "Content-Encoding: gzip"</code>.</p>
+
+<p>Для всего этого организовал отдельные Rake-задачи:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>desc "GZip HTML"
+task :gzip_html do
+  puts "## GZipping HTML"
+  system 'find public/ -type f -name \*.html -exec gzip -9 {} \;'
+  # Batch rename .html.gz to .html
+  Dir['**/*.html.gz'].each do |f|
+    test(?f, f) and File.rename(f, f.gsub(/\.html\.gz/, '.html'))
+  end
+end
+
+desc "GZip Assets"
+task :gzip_assets do
+  puts "## GZipping Assets"
+  styles_dir = "public/assets"
+  system "gzip -9 #{styles_dir}/*"
+  Dir["#{styles_dir}/*.css.gz"].each do |f|
+    test(?f, f) and File.rename(f, f.gsub(/\.css\.gz/, '.css'))
+  end
+  Dir["#{styles_dir}/*.js.gz"].each do |f|
+    test(?f, f) and File.rename(f, f.gsub(/\.js\.gz/, '.js'))
+  end
+end
+</code></pre></div></div>
+
+<p>Главное что все получилось, и в итоге значение Page Speed для моего сайта поднялось до 99 из 100. Замечательный результат!</p>
+
+<h2 id="итоги">Итоги</h2>
+
+<p>Если вы думаете, что все так легко и безоблачно, как было описано выше, то тут вас ждет небольшое разочарование. В результате эксперимента мне пришлось отказаться от использования сжатия GZip. Почему??</p>
+
+<p>Во-первых, при использовании GZip становится невозможным проверять сайт локально. Нет, можно конечно разделить генерацию сайта и его сжатие, и в итоге нормально использовать локальный сайт, но как оказалось дальше, проблемы только начинались.</p>
+
+<p>И во-вторых, я надеялся на то, что современные браузеры умеют работать со страницами, сжатыми GZip. И да, они умеют это делать, еще примерно с 2011 года. Но помимо обычных пользователей остаются еще веб-роботы поисковых систем, которые, как оказалось, с GZip не очень-то любят работать. Помимо них есть и другие веб-сервисы, которые просто отказываются работать с сайтом при использовании GZip сжатия.</p>
+
+<p>Об этом я сразу не подумал, и обратил внимание на проблему только в том случае, когда у меня статистика посещаемости вдруг резко просела.</p>
+
+<p>Пришлось отказаться от принудительного сжатия страниц, естественно, что тут же потерял довольно значительно в Page Speed, теперь он составляет всего порядка 83 баллов из 100. Но лучше иметь чуть менее быстрый сайт, чем малопосещаемый, ведь так?</p>
+
+<p>Но в целом убрав лишние переносы строк, я несколько уменьшил размеры страниц, а использовав jekyll-assets-pipeline значительно упростил себе работу по оформлению сайта. Кроме того, получил возможность использования CloudFront для раздачи js и css файлов.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2013/04/13/utf8/" title="View Проблемы с кодировкой">Проблемы с кодировкой</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2013/04/20/jekyll-tags/" title="View Использование тегов в Jekyll">Использование тегов в Jekyll</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

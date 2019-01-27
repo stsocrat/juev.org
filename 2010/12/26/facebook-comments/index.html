@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Валидация FaceBook комментариев</title>
+  <meta name="description" content="Во время разработки juev. info столкнулся с проблемой системы комментирования.  Так как сайт генерируется статический, то приходиться использовать сторонние решения. Сначала выбрал Disqus, как наиб...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2010/12/26/facebook-comments/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2010/12/25/use-head-js/">
+  <link rel="next" href="https://www.juev.org/2011/01/03/dropbox-i-git-repozitorij/">
+  <!-- og:meta -->
+  <meta content="Валидация FaceBook комментариев" property="og:title">
+  <meta content="Во время разработки juev. info столкнулся с проблемой системы комментирования.  Так как сайт генерируется статический, то приходиться использовать сторонние решения. Сначала выбрал Disqus, как наиб..." property="og:description">
+  <meta content="https://www.juev.org/2010/12/26/facebook-comments/" property="og:url">
+  <meta content="2010-12-26T00:00:00+03:00" property="article:published_time">
+  <meta content="facebook" property="article:tag">
+  <meta content="webdesign" property="article:tag">
+  <meta content="javascript" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Валидация FaceBook комментариев" name="twitter:title">
+  <meta content="Во время разработки juev. info столкнулся с проблемой системы комментирования.  Так как сайт генерируется статический, то приходиться использовать сторонние решения. Сначала выбрал Disqus, как наиб..." property="twitter:description">
+  <meta content="https://www.juev.org/2010/12/26/facebook-comments/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Валидация FaceBook комментариев</h1>
+<div id="metainfo">
+<span class="date">26 December 2010</span>
+<span class="tags"><a href="https://www.juev.org/tags/#facebook" title="View posts tagged with &quot;facebook&quot;" rel="nofollow">#facebook</a><a href="https://www.juev.org/tags/#webdesign" title="View posts tagged with &quot;webdesign&quot;" rel="nofollow">#webdesign</a><a href="https://www.juev.org/tags/#javascript" title="View posts tagged with &quot;javascript&quot;" rel="nofollow">#javascript</a></span>
+</div>
+<div class="post"><p>Во время разработки juev.info столкнулся с проблемой системы комментирования. Так как сайт генерируется статический, то приходиться использовать сторонние решения.</p>
+
+<p>Сначала выбрал Disqus, как наиболее распространенный, простой и развиваемый. Установка не вызвала проблем, но сразу стало заметно, что страницы сайта загружаются намного дольше. Тестирование сторонней системой показало возрастание времени загрузки страницы с 0.3 секунд до 8.6. При повторной загрузке часть информации находиться в кеше браузера, поэтому занимает чуть меньше времени, но все равно порядка 3 секунд.</p>
+
+<p>И тут я вспомнил про систему комментариев, которую предлагает социальная сеть facebook!</p>
+
+<p>Изначально сайт ориентировался на англоязычную аудиторию. Там число пользователей facebook много больше, чем в России, поэтому я особо не озадачивался ограничениями системы. Воспользовался рецептом, описанным на странице <a href="http://developers.facebook.com/blog/post/198" rel="nofollow">Commenting with Facebook Connect</a>. Используется специальный кросс-доменный файл, осуществляющий связку сайта с facebook.</p>
+
+<p>Все заработало, время загрузки страницы упало и довольно существенно, но сами комментарии загружались довольно долго. И появилась еще одна проблема – страницы, на которых размещались комментарии перестали проходить проверку кода на соответствие стандарту xhtml 1.0. Ошибка возникала из-за присутствия тегов <code>fb:comments</code>, которые отсутствуют в спецификации xhtml. Одна единственная ошибка и не понятно, как ее исправлять. В интернете много пишут о ее существовании, но решение найти оказалось очень не просто.</p>
+
+<p>Во-первых, я решил отказаться от кросс-доменного файла и перейти на использование JavaScript SDK, который предлагается самим FaceBook.</p>
+
+<p>Рассмотрим пример создания комментариев для своего сайта. Для этого переходим на страницу <a href="http://developers.facebook.com/setup" rel="nofollow">Create an App</a>, где создаем новое приложение и в итоге получаем API-код, который будет использоваться в нашем скрипте.</p>
+
+<p>После чего в самом верху страницы меняем блок тега &lt;html&gt;:</p>
+
+<pre><code>&lt;html xmlns="http://www.w3.org/1999/xhtml"
+      <strong>xmlns:fb="http://www.facebook.com/2008/fbml"</strong>&gt;</code></pre>
+
+<p>Была добавлена выделенная строчка. Затем в том месте страницы, где собираемся размещать комментарии, добавляем следующий код:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;div id="fb-root"&gt;&lt;/div&gt;
+&lt;script type="text/javascript"&gt;
+  var c = document.getElementById('fb-root');
+  var e = document.createElement('fb:comments');
+  c.appendChild(e);
+  window.fbAsyncInit = function() {
+    FB.init({appId: 'you-apps-code', status: true, cookie: true,
+             xfbml: true});
+  };
+  (function() {
+    var e = document.createElement('script'); e.async = true;
+    e.src = document.location.protocol +
+      '//connect.facebook.net/en_US/all.js';
+    document.getElementById('fb-root').appendChild(e);
+  }());
+&lt;/script&gt;
+</code></pre></div></div>
+
+<p>Что интересно, скорость загрузки комментариев увеличилась и довольно существенно. И так как теперь отсутствуют теги, которые не прописаны в стандарте, страница проходит валидацию.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2010/12/25/use-head-js/" title="View Использование Head.JS">Использование Head.JS</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2011/01/03/dropbox-i-git-repozitorij/" title="View DropBox и Git-репозиторий">DropBox и Git-репозиторий</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

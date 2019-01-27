@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Программы, которые я использую для работы с Jekyll</title>
+  <meta name="description" content="В начале прошлого года я сменил движок своего блога. Перешел от wordpress на jekyll. Ушел от динамической генерации страниц к их статическом размещению. И до сих пор не понимаю...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2012/01/07/jekyll/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2012/01/04/gauges/">
+  <link rel="next" href="https://www.juev.org/2012/01/14/lastpass-vs-1password/">
+  <!-- og:meta -->
+  <meta content="Программы, которые я использую для работы с Jekyll" property="og:title">
+  <meta content="В начале прошлого года я сменил движок своего блога.  Перешел от wordpress на jekyll.  Ушел от динамической генерации страниц к их статическом размещению.  И до сих пор не понимаю, зачем генерирова..." property="og:description">
+  <meta content="https://www.juev.org/2012/01/07/jekyll/" property="og:url">
+  <meta content="2012-01-07T16:27:00+04:00" property="article:published_time">
+  <meta content="mac" property="article:tag">
+  <meta content="jekyll" property="article:tag">
+  <meta content="soft" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Программы, которые я использую для работы с Jekyll" name="twitter:title">
+  <meta content="В начале прошлого года я сменил движок своего блога.  Перешел от wordpress на jekyll.  Ушел от динамической генерации страниц к их статическом размещению.  И до сих пор не понимаю, зачем генерирова..." property="twitter:description">
+  <meta content="https://www.juev.org/2012/01/07/jekyll/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Программы, которые я использую для работы с Jekyll</h1>
+<div id="metainfo">
+<span class="date">07 January 2012</span>
+<span class="tags"><a href="https://www.juev.org/tags/#mac" title="View posts tagged with &quot;mac&quot;" rel="nofollow">#mac</a><a href="https://www.juev.org/tags/#jekyll" title="View posts tagged with &quot;jekyll&quot;" rel="nofollow">#jekyll</a><a href="https://www.juev.org/tags/#soft" title="View posts tagged with &quot;soft&quot;" rel="nofollow">#soft</a></span>
+</div>
+<div class="post"><p>В начале прошлого года я сменил движок своего блога. Перешел от wordpress на jekyll. Ушел от динамической генерации страниц к их статическом размещению. И до сих пор не понимаю, зачем генерировать страницу каждый раз, когда к ней обращается пользователь, если ее содержимое меняется крайне редко?  Достаточно лишь раз провести генерацию страницы и затем показывать при обращении ее результат, чем так бессмысленно нагружать сервер.</p>
+
+<p>Про <a href="/tags/jekyll/" title="Tags of Jekyll">jekyll</a> я уже писал и немало. А сегодня хочу описать сам процесс написания статьи. Какие именно программы я использую и каким образом я упрощаю свою работу?</p>
+
+<h2 id="установка-jekyll">Установка jekyll</h2>
+
+<p>Wordpress отличается от Jekyll тем, что движок работает только на сервере и при этом предоставляет целый ряд инструментов для написания статьи. Это и редактор и инструмент загрузки изображений на сервер. Вроде проще работать, но на деле это накладывает целый ряд ограничений. К примеру, в редакторе нельзя использовать язык разметки <a href="http://ru.wikipedia.org/wiki/Markdown" title="Markdown - Википедиа">markdown</a>, а изображения можно загружать только непосредственно на сам сервер. Для загрузки изображений на сервера амазона есть целый ряд расширений, но более тонко настроить кеширование изображений уже не получиться.</p>
+
+<p>Но не будем отвлекаться от Jekyll. Про установку <a href="/2010/11/06/jekyll-on-ubuntu-10-04/" title="Jekyll on Ubuntu 10.04">Jekyll в Ubuntu 10.04</a> я уже писал. Рассмотрим этот процесс в среде MacOS.</p>
+
+<p>Так как MacOS поставляется с уже установленным ruby, необходимо только установить сам движок и необходимые гемы для работы.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo gem install jekyll kramdown
+</code></pre></div></div>
+
+<p>Все необходимые зависимости подтянутся автоматически. Обратите внимание, что я использую в качестве парсера markdown движок kramdown, на мой взгляд он более функциональный и удобней, чем остальные. Но можно использовать любой другой. Единственно, не стоит оставлять Maruku, который по умолчанию используется в Jekyll, так как он очень медлительный и довольно своенравный. Если в kramdown или rdiscount  генерация сайта занимает порядка 10-15 секунд, то в Maruku время генерации вырастает до получаса, если не больше.</p>
+
+<h2 id="jekyll-bootstrap">Jekyll-Bootstrap</h2>
+
+<p>После установки основных гемов, нам необходимо сформировать каркас своего сайта. Можно, конечно сделать это и руками, как это делал в свое время я, но можно и обратиться к существующим разработкам. Например, использовать <a href="http://jekyllbootstrap.com/" title="Jekyll-Bootstrap">Jekyll-Bootstrap</a>. Это проект, который содержит в себе костяк типового блога на Jekyll и использует два шаблонных оформления.</p>
+
+<p>Для людей, кто раньше не сталкивался с Jekyll, Bootsrap будет очень хорошим подспорьем!</p>
+
+<p>Существует еще разработка <a href="http://octopress.org/" title="Octopress">Octopress</a>. Но она использует для своей работы более новую версию ruby, в связи с чем порой возникают проблемы при работе с русским языком.</p>
+
+<h2 id="rakefile">Rakefile</h2>
+
+<p>Для упрощения работы следует прописать ряд задач в файл <code class="highlighter-rouge">Rakefile</code>. Можно конечно и без этого обойтись, но это значительно упрощает работу. Файл, который использую я, можно найти на сервере <a href="https://gist.github.com/1574249">gist.github.com</a>.</p>
+
+<p>По умолчанию команда <code class="highlighter-rouge">rake</code> без параметров вызывает задачу <code class="highlighter-rouge">build</code>, то есть сборку сайта.</p>
+
+<p>Команда <code class="highlighter-rouge">rake deploy</code> вызывает операцию сборки сайта с последующей передачей файлов готового сайта на сервер. Естественно, что в данной задаче необходимо будет указать свои параметры сервера.</p>
+
+<p>Самая интересная команда – <code class="highlighter-rouge">rake new</code>, для ее использования необходимо в командной строке передать еще и заголовок новой статьи. Заголовок необходимо передавать сразу в транслите. После чего автоматически открывается редактор для редактирования данного файла.</p>
+
+<p>А задачи <code class="highlighter-rouge">tags</code> и <code class="highlighter-rouge">tag_cloud</code> созданы для генерации страниц тегов, которые создаются на основании параметров, указанных для каждой статьи.</p>
+
+<h2 id="pow">Pow</h2>
+
+<p>При работе со своим сайтом раньше я использовал команды <code class="highlighter-rouge">jekyll --server --auto</code>, теперь же использую локальный веб-сервер <a href="/2011/12/10/pow/" title="Локальный веб-сервер Pow">pow</a>. После генерации сайта достаточно обратиться в браузере по адресу <code class="highlighter-rouge">http://site.dev</code>, как я сразу же вижу результат своих действий. Единственно нужно помнить, что если используется обычная структура папок  Jekyll, то Pow работать не будет. Так как локальный веб-сервер ожидает в рабочей папке наличие директории <code class="highlighter-rouge">public</code>, в которой размещается сам сайт.</p>
+
+<p>Для того, чтобы Pow корректно стал работать с Jekyll, следует переместить все содержимое директории Jekyll в папку <code class="highlighter-rouge">source</code>, за исключением файлов <code class="highlighter-rouge">Rakefile</code> и <code class="highlighter-rouge">_config.yml</code>. Создать рядом с <code class="highlighter-rouge">source</code> папку <code class="highlighter-rouge">public</code> и затем прописать в файле <code class="highlighter-rouge">_config.yml</code> следующие строки:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root:        /
+source:      source
+destination: public
+plugins:     plugins
+</code></pre></div></div>
+
+<p>Теперь исходники сайта будет размещаться в <code class="highlighter-rouge">source</code>, а результат генерации в <code class="highlighter-rouge">public</code>. И локальный веб-сервер Pow будет прекрасно работать с содержимым нашего сайта.</p>
+
+<p>Для того, чтобы оптимизировать загрузку сайта, рекомендуется минимизировать число используемых css и js файлов и сжать их, убрав лишние переносы строк, пробелы и так далее. Существует не так много программ, которые позволяют совершать данную операцию, но я остановился на <a href="http://documentcloud.github.com/jammit/" title="Jammit: Industrial Strength Asset Packaging for Rails">jammit</a>. Про jammit я писал в статье <a href="/2011/06/22/soft-web-design/" title="Программы для веб дизайна">Программы для веб дизайна</a>, поэтому останавливаться подробно не буду.</p>
+
+<p>Замечу лишь, что настройки jammit располагаются рядом с конфигом Jekyll в файле <code class="highlighter-rouge">_assets.yml</code>. И в файле <code class="highlighter-rouge">Rakefile</code>, который рассматривали выше, прописана отдельная задача <code class="highlighter-rouge">rake minify</code>, которая создана как раз для вызова jammit с параметрами. И эта же команда вызывается каждый раз при генерации сайта.</p>
+
+<h2 id="byword">Byword</h2>
+
+<p>Раньше для написания статьей я использовал редактор <a href="http://www.vim.org/" title="vim online">vim</a>. Однако с течением времени перешел на использование программы <a href="http://bywordapp.com/" title="A Simple Text Editor for Mac">Byword</a>. Перешел просто потому, что программа очень простая, но в то же время прекрасно поддерживает разметку markdown, есть и горячие клавиши для вставки ссылок и изображений. В то же время позволяет фокусироваться на написании текста, и при этом еще прекрасно выглядит. А результат работы можно экспортировать в html, pdf, rtf, word и latex. При этом есть возможность не просто экспортировать в файл, а результат в виде готового html занести в буфер обмена. Что эффективно использовать при работе, к примеру, с тем же wordpress.</p>
+
+<p><a href="https://static.juev.org/2012/01/byword.png"><img src="https://static.juev.org/2012/01/byword-th.png" alt="byword" /></a></p>
+
+<p>Я пробовал использовать и другие редакторы, но пока ничего лучше еще не нашел.</p>
+
+<h2 id="marked">Marked</h2>
+
+<p>Для просмотра результата при написании статьи, проще не генерировать сайт каждый раз с самого начала, а использовать отдельные программы для просмотра результата обработки markdown. Лучшей программой считается <a href="http://markedapp.com/" title="Marked: MultiMarkdown preview, everywhere">Marked</a>.</p>
+
+<p><a href="https://static.juev.org/2012/01/marked.png"><img src="https://static.juev.org/2012/01/marked-th.png" alt="marked" /></a></p>
+
+<p>Есть возможность работать не только с markdown, но и с любыми другими движками. Достаточно только указать в настройках пусть к этому движку. Так же, при отображении результата используются отдельные шаблоны, которые можно менять или создавать самому. Marked так же позволяет исключить из результата заголовки файлов Jekyll. Что очень удобно!</p>
+
+<h2 id="3hub">3Hub</h2>
+
+<p>Все статические файлы моего сайта, за исключением html-файлов, у меня хранятся на сервере Amazon s3, а раздаются с помощью сервиса <a href="/2010/03/03/wordpress-amazon/" title="Wordpress &amp; Amazon">Amazon Cloudfront</a>.</p>
+
+<p>Но перед тем, как загрузить изображения, их необходимо подготовить – создать превью, минимизировать их размер и задать названия.</p>
+
+<p>Так как я пишу в основном про программное обеспечение, то и изображения использую в виде снимков экранов. Сделать снимок просто и обычно для этого используются средства самой системы. В MacOS результат обычно размещается в png-файле.</p>
+
+<p>Сразу после того, как я подготовлю снимки экранов, я их переименовываю и затем создаю копии этих файлов с суффиксом <code class="highlighter-rouge">-th</code>. Затем копии файлов открываю в <a href="http://www.pixelmator.com/" title="Pixelmator">pixelmator</a> и изменяю их размер до 400 пикселей по ширине.</p>
+
+<p>Остается провести минимизацию размеров файлов. Для этого я использую программу <a href="/2011/12/02/png-compressor/" title="PNG Compressor">PNG Compressor</a>. Быстро и очень эффективно файлы уменьшаются до приемлемых размеров, после чего остается только загрузить их на сервер амазона.</p>
+
+<p>Ранее я использовал для этих целей консольную программу <a href="http://s3tools.org/s3cmd" title="Amazon s3 tools: s3cmd: command line S3 client">s3cmd</a>. Но с переходом на Mac для меня оказалось проще работать с нативными приложениями. И перепробовав несколько различных клиентов, я остановился на <a href="http://3hubapp.com/" title="3Hub: Amazon S3 Client (for Mac OS X)">3Hub</a>.</p>
+
+<p><a href="https://static.juev.org/2012/01/3hub.png"><img src="https://static.juev.org/2012/01/3hub-th.png" alt="3hub" /></a></p>
+
+<p>Передача файлов осуществляется быстро, тут же видно содержимое папок. И помимо передачи файлов, можно управлять правами и заголовками файлов, указывая при этом, кому будет доступен файл и какой уровень кеширования следует использовать.</p>
+
+<h2 id="описание-процесса-работы">Описание процесса работы</h2>
+
+<p>Когда у меня в голове уже созрел план статьи, я открываю терминал, перехожу в директорию со своим проектом  даю команду:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rake new name new article
+</code></pre></div></div>
+
+<p>Тут же автоматом открывается Byword, остается только прописать название статьи на русском языке, указать теги и ключевые слова.</p>
+
+<p>Изображения я создаю и обрабатываю обычно в процессе работы над статьей, редко когда получается это сделать до начала работы.</p>
+
+<p>Создаю необходимые снимки экранов, они размещаются по умолчанию на рабочем столе. Тут же их переименовываю и создаю копии. Изменяю имена копий, дописывая суффиксы и затем полученные копии открывают в pixelmator. Уменьшаю их размер, если это, конечно, необходимо.</p>
+
+<p>После чего все полученные файлы переношу в PNG Compressor. Так как я обычно работаю с перезаписью файлов, мне остается только чуть-чуть подождать, пока закончиться обработка файлов. И затем загружаю полученные изображения на сервер амазона с помощью 3Hub.</p>
+
+<p>Во время написания статьи я использую снипет для вставки изображений, который храниться у меня в программе <a href="/2011/11/26/codebox/" title="Упрощаем работу с кодом - CodeBox">CodeBox</a>. Достаточно только прописать <code class="highlighter-rouge">mimg</code>, нажать клавишу <code class="highlighter-rouge">Tab</code> как необходимый код размещается в тексте. Единственно, остается только поправить имена файлов и пути до них, я еще не автоматизировал этот процесс в CodeBox.</p>
+
+<p>И пока я пишу статью, на соседнем рабочем столе у меня обычно открыт <code class="highlighter-rouge">Marked</code> с тем файлом, что я сейчас редактирую, чтобы сразу было видно, что получается в итоге и что необходимо изменить или исправить именно сейчас.</p>
+
+<p>Когда же работа над статьей закончена, текст повторно проверен на ошибки, закрываю редакторы и все программы, которые помогали мне в работе. И затем в терминале даю команду:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rake build
+</code></pre></div></div>
+
+<p>По окончании генерации сайта открываю в браузере свой локальный сайт <code class="highlighter-rouge">juev.dev</code> и смотрю, все ли в порядке со статьей в окружении оформления моего сайта. Если все нормально, то остается только дать команду:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rake deploy
+</code></pre></div></div>
+
+<p>После чего статья оказывается опубликованной.</p>
+
+<p>Обратили внимание, как много дополнительных действий приходиться совершать, если сравнивать с созданием статьи в wordpress? Ничего удивительного, ведь изображения у нас хранятся на амазоне, при этом мы их дополнительно обработали и оптимизировали.</p>
+
+<p>Если же хранить изображения на том же сервере, что и сам сайт, и к тому же не использовать превью, то процесс упрощается и значительно! И в итоге мы получаем статический сайт, который практически не нагружает сервер.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2012/01/04/gauges/" title="View Система статистики, рекомендованная Github">Система статистики, рекомендованная Github</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2012/01/14/lastpass-vs-1password/" title="View LastPass vs 1Password">LastPass vs 1Password</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>DenyHost на страже сервера</title>
+  <meta name="description" content="В статье Безопасность VPS-сервера я уже описывал те мероприятия, что необходимо совершить для обеспечения безопасной работы на удаленном сервере. Сам я к этому вопросу подошел коренным образом, зак...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2011/01/15/denyhost-security-server/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2011/01/07/dkim-ot-google-na-svoem-domene/">
+  <link rel="next" href="https://www.juev.org/2011/02/27/proshivka-htc-wildfire-ot-mts/">
+  <!-- og:meta -->
+  <meta content="DenyHost на страже сервера" property="og:title">
+  <meta content="В статье Безопасность VPS-сервера я уже описывал те мероприятия, что необходимо совершить для обеспечения безопасной работы на удаленном сервере. Сам я к этому вопросу подошел коренным образом, зак..." property="og:description">
+  <meta content="https://www.juev.org/2011/01/15/denyhost-security-server/" property="og:url">
+  <meta content="2011-01-15T00:00:00+03:00" property="article:published_time">
+  <meta content="vps" property="article:tag">
+  <meta content="security" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="DenyHost на страже сервера" name="twitter:title">
+  <meta content="В статье Безопасность VPS-сервера я уже описывал те мероприятия, что необходимо совершить для обеспечения безопасной работы на удаленном сервере. Сам я к этому вопросу подошел коренным образом, зак..." property="twitter:description">
+  <meta content="https://www.juev.org/2011/01/15/denyhost-security-server/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">DenyHost на страже сервера</h1>
+<div id="metainfo">
+<span class="date">15 January 2011</span>
+<span class="tags"><a href="https://www.juev.org/tags/#vps" title="View posts tagged with &quot;vps&quot;" rel="nofollow">#vps</a><a href="https://www.juev.org/tags/#security" title="View posts tagged with &quot;security&quot;" rel="nofollow">#security</a></span>
+</div>
+<div class="post"><p>В статье <a href="/2010/10/09/bezopasnost-vps-servera/">Безопасность VPS-сервера</a> я уже описывал те мероприятия, что необходимо совершить для обеспечения безопасной работы на удаленном сервере.</p>
+
+<p>Сам я к этому вопросу подошел коренным образом, закрыл все порты, кроме 22 и 80. Сервер sshd принимает подключение только от одного пользователя и при этом осуществляет аутентификацию только по ключу, вход по паролю запрещен. Не зная имени пользователя и не имея на руках ключа зайти на сервер просто не возможно. А для блокирования особо любопытных использовал <code>fail2ban</code>, отправляя их на определенное время в ban.</p>
+
+<p>Однако вчера обратил внимание на то, что с одного из ip-адресов продолжаются попытки входа на сервер под разными именами. Выглядело это примерно таким образом:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Jan 14 22:48:44 juev sshd[19013]: Invalid user vanessa from 210.83.70.250
+Jan 14 22:48:46 juev sshd[19015]: Invalid user will from 210.83.70.250
+Jan 14 22:48:49 juev sshd[19017]: Invalid user willie from 210.83.70.250
+Jan 14 22:48:52 juev sshd[19019]: Invalid user win from 210.83.70.250
+Jan 14 22:48:55 juev sshd[19021]: Invalid user samba from 210.83.70.250
+Jan 14 22:48:58 juev sshd[19023]: Invalid user samba from 210.83.70.250
+Jan 14 22:49:01 juev sshd[19025]: User sshd from 210.83.70.250 not allowed because not listed in AllowUsers
+Jan 14 22:49:04 juev sshd[19027]: User sshd from 210.83.70.250 not allowed because not listed in AllowUsers
+Jan 14 22:49:10 juev sshd[19030]: Invalid user adam from 210.83.70.250
+Jan 14 22:49:12 juev sshd[19033]: Invalid user anton from 210.83.70.250
+Jan 14 22:49:15 juev sshd[19035]: Invalid user gary from 210.83.70.250
+Jan 14 22:49:18 juev sshd[19037]: Invalid user nemesis from 210.83.70.250
+Jan 14 22:49:21 juev sshd[19039]: Invalid user shadow from 210.83.70.250
+Jan 14 22:49:23 juev sshd[19041]: Invalid user shadow from 210.83.70.250
+Jan 14 22:49:26 juev sshd[19043]: Invalid user cisco from 210.83.70.250
+</code></pre></div></div>
+
+<p>Для безопасности это не представляет никакой угрозы, так как я уже говорил о том, что вход по паролю запрещен. Но все равно не приятно. Я так и не понял, почему <code>fail2ban</code> перестал блокировать.</p>
+
+<p>Проблема решилась очень быстро после занесения следующей строки в файл <code>/etc/hosts.deny</code>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sshd: 210.83.70.250
+</code></pre></div></div>
+
+<p>Для автоматизации данного процесса установил программу <a href="http://denyhosts.sourceforge.net/" rel="nofollow">denyhosts</a>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo apt-get install denyhosts
+</code></pre></div></div>
+
+<p>Программа представляет собой python-скрипт, как и fail2ban, однако потребляет гораздо меньше памяти. В результате анализа файла <code>/var/log/auth.log</code> <em>denyhosts</em> находит адреса любопытствующих и добавляет их в конец файла <code>/etc/hosts.deny</code>.</p>
+
+<p>Denyhosts имеет массу настроек в файле <code>/etc/denyhosts.conf</code>. Уже после установки все готово к работе. Однако стоит обратить внимание на следующие параметры программы:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PURGE_DENY = 10m
+</code></pre></div></div>
+
+<p>По умолчанию <code>PURGE_DENY</code> ничему не присвоен, и соответственно, все занесенные ip-адреса остаются в файле <code>/etc/hosts.deny</code> навсегда. Установив данный параметр в <code>10m</code>, мы указываем программе сбрасывать список ip-адресов каждые 10 минут.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>BLOCK_SERVICE  = sshd
+</code></pre></div></div>
+
+<p>Параметр <code>BLOCK_SERVICE</code> по умолчанию имеет значение <code>sshd</code>, что говорит о том, что программа будет отслеживать попытки входа только по ssh-протоколу. Если же нужно отслеживать и другие типы соединений, достаточно значение данного параметра изменить на <code>ALL</code>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>BLOCK_SERVICE = ALL
+</code></pre></div></div>
+
+<p>Если собираетесь получать по электронной почте уведомления о заблокированных ip-адресах, достаточно изменить параметр <code>ADMIN_EMAIL</code>, установив ему значение вашей электронной почты:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ADMIN_EMAIL = admin@mail.com
+</code></pre></div></div>
+
+<p>После изменения настроек программы перезапускаем ее:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo service denyhosts restart
+</code></pre></div></div>
+
+<p>И периодически получаем на свой электронный адрес список заблокированных ip-адресов. Сегодня утром получил очередное письмо:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Added the following hosts to /etc/hosts.deny:
+
+190.141.25.97
+186.14.125.33
+210.83.70.250
+134.93.165.0
+173.0.61.113
+212.156.4.6
+188.231.0.81
+67.212.68.81
+124.217.229.162
+219.143.125.205
+</code></pre></div></div>
+
+<p>Желающих пробиться на сервер оказалось не так много, но теперь и они должны понять, что делать им тут нечего.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2011/01/07/dkim-ot-google-na-svoem-domene/" title="View DKIM от Google на своем домене">DKIM от Google на своем домене</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2011/02/27/proshivka-htc-wildfire-ot-mts/" title="View Прошивка HTC Wildfire от МТС">Прошивка HTC Wildfire от МТС</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

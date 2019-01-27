@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Использование Head.JS</title>
+  <meta name="description" content="После того, как подключился к pinboard. in, на сервере нашел упоминание интересного проекта – Head JS. Проект ориентирован на упрощение, ускорение и модернизацию работы со скриптами и файлами стиле...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2010/12/25/use-head-js/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2010/12/19/socialnye-zakladki/">
+  <link rel="next" href="https://www.juev.org/2010/12/26/facebook-comments/">
+  <!-- og:meta -->
+  <meta content="Использование Head.JS" property="og:title">
+  <meta content="После того, как подключился к pinboard. in, на сервере нашел упоминание интересного проекта – Head JS. Проект ориентирован на упрощение, ускорение и модернизацию работы со скриптами и файлами стиле..." property="og:description">
+  <meta content="https://www.juev.org/2010/12/25/use-head-js/" property="og:url">
+  <meta content="2010-12-25T00:00:00+03:00" property="article:published_time">
+  <meta content="javascript" property="article:tag">
+  <meta content="webdesign" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Использование Head.JS" name="twitter:title">
+  <meta content="После того, как подключился к pinboard. in, на сервере нашел упоминание интересного проекта – Head JS. Проект ориентирован на упрощение, ускорение и модернизацию работы со скриптами и файлами стиле..." property="twitter:description">
+  <meta content="https://www.juev.org/2010/12/25/use-head-js/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Использование Head.JS</h1>
+<div id="metainfo">
+<span class="date">25 December 2010</span>
+<span class="tags"><a href="https://www.juev.org/tags/#javascript" title="View posts tagged with &quot;javascript&quot;" rel="nofollow">#javascript</a><a href="https://www.juev.org/tags/#webdesign" title="View posts tagged with &quot;webdesign&quot;" rel="nofollow">#webdesign</a></span>
+</div>
+<div class="post"><p>После того, как подключился к <a href="http://pinboard.in/u:juev" rel="nofollow">pinboard.in</a>, на сервере нашел упоминание интересного проекта – <a href="http://headjs.com/" rel="nofollow">Head JS</a>.</p>
+
+<p>Проект ориентирован на упрощение, ускорение и модернизацию работы со скриптами и файлами стилей. Основная его идея заключается в параллельной загрузке используемых скриптов и файлов стилей. Позволяет так же определять используемый браузер, размер экрана и в зависимости от этой информации подгружать только необходимые файлы. Что делает возможным создавать стили под определенные устройства.</p>
+
+<p>Проект существует не так давно и совсем недавно еще имел статус alpha. В связи с чем, найти хоть какую-нибудь информацию по его использованию, за исключением официальной документации не представляется возможным. Вчера вечером провел пару часов над внедрением данного проекта на страницы своего сайта. И теперь хочу поделиться своими находками и домыслами.</p>
+
+<p>Единственно, я не использовал все возможности данного скрипта, и меня интересовала только возможность параллельной загрузки скриптов.</p>
+
+<p>Для подключения, необходимо скачать со страницы <a href="http://headjs.com/#download" rel="nofollow">headjs.com/#download</a> файл <code>head.min.js</code> и разместить его на сервере. Затем в заголовке документа размещаем строку:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;script src="/js/head.min.js"&gt;&lt;/script&gt;
+</code></pre></div></div>
+
+<p>И теперь я просто покажу несколько примеров того, как модифицируются скрипты для использования их с Head JS.</p>
+
+<h3>Google Analitics</h3>
+<p>Исходный код скрипта:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;script type="text/javascript"&gt;
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-XXXXXXX-X']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+&lt;/script&gt;
+</code></pre></div></div>
+
+<p>Модифицированный:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;script&gt;
+    head.js("http://www.google-analytics.com/ga.js", function() {
+  var tracker = _gat._getTracker("UA-XXXXXXX-X");
+  tracker._trackPageview();
+    });
+&lt;/script&gt;
+</code></pre></div></div>
+
+<h3>Apture</h3>
+<p>Исходный код скрипта:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;script id="aptureScript"&gt;
+(function (){var a=document.createElement("script");a.defer="true";a.src="http://www.apture.com/js/apture.js?siteToken=XXXXXXX";document.getElementsByTagName("head")[0].appendChild(a);})();
+&lt;/script&gt;
+</code></pre></div></div>
+
+<p>Модифицированный:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;script id="aptureScript"&gt;
+head.js("http://www.apture.com/js/apture.js?siteToken=XXXXXXX")
+&lt;/script&gt;
+</code></pre></div></div>
+
+<p>И, естественно, оба скрипта можно объединить в одном блоке:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;script&gt;
+    head.js("http://www.apture.com/js/apture.js?siteToken=XXXXXXX","http://www.google-analytics.com/ga.js", function() {
+      var tracker = _gat._getTracker("UA-XXXXXXX-X");
+      tracker._trackPageview();
+    });
+&lt;/script&gt;
+</code></pre></div></div>
+
+<p>Используемые мной скрипты небольшого размера, поэтому оценить прирост скорости загрузки довольно сложно. Однако на официально странице проводятся ссылки на тесты: <a href="http://headjs.com/test/script.html" rel="nofollow">headjs.com/test/script.html</a>, которые позволяют оценить разность в скорости загрузке одних и тех же скриптов, при размещении их в разделе Head, в конце документа, или при использовании Head.JS.</p>
+
+<p>Судя по результатам, модуль Head JS позволяет скорость загрузку страницы более чем в два раза.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2010/12/19/socialnye-zakladki/" title="View Социальные закладки">Социальные закладки</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2010/12/26/facebook-comments/" title="View Валидация FaceBook комментариев">Валидация FaceBook комментариев</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

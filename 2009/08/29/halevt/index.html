@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Автоматическое монтирование: продолжение истории</title>
+  <meta name="description" content="В своей статье Автоматическое монтирование я уже описал основные проблемы, с которыми сталкивается начинающий пользователь при использовании Archlinux. По сути основная проблема заключается только ...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2009/08/29/halevt/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2009/08/24/mount/">
+  <link rel="next" href="https://www.juev.org/2009/09/11/ratpoison/">
+  <!-- og:meta -->
+  <meta content="Автоматическое монтирование: продолжение истории" property="og:title">
+  <meta content="В своей статье Автоматическое монтирование я уже описал основные проблемы, с которыми сталкивается начинающий пользователь при использовании Archlinux. По сути основная проблема заключается только ..." property="og:description">
+  <meta content="https://www.juev.org/2009/08/29/halevt/" property="og:url">
+  <meta content="2009-08-29T00:00:00+04:00" property="article:published_time">
+  <meta content="archlinux" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Автоматическое монтирование: продолжение истории" name="twitter:title">
+  <meta content="В своей статье Автоматическое монтирование я уже описал основные проблемы, с которыми сталкивается начинающий пользователь при использовании Archlinux. По сути основная проблема заключается только ..." property="twitter:description">
+  <meta content="https://www.juev.org/2009/08/29/halevt/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Автоматическое монтирование: продолжение истории</h1>
+<div id="metainfo">
+<span class="date">29 August 2009</span>
+<span class="tags"><a href="https://www.juev.org/tags/#archlinux" title="View posts tagged with &quot;archlinux&quot;" rel="nofollow">#archlinux</a></span>
+</div>
+<div class="post"><p>В своей статье <a href="/2009/08/24/mount/">Автоматическое монтирование</a> я уже описал основные проблемы, с которыми сталкивается начинающий пользователь при использовании Archlinux.</p>
+
+<p>По сути основная проблема заключается только в том, что для работы со сменными носителями нужно включить себя в группу <em>storage</em> и прописать правила <em>PolicyKit</em>… После этого практически все файловые менеджеры смогут осуществлять автоматическое монтирование. Больше ничего и не нужно. Последующее описание сервиса <em>autofs</em> касалось только случая, когда мы хотим использовать автоматическое монтирование сменных носителей при работе в консоли.</p>
+
+<p>Практически в день публикации вместе с <a href="http://muhas.ru" rel="nofollow">muhas</a> нашли еще одно решение, которое позволяет использовать автоматическое монтирование как в иксах, так и в консоли. При этом способ великолепно интегрируется с файловыми менеджерами типа <em>thunar</em>, <em>pcmanfm</em> и другими…</p>
+
+<p>Способ заключается в использовании демона <strong>halevt</strong>. Этот демон является развитием проекта <em>ivman</em>, который на сегодняшний день уже не развивается и успел устареть. Для монтирования используется <em>hal</em>, но в то же время практически ничего менять не нужно. Установить просто:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ yaourt -S halevt
+</code></pre></div></div>
+
+<p>После чего просто запускаем его:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ halevt
+</code></pre></div></div>
+
+<p>Он переходит в работу на фоне и использует свои правила для монтирования сменных устройств. Для того, чтобы демон запускался автоматически при старте системы, необходимо добавить следующую строку в <em>.bashrc</em> (<em>.zshrc</em>) и <em>.xinitrc</em> (я использую awesome в качестве оконного менеджера, поэтому все сервисы, которые стартуют при запуске иксов прописываются в <em>.xinitrc</em>):</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pgrep halevt &gt;&gt; /dev/null || halevt &amp;
+</code></pre></div></div>
+
+<p>Для использования команды <em>pgrep</em> должен быть установлен пакет <em>procps</em>. Данная команда позволяет проверить, запущен ли демон, и если нет, запустить его. Если работают на машине несколько пользователей лучше эту строку несколько модифицировать:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pgrep -U $USER halevt &gt;&gt; /dev/null || halevt &amp;
+</code></pre></div></div>
+
+<p>Таким образом еще будет проверяться, от имени какого пользователя был запущен демон и монтирование в дальнейшем будет проводиться с нужными правами.</p>
+
+<p>Для изменений опций монтирования необходимо править файл <code class="highlighter-rouge">/usr/share/halevt/halevt.xml</code>, который представляет собой обычный xml-файл, очень хорошо прокоментированный. Все что необходимо менять – это строки, в который присутствует команда <em>mount</em>.</p>
+
+<p>По умолчанию при монтировании будет использоваться опция <em>sync</em>. Ее я рекомендую заменить на <em>flush</em>, для того, чтобы не уменьшать время жизни флешек.</p>
+
+<p>Для того, чтобы демонтировать сменный носитель можно воспользоваться файловым менеджером в иксах, типа <em>thunar</em> или <em>pcmanfm</em>. Или же в консоли воспользоваться командой <em>pumount</em>.</p>
+
+<p>В первом случае достаточно щелкнуть правой кнопкой мыши по имени носителя в боковой панели файлового менеджера и выбрать пункт “извлечь носитель”.</p>
+
+<p>Для использования функции демонтирования в консоли требуется наличие установленного пакета <em>pmount</em>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ yaourt -S pmount
+</code></pre></div></div>
+
+<p>Для демонтирования используем команду:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ pumount /media/disk
+</code></pre></div></div>
+
+<p>Причем оба способа не конфликтуют друг с другом. Можно использовать любой из них…</p>
+
+<p>На мой взгляд это самый оптимальный и можно сказать единственный из работающих способ автоматического монтирования, который может использоваться в иксах и консоли одновременно.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2009/08/24/mount/" title="View Автоматическое монтирование">Автоматическое монтирование</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2009/09/11/ratpoison/" title="View Ratpoison - screen в иксах">Ratpoison - screen в иксах</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

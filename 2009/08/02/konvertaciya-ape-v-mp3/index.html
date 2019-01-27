@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Конвертация ape в mp3</title>
+  <meta name="description" content="Сегодня скачал с торрента произведения Чайковского и обнаружил, что они в формате ape… Мой любимый mplayer играть их отказался, хотя в конфигурации и показывал поддержку данного формата. Пришлось о...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2009/08/02/konvertaciya-ape-v-mp3/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2009/08/01/magiya-ror/">
+  <link rel="next" href="https://www.juev.org/2009/08/03/ogranichenie-razmera-steka/">
+  <!-- og:meta -->
+  <meta content="Конвертация ape в mp3" property="og:title">
+  <meta content="Сегодня скачал с торрента произведения Чайковского и обнаружил, что они в формате ape… Мой любимый mplayer играть их отказался, хотя в конфигурации и показывал поддержку данного формата. Пришлось о..." property="og:description">
+  <meta content="https://www.juev.org/2009/08/02/konvertaciya-ape-v-mp3/" property="og:url">
+  <meta content="2009-08-02T00:00:00+04:00" property="article:published_time">
+  <meta content="archlinux" property="article:tag">
+  <meta content="music" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Конвертация ape в mp3" name="twitter:title">
+  <meta content="Сегодня скачал с торрента произведения Чайковского и обнаружил, что они в формате ape… Мой любимый mplayer играть их отказался, хотя в конфигурации и показывал поддержку данного формата. Пришлось о..." property="twitter:description">
+  <meta content="https://www.juev.org/2009/08/02/konvertaciya-ape-v-mp3/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Конвертация ape в mp3</h1>
+<div id="metainfo">
+<span class="date">02 August 2009</span>
+<span class="tags"><a href="https://www.juev.org/tags/#archlinux" title="View posts tagged with &quot;archlinux&quot;" rel="nofollow">#archlinux</a><a href="https://www.juev.org/tags/#music" title="View posts tagged with &quot;music&quot;" rel="nofollow">#music</a></span>
+</div>
+<div class="post"><p>Сегодня скачал с торрента произведения Чайковского и обнаружил, что они в формате <strong>ape</strong>… Мой любимый <strong>mplayer</strong> играть их отказался, хотя в конфигурации и показывал поддержку данного формата.</p>
+
+<p>Пришлось обратиться к помощи гугля. В результате стало понятно, что напрямую использовать данный формат довольно проблематично и самый простой способ использования – это конвертация его в более удобоваримые форматы.</p>
+
+<p>Нашел скрипт, который позволяет из одного ape-файла (по сути образа диска) получить целый набор треков с данного альбома в формате mp3. И затем упростил его и оптимизировал для конвертации целого набора ape-файлов.</p>
+
+<p>Для использования скрипта необходимо иметь установленными пакеты <strong>mac</strong> и <strong>lame</strong>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ yaourt -S mac lame
+</code></pre></div></div>
+
+<p>Текст скрипта:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="c">#Saving the position so as to return afterwards</span>
+<span class="nv">olddir</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span><span class="s2">"</span>
+
+<span class="c">#Going to target directory</span>
+<span class="c">#cd "$(dirname "$1")"</span>
+
+<span class="c">#Checking for the output folder. If it's not there I create it</span>
+<span class="o">[</span> <span class="o">!</span> <span class="nt">-d</span> <span class="s2">"Output"</span> <span class="o">]</span> &amp;amp<span class="p">;</span>&amp;amp<span class="p">;</span> mkdir <span class="nt">-p</span> <span class="s2">"Output"</span>
+
+<span class="k">for </span>file <span class="k">in</span> <span class="k">*</span>.ape
+<span class="k">do</span>
+<span class="c">#Checking filetype by extension and decompressing</span>
+<span class="nv">tmp</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>basename <span class="s2">"</span><span class="nv">$file</span><span class="s2">"</span><span class="k">)</span><span class="s2">"</span>
+<span class="nv">tmp</span><span class="o">=</span><span class="s2">"</span><span class="nv">$&amp;</span><span class="s2">#123;tmp##*.}"</span>
+
+<span class="nb">echo</span> <span class="nt">-en</span> <span class="s2">"</span><span class="se">\0</span><span class="s2">33[1;32mDecompressing APE file</span><span class="se">\n\n</span><span class="s2">"</span>
+<span class="nb">echo</span> <span class="nt">-en</span> <span class="s2">"</span><span class="se">\0</span><span class="s2">33[1;37m"</span>
+<span class="nv">tm</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>basename <span class="s2">"</span><span class="nv">$file</span><span class="s2">"</span><span class="k">)</span><span class="s2">"</span>
+<span class="nv">tm</span><span class="o">=</span><span class="s2">"</span><span class="nv">$&amp;</span><span class="s2">#123;tm%.[aA][pP][eE]}"</span>
+<span class="nv">out</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>mac <span class="s2">"</span><span class="nv">$file</span><span class="s2">"</span> <span class="s2">"Output/</span><span class="nv">$&amp;</span><span class="s2">#123;tm}.wav"</span> <span class="s2">"-d"</span><span class="k">)</span><span class="s2">"</span>
+
+<span class="nb">cd</span> <span class="s2">"Output"</span>
+<span class="nb">echo</span> <span class="nt">-en</span> <span class="s2">"</span><span class="se">\0</span><span class="s2">33[1;32m</span><span class="se">\n</span><span class="s2">Decompression finished</span><span class="se">\n</span><span class="s2">"</span>
+<span class="nb">echo</span> <span class="nt">-en</span> <span class="s2">"</span><span class="se">\0</span><span class="s2">33[1;32mStarting reencoding</span><span class="se">\n\n</span><span class="s2">"</span>
+<span class="nb">echo</span> <span class="nt">-en</span> <span class="s2">"</span><span class="se">\0</span><span class="s2">33[1;37m"</span>
+<span class="c">#Calling lame. Saving output for future checking</span>
+<span class="nv">out</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>lame <span class="nt">--preset</span> standard <span class="s2">"</span><span class="nv">$tm</span><span class="s2">.wav"</span> <span class="s2">"</span><span class="nv">$tm</span><span class="s2">.mp3"</span><span class="k">)</span><span class="s2">"</span>
+<span class="nb">echo</span> <span class="nt">-en</span> <span class="s2">"</span><span class="se">\0</span><span class="s2">33[1;32m</span><span class="se">\n</span><span class="s2">Reencoding finished</span><span class="se">\n</span><span class="s2">"</span>
+<span class="nb">echo</span> <span class="nt">-en</span> <span class="s2">"</span><span class="se">\0</span><span class="s2">33[1;32mSplitting</span><span class="se">\n\n</span><span class="s2">"</span>
+<span class="nb">echo</span> <span class="nt">-en</span> <span class="s2">"</span><span class="se">\0</span><span class="s2">33[1;37m"</span>
+<span class="c">#Using framemode becaus this settings are for VBR</span>
+<span class="c">#       out="$(mp3splt -f -c "$(basename "$2")" -o "@n+-+@t" "$tm.mp3")"</span>
+rm <span class="s2">"</span><span class="nv">$tm</span><span class="s2">.wav"</span>
+<span class="nb">cd</span> ..
+<span class="k">done
+
+</span><span class="nb">cd</span> <span class="s2">"</span><span class="nv">$oldir</span><span class="s2">"</span>
+<span class="nb">echo</span> <span class="nt">-en</span> <span class="s2">"</span><span class="se">\0</span><span class="s2">33[1;32m</span><span class="se">\n</span><span class="s2">Processing finished successfully</span><span class="se">\n</span><span class="s2">"</span>
+<span class="nb">echo</span> <span class="nt">-en</span> <span class="s2">"</span><span class="se">\0</span><span class="s2">33[1;37m"</span>
+<span class="nb">exit </span>0
+</code></pre></div></div>
+
+<p>Для использования данного скрипта достаточно просто его запустить в директории с ape-файлами. Создается новая директория Output, в которой будут размещены одноименные файлы, но уже в формате mp3.</p>
+
+<p>Скрипт оптимизирован под использование имен файлов, включающих пробелы. Поэтому можно об этом не беспокоиться. Все временные файлы, которые образуются в результате работы скрипта, подчищаются.</p>
+
+<p>Если необходимо улучшить качество mp3-файла, достаточно в строке</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>out="$(lame --preset standard "$tm.wav" "$tm.mp3")"
+</code></pre></div></div>
+
+<p>изменить standart на extreme.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2009/08/01/magiya-ror/" title="View Магия RoR">Магия RoR</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2009/08/03/ogranichenie-razmera-steka/" title="View Ограничение размера стека">Ограничение размера стека</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Travis: Deploy over SSH</title>
+  <meta name="description" content="Во время миграции сайта на свой собственный сервер у меня было две возможности:  Настроить webhook на самом сервере для генерации запуска сборки сайта непосредственно на сервере после каждого комит...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2016/09/03/travis-deploy-over-ssh/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2016/09/01/vps/">
+  <link rel="next" href="https://www.juev.org/2016/09/10/overcast-ads/">
+  <!-- og:meta -->
+  <meta content="Travis: Deploy over SSH" property="og:title">
+  <meta content="Во время миграции сайта на свой собственный сервер у меня было две возможности:  Настроить webhook на самом сервере для генерации запуска сборки сайта непосредственно на сервере после каждого комит..." property="og:description">
+  <meta content="https://www.juev.org/2016/09/03/travis-deploy-over-ssh/" property="og:url">
+  <meta content="2016-09-03T11:48:00+03:00" property="article:published_time">
+  <meta content="travis" property="article:tag">
+  <meta content="vps" property="article:tag">
+  <meta content="https://static.juev.org/2016/09/logotravis.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Travis: Deploy over SSH" name="twitter:title">
+  <meta content="Во время миграции сайта на свой собственный сервер у меня было две возможности:  Настроить webhook на самом сервере для генерации запуска сборки сайта непосредственно на сервере после каждого комит..." property="twitter:description">
+  <meta content="https://www.juev.org/2016/09/03/travis-deploy-over-ssh/" name="twitter:url">
+  <meta content="https://static.juev.org/2016/09/logotravis.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Travis: Deploy over SSH</h1>
+<div id="metainfo">
+<span class="date">03 September 2016</span>
+<span class="tags"><a href="https://www.juev.org/tags/#travis" title="View posts tagged with &quot;travis&quot;" rel="nofollow">#travis</a><a href="https://www.juev.org/tags/#vps" title="View posts tagged with &quot;vps&quot;" rel="nofollow">#vps</a></span>
+</div>
+<div class="post"><p>Во время <a href="https://www.juev.org/2016/09/01/vps/" title="Миграция сайта с CloudFront на DigitalOcean">миграции</a> сайта на свой собственный сервер у меня было две возможности:</p>
+
+<ol>
+  <li>Настроить webhook на самом сервере для генерации запуска сборки сайта непосредственно на сервере после каждого комита.</li>
+  <li>Продолжать использовать для генерации сайта сервис Travis-CI, но тут возникает сложность при публикации результата.</li>
+</ol>
+
+<p>В первом случае получаем безопасную конфигурацию, но требующую дополнительных работающих сервисов и настроек на самом сервере. Поэтому решил попробовать второй вариант.</p>
+
+<p>В итоге уже имеем готовую инфраструктуру для генерации сайта, и остается лишь настроить вебсервер и продумать каким образом передавать файлы с сервера Travis на наш веб-сервер.</p>
+
+<p>Если использовать приватные репозитории на Github, то проблем никаких нет, так как в данном случае Travis предоставляет дополнительные настройки для хранения ключей. Но так как я не пользуюсь платным аккаунтом на Github, пришлось идти другим путем.</p>
+
+<p>Предлагаемое решение подразумевает хранение SSH-ключей непосредственно в репозитории проекта. То есть в общедоступном и небезопасном месте. Таким образом нашей задачей становятся подготовка ограниченного окружения на сервере, к которому будет иметь доступ Travis, и шифрование ключей для хранения в репозитории.</p>
+
+<p>Создание нового пользователя и выдачу ему прав описывать не буду, здесь все тривиально и ничего особенного нет. Единственно, нужно обратить внимание на создание новых SSH-ключей для нового пользователя, создавать будем ключ типа RSA (пробовал использовать ed25519, но возникли проблемы с его использованием на сервере Travis). Переходим в директорию репозитория и используем команды:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh-keygen -t rsa -b 4096 -C '&lt;repo&gt;@travis-ci.org' -f ./deploy_rsa
+travis encrypt-file deploy_rsa --add
+ssh-copy-id -i deploy_rsa.pub &lt;ssh-user&gt;@&lt;deploy-host&gt;
+</code></pre></div></div>
+
+<p>Первая команда генерирует ключи в текущей директории (ВАЖНО: не задавайте пароль), вторая команда шифрует приватный ключ и прописывает его использование в файл <code class="highlighter-rouge">.travis.yml</code>, а третья команда загружает публичный ключ на наш сервер. Не забудьте указать определенные значения вместо переменных repo, ssh-user и deploy-host.</p>
+
+<p>Теперь удаляем подготовленные ключи и добавляем под контроль зашифрованный файл:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rm -f deploy_rsa deploy_rsa.pub
+git add deploy_rsa.enc 
+</code></pre></div></div>
+
+<p>Остается немного поправить файл конфигурации <code class="highlighter-rouge">.travis.yml</code>. После шифрования файла уже будут добавлены строки:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> - openssl aes-256-cbc -K $encrypted_d7becb892f62_key -iv $encrypted_d7becb892f62_iv
+   -in deploy_rsa.enc -out $TRAVIS_BUILD_DIR/deploy_rsa -d
+</code></pre></div></div>
+
+<p>Нужно только в параметре out добавить переменную <code class="highlighter-rouge">$TRAVIS_BUILD_DIR</code>. И затем нужно добавить определение дополнения ssh_known_hosts:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>addons:
+   ssh_known_hosts: &lt;deploy-host&gt;
+</code></pre></div></div>
+
+<p>Как и ранее, не забудьте поменять переменную deploy-host на ip-адрес или доменное имя своего сервера, в зависимости от того, что вы будете использовать в команде rsync.</p>
+
+<p>И теперь осталось только прописать команды по инициализации нового ключа:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>after_success:
+ - eval "$(ssh-agent -s)"
+ - chmod 600 $TRAVIS_BUILD_DIR/deploy_rsa
+ - ssh-add $TRAVIS_BUILD_DIR/deploy_rsa
+ - bundle exec rake publish
+</code></pre></div></div>
+
+<p>Загрузка файлов на сервер осуществляется только в том случае, если генерация сайта прошла успешно, поэтому все команды прописываются в блоке after_success. Первые три команды осуществляют запуск ssh-агента, установку верных прав доступа для ключа и добавление ключа в уже работающий агент. И последняя команда используется для запуска самого деплоя. Так как в моем случае производиться не только деплой, но так же оповещение поисковых систем об изменениях, запускается задача из Rakefile.</p>
+
+<p>Для передачи файлов используется следующая команда:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rsync -az --delete-after $TRAVIS_BUILD_DIR/public/ &lt;ssh-user&gt;@&lt;deploy-host&gt;:&lt;directory&gt;
+</code></pre></div></div>
+
+<p>Текущую версию файла конфигурации Travis можно найти в моем репозитории: <a href="https://raw.githubusercontent.com/Juev/juev.org/2ce4697c24bf4f52da04dc2f0a1c5ad03a92119a/.travis.yml">.travis.yml</a>.</p>
+
+<p>Таким образом теперь у нас есть рабочий сервер для сборки сайта, который очень гибко настраивается и не требует усилий на поддержание его работы, и относительно безопасный веб-сервер, файла на котором обновляются после каждого комита.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2016/09/01/vps/" title="View Миграция сайта с CloudFront на DigitalOcean">Миграция сайта с CloudFront на DigitalOcean</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2016/09/10/overcast-ads/" title="View Overcast переходит на модель с рекламой">Overcast переходит на модель с рекламой</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

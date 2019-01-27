@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Gentoo - шаг в будущее?</title>
+  <meta name="description" content="Я уже писал о своем поиске идеального дистрибутива.  Очень много времени я потратил на то, чтобы сформулировать именно то, чего я хочу, и затем на поиск дистрибутива, который бы удовлетворял данным...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2009/11/24/gentoo-2/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2009/11/16/xmonad-mplayer/">
+  <link rel="next" href="https://www.juev.org/2009/12/05/gentoo-use-flagi/">
+  <!-- og:meta -->
+  <meta content="Gentoo - шаг в будущее?" property="og:title">
+  <meta content="Я уже писал о своем поиске идеального дистрибутива.  Очень много времени я потратил на то, чтобы сформулировать именно то, чего я хочу, и затем на поиск дистрибутива, который бы удовлетворял данным..." property="og:description">
+  <meta content="https://www.juev.org/2009/11/24/gentoo-2/" property="og:url">
+  <meta content="2009-11-24T00:00:00+03:00" property="article:published_time">
+  <meta content="gentoo" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Gentoo - шаг в будущее?" name="twitter:title">
+  <meta content="Я уже писал о своем поиске идеального дистрибутива.  Очень много времени я потратил на то, чтобы сформулировать именно то, чего я хочу, и затем на поиск дистрибутива, который бы удовлетворял данным..." property="twitter:description">
+  <meta content="https://www.juev.org/2009/11/24/gentoo-2/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Gentoo - шаг в будущее?</h1>
+<div id="metainfo">
+<span class="date">24 November 2009</span>
+<span class="tags"><a href="https://www.juev.org/tags/#gentoo" title="View posts tagged with &quot;gentoo&quot;" rel="nofollow">#gentoo</a></span>
+</div>
+<div class="post"><p>Я уже писал о своем поиске идеального дистрибутива. Очень много времени я потратил на то, чтобы сформулировать именно то, чего я хочу, и затем на поиск дистрибутива, который бы удовлетворял данным запросам.</p>
+
+<p>Что же мне так не нравилось? В opensuse мне не понравилась политика самого дистрибутива, использовать только их фаервол, использовать пульсаудио в случае использования гнома, отключенный dht в торрент-клиентах. В ubuntu мне не понравилось то, что вся система направлена на эксперимент. Хочешь ты или не хочешь, а используй экспериментальный gdm, grub и при этом никого не волнует, что эти программы еще в настолько экспериментальном виде, что нет возможности их настройки. Еще больше меня возмутило то, что даже установить нормальную версию (стабильную) из репозитория уже просто не возможно.  Гном так же завязан полностью на пульсаудио. И так можно еще долго продолжать, про недостатки данных дистрибутивов и про методы их решения. Но все сводиться к тому, что главный недостаток в том, что кто-то решает за нас, что нужно нам!</p>
+
+<p>Смысл надеюсь понятен? Кто-то сидит и выдумывает, а что может понадобиться нам? Чтобы такого замутить, чтобы всем было хорошо?? При этом естественно нас об этом никто не спрашивает. И в итоге рождаются consolekit, policykit, pulseaudio и иже с ними.</p>
+
+<p>Это же будущее! Как без этого? – воскликнут некоторые. Перед этим ответьте на вопрос, а вы используете то, что я перечислил? Знаете что такое consolekit или policykit? для чего используется?? Или просто используете только потому, что создатели дистрибутива воткнули вам эту прелесть??</p>
+
+<p>И когда я понял это, я осознал, что идеальный дистрибутив – это тот, что предоставляет право выбора! Не просто поставляет пакеты с жесткими зависимостями, а дает право выбирать, что ставить и от чего все это дело будет зависеть. И такой дистрибутив оказался, причем существует он уже чуть более десяти лет. Gentoo!</p>
+
+<p>Чувствую, как многие скривились. Компилировать? Это же долго! Да и зачем??</p>
+
+<p>Во-первых, хочу избавиться от одного мифа, который прочно вошел в сознание. Миф о том, что вся система создана только для компиляции и что вся работа с этим дистрибутивом будет основана на том, что нужно будет изучать, как все это дело работает, настройке всего этого дела и безостановочной компиляции… даже звучит глупо, но увы, многие именно так и думает. Реальность говорит о совершенно другом.</p>
+
+<p>Когда я искал идеальный дистрибутив, в статье приводил некоторые аспекты использования дискового пространства в gentoo. Так вот, прошлый эксперимент оказался несколько странным, на этот раз мне вполне хватило корневого раздела в 10 гигабайт на все. При этом занято от силы 4,7 гигабайта. На сборку рабочей системы мне понадобилось всего несколько часов, то есть в 15.00 я начал, неторопясь загружал, прописывал, компилировал, и уже к 22.00 у меня была полностью готовая к работе система с установленными иксами, xmonad, опенофисом и еще целым рядом софта. Последующие несколько дней потихоньку доводил систему до того, что я хотел, как впрочем это делаю с любой системой. И затем, в дальнейшем просто проводил обновления.</p>
+
+<p>Много ли я времени потратил на сборку системы?? На мой взгляд нет, не много. Хотя естественно, что это много больше, чем если бы я воспользовался установкой бинарного дистрибутива. Что я получил?? Колоссальную гибкость, безопасность и удобство!</p>
+
+<p>Гибкость заключается в использование флагов USE, я собрал все программы с выключенными флагами consolekit и policykit, то есть как минимум не использую то, что считаю лишним. Что это мне дало?? Простоту настройки использования сменных носителей и сокращение использования оперативной памяти. Для сравнения:</p>
+
+<p><a href="https://static.juev.org/2009/11/consolekit.png"><img class="aligncenter size-medium wp-image-641" title="consolekit" src="https://static.juev.org/2009/11/consolekit-300x240.png" alt="consolekit" width="300" height="240" /></a></p>
+
+<p><a href="https://static.juev.org/2009/11/no_consolekit.png"><img class="aligncenter size-medium wp-image-642" title="no_consolekit" src="https://static.juev.org/2009/11/no_consolekit-300x240.png" alt="consolekit disabled" width="300" height="240" /></a></p>
+
+<p>Установка программ очень проста. Функционал emerge просто поражает! Попробуйте запустить одновременно несколько пакетных менеджеров в любом дистре? В генту это просто и без проблем! Компьютер не подключен к интернету? Опять нет проблем, с помощью emerge получаем набор ссылок, по которым качаем пакеты на другой машине, копируем файлы в DISTDIR и без проблем ставим, опять же, все тем же, emerge!</p>
+
+<p>Во-вторых , в отличие от archlinux, все пакеты проверяются и тестируются. Не только на безопасность, но и на работоспособность. К примеру, после установки halevt, приходилось разбираться, что же еще нужно сделать в archlinux для того, чтобы он заработал. Руками копировать файлы конфигурции, запускать демон. В gentoo достаточно установить и запустить. Все! Остальное уже предусмотрено дистростроителями. Это касается практически каждого пакета. Сколько программ я уже ставил и каждый раз удивляюсь предельной заботой и продуманностью.</p>
+
+<p>Приходилось уже слышать о том, что в gentoo очень плохое сообщество. Странно, но ничего подобного я так и не нашел. Сколько вопросов появляется на форуме, сколько вопросов задается на irc-канале freenode. И всегда на вопросы находятся ответы! Я сам не раз задавал вопросы и каждый раз на них получал ответы, рекомендации. Очень дружелюбно и грамотно. Странно даже, что такие мифы появляются о сообществе gentoo…</p>
+
+<p>Есть ли сложности? Да, как без них? Во-первых, на установку системы придется потратить больше времени, чем при использовании бинарного дистрибутива, но это время только установки, часто ли вы ставите систему?? Во-вторых, для установки gentoo нужно иметь хотя бы базовые знания по работе в linux (как минимум) и желательно перед проведением установки разобраться в системе portage, главное – разобраться в используемых флагах USE.</p>
+
+<p>Не страшно? Если нет, тогда добро пожаловать в мир Gentoo! Мир, который мы строим сами!</p>
+
+<p>Я уже больше недели использую данный дистрибутив (стабильная ветка с некоторыми программами из нестабильной ветки) и меня все устраивает. Да, именно ВСЕ!</p>
+
+<p>Дистрибутив, который для меня является идеальным! Похоже, что я нашел именно то, что искал!</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2009/11/16/xmonad-mplayer/" title="View xmonad &amp; mplayer">xmonad &amp; mplayer</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2009/12/05/gentoo-use-flagi/" title="View Gentoo: USE-флаги">Gentoo: USE-флаги</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Gentoo: dhcp &amp; dns</title>
+  <meta name="description" content="На русском форуме gentoo часто встречаю вопросы по тому, как сделать так, чтобы при рабочем dhcp-клиенте не затирались записи в файле /etc/resolv. conf?Обычно вносят изменения в этот файл, вручную ...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2009/12/09/gentoo-dhcp-dns/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2009/12/05/gentoo-use-flagi/">
+  <link rel="next" href="https://www.juev.org/2009/12/14/movable-type/">
+  <!-- og:meta -->
+  <meta content="Gentoo: dhcp &amp; dns" property="og:title">
+  <meta content="На русском форуме gentoo часто встречаю вопросы по тому, как сделать так, чтобы при рабочем dhcp-клиенте не затирались записи в файле /etc/resolv. conf?Обычно вносят изменения в этот файл, вручную ..." property="og:description">
+  <meta content="https://www.juev.org/2009/12/09/gentoo-dhcp-dns/" property="og:url">
+  <meta content="2009-12-09T00:00:00+03:00" property="article:published_time">
+  <meta content="gentoo" property="article:tag">
+  <meta content="dns" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Gentoo: dhcp &amp; dns" name="twitter:title">
+  <meta content="На русском форуме gentoo часто встречаю вопросы по тому, как сделать так, чтобы при рабочем dhcp-клиенте не затирались записи в файле /etc/resolv. conf?Обычно вносят изменения в этот файл, вручную ..." property="twitter:description">
+  <meta content="https://www.juev.org/2009/12/09/gentoo-dhcp-dns/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Gentoo: dhcp &amp; dns</h1>
+<div id="metainfo">
+<span class="date">09 December 2009</span>
+<span class="tags"><a href="https://www.juev.org/tags/#gentoo" title="View posts tagged with &quot;gentoo&quot;" rel="nofollow">#gentoo</a><a href="https://www.juev.org/tags/#dns" title="View posts tagged with &quot;dns&quot;" rel="nofollow">#dns</a></span>
+</div>
+<div class="post"><p>На русском форуме gentoo часто встречаю вопросы по тому, как сделать так, чтобы при рабочем dhcp-клиенте не затирались записи в файле <em>/etc/resolv.conf</em>?</p>
+
+<p>Обычно вносят изменения в этот файл, вручную указывая какие dns-сервера необходимо использовать. Мало ли, может dns-сервер провайдера работает не корректно или хотим использовать другие сервера, причин может быть множество. Но проблема в том, что прописывание руками серверов в указанный файл не приносит результата, при очередном получении ip-адреса, все прописанное затирается информацией с dhcp-сервера.</p>
+
+<p>Я покажу, как можно сделать так, чтобы сам клиент позволял сформировать нужный файл resolv.conf. Метода два, так как в Gentoo можно использовать два демона для получения ip-адреса (рассматриваю самые популярные).</p>
+<ol>
+	<li>Демон <strong>dhcpcd</strong>. Тут все просто. Достаточно создать два файла:
+<code>/etc/resolv.conf.head</code> и <code>/etc/resolv.conf.tail</code>
+Первый файл используется для указания серверов, которые будут использоваться ПЕРЕД адресами, выдаваемыми dhcp-сервером, а второй файл соответственно ПОСЛЕ, то есть являются по сути резервными.
+Добавляем в эти файлы строки, в формате обычного resolv.conf:
+<pre>nameserver 8.8.8.8</pre>
+</li>
+	<li>Демон <strong>dhcp</strong>. Именно его я использую, он является более легковесным вариантом клиента, и на мой взгляд работает быстрее. По сути сама настройка так же не представляет сложности.
+Достаточно создать или изменить существующий файл конфигурации <em>/etc/dhcp/dhclient.conf</em>:
+<pre>prepend domain-name-servers 8.8.8.8;
+prepend domain-name-servers 127.0.0.1;</pre>
+Обращаю внимание, что в записи используется обратный порядок, то есть сервер из первой строки будет обрабатываться только при неработоспособности сервера из второй. В примере последняя строка -- локальный сервер dnsmasq...</li>
+</ol>
+<p>После прописывания данных строк в файлы конфигурации мы получаем нужные нас dns-сервера в активной конфигурации сети.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2009/12/05/gentoo-use-flagi/" title="View Gentoo: USE-флаги">Gentoo: USE-флаги</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2009/12/14/movable-type/" title="View Movable Type">Movable Type</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

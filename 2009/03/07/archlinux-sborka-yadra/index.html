@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>archlinux - сборка ядра</title>
+  <meta name="description" content="В archlinux сборка ядра довольно простое дело, причем в итоге создается установочный пакет, который затем ставится, как обычный, со всеми возможностями дальнейшего управления, такими как обновление...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2009/03/07/archlinux-sborka-yadra/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2009/03/01/wpbackup/">
+  <link rel="next" href="https://www.juev.org/2009/03/17/pdnsd-lokalnyj-keshiruyushhij-dns-server/">
+  <!-- og:meta -->
+  <meta content="archlinux - сборка ядра" property="og:title">
+  <meta content="В archlinux сборка ядра довольно простое дело, причем в итоге создается установочный пакет, который затем ставится, как обычный, со всеми возможностями дальнейшего управления, такими как обновление..." property="og:description">
+  <meta content="https://www.juev.org/2009/03/07/archlinux-sborka-yadra/" property="og:url">
+  <meta content="2009-03-07T00:00:00+03:00" property="article:published_time">
+  <meta content="archlinux" property="article:tag">
+  <meta content="kernel" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="archlinux - сборка ядра" name="twitter:title">
+  <meta content="В archlinux сборка ядра довольно простое дело, причем в итоге создается установочный пакет, который затем ставится, как обычный, со всеми возможностями дальнейшего управления, такими как обновление..." property="twitter:description">
+  <meta content="https://www.juev.org/2009/03/07/archlinux-sborka-yadra/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">archlinux - сборка ядра</h1>
+<div id="metainfo">
+<span class="date">07 March 2009</span>
+<span class="tags"><a href="https://www.juev.org/tags/#archlinux" title="View posts tagged with &quot;archlinux&quot;" rel="nofollow">#archlinux</a><a href="https://www.juev.org/tags/#kernel" title="View posts tagged with &quot;kernel&quot;" rel="nofollow">#kernel</a></span>
+</div>
+<div class="post"><p>В archlinux сборка ядра довольно простое дело, причем в итоге создается установочный пакет, который затем ставится, как обычный, со всеми возможностями дальнейшего управления, такими как обновление, удаление…</p>
+
+<p>Качаем исходники, я воспользовался <a href="http://mirror.yandex.ru/kernel.org/linux/kernel/v2.6/linux-2.6.27.8.tar.bz2" rel="nofollow">mirror.yandex.ru</a>.</p>
+
+<p>Распаковываем их в домашней директории. Использовать системные папки не рекомендуют…</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd ~/Temp
+$ tar -xjf linux-2.6.27.8.tar.bz2
+$ cd linux-2.6.27.8
+$ zcat /proc/config.gz &amp;gt;| .config
+$ make menuconfig
+</code></pre></div></div>
+
+<p>Теперь конфигурируем новое ядро. Не забываем указать контролеры жесткого диска, если используется диск sata, то нужно обязательно включить scsi, также включаем все файловые системы, что используете в своей системе. Причем включаем не в виде модулей, а жестко, непсоредственно в ядро. В разделе “файловые системы” для vfat задаем codepage в 866, а iocharset в utf8, чтобы избежать проблем с кодировкой имен файлов при монтировании с использованием udev и thunar…</p>
+
+<p>После конфигурации создаем в текущей папке два файла (по ссылкам их содержимое):</p>
+
+<p><a href="http://textsnip.com/1d82d2" rel="nofollow">PKGBUILD</a></p>
+
+<p><a href="http://textsnip.com/8a6399" rel="nofollow">kernel26.install</a></p>
+
+<p>И теперь запускаем компиляцию командой <code class="highlighter-rouge">makepkg -f</code>.</p>
+
+<p>По окончании в текущей папке будет лежать готовый к установке пакет, который ставим с использованием pacman:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo pacman -Uf kernel26-my-2.6.27-8-i686.pkg.tar.gz
+</code></pre></div></div>
+
+<p>Осталось только сконфигурировать grub, для этого редактируем файл /boot/grub/menu.lst:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># general configuration:
+timeout   5
+default   0
+color light-blue/black light-cyan/blue
+
+# (0) Arch Linux
+title  My Arch Linux
+root   (hd0,0)
+kernel /vmlinuz26-my root=/dev/sda3 ro quiet vga=791
+#initrd /kernel26-fallback.img
+
+# (1) Arch Linux
+title  Arch Linux
+root   (hd0,0)
+kernel /vmlinuz26 root=/dev/disk/by-uuid/e8cb29e8-ff8b-4f08-ae93-e7e63e27d9be ro quiet vga=791
+initrd /kernel26.img
+
+# (2) Arch Linux
+title  Arch Linux Fallback
+root   (hd0,0)
+kernel /vmlinuz26 root=/dev/disk/by-uuid/e8cb29e8-ff8b-4f08-ae93-e7e63e27d9be ro
+initrd /kernel26-fallback.img
+</code></pre></div></div>
+
+<p>Как видно, в самое начало (в нулевую позицию) добавлен блок My Arch Linux, который отвечает за загрузку нашего нового ядра. Оно же прописано для использования по умолчанию. Добавлены опции quiet для уменьшения вывода на экран во время загрузки, и включения фреймбуфера в консоли (разрешение 1024х768). Обращаю внимание на то, что в нашем новом ядре не используется образ initrd, поэтому раздел root= указывается непосредственно, без UUID, который к этому моменту еще не сгенерирован… Иначе получим сообщение об ошибке при загрузке на то, что рутовый раздел не найден…</p>
+
+<p>Перезагружаем машину и наслаждаемся жизнью уже с новым ядром!</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2009/03/01/wpbackup/" title="View Бэкап базы данных wordpress по почте">Бэкап базы данных wordpress по почте</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2009/03/17/pdnsd-lokalnyj-keshiruyushhij-dns-server/" title="View pdnsd - локальный кэширующий dns сервер">pdnsd - локальный кэширующий dns сервер</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

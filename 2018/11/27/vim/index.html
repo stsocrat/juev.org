@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Время запуска Vim</title>
+  <meta name="description" content="Кому как, а я до сих пор не могу определиться с “лучшим” редактором.  Сколько лет постоянно пользуюсь то vim, то emacs.  После чего переключаюсь на vscode или им подобным.  И снова возвращаюсь к vi...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2018/11/27/vim/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2018/11/25/weblinks-1/">
+  <link rel="next" href="https://www.juev.org/2018/12/01/weblinks-2/">
+  <!-- og:meta -->
+  <meta content="Время запуска Vim" property="og:title">
+  <meta content="Кому как, а я до сих пор не могу определиться с “лучшим” редактором.  Сколько лет постоянно пользуюсь то vim, то emacs.  После чего переключаюсь на vscode или им подобным.  И снова возвращаюсь к vi..." property="og:description">
+  <meta content="https://www.juev.org/2018/11/27/vim/" property="og:url">
+  <meta content="2018-11-27T19:55:00+03:00" property="article:published_time">
+  <meta content="vim" property="article:tag">
+  <meta content="soft" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Время запуска Vim" name="twitter:title">
+  <meta content="Кому как, а я до сих пор не могу определиться с “лучшим” редактором.  Сколько лет постоянно пользуюсь то vim, то emacs.  После чего переключаюсь на vscode или им подобным.  И снова возвращаюсь к vi..." property="twitter:description">
+  <meta content="https://www.juev.org/2018/11/27/vim/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Время запуска Vim</h1>
+<div id="metainfo">
+<span class="date">27 November 2018</span>
+<span class="tags"><a href="https://www.juev.org/tags/#vim" title="View posts tagged with &quot;vim&quot;" rel="nofollow">#vim</a><a href="https://www.juev.org/tags/#soft" title="View posts tagged with &quot;soft&quot;" rel="nofollow">#soft</a></span>
+</div>
+<div class="post"><p>Кому как, а я до сих пор не могу определиться с “лучшим” редактором. Сколько лет постоянно пользуюсь то vim, то emacs. После чего переключаюсь на vscode или им подобным. И снова возвращаюсь к vim, потом emacs…</p>
+
+<p>В последние несколько недель снова переключился на vim. Переработал его конфигурацию. И все устраивало, ровно до тех пор, пока не попробовал использовать файловый менеджер <a href="https://github.com/jarun/nnn">nnn</a>. Великолепный файловый менеджер, быстрый и удобный. И в качестве редактора прописал в нем vim. Каково же было мое удивление, когда при попытке открыть файл в редакторе пришлось сидеть и ждать, пока он не запуститься…</p>
+
+<p>Причем повторялось это каждый раз при попытке запуска. Переключился на nano, файл стал открываться мгновенно. Странно, всегда считал, что vim запускается быстро. И до сих пор даже крупные проекты открывал в нем, не замечая каких-либо тормозов. Решил провести измерения.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ time vim
+
+real	0m2.622s
+user	0m0.752s
+sys	    0m0.089s
+</code></pre></div></div>
+
+<p>То есть чистый запуск занимает почти 3 секунды времени.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ vim --startuptime vim.log
+</code></pre></div></div>
+
+<p>Генерирует файл vim.log, в котором содержится информация по времени запуска. На OSX получил следующие результаты:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>000.011  000.011: --- VIM STARTING ---
+000.126  000.115: Allocated generic buffers
+000.519  000.393: locale set
+000.524  000.005: clipboard setup
+000.534  000.010: window checked
+001.198  000.664: inits 1
+001.202  000.004: parsing arguments
+001.203  000.001: expanding arguments
+005.128  003.925: shell init
+005.476  000.348: Termcap init
+005.493  000.017: inits 2
+005.654  000.161: init highlight
+008.449  002.094  002.094: sourcing /Users/juev/.vim/autoload/plug.vim
+</code></pre></div></div>
+
+<p>Тут приведен далеко не полный лог, но уже по самому началу видно, что на львиная доля времени тратиться на инициализацию интеграции с системой.</p>
+
+<p>Попробуем запустить без файла конфигурации, то есть чистый vim:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ time vim -u NONE --startuptime vim2.log
+
+real	0m1.385s
+user	0m0.017s
+sys	    0m0.013s
+</code></pre></div></div>
+
+<p>При этом лог старта оказывается довольно коротким:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>times in msec
+ clock   self+sourced   self:  sourced script
+ clock   elapsed:              other lines
+
+000.008  000.008: --- VIM STARTING ---
+000.117  000.109: Allocated generic buffers
+000.573  000.456: locale set
+000.578  000.005: clipboard setup
+000.589  000.011: window checked
+001.184  000.595: inits 1
+001.190  000.006: parsing arguments
+001.190  000.000: expanding arguments
+005.096  003.906: shell init
+005.429  000.333: Termcap init
+005.447  000.018: inits 2
+005.605  000.158: init highlight
+005.607  000.002: sourcing vimrc file(s)
+005.612  000.005: inits 3
+005.659  000.047: setting raw mode
+005.666  000.007: start termcap
+005.681  000.015: clearing screen
+005.771  000.090: opening buffers
+005.773  000.002: BufEnter autocommands
+005.779  000.006: editing files in windows
+005.824  000.045: VimEnter autocommands
+005.829  000.005: before starting main loop
+006.404  000.575: first screen update
+006.407  000.003: --- VIM STARTED ---
+</code></pre></div></div>
+
+<p>И опять основная масса времени уходит на инициализацию интеграции с системой. Полторы секунды удается выиграть за счет отказа от файла конфигурации. И даже в этом случае на старт приложения уходит еще полторы секунды.</p>
+
+<p>В Linux удалось добиться ускорения запуска без отключения конфигурационного файла за счет запуска с ключом <code class="highlighter-rouge">-X</code>. Ключ который отключает интеграцию с системой, в том числе и использование системного clipboard. После чего время запуска стало вполне комфортным.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2018/11/25/weblinks-1/" title="View Ссылки #1">Ссылки #1</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2018/12/01/weblinks-2/" title="View Ссылки #2">Ссылки #2</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

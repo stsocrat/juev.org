@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>безопасность wordpress</title>
+  <meta name="description" content="Для улучшения безопасности wordpress требуется соблюдать ряд правил.  Правила простые, но зачастую их игнорируют.  Тем самым подвергая опасности свой собственный блог. Итак, правила:	Периодическое ...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2009/06/27/bezopasnost-wordpress/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2009/06/25/awesome-rabochee-okruzhenie/">
+  <link rel="next" href="https://www.juev.org/2009/06/29/conkeror/">
+  <!-- og:meta -->
+  <meta content="безопасность wordpress" property="og:title">
+  <meta content="Для улучшения безопасности wordpress требуется соблюдать ряд правил.  Правила простые, но зачастую их игнорируют.  Тем самым подвергая опасности свой собственный блог. Итак, правила:	Периодическое ..." property="og:description">
+  <meta content="https://www.juev.org/2009/06/27/bezopasnost-wordpress/" property="og:url">
+  <meta content="2009-06-27T00:00:00+04:00" property="article:published_time">
+  <meta content="wordpress" property="article:tag">
+  <meta content="security" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="безопасность wordpress" name="twitter:title">
+  <meta content="Для улучшения безопасности wordpress требуется соблюдать ряд правил.  Правила простые, но зачастую их игнорируют.  Тем самым подвергая опасности свой собственный блог. Итак, правила:	Периодическое ..." property="twitter:description">
+  <meta content="https://www.juev.org/2009/06/27/bezopasnost-wordpress/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">безопасность wordpress</h1>
+<div id="metainfo">
+<span class="date">27 June 2009</span>
+<span class="tags"><a href="https://www.juev.org/tags/#wordpress" title="View posts tagged with &quot;wordpress&quot;" rel="nofollow">#wordpress</a><a href="https://www.juev.org/tags/#security" title="View posts tagged with &quot;security&quot;" rel="nofollow">#security</a></span>
+</div>
+<div class="post"><p>Для улучшения безопасности wordpress требуется соблюдать ряд правил. Правила простые, но зачастую их игнорируют. Тем самым подвергая опасности свой собственный блог.</p>
+
+<p>Итак, правила:</p>
+<ol>
+	<li>Периодическое создание полного бекапа вашего блога. Достаточно будет еженедельного бекапа всего блога, включающего базу данных и всех файлов и ежедневного бекапа базы данных. И если ежедневный бекап можно организовать с помощью плагина <strong>WordPress Database Backup</strong>, то еженедельный бекап блога придется организовывать из админки хостинга вручную... В случае взлома блога, можно будет очень быстро вернуть его в нормальное состояние.</li>
+  <li>При создании блога следует задавать префиксы таблиц базы данных, отличных от стандартного wp_
+То есть все имена таблиц будут начинаться именно с префикса, заданного вами. Если создание таблиц уже было вами произведено и он является стандартным, то стоит произвести его изменение. Для этого из панели phpmyadmin делаем экспорт существующих таблиц базы данных, сохраняя полученный файл на диске. Не забудьте оставить копию этого файла на всякий случай.
+Распаковав полученный файл, редактируем его, заменяя wp_ на выбранный префикс. Затем отредактированный файл запаковываем обратно в zip и начинаем удалять все таблицы базы данных на хостинге, используя phpmyadmin. После удаления импортируем в базу данных полученный файл. Собственно все. Осталось только отредактировать файл <em>wp-config.php</em> на вашем хостинге, изменив в нем используемый префикс таблиц на новый.</li>
+	<li>Переименовать имя администратора с admin на другое. При создании блога на
+  wordpress автоматически создается учетная запись администратора блога с предопределенным
+  именем admin. Для ее изменения необходимо использовать интерфейс phpmyadmin. Заходим в
+  нашу базу данных и ищем таблицу wp\_users. Если к этому времени вы уже изменили префикс
+  таблиц базы данных, то имя таблицы будет выглядить как ваш\_префикс\_users. Открываем
+  таблицу для редактирования и видим список всех пользователей, которые были
+  зарегистрированы на вашем блоге. Ищем поле с именем admin и открываем его, изменяем ДВА
+  раза в этом поле имя admin на выбранное и закрываем таблицу.
+Теперь при входе в админку блога вам необходимо будет использовать новое значение в имени пользователя.</li>
+	<li>Блокирование доступа к админке средствами веб-сервера. Этот пункт очень важен. По той простой причине, что он позволяет заблокировать обращение к файлам админки wordpress через get или post запросы.
+Осуществить данную операцию можно двумя способами. Первый -- используя файловый менеджер DirectAdmin. Второй -- ручное создание файлов <em>.htaccess</em> и <em>.htpasswd</em>.
+Используя файловый менеджер панели DirectAdmin можно закрыть любую директорию на хостинге паролем, не затрачивая на это лишних усилий. Достаточно выбрать у нужной директории пункт защитить и ответить на поставленные вопросы, типа вопроса, который будет задаваться при попытке входа в эту директорию, пользователь, который должен будет использоваться при входе в директорию и пароль. Все очень просто и эффективно. Имя пользователя и пароль лучше всего выбирать отличными от тех, что уже установлены в блоге.
+Для ручной генерации файла <em>.htpasswd</em> придется использовать Htpasswd generator:
+<pre>htpasswd -mbc .htpasswd USER PASSWORD</pre>
+где USER -- имя пользователя, которое буде использоваться при входе в каталог, а PASSWORD -- пароль. Полученный файл выкладываем на хостинг, причем лучше всего, если он будет располагаться вне папки <em>public_html</em>, в которой располагаются публичные файлы вашего блога. И затем в каталоге <em>wp-admin</em> создаем файл <em>.htaccess</em> следующего содержания:
+<pre>AuthUserFile /путь от корневого каталога/.htpasswd
+AuthType Basic
+AuthName "Access_Control"
+Require valid-user</pre>
+</li>
+	<li>Контроль доступа к учетной записи администратора. Для этого существует хороший и полезный плагин <em>Login LockDown</em>, который фиксирует неудачные попытки доступа и блокирует возможность брутфорса.</li>
+	<li>Для контроля за общей безопасностью блога по вышеприведенным правилам удобно использовать плагин <strong>WP Security Scan.</strong> Этот же плагин позволяет удалить информацию об используемой версии wordpress из файлов.</li>
+	<li>Скрытие содержимого каталога <em>wp-content/plugins</em>. Для данной операции существует два способа. Или в указанной папке создать пустой файл <em>index.html</em>, или в файле <em>.htaccess</em> данной директории указываем опцию <strong>Options -Indexes</strong> (минус обязателен).</li>
+</ol>
+<p>Перечислен тот минимум, который необходим на каждом блоге, организованном с помощью wordpress.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2009/06/25/awesome-rabochee-okruzhenie/" title="View awesome: рабочее окружение">awesome: рабочее окружение</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2009/06/29/conkeror/" title="View conkeror - веб на кончиках пальцев">conkeror - веб на кончиках пальцев</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

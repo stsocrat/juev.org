@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Jekyll – Liquid code in article</title>
+  <meta name="description" content="Когда писал статью Jekyll excerpt plugin, столкнулся в очередной раз с проблемой отображения кода, написанного на языке разметки Liquid. Данный язык разметки используется в качестве основного в Jek...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2012/07/06/jekyll-liquid-code-in-article/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2012/07/05/jekyll-excerpt-plugin/">
+  <link rel="next" href="https://www.juev.org/2012/07/07/simplenote/">
+  <!-- og:meta -->
+  <meta content="Jekyll – Liquid code in article" property="og:title">
+  <meta content="Когда писал статью Jekyll excerpt plugin, столкнулся в очередной раз с проблемой отображения кода, написанного на языке разметки Liquid. Данный язык разметки используется в качестве основного в Jek..." property="og:description">
+  <meta content="https://www.juev.org/2012/07/06/jekyll-liquid-code-in-article/" property="og:url">
+  <meta content="2012-07-06T00:08:00+04:00" property="article:published_time">
+  <meta content="jekyll" property="article:tag">
+  <meta content="tips" property="article:tag">
+  <meta content="develop" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Jekyll – Liquid code in article" name="twitter:title">
+  <meta content="Когда писал статью Jekyll excerpt plugin, столкнулся в очередной раз с проблемой отображения кода, написанного на языке разметки Liquid. Данный язык разметки используется в качестве основного в Jek..." property="twitter:description">
+  <meta content="https://www.juev.org/2012/07/06/jekyll-liquid-code-in-article/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Jekyll – Liquid code in article</h1>
+<div id="metainfo">
+<span class="date">06 July 2012</span>
+<span class="tags"><a href="https://www.juev.org/tags/#jekyll" title="View posts tagged with &quot;jekyll&quot;" rel="nofollow">#jekyll</a><a href="https://www.juev.org/tags/#tips" title="View posts tagged with &quot;tips&quot;" rel="nofollow">#tips</a><a href="https://www.juev.org/tags/#develop" title="View posts tagged with &quot;develop&quot;" rel="nofollow">#develop</a></span>
+</div>
+<div class="post"><p>Когда писал статью <a href="/2012/07/05/jekyll-excerpt-plugin/" title="Jekyll excerpt plugin">Jekyll excerpt plugin</a>, столкнулся в очередной раз с проблемой отображения кода, написанного на языке разметки Liquid.</p>
+
+<p>Данный язык разметки используется в качестве основного в Jekyll, и потому движок воспринимает его как управляющие директивы. Что я только не делал для того, чтобы показать код на странице. В итоге остановился на варианте – использовать gist. Это определенные кусочки кода, которые хранятся на сервере <a href="https://gist.github.com/" title="Gist">gist.github.com</a> и показываются с использованием JavaScript. Здесь возникает другая проблема – для отработки JS-кода с другого сервера требуется время, то есть страницы начинают загружаться много дольше обычного. И вторая проблема заключается в том, что JS не отрабатывается в RSS-фидах. многие наверное уже успели это заметить.</p>
+
+<!--more-->
+
+<p>Промучился довольно долго, но в конце концов нашел решение и этой проблемы. Как оказалось, достаточно использовать расширение <code class="highlighter-rouge">raw_tag.rb</code>, которое так же создается в папке <code class="highlighter-rouge">_plugins</code>. Код файла:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>module Jekyll
+  class RawTag &lt; Liquid::Block
+    def parse(tokens)
+      @nodelist ||= []
+      @nodelist.clear
+
+      while token = tokens.shift
+        if token =~ FullToken
+          if block_delimiter == $1
+            end_tag
+            return
+          end
+        end
+        @nodelist &lt;&lt; token if not token.empty?
+      end
+    end
+  end
+end
+
+Liquid::Template.register_tag('raw', Jekyll::RawTag)
+</code></pre></div></div>
+
+<p>И теперь для того, чтобы отобразить код Liquid, достаточно его заключить в теги <code class="highlighter-rouge">{%raw%}</code> и <code class="highlighter-rouge">{%endraw%}</code>.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{%raw%}
+    {{ post.content | strip_html | truncatewords: 25 }}
+{%endraw%}
+</code></pre></div></div>
+
+<p>Для того, чтобы данный код воспринимался именно как код, нужно не забыть сделать для него отступ в 4 пробела. Решение очень красивое и действенное. И ведь что интересно, данное расширение давно уже храниться в коде моего сайта. Просто я раньше его так и не использовал ни разу, и совершенно про него забыл.</p>
+
+<p>И еще один способ включить Liquid-код в текст своей статьи – это экранировать его в каждой строке отдельно. Подробно сама техника описана в статье <a href="http://tesoriere.com/2010/08/25/liquid-code-in-a-liquid-template-with-jekyll/">Highlighting Liquid code in a Liquid template with Jekyll (Escape a liquid templating tag)</a>.</p>
+
+<p>Да, и еще, как оказалось, при использовании данного способа экранировать сами теги <code class="highlighter-rouge">{%raw%}</code> и <code class="highlighter-rouge">{%endraw%}</code> уже приходиться вручную.</p>
+
+<p><strong>PS</strong>: Как мне указали в <a href="https://plus.google.com/116661482374124481456/posts/E6Qk7QVSNFF">комментариях к записи</a>, создавать новое расширение Jekyll совершенно не нужно, так как тег <em>raw</em> уже представлен в последних версиях Liquid.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2012/07/05/jekyll-excerpt-plugin/" title="View Jekyll excerpt plugin">Jekyll excerpt plugin</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2012/07/07/simplenote/" title="View SimpleNote">SimpleNote</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

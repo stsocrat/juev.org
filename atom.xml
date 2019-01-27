@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+ <title>Denis Evsyukov</title>
+ <link href="https://www.juev.org/atom.xml" rel="self" />
+ <link href="https://www.juev.org/" />
+ <updated>2019-01-26T10:22:00+03:00</updated>
+ <id>https://www.juev.org/</id>
+ <author>
+   <name>Denis Evsyukov</name>
+   <email>denis@evsyukov.org</email>
+ </author>
+
+ 
+ <entry>
+   <title>Ссылки #10</title>
+   <link rel="alternate" href="https://www.juev.org/2019/01/26/weblinks-10/"/>
+   <updated>2019-01-26T10:22:00+03:00</updated>
+   <id>https://www.juev.org/2019/01/26/weblinks-10/</id>
+   <content type="html">&lt;p&gt;Эта неделя у меня ознаменовалась погружением в C++, поэтому и ссылки в основном посвящены этому языку.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://blog.jetbrains.com/clion/2019/01/clion-opens-2019-1-eap-clangformat-disasm-lldb-injected-languages/&quot;&gt;CLion opens 2019.1 EAP: ClangFormat, Disassembly View for LLDB, and support for injected languages&lt;/a&gt; – JetBrains развивают свои продукты, в CLion добавили ряд новшеств. Хотя, если задуматься, ClangFormat давно уже использую в Vim.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://romanvm.pythonanywhere.com/post/using-docker-travis-continuous-integration-25/&quot;&gt;Using Docker with Travis Continuous Integration&lt;/a&gt; – Описание использования Docker-контейнера для сборки на Travis-ci. Провел ряд экспериментов в данном направлении. Интересно конечно, но пока преимуществ не нашел.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://ddewaele.github.io/running-jekyll-in-docker/&quot;&gt;Running Jekyll in Docker&lt;/a&gt; – Еще немного про использование Docker.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://minimalanalytics.com/&quot;&gt;Minimal Google Analytics Snippet&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://sephware.com/autumn/&quot;&gt;Autumn&lt;/a&gt; – The macOS window manager for JavaScript hackers.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://mikelui.io/2019/01/03/seriously-bonkers.html&quot;&gt;Initialization in C++ is Seriously Bonkers&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.conan.io/en/latest/howtos/run_conan_in_docker.html&quot;&gt;How to use docker to create and cross build C and C++ conan packages&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://habr.com/ru/post/414109/&quot;&gt;Использование Docker для сборки и запуска проекта на C++&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://app.programmingfonts.org/&quot;&gt;Programming Fonts&lt;/a&gt; – Хорошая подборка шрифтов, предназначенных для использования в IDE.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;До встречи на следующей неделе!&lt;/p&gt;
+
+       &lt;p&gt;Читайте оригинал на странице: &lt;a href=&quot;https://www.juev.org/2019/01/26/weblinks-10/&quot; alt=&quot;Ссылки #10&quot;&gt;Ссылки #10&lt;/a&gt; (Denis Evsyukov)&lt;/p&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>Ссылки #9</title>
+   <link rel="alternate" href="https://www.juev.org/2019/01/19/weblinks-9/"/>
+   <updated>2019-01-19T08:52:00+03:00</updated>
+   <id>https://www.juev.org/2019/01/19/weblinks-9/</id>
+   <content type="html">&lt;p&gt;Новая неделя и новые ссылки:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://arturpaikin.com/ru/digest-17/&quot;&gt;Дайджест #17&lt;/a&gt; – Артур Пайкин выпускает дайджест, довольно редко, но очень насыщено. Всегда рад новым выпускам.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.bazel.build/versions/master/tutorial/cpp.html&quot;&gt;Introduction to Bazel: Building a C++ Project&lt;/a&gt; – Система сборки Bazel, раздел про сборку C++ проектов.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/usefathom/fathom&quot;&gt;usefathom/fathom&lt;/a&gt; – Fathom. Simple, trustworthy website analytics. Built with Golang &amp;amp; Preact.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://habr.com/ru/company/mailru/blog/335326/&quot;&gt;Load Average в Linux: разгадка тайны&lt;/a&gt; – Перевод статьи про Load Average в Linux, что это такое и что делать.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://rushtonality.com/2019/01/14/my-tour-of-rust-day-2-write-some-code/&quot;&gt;My Tour of Rust – Day 2 – Write some code&lt;/a&gt; – Тур из нескольких статей про изучение Rust, еще в процессе написания.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://brettterpstra.com/2019/01/15/stuff-ive-made-and-actually-use/&quot;&gt;Stuff I’ve made (and actually use)&lt;/a&gt; – Статья от Бретта с описанием его проектов.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://medium.freecodecamp.org/docker-entrypoint-cmd-dockerfile-best-practices-abc591c30e21&quot;&gt;Docker ENTRYPOINT &amp;amp; CMD: Dockerfile best practices&lt;/a&gt; – Чем отличаются Entrypoint от CMD в Dockerfile и в каких случаях что лучше использовать.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://medium.com/nearprotocol/understanding-rust-lifetimes-e813bcd405fa&quot;&gt;Understanding Rust Lifetimes&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://antoyo.ml/evolution-rust-programmer&quot;&gt;The Evolution of a Rust Programmer&lt;/a&gt; – Эволюция Rust программиста исходя из его опыта. Это нужно видеть. :)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://haskell-for-readers.nomeata.de/&quot;&gt;Haskell for Readers&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.fpcomplete.com/blog/when-rust-is-safer-than-haskell&quot;&gt;When Rust is safer than Haskell&lt;/a&gt; – Функциональные языки рассматривают с точки зрения “безопасности”.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Хорошей вам недели!&lt;/p&gt;
+
+       &lt;p&gt;Читайте оригинал на странице: &lt;a href=&quot;https://www.juev.org/2019/01/19/weblinks-9/&quot; alt=&quot;Ссылки #9&quot;&gt;Ссылки #9&lt;/a&gt; (Denis Evsyukov)&lt;/p&gt;</content>
+ </entry>
+ 
+
+</feed>

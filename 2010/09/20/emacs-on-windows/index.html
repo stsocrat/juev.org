@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Emacs on Windows</title>
+  <meta name="description" content="Давно уже не использовал Emacs.  Давно ничего про него не писал.  Раньше, во времена использования операционной системы Linux использовал Emacs для того, чтобы попытаться в нем разобраться.  Найти ...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2010/09/20/emacs-on-windows/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2010/09/10/wordpress-varnish/">
+  <link rel="next" href="https://www.juev.org/2010/09/22/varnish-for-wordpress/">
+  <!-- og:meta -->
+  <meta content="Emacs on Windows" property="og:title">
+  <meta content="Давно уже не использовал Emacs.  Давно ничего про него не писал.  Раньше, во времена использования операционной системы Linux использовал Emacs для того, чтобы попытаться в нем разобраться.  Найти ..." property="og:description">
+  <meta content="https://www.juev.org/2010/09/20/emacs-on-windows/" property="og:url">
+  <meta content="2010-09-20T00:00:00+04:00" property="article:published_time">
+  <meta content="emacs" property="article:tag">
+  <meta content="windows" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Emacs on Windows" name="twitter:title">
+  <meta content="Давно уже не использовал Emacs.  Давно ничего про него не писал.  Раньше, во времена использования операционной системы Linux использовал Emacs для того, чтобы попытаться в нем разобраться.  Найти ..." property="twitter:description">
+  <meta content="https://www.juev.org/2010/09/20/emacs-on-windows/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Emacs on Windows</h1>
+<div id="metainfo">
+<span class="date">20 September 2010</span>
+<span class="tags"><a href="https://www.juev.org/tags/#emacs" title="View posts tagged with &quot;emacs&quot;" rel="nofollow">#emacs</a><a href="https://www.juev.org/tags/#windows" title="View posts tagged with &quot;windows&quot;" rel="nofollow">#windows</a></span>
+</div>
+<div class="post"><p>Давно уже не использовал Emacs. Давно ничего про него не писал. Раньше, во времена использования операционной системы Linux использовал Emacs для того, чтобы попытаться в нем разобраться. Найти себя, так сказать. Вроде даже удалось…</p>
+
+<p>Однако по своей сути использование Emacs сводилось только к использованию некоторых Lisp-приложений для него, типа Gnus, jabber, w3m. Как редактор я его почти и не использовал. Увы. По сути, в то время не понял его философии.</p>
+
+<p>Сейчас же у меня возникла необходимость использования редактора для Lisp-кода. Везде указывается лучший вариант использование связки Emacs + Slime. Решил вернуться к истокам и начать изучать Emacs с самого начала. Но тут возникла сложность в использовании его под Windows.</p>
+
+<p>Расскажу, как решал эти проблемы и как настраивал свой редактор.</p>
+
+<p>Во первых, как оказалось, сборок под Win32 довольное большое число. Перепробовал их
+множество, и в конце концов остановился на <a href="http://ourcomments.org/Emacs/EmacsW32.html" rel="nofollow">EmacsW32</a>. По сути обычный Emacs, но имеющий некие свои особенности, упрощающие его использование под Windows. Список патчей приведен на указанной странице.</p>
+
+<p>На мой взгляд это оптимальный вариант!</p>
+
+<p>Установка очень проста, и не вызовет каких-то сложностей. Но установить мало, нужно еще настроить его. В последнее время процесс настройки Emacs очень сильно упростился благодаря появлению <a href="http://github.com/technomancy/emacs-starter-kit" rel="nofollow">Emacs Starter Kit</a>.</p>
+
+<p>Тут правда возникает еще одна сложность – это использование GIT под Windows. Разбор материалов интернета указал на то, что существует два пути: использование <a href="http://code.google.com/p/msysgit/" rel="nofollow">msysgit</a> и установка <a href="http://www.cygwin.com/" rel="nofollow">Cygwin</a>, где в качестве одного из пакетов ставится GIT. Первый вариант я так и не попробовал, а вот второй с удовольствием поставил. Захотелось под рукой иметь еще и bash.</p>
+
+<p>Теперь в своей домашней папке (<code>/home/username</code>) в запущенном Cygwin даем команду:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git clone git://github.com/technomancy/emacs-starter-kit.git
+</code></pre></div></div>
+
+<p>Можно конечно и просто скачать файлы в архиве, воспользовавшись соответствующей кнопкой на странице. Но затем придется переименовывать папки, а в данном случае получаем уже все в готовом виде. Да и GIT на машине никогда лишним не бывает.</p>
+
+<p>Теперь просто переносим созданную папку <code>.emacs.d</code> в папку <code>C:\Users\UserName\Application Data</code>. Теперь можно вновь запускать Emacs и наслаждаться жизнью! По умолчанию все организовано довольно удобно и изменять мало что потребуется. Если же нужно что-то добавить свое, в папке <code>.emacs.d</code> создаем файл с именем <code>UserName.el</code>, где UserName – имя пользователя, под которым вы работаете в Windows.</p>
+
+<p>Для себя я определил следующее:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(setq make-backup-files nil) ; stop creating those backup~ files
+(setq auto-save-default nil) ; stop creating those #auto-save# files
+
+;;; WINDOW SPLITING
+(global-set-key (kbd "M-2") 'split-window-vertically) ; was digit-argument
+(global-set-key (kbd "M-1") 'delete-other-windows) ; was digit-argument
+(global-set-key (kbd "M-s") 'other-window) ; was center-line
+
+(set-language-environment 'UTF-8)
+(setq default-input-method 'russian-computer)
+(set-selection-coding-system 'windows-1251)
+(set-default-coding-systems 'windows-1251)
+(prefer-coding-system 'windows-1251)
+
+(setq visible-bell nil)
+
+(global-set-key [(control tab)] 'previous-buffer)
+(global-set-key [(control shift tab)] 'next-buffer)
+
+;; sample easy shortcuts
+
+(global-set-key (kbd "&lt;f5&gt;") 'find-file) ; Open file or dir
+(global-set-key (kbd "&lt;f6&gt;") 'ibuffer) ; list buffers
+
+(global-set-key (kbd "&lt;f8&gt;") 'kill-this-buffer) ; Close file
+</code></pre></div></div>
+
+<p>Все изменения касаются только некоторых клавиатурных комбинаций и изменения в поведении редактора (используемая кодировка, автосохранение).</p>
+
+<p>Минимум изменений, максимум удобства!</p>
+
+<p>Все приведенные действия касаются операционной системы Windows 7, и в других версиях Windows пути могут отличаться.</p>
+
+<p>В последующих статьях хочу рассказать именно про использование Emacs в повседневной жизни. То, чего раньше я старательно избегал. И то, к чему пришел сейчас вновь!</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2010/09/10/wordpress-varnish/" title="View Wordpress Speed Up">Wordpress Speed Up</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2010/09/22/varnish-for-wordpress/" title="View Varnish for Wordpress">Varnish for Wordpress</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

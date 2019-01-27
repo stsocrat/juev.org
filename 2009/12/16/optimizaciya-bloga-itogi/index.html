@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Оптимизация блога - итоги</title>
+  <meta name="description" content="Добился определенных результатов в оптимизации своего блога. Теперь он загружается в три раза быстрее, чем раньше, при этом повторные открытия страниц тратят минимум трафика и осуществляются еще бы...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2009/12/16/optimizaciya-bloga-itogi/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2009/12/14/movable-type/">
+  <link rel="next" href="https://www.juev.org/2009/12/29/gentoo-reshenie-problem/">
+  <!-- og:meta -->
+  <meta content="Оптимизация блога - итоги" property="og:title">
+  <meta content="Добился определенных результатов в оптимизации своего блога. Теперь он загружается в три раза быстрее, чем раньше, при этом повторные открытия страниц тратят минимум трафика и осуществляются еще бы..." property="og:description">
+  <meta content="https://www.juev.org/2009/12/16/optimizaciya-bloga-itogi/" property="og:url">
+  <meta content="2009-12-16T00:00:00+03:00" property="article:published_time">
+  <meta content="wordpress" property="article:tag">
+  <meta content="apache" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Оптимизация блога - итоги" name="twitter:title">
+  <meta content="Добился определенных результатов в оптимизации своего блога. Теперь он загружается в три раза быстрее, чем раньше, при этом повторные открытия страниц тратят минимум трафика и осуществляются еще бы..." property="twitter:description">
+  <meta content="https://www.juev.org/2009/12/16/optimizaciya-bloga-itogi/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Оптимизация блога - итоги</h1>
+<div id="metainfo">
+<span class="date">16 December 2009</span>
+<span class="tags"><a href="https://www.juev.org/tags/#wordpress" title="View posts tagged with &quot;wordpress&quot;" rel="nofollow">#wordpress</a><a href="https://www.juev.org/tags/#apache" title="View posts tagged with &quot;apache&quot;" rel="nofollow">#apache</a></span>
+</div>
+<div class="post"><p>Добился определенных результатов в оптимизации своего блога.</p>
+
+<p>Теперь он загружается в три раза быстрее, чем раньше, при этом повторные открытия страниц тратят минимум трафика и осуществляются еще быстрее. Расскажу, как я этого добился.</p>
+
+<p>Во-первых, однозначного ответа дать невозможно. В каждом случае приходиться анализировать
+сам процесс отдачи страниц сервером, и на основании этого анализа уже принимать
+определенные решения. Для анализа используем уже упоминаемый мной ресурс <a href="http://www.webpagetest.org" rel="nofollow">www.webpagetest.org</a>. В результате получаем графики загрузок, обращений к серверу, на основании которых становиться понятным, что именно расходует много времени, какой компонент и в принципе уже становиться ясно, что нужно делать.</p>
+
+<p>Напоминаю, до оптимизации ситуация выглядела следующим образом:</p>
+
+<p>Первая загрузка (с чистым кэшем браузера) занимала 8.941s и на графиках выглядела так:</p>
+
+<p><a href="https://static.juev.org/2009/12/First-a.png"><img class="aligncenter size-medium wp-image-667" title="Обзор" src="https://static.juev.org/2009/12/First-a-300x70.png" alt="Обзор" width="300" height="70" /></a></p>
+
+<p><a href="https://static.juev.org/2009/12/First.png"><img class="aligncenter size-medium wp-image-668" title="First" src="https://static.juev.org/2009/12/First-300x291.png" alt="First" width="300" height="291" /></a></p>
+
+<p>Повторная загрузка проходила быстрее, то есть 3.035s и на графиках выглядела так:</p>
+
+<p><a href="https://static.juev.org/2009/12/Two-a.png"><img class="aligncenter size-medium wp-image-669" title="Two a" src="https://static.juev.org/2009/12/Two-a-300x33.png" alt="Two a" width="300" height="33" /></a></p>
+
+<p><a href="https://static.juev.org/2009/12/Two.png"><img class="aligncenter size-medium wp-image-670" title="Two" src="https://static.juev.org/2009/12/Two-300x289.png" alt="Two" width="300" height="289" /></a></p>
+
+<p>Рисунки пришлось разбивать на две части, заголовок и тело, ввиду того, что на экране таблицы не вмещались.</p>
+
+<p>В результате анализа графиков становиться понятно, что очень много времени тратиться на загрузку следующих вещей: плагин wordpress-seo-pager, который я по сути не использовал, так как стоит All in One SEO Pack, затем на первом графике видно, как много времени потребляет статистика wordpress, сторонние счетчики, плагин WP-SpamFree и что еще характерно, при повторных обращениях к сайту производиться практически его полная загрузка, сокращение времени обусловлено только тем, что производиться проверка каждого из загруженных файлов и только в том случае, если он не менялся, загружается то, что в кэше. На проверку так же тратиться время.</p>
+
+<p>Первое, что сделал, это выключил те плагины, что тратили время, единственно, оставил в работе WP-SpamFree, просто потому, что альтернативы ему нет. Избавился от всех вариантов статистики, жить стало легче. Затем нашел способ задействовать кеш браузера более полно, для это пришлось прописывать определенные значения в файл .htaccess на сервере:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>FileETag MTime Size
+&lt;ifmodule mod_expires.c&gt;
+   &lt;filesmatch "\.(jpg|gif|png|css|js)$"&gt;
+     ExpiresActive on
+     ExpiresDefault "access plus 1 year"
+   &lt;/filesmatch&gt;
+&lt;/ifmodule&gt;
+</code></pre></div></div>
+
+<p>В результате стало видна еще одна проблема, причиной которой была выбранная тема. Для отрисовки заголовков использовался скрипт cufon, который во-первых весит порядка 300 килобайт, и во-вторых довольно долго загружался, отказываясь при этом кешироваться. Выключил в параметрах темы использование данного скрипта. Все изображения, которые подгружались со сторонних серверов перенес к себе.</p>
+
+<p>Затем начал экспериментировать с различными плагинами. Оказалось, что google analitics потребляет совсем немного времени, потому можно от него не отказываться, а вот с WP-SpamFree просто приходиться считаться. Порядка полсекунды добавляет, но без данного плагина довольно тяжко, потому решил оставить. В итоге получилась следующая картина:</p>
+
+<p>Первая загрузка занимает 1.790s  и на графиках выглядит так:</p>
+
+<p><a href="https://static.juev.org/2009/12/First-optim.png"><img class="aligncenter size-medium wp-image-671" title="First optim" src="https://static.juev.org/2009/12/First-optim-300x289.png" alt="First optim" width="300" height="289" /></a></p>
+
+<p>Последующие загрузки 0.994s и график:
+<a href="https://static.juev.org/2009/12/Two-optim.png"><img class="aligncenter size-medium wp-image-672" title="Two optim" src="https://static.juev.org/2009/12/Two-optim-300x93.png" alt="Two optim" width="300" height="93" /></a></p>
+
+<p>То есть первое обращение к блоге теперь занимает порядка 2 секунд, а каждое последующее не более одной секунды. То есть в результате анализа были выявлены слабые места и скорость загрузки изменилась примерно в 3-4 раза.</p>
+
+<p>В обоих случаях (до оптимизации и после) использовался плагин WP Super Cache в режиме полного кэширования. Перед каждым тестом кэш сбрасывался.</p>
+
+<p>Продолжаю думать на переносом блога в Movable Type…</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2009/12/14/movable-type/" title="View Movable Type">Movable Type</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2009/12/29/gentoo-reshenie-problem/" title="View Gentoo: решение проблем">Gentoo: решение проблем</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Atom: Unable to get local issuer certificate</title>
+  <meta name="description" content="Попытался использовать Atom в корпоративной среде и столкнулся с тем, что редактор не смог обратиться ни к репозиторию пакетов, ни к репозиторию тем.  Получал ошибку вида Unable to get local issuer...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2018/07/27/atom-ssl/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2018/07/17/centos/">
+  <link rel="next" href="https://www.juev.org/2018/09/02/amazon-cloudfront/">
+  <!-- og:meta -->
+  <meta content="Atom: Unable to get local issuer certificate" property="og:title">
+  <meta content="Попытался использовать Atom в корпоративной среде и столкнулся с тем, что редактор не смог обратиться ни к репозиторию пакетов, ни к репозиторию тем.  Получал ошибку вида Unable to get local issuer..." property="og:description">
+  <meta content="https://www.juev.org/2018/07/27/atom-ssl/" property="og:url">
+  <meta content="2018-07-27T10:01:00+03:00" property="article:published_time">
+  <meta content="atom" property="article:tag">
+  <meta content="tips" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Atom: Unable to get local issuer certificate" name="twitter:title">
+  <meta content="Попытался использовать Atom в корпоративной среде и столкнулся с тем, что редактор не смог обратиться ни к репозиторию пакетов, ни к репозиторию тем.  Получал ошибку вида Unable to get local issuer..." property="twitter:description">
+  <meta content="https://www.juev.org/2018/07/27/atom-ssl/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Atom: Unable to get local issuer certificate</h1>
+<div id="metainfo">
+<span class="date">27 July 2018</span>
+<span class="tags"><a href="https://www.juev.org/tags/#atom" title="View posts tagged with &quot;atom&quot;" rel="nofollow">#atom</a><a href="https://www.juev.org/tags/#tips" title="View posts tagged with &quot;tips&quot;" rel="nofollow">#tips</a></span>
+</div>
+<div class="post"><p>Попытался использовать <a href="https://atom.io/">Atom</a> в корпоративной среде и столкнулся с тем, что редактор не смог обратиться ни к репозиторию пакетов, ни к репозиторию тем. Получал ошибку вида <code class="highlighter-rouge">Unable to get local issuer certificate</code>.</p>
+
+<p>Поиск дал результат, необходимо изменить настройки apm, либо выполнив команду:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apm config set strict-ssl false
+</code></pre></div></div>
+
+<p>Либо вручную добавив строку:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>strict-ssl = false
+</code></pre></div></div>
+
+<p>к файлу <code class="highlighter-rouge">~/.atom./apmrc</code>. Но как показал опыт, проблему это не решило. В самом редакторе по прежнему ловил описанную выше ошибку.</p>
+
+<p>Решение нашлось на одной из страниц <a href="https://discuss.atom.io/t/unable-to-get-local-issuer-certificate/38660/7">discuss.atom.io</a>:</p>
+
+<blockquote>
+  <p>Because of a poor software architecture decision early in the NPM project, there is an env var that that will reject self-signed certificates, even if you have strict-ssl set to none. The solution is to set NODE_TLS_REJECT_UNAUTHORIZED=0 in your init.coffee (you can test it by running NODE_TLS_REJECT_UNAUTHORIZED=0 atom . and then trying to install a package.</p>
+</blockquote>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># $EDITOR $ATOM_HOME/init.coffee
+# Disable TLS Verification.
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0
+</code></pre></div></div>
+
+<p>Добавил указанную строку в файл <code class="highlighter-rouge">init.coffee</code>, перезапустил редактор. Проблема была решена.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2018/07/17/centos/" title="View Использование unrar в Centos">Использование unrar в Centos</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2018/09/02/amazon-cloudfront/" title="View Netlify и Amazon Cloudfront">Netlify и Amazon Cloudfront</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

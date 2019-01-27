@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>GitHub</title>
+  <meta name="description" content="Сегодня решился на создание собственного Git-репозитория для хранения своих конфигурационных файлов.  Заодно хотелось наконец попробовать в работе саму технологию работы с Git…Зарегистрировался на ...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2009/08/12/github/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2009/08/10/emacs-password-manager/">
+  <link rel="next" href="https://www.juev.org/2009/08/14/emacs-jabber/">
+  <!-- og:meta -->
+  <meta content="GitHub" property="og:title">
+  <meta content="Сегодня решился на создание собственного Git-репозитория для хранения своих конфигурационных файлов.  Заодно хотелось наконец попробовать в работе саму технологию работы с Git…Зарегистрировался на ..." property="og:description">
+  <meta content="https://www.juev.org/2009/08/12/github/" property="og:url">
+  <meta content="2009-08-12T00:00:00+04:00" property="article:published_time">
+  <meta content="github" property="article:tag">
+  <meta content="git" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="GitHub" name="twitter:title">
+  <meta content="Сегодня решился на создание собственного Git-репозитория для хранения своих конфигурационных файлов.  Заодно хотелось наконец попробовать в работе саму технологию работы с Git…Зарегистрировался на ..." property="twitter:description">
+  <meta content="https://www.juev.org/2009/08/12/github/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">GitHub</h1>
+<div id="metainfo">
+<span class="date">12 August 2009</span>
+<span class="tags"><a href="https://www.juev.org/tags/#github" title="View posts tagged with &quot;github&quot;" rel="nofollow">#github</a><a href="https://www.juev.org/tags/#git" title="View posts tagged with &quot;git&quot;" rel="nofollow">#git</a></span>
+</div>
+<div class="post"><p>Сегодня решился на создание собственного Git-репозитория для хранения своих конфигурационных файлов. Заодно хотелось наконец попробовать в работе саму технологию работы с Git…</p>
+
+<p>Зарегистрировался на <a href="http://github.com" rel="nofollow">github.com</a>, заполнил профиль. И приступил к работе. При регистрации желательно указать свой публичный ssh-ключ, чтобы не вводить каждый раз при обращении к репозиторию пароли. Сам репозиторий создается непосредственно на сервере, для чего используется специальная форма. Где указывается имя репозитория, его описание и домашняя страница.</p>
+
+<p>После создания репозитория появляется развернутая инструкция по дальнейшим действиям, которым и начинаем следовать:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git config --global user.name "username"
+$ git config --global user.email username@gmail.com
+</code></pre></div></div>
+
+<p>Если локальный репозиторий еще не был создан, создаем его:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd dir_repo
+$ git init
+$ git add .
+$ git commit -m "First commit"
+</code></pre></div></div>
+
+<p>И теперь связываем два репо между собой:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git remote add origin git@github.com:juev/hello.git
+$ git push origin master
+</code></pre></div></div>
+
+<p>Вместо строки “<em>git@github.com:juev/hello.git</em>” необходимо использовать свою, что будет указана при создании репозитория. С этого момента файлы проекта размещаются на сервере.</p>
+
+<p>Таким образом за сегодня я создал два репозитория. В одном содержаться мои конфигурационные файлы <a href="http://github.com/Juev/emacs-configs/tree" rel="nofollow">Emacs</a>, в другом моя конфигурация <a href="http://github.com/Juev/zsh-configs/tree" rel="nofollow">Zsh</a>.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2009/08/10/emacs-password-manager/" title="View Emacs Password Manager">Emacs Password Manager</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2009/08/14/emacs-jabber/" title="View Emacs jabber">Emacs jabber</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

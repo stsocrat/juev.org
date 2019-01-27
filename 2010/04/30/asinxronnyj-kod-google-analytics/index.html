@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Асинхронный код Google Analytics</title>
+  <meta name="description" content="Google помимо предоставления своих сервисов, типа почты, rss-ридера, google docs и других, предоставляет возможность отслеживать статистику посещений своего сайта.  Данный сервис называется Google ...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2010/04/30/asinxronnyj-kod-google-analytics/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2010/04/25/google-docs-kak-veb-redaktor/">
+  <link rel="next" href="https://www.juev.org/2010/05/08/luchshie-muzykalnye-pleery/">
+  <!-- og:meta -->
+  <meta content="Асинхронный код Google Analytics" property="og:title">
+  <meta content="Google помимо предоставления своих сервисов, типа почты, rss-ридера, google docs и других, предоставляет возможность отслеживать статистику посещений своего сайта.  Данный сервис называется Google ..." property="og:description">
+  <meta content="https://www.juev.org/2010/04/30/asinxronnyj-kod-google-analytics/" property="og:url">
+  <meta content="2010-04-30T00:00:00+04:00" property="article:published_time">
+  <meta content="google" property="article:tag">
+  <meta content="internet" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Асинхронный код Google Analytics" name="twitter:title">
+  <meta content="Google помимо предоставления своих сервисов, типа почты, rss-ридера, google docs и других, предоставляет возможность отслеживать статистику посещений своего сайта.  Данный сервис называется Google ..." property="twitter:description">
+  <meta content="https://www.juev.org/2010/04/30/asinxronnyj-kod-google-analytics/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Асинхронный код Google Analytics</h1>
+<div id="metainfo">
+<span class="date">30 April 2010</span>
+<span class="tags"><a href="https://www.juev.org/tags/#google" title="View posts tagged with &quot;google&quot;" rel="nofollow">#google</a><a href="https://www.juev.org/tags/#internet" title="View posts tagged with &quot;internet&quot;" rel="nofollow">#internet</a></span>
+</div>
+<div class="post"><p>Google помимо предоставления своих сервисов, типа почты, rss-ридера, google docs и других, предоставляет возможность отслеживать статистику посещений своего сайта. Данный сервис называется Google Analitics.</p>
+
+<p>В отличие от обычного счетчика, GA предоставляет возможность анализировать посещения, т.е. фиксируется время посещения, его продолжительность, страну посетителя, показывает поисковые запросы, по которым пришел посетитель и т.д.</p>
+
+<p>Так же есть возможность устанавливать определенные цели и отслеживать эффективность тех или иных технологий, служащих повышению трафика. Не использовать GA – на мой взгляд большая ошибка любого веб-мастера.</p>
+
+<p>И вот, не так давно, Google представила общественности новый код GA, который позволяет работать асинхронно. Рассмотрим, в чем его преимущество?</p>
+
+<p>Сама по себе установка кода GA довольно проста. Необходимо пройти регистрацию в системе <a href="http://www.google.com/analytics/" rel="nofollow">www.google.com/analytics</a> и добавить свой ресурс в систему. После чего взять сгенерированный код скрипта и разместить его на страницах своего сайта. Сделать это намного проще, если используется какой-либо блого-движок.</p>
+
+<p>Для wordpress можно установить отдельный плагин (рекомендовать конкретный не буду, так как их довольно много). Или же просто изменить файлы шаблона, добавив код в заголовок генерируемого html-документа или же в конец файла.</p>
+
+<p>До момента выпуска асинхронного кода, скрипт выполнялся последовательно вслед за другими скриптами на странице (после загрузки соответствующих элементов). Что, естественно, сказывалось на времени загрузки страниц.</p>
+
+<p>Обычный код скрипта, который до сих пор предлагают для установки на сайте GA, выглядит вот так:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;script type="text/javascript"&gt;
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+&lt;/script&gt;
+
+&lt;script type="text/javascript"&gt;
+try {
+var pageTracker = _gat._getTracker("UA-XXXXX-X");
+pageTracker._trackPageview();
+} catch(err) {}&lt;/script&gt;
+&lt;script type="text/javascript"&gt;var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));&lt;/script&gt;&lt;script type="text/javascript"&gt;try {var pageTracker = _gat._getTracker("UA-7957198-2");pageTracker._trackPageview();} catch(err) {}&lt;/script&gt;
+</code></pre></div></div>
+
+<p>На странице кода отслеживания появилась еще ссылка для выбора асинхронного кода:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;script type="text/javascript"&gt;
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-XXXXX-X']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+&lt;/script&gt;
+</code></pre></div></div>
+
+<p>Как видно, код представляет собой только один скрипт, а не как раньше два. И сам код значительно сократился.</p>
+
+<p>Весь функционал остался на прежнем уровне. Но вот только не ясно, стала ли страница загружаться быстрее? Проводил тесты, изменения минимальные (стало быстрее на 100 ms).</p>
+
+<p>Решил пока оставить новый код. Возможно упускаю из вида что-то другое.</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2010/04/25/google-docs-kak-veb-redaktor/" title="View Google Docs как веб-редактор">Google Docs как веб-редактор</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2010/05/08/luchshie-muzykalnye-pleery/" title="View Лучшие музыкальные плееры">Лучшие музыкальные плееры</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

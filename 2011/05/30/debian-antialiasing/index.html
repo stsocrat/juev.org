@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Debian antialiasing</title>
+  <meta name="description" content="Как улучшить сглаживание шрифтов в Debian">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2011/05/30/debian-antialiasing/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2011/05/22/readability/">
+  <link rel="next" href="https://www.juev.org/2011/06/19/twitter-share-link/">
+  <!-- og:meta -->
+  <meta content="Debian antialiasing" property="og:title">
+  <meta content="Вчера решил провести эксперимент с установкой Gnome 3 в Ubuntu.  За то время, что поработал с Unity, понял, что вещь красивая, но неудобная.  Самые простые вещи приходиться выполнять, совершая боль..." property="og:description">
+  <meta content="https://www.juev.org/2011/05/30/debian-antialiasing/" property="og:url">
+  <meta content="2011-05-30T00:00:00+04:00" property="article:published_time">
+  <meta content="debian" property="article:tag">
+  <meta content="fonts" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Debian antialiasing" name="twitter:title">
+  <meta content="Вчера решил провести эксперимент с установкой Gnome 3 в Ubuntu.  За то время, что поработал с Unity, понял, что вещь красивая, но неудобная.  Самые простые вещи приходиться выполнять, совершая боль..." property="twitter:description">
+  <meta content="https://www.juev.org/2011/05/30/debian-antialiasing/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Debian antialiasing</h1>
+<div id="metainfo">
+<span class="date">30 May 2011</span>
+<span class="tags"><a href="https://www.juev.org/tags/#debian" title="View posts tagged with &quot;debian&quot;" rel="nofollow">#debian</a><a href="https://www.juev.org/tags/#fonts" title="View posts tagged with &quot;fonts&quot;" rel="nofollow">#fonts</a></span>
+</div>
+<div class="post"><p>Вчера решил провести эксперимент с установкой <em>Gnome 3</em> в <em>Ubuntu</em>. За то время, что поработал с <em>Unity</em>, понял, что вещь красивая, но неудобная. Самые простые вещи приходиться выполнять, совершая больше действий, чем обычно и при этом основной упор идет
+на использование мыши. А в то же самое время в twitter во всю расхваливали гном. Вот и решил попробовать.</p>
+
+<p>Установка прошла довольно быстро. Достаточно было только подключить PPA и установить пакеты. Проблема возникла в том, что система после установки оказалась в нерабочем состоянии. Возвращаться в <em>Unity</em> не было никакого желания, поэтому решил сменить
+операционную систему.</p>
+
+<p>Сначала попробовал в работе <em>beta Fedora 15</em>, релиз которой намечен на 24 мая. В составе изначально идет именно Gnome 3. Загрузился, посмотрел, разочаровался в гноме, посмотрел на ошибки системы, и дальше, естественно, с ней возиться не стал. Так сказать, не сложилось
+у меня с <em>Fedora</em>.</p>
+
+<p>Дальше установил <em>OpenSuse 11.4</em>. Здесь используется <em>Gnome 2.32</em>. И все бы ничего, но возникли проблемы с отображением оформления окон. Проблема была в том, что я не удалил предварительно конфигурационные файлы, оставшиеся в домашнем каталоге от <em>Ubuntu</em>. Можно
+было очень просто решить проблему, но в глубине души возник какой-то протест против данной операционной системы. Не объяснимо, но не долго думая, загрузил образ <em>Debian stable</em> и приступил к установке.</p>
+
+<p>В качестве DM выбрал <em>Gnome</em>, использовал образ <em>netinstall</em>. Довольно быстро установил систему и первоначальная настройка прошла без проблем. Когда же зашел в свою учетную запись, меня смутили шрифты. Вроде хорошо, но глаз режет.</p>
+
+<p>И тут вспомнил, что при редеринге шрифтов используются только свободные алгоритмы, доступные по лицензии, используемой <em>Debian</em>. Немного повозился с настройками шрифтов в <em>Gnome</em> и только затем обратился к помощи интернета. Почти везде рекомендовалось
+самостоятельно компилировать ряд пакетов, работающих с рендерингом шрифтов. Некоторые пользователи предлагали свои, уже готовые пакеты для установки.</p>
+
+<p>Именно один из таких архивов я скачал, распаковал и пакеты установил себе в систему. Скачать архив для <em>Debian Squeeze</em> можно здесь: <a href="https://static.juev.org/2011/05/freetype.zip" title="Архив пакетов freetype">freetype.zip</a></p>
+
+<p>После того, как перезапустил Gnome, обратил внимание на то как замечательно стали отображаться шрифты!</p>
+
+<p><a href="https://static.juev.org/2011/05/debian_fonts.png" title="Debian Fonts"><img src="https://static.juev.org/2011/05/debian_fonts-th.png" alt="Debian" /></a></p>
+
+<p>Естественно, что на разных мониторах шрифты будут отображаться по разному и само изображение не передаст всего того, что произошло. Но работать стало гораздо приятнее!</p>
+
+<p>На мой взгляд, отображение шрифтов стало лучше, чем было в <em>Ubuntu</em>.</p>
+
+<p>Осталось только добавить, что в системе используются шрифты, взятые из операционной системы Windows. Отрисовка шрифтов в настройках <em>Gnome</em> выбрана в “Наилучшее начертание” и разрешение выставлено в 96 точек на дюйм. Хотя согласно расчетам для моего монитора
+наилушим значением является 86 точек на дюйм.</p>
+
+<p>За достаточно короткий срок <em>Debian</em> меня покорил.</p>
+
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2011/05/22/readability/" title="View Комфортное чтение">Комфортное чтение</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2011/06/19/twitter-share-link/" title="View Twitter share link">Twitter share link</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

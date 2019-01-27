@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Twitter share link</title>
+  <meta name="description" content="На сегодняшний день twitter несколько изменил метод публикации записи через вызов ссылки. Публикация перестала работать, но появилось больше возможностей.">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2011/06/19/twitter-share-link/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2011/05/30/debian-antialiasing/">
+  <link rel="next" href="https://www.juev.org/2011/06/22/soft-web-design/">
+  <!-- og:meta -->
+  <meta content="Twitter share link" property="og:title">
+  <meta content="При разработке шаблона оформления для zendaily я столкнулся с тем, что ссылки поделиться в twitter вдруг в одночасье разом перестали работали.  Можно было бы, конечно, использовать обычную кнопку, ..." property="og:description">
+  <meta content="https://www.juev.org/2011/06/19/twitter-share-link/" property="og:url">
+  <meta content="2011-06-19T15:37:00+04:00" property="article:published_time">
+  <meta content="twitter" property="article:tag">
+  <meta content="web" property="article:tag">
+  <meta content="wordpress" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Twitter share link" name="twitter:title">
+  <meta content="При разработке шаблона оформления для zendaily я столкнулся с тем, что ссылки поделиться в twitter вдруг в одночасье разом перестали работали.  Можно было бы, конечно, использовать обычную кнопку, ..." property="twitter:description">
+  <meta content="https://www.juev.org/2011/06/19/twitter-share-link/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Twitter share link</h1>
+<div id="metainfo">
+<span class="date">19 June 2011</span>
+<span class="tags"><a href="https://www.juev.org/tags/#twitter" title="View posts tagged with &quot;twitter&quot;" rel="nofollow">#twitter</a><a href="https://www.juev.org/tags/#web" title="View posts tagged with &quot;web&quot;" rel="nofollow">#web</a><a href="https://www.juev.org/tags/#wordpress" title="View posts tagged with &quot;wordpress&quot;" rel="nofollow">#wordpress</a></span>
+</div>
+<div class="post"><p>При разработке шаблона оформления для <a href="http://zendaily.ru">zendaily</a> я столкнулся с тем, что ссылки <em>поделиться</em> в <strong>twitter</strong> вдруг в одночасье разом перестали работали. Можно было бы, конечно, использовать обычную кнопку, которую они предоставляют, но конкретно в этом случае она просто не вписывалась в общую концепцию сайта.</p>
+
+<p>В тот момент я использовал ссылку вида:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://twitter.com/share
+</code></pre></div></div>
+
+<p>и дальше следовал определенный набор параметров, в котором обычно использовался только текст самого твита и ссылка на запись.</p>
+
+<p>Пришлось разбираться и в итоге оказалось, что <strong>twitter</strong> изменил свой <em>api</em>, сделав его более удобным. Теперь для использования твиттера необходимо использовать ссылку вида:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://twitter.com/intent/tweet?text=Текст твита&amp;url=http://domain.ru
+</code></pre></div></div>
+
+<p>Более подробно по параметрам можно прочесть на странице <a href="http://dev.twitter.com/pages/intents">dev.twitter.com</a>.</p>
+
+<h2 id="параметры">Параметры</h2>
+
+<ol>
+  <li>
+    <p><strong>url</strong></p>
+
+    <p>С помощью данного параметра передается адрес ссылки, который будет размещен в тексте твита. При этом адрес необходимо передавать в кодированном виде, заменяя спецсимволы на числовые последовательности. Пример такого адреса:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> http%3A%2F%2Fen.wikipedia.org%2Fwiki%2FIn_Watermelon_Sugar
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>via</strong></p>
+
+    <p>С помощью данного параметра указывается, в ответ на сообщение какого пользователя произодиться ретвит. Указывается только имя пользователя без символа <code class="highlighter-rouge">@</code>, который будет добавлен автоматически при публикации твита.</p>
+  </li>
+  <li>
+    <p><strong>text</strong></p>
+
+    <p>Это текст самого твита, который должен быть предварительно подготовлен и закодирован, пробелы заменены или на знак плюса, или на код <code class="highlighter-rouge">%20</code>, значки препинания на соответствующие цифровые коды, и т.д.</p>
+  </li>
+  <li>
+    <p><strong>in_reply_to</strong></p>
+
+    <p>Если во время публикации статьи был создан соответствующий твит, то с помощью данного параметра можно передать его порядковый номер в системе, чтобы можно было в дальнейшем отследить на какое сообщение производился ретвит.</p>
+
+    <p>Пример:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> 35782000644194304
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>hashtags</strong></p>
+
+    <p>Данный параметр позволяет добавлять к твиту определенные хештеги, для более быстрого поиска сообщения. Хеш-тэги прописываются без знака <code class="highlighter-rouge">#</code>, который будет автоматически добавлен системой при публикации твита.</p>
+
+    <p>Все необходимые тэги перечисляются через запятую:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> twitter,twitterapi
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>related</strong></p>
+
+    <p>Параметр, с помощью которого после публикации твита предлагается следовать за определенными пользователями. Имена пользователей передаются через запятую.</p>
+  </li>
+</ol>
+
+<h2 id="wordpress">Wordpress</h2>
+
+<p>Теперь рассмотрим, каким образом можно создавать свои ссылки в <em>Wordpress</em> для размещения ссылок в твиттере.</p>
+
+<p>В определенном месте шаблона создаем текстовую ссылку, в которой прописываем следующий код:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;a href="https://twitter.com/intent/tweet?text=&lt;?php echo urlencode(get_the_title());?&gt;&amp;amp;url=&lt;?php echo urlencode(get_permalink($post-&gt;ID));?&gt;&amp;amp;via=zendaily_ru&amp;amp;hashtags=zendaily&amp;amp;related=juev,zendaily_ru,dmitry_diez" title="Click to share this post on Twitter" rel="nofollow" target="_blank"&gt;twitter&lt;/a&gt;
+</code></pre></div></div>
+
+<p>Как понятно из объяснения, самый первый пример, который был использован в статье некорректный, просто потому, что ни текст твита, ни адрес ссылки не были преобразованы в требуемый вид. Для того, чтобы это корректно проделать, используется функция <code class="highlighter-rouge">urlencode</code>, которая преобразует передаваемый ей текст в соответственную последовательность символов. Не забываем так же символ <code class="highlighter-rouge">&amp;</code> записывать с помощью кода <code class="highlighter-rouge">&amp;amp;</code>.</p>
+
+<p>В приведенном примере в качестве текста твита используется заголовок статьи, который берется и кодируется с помощью кода:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo urlencode(get_the_title());
+</code></pre></div></div>
+
+<p>Функция <code class="highlighter-rouge">get_the_title()</code> возвращает обычную строку, поэтому после преобразования результат необходимо вывести с помощью функции <code class="highlighter-rouge">echo</code>.</p>
+
+<p>Для получения и преобразования ссылки используется код:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo urlencode(get_permalink($post-&gt;ID));
+</code></pre></div></div>
+
+<p>Функция <code class="highlighter-rouge">the_permalink()</code> производит вывод ссылки, естественно, что он уже не может быть преобразован, именно поэтому необходимо использовать функцию <code class="highlighter-rouge">get_permalink($post-&gt;ID)</code> которая возвращает именно строку с адресом текущей статьи.</p>
+
+<p>По остальным параметрам я останавливаться не буду, там просто передаются определенные значения. Единственно рекомендую добавлять к размещаемой ссылку параметр <code class="highlighter-rouge">rel="nofollow"</code>, для того, чтобы устранить утекание PR с вашего домена.</p>
+
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2011/05/30/debian-antialiasing/" title="View Debian antialiasing">Debian antialiasing</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2011/06/22/soft-web-design/" title="View Программы для веб дизайна">Программы для веб дизайна</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

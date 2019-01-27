@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Varnish for Wordpress</title>
+  <meta name="description" content="Я уже описывал в статье WordPress Speed Up, что использование кеширующего веб-сервера Varnish позволяет существенно увеличить количество обрабатываемых запросов в секунду.  Что позволяет справлятьс...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2010/09/22/varnish-for-wordpress/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2010/09/20/emacs-on-windows/">
+  <link rel="next" href="https://www.juev.org/2010/09/23/recaptcha/">
+  <!-- og:meta -->
+  <meta content="Varnish for Wordpress" property="og:title">
+  <meta content="Я уже описывал в статье WordPress Speed Up, что использование кеширующего веб-сервера Varnish позволяет существенно увеличить количество обрабатываемых запросов в секунду.  Что позволяет справлятьс..." property="og:description">
+  <meta content="https://www.juev.org/2010/09/22/varnish-for-wordpress/" property="og:url">
+  <meta content="2010-09-22T00:00:00+04:00" property="article:published_time">
+  <meta content="wordpress" property="article:tag">
+  <meta content="varnish" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Varnish for Wordpress" name="twitter:title">
+  <meta content="Я уже описывал в статье WordPress Speed Up, что использование кеширующего веб-сервера Varnish позволяет существенно увеличить количество обрабатываемых запросов в секунду.  Что позволяет справлятьс..." property="twitter:description">
+  <meta content="https://www.juev.org/2010/09/22/varnish-for-wordpress/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Varnish for Wordpress</h1>
+<div id="metainfo">
+<span class="date">22 September 2010</span>
+<span class="tags"><a href="https://www.juev.org/tags/#wordpress" title="View posts tagged with &quot;wordpress&quot;" rel="nofollow">#wordpress</a><a href="https://www.juev.org/tags/#varnish" title="View posts tagged with &quot;varnish&quot;" rel="nofollow">#varnish</a></span>
+</div>
+<div class="post"><p>Я уже описывал в статье <a href="/2010/09/10/wordpress-varnish/">WordPress Speed Up</a>, что использование кеширующего веб-сервера Varnish позволяет существенно увеличить количество обрабатываемых запросов в секунду. Что позволяет справляться с наплывом посетителей даже слабому серверу.</p>
+
+<p>Однако приходилось использовать конфиг, который был пригоден только для wordpress. И использовать Varnish для другого движка уже не представлялось возможным. При этом использование страниц из кеша составляло примерно 70% от общего числа всех запросов. Что в целом не плохо, но создавалось впечатление, что могло быть и лучше.</p>
+
+<p>Сегодня разговаривал с <a href="http://snupt.com/" rel="nofollow">Дмитрием aka Snupt</a>, он перешел на использование конфигурации Varnish, при которой производится кеширование только статичных файлов (различные медиа файлы, файлы стилей и т.п.), а вся динамика передавалась непосредственно apache для обработки. Я решил попробовать данный вариант.</p>
+
+<p>Файл <code>/etc/varnish/default.vcl</code> изменил на следующий:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> backend default &amp;#123;
+     .host = "127.0.0.1";
+     .port = "8080";
+ }
+
+sub vcl_recv &amp;#123;
+# Normalize Content-Encoding
+    if (req.http.Accept-Encoding) &amp;#123;
+        if (req.url ~ "\.(jpg|png|gif|gz|tgz|bz2|lzma|tbz)(\?.*|)$") &amp;#123;
+            remove req.http.Accept-Encoding;
+        } elsif (req.http.Accept-Encoding ~ "gzip") &amp;#123;
+            set req.http.Accept-Encoding = "gzip";
+        } elsif (req.http.Accept-Encoding ~ "deflate") &amp;#123;
+            set req.http.Accept-Encoding = "deflate";
+        } else &amp;#123;
+            remove req.http.Accept-Encoding;
+        }
+    }
+# Remove cookies and query string for real static files
+    if (req.url ~ "^/[^?]+\.(jpeg|jpg|png|gif|ico|js|css|txt|gz|zip|lzma|bz2|tgz|tbz|html|htm)(\?.*|)$") &amp;#123;
+       unset req.http.cookie;
+       set req.url = regsub(req.url, "\?.*$", "");
+    }
+}
+</code></pre></div></div>
+
+<p>Перезапустил Varnish и провел повторный тест с помощью</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ab -n 10000 -c 500 http://www.juev.ru/index.php
+</code></pre></div></div>
+
+<p>Число обрабатываемых запросов выросло, незначительно, но все же. При этом нагрузка на процессор почти не ощущается.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Server Software:        nginx/0.7.65
+Server Hostname:        www.juev.ru
+Server Port:            80
+
+Document Path:          /index.php
+Document Length:        0 bytes
+
+Concurrency Level:      500
+Time taken for tests:   3.341 seconds
+Complete requests:      10000
+Failed requests:        0
+Write errors:           0
+Non-2xx responses:      10001
+Total transferred:      3850374 bytes
+HTML transferred:       0 bytes
+Requests per second:    2993.06 [#/sec] (mean)
+Time per request:       167.053 [ms] (mean)
+Time per request:       0.334 [ms] (mean, across all concurrent requests)
+Transfer rate:          1125.43 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    2  30.7      0    3000
+Processing:     1   50  59.8     34     650
+Waiting:        1   50  59.7     34     650
+Total:         28   52  72.3     34    3001
+</code></pre></div></div>
+
+<p>Увеличил число работающих процессов nginx до 4 и получил результат еще лучше:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Server Software:        nginx/0.7.65
+Server Hostname:        www.juev.ru
+Server Port:            80
+
+Document Path:          /index.php
+Document Length:        0 bytes
+
+Concurrency Level:      500
+Time taken for tests:   2.226 seconds
+Complete requests:      10000
+Failed requests:        0
+Write errors:           0
+Non-2xx responses:      10000
+Total transferred:      3829990 bytes
+HTML transferred:       0 bytes
+Requests per second:    4492.28 [#/sec] (mean)
+Time per request:       111.302 [ms] (mean)
+Time per request:       0.223 [ms] (mean, across all concurrent requests)
+Transfer rate:          1680.22 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    7   7.1      6      45
+Processing:     2   38  67.6     22     381
+Waiting:        2   36  67.3     20     375
+Total:          7   46  72.5     28     412
+</code></pre></div></div>
+
+<p>И самое главное! Изменился процент использования кеша:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     10029         0.00        97.37 Client connections accepted
+     10029         0.00        97.37 Client requests received
+     10005         0.00        97.14 Cache hits
+         6         0.00         0.06 Cache misses
+</code></pre></div></div>
+
+<p>О такой эффективности можно было только мечтать. Только 6 запросов было направлено к apache, все остальное бралось из кеша.</p>
+
+<p>Спасибо <a href="http://snupt.com/" rel="nofollow">Дмитрию aka Snupt</a> за столь бесценный опыт!</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2010/09/20/emacs-on-windows/" title="View Emacs on Windows">Emacs on Windows</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2010/09/23/recaptcha/" title="View Recaptcha: Protect your Email">Recaptcha: Protect your Email</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>

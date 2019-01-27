@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<!--
+    You can email me with PGP-key: 0xE8ADA1A55B3CA4EA
+-->
+<html lang="ru">
+<head>
+  <link rel="dns-prefetch" href="https://static.juev.org">
+  <meta charset="utf-8">
+  <title>Wordpress: store images in a subdomain</title>
+  <meta name="description" content="Самые популярные на сегодняшний день браузеры (Firefox, Chrome) создают по умолчанию от 2 до 4 соединений на каждый отдельный домен.  Что в конечном итоге приводит к замедлению скорости загрузки ст...">
+  <meta name="yandex-verification" content="59bb4b98872e096b" />
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- end -->
+  <link rel="canonical" href="https://www.juev.org/2010/08/29/wordpress-store-images-in-a-subdomain/">
+  <link rel="shortcut icon" href="https://static.juev.org/favicon.ico">
+  <link rel="apple-touch-icon" href="https://www.juev.org/apple-touch-icon.png">
+  <link rel="alternate" type="application/atom+xml" title="ATOM Feed" href="https://www.juev.org/atom.xml">
+  <link rel="stylesheet" type="text/css" href="https://static.juev.org/assets/css/master.6bbfa8b61.css">
+  <link rel="prev" href="https://www.juev.org/2010/08/28/mylifeorganized/">
+  <link rel="next" href="https://www.juev.org/2010/09/02/last-mod-by-r0mis/">
+  <!-- og:meta -->
+  <meta content="Wordpress: store images in a subdomain" property="og:title">
+  <meta content="Самые популярные на сегодняшний день браузеры (Firefox, Chrome) создают по умолчанию от 2 до 4 соединений на каждый отдельный домен.  Что в конечном итоге приводит к замедлению скорости загрузки ст..." property="og:description">
+  <meta content="https://www.juev.org/2010/08/29/wordpress-store-images-in-a-subdomain/" property="og:url">
+  <meta content="2010-08-29T00:00:00+04:00" property="article:published_time">
+  <meta content="wordpress" property="article:tag">
+  <meta content="vps" property="article:tag">
+  <meta content="https://static.juev.org/images/calvin.png" property="og:image">
+  <meta content="https://denis.evsyukov.org" property="article:author">
+  <!-- end og:meta  -->
+  <!-- twitter card -->
+  <meta content="summary_large_image" name="twitter:card">
+  <meta content="Wordpress: store images in a subdomain" name="twitter:title">
+  <meta content="Самые популярные на сегодняшний день браузеры (Firefox, Chrome) создают по умолчанию от 2 до 4 соединений на каждый отдельный домен.  Что в конечном итоге приводит к замедлению скорости загрузки ст..." property="twitter:description">
+  <meta content="https://www.juev.org/2010/08/29/wordpress-store-images-in-a-subdomain/" name="twitter:url">
+  <meta content="https://static.juev.org/images/calvin.png" property="twitter:image:src">
+  <!-- end twitter card -->
+</head>
+<body class="wide">
+  <div class="navigation">
+    <div class="width-fix">
+        <a href="https://www.juev.org/" id="home" rel="nofollow"></a>
+      <ul>
+        <li><a href="https://www.juev.org/articles.html" rel="nofollow">Статьи</a></li>
+        <li>|</li>
+        <li><a href="https://denis.evsyukov.org">Об авторе</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="primary-content width-fix">
+    <div class="entry"><h1 class="title">Wordpress: store images in a subdomain</h1>
+<div id="metainfo">
+<span class="date">29 August 2010</span>
+<span class="tags"><a href="https://www.juev.org/tags/#wordpress" title="View posts tagged with &quot;wordpress&quot;" rel="nofollow">#wordpress</a><a href="https://www.juev.org/tags/#vps" title="View posts tagged with &quot;vps&quot;" rel="nofollow">#vps</a></span>
+</div>
+<div class="post"><p>Самые популярные на сегодняшний день браузеры (Firefox, Chrome) создают по умолчанию от 2 до 4 соединений на каждый отдельный домен. Что в конечном итоге приводит к замедлению скорости загрузки страницы, тем более, если на странице размещается много графической информации.</p>
+
+<p>Как вариант, можно использовать размещение фотографий на отдельных интернет-сервисах, типа Picasa или Flickr. В данном случае загрузка файлов будет идти параллельно, что приводит к существенному возрастанию скорости загрузки страниц.</p>
+
+<p>Либо размещать медиафайлы на отдельном поддомене (subdomain). Как это правильно сделать в WordPress?</p>
+
+<h2>Создание поддомена</h2>
+<p>Создать поддомен довольно просто. Достаточно у регистратора доменных имен в панели управления зоной создать отдельную запись, если она еще не была создана:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Имя    Тип записи    Данные
+*      A             117.12.56.31
+</code></pre></div></div>
+
+<p><img class="alignleft size-full wp-image-1175" src="https://static.juev.org/2010/08/photo-04.jpg" alt="" width="210" height="210" /></p>
+
+<p>Таким образом мы указываем, что любые создаваемые поддомены будут указывать на определенный ip-адрес, обычно выбирается тот же, что и у основного домена.</p>
+
+<p>На сервере указываем, что корню поддомена соответствует папка <em>wp-content/uploads</em> текущей установки wordpress.</p>
+
+<p>Для nginx я прописал следующее:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>server {
+  server_name domain.ru;
+  ...
+}
+
+server {
+  server_name static.domain.ru;
+
+  if ($request_uri !~* "\.(jpe?g|gif|css|png|js|ico|pdf|zip|gz)$") {
+    rewrite ^(.*) http://www.domain.ru$1 permanent;
+    break;
+  }
+
+  location / {
+    root   /var/www/domain.ru/web/wordpress/wp-content/uploads/;
+    access_log off;
+    expires max;
+    add_header Cache-Control private;
+  }
+}
+</code></pre></div></div>
+
+<p>После чего указываем nginx перечитать файлы конфигурации:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/etc/init.d/nginx reload
+</code></pre></div></div>
+
+<p>И переходим к настройке WordPress.</p>
+
+<h2>Обновление конфигурации WordPress</h2>
+<p>На данном этапе нам необходимо будет указать WordPress на новое расположение медиафайлов. Для этого переходим в пункт меню <em>Параметры-Медиафайлы</em>:</p>
+
+<p><img class="size-full wp-image-1176 aligncenter" src="https://static.juev.org/2010/08/mediafiles.png" alt="" width="540" height="159" /></p>
+
+<p>Необходимо указать имя созданного поддомена в пункте <em>Полный URL-путь к файлам</em>. Теперь все вновь размещаемые файлы будут располагаться по новому адресу.</p>
+
+<h2>Изменяем адреса размещенных изображений</h2>
+<p>Если блог/сайт создается с нуля, то на этом месте можно остановиться и дальше уже не читать. Если же мы меняем настройки работающего блога, то нам необходимо изменить адреса изображений в базе данных.</p>
+
+<p>Необходимо открыть phpMyAdmin, либо любой другой mysql-клиент, подключиться к базе данных. Перед всеми изменениями лучше заранее создать бекап базы данных, чтобы в случае ошибки, можно было ее восстановить. И теперь выполняем следующий sql-запрос:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>UPDATE wp_posts
+SET post_content = REPLACE(
+post_content,
+'http://www.domain.ru/wordpress/wp-content/uploads/',
+'http://static.domain.ru/')
+</code></pre></div></div>
+
+<p>Не забудьте сменить имя таблицы, а точнее ее префикс на тот, что используете вы в своей базе данных, и прописать тот домен и поддомен, что используется у вас. Не забывайте так же проверять и точно указывать адрес папки <em>uploads</em>.</p>
+
+<p>Теперь необходимо изменить пути к файлам, которые прописаны в Media Library. Для этого выполняем следующий sql-запрос:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>UPDATE wp_posts
+SET guid = REPLACE(
+guid,
+'http://www.domain.ru/wordpress/wp-content/uploads/',
+'http://static.domain.ru/')
+</code></pre></div></div>
+
+<h2>Redirect</h2>
+<p>Поисковые сервера помнят о изображениях, что были раньше на сервере и для корректной работы необходимо сделать редиректы со старых адресов на новые. Для этого в nginx прописываем следующую строку:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rewrite ^/wordpress/wp-content/uploads/(.*)$ http://static.domain.ru/$1 permanent;
+</code></pre></div></div>
+
+<p>На этом все!</p>
+</div>
+<div class="meta"><div class="pagination">
+ <p class="previous">Previous post: <a rel="prev" href="https://www.juev.org/2010/08/28/mylifeorganized/" title="View Списки задач">Списки задач</a></p>
+ <p class="next">Next post: <a rel="next" href="https://www.juev.org/2010/09/02/last-mod-by-r0mis/" title="View Модифицированная прошивка Nokia 5800">Модифицированная прошивка Nokia 5800</a></p></div>
+</div>
+</div>
+  </div><!-- noindex -->
+  <div class="footer">
+    <div class="width-fix">
+      <p><a href="https://www.juev.org/articles.html" rel="nofollow">Список статей</a> :: <a href="https://www.juev.org/recommendations/" rel="nofollow">Рекомендации</a> :: <a href="https://www.juev.org/atom.xml" rel="nofollow">RSS</a></p>
+      <p>&copy;&nbsp;<a href="https://denis.evsyukov.org">Denis Evsyukov</a>,&nbsp;2008&ndash;2019&nbsp;Contact me via <script type="text/javascript">document.write("<n uers=\"znvygb:qravf\100riflhxbi\056bet\">Rznvy</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);}));</script>,&nbsp;
+      <a href="https://twitter.com/#!/Juev" rel="nofollow">twitter</a> or&nbsp;
+      <a href="https://github.com/Juev" rel="nofollow">github</a></p>
+    </div>
+  </div>
+  <script async src="https://static.juev.org/assets/js/master.a08e4d4f.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-26480484-5', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>
