@@ -20,11 +20,11 @@
 #sb-counter{float:left;width:45%;}
 #sb-counter a{padding:0 4px 0 0;text-decoration:none;cursor:pointer;color:#fff;}
 #sb-counter a.sb-counter-current{text-decoration:underline;}
-#sb-loading-inner span{background-image: image-url("//static.juev.org/assets/images/loading.gif");background-repeat:no-repeat;padding-left:34px;display:inline-block;}
-#sb-nav-close{background-image:image-url("//static.juev.org/assets/images/close.png");}
-#sb-nav-next{background-image:image-url("//static.juev.org/assets/images/next.png");}
-#sb-nav-previous{background-image:image-url("//static.juev.org/assets/images/previous.png");}
-#sb-nav-play{background-image:image-url("//static.juev.org/assets/images/play.png");}
-#sb-nav-pause{background-image:image-url("//static.juev.org/assets/images/pause.png");}
+#sb-loading-inner span{background-image: url("//static.juev.org/assets/images/loading.gif");background-repeat:no-repeat;padding-left:34px;display:inline-block;}
+#sb-nav-close{background-image:url("//static.juev.org/assets/images/close.png");}
+#sb-nav-next{background-image:url("//static.juev.org/assets/images/next.png");}
+#sb-nav-previous{background-image:url("//static.juev.org/assets/images/previous.png");}
+#sb-nav-play{background-image:url("//static.juev.org/assets/images/play.png");}
+#sb-nav-pause{background-image:url("//static.juev.org/assets/images/pause.png");}
 div.sb-message{font-size:12px;padding:10px;text-align:center;}
 div.sb-message a:link,div.sb-message a:visited{color:#fff;text-decoration:underline;}
